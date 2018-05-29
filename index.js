@@ -116,7 +116,6 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
             }
             let talk = setResponse(responseInput, suggestions);
             response.json(talk);
-            
             return;
         });
     }
