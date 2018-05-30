@@ -5,14 +5,18 @@
     "lint": "eslint .",
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",
-    "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
+    "start": "concurrently \"npm run shell\" \"node discord-bot\"",
+    "deploy": "clear && firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
   "dependencies": {
     "actions-on-google": "^2.1.2",
+    "apiai": "^4.0.3",
+    "concurrently": "^3.5.1",
     "dialogflow": "^0.1.0",
     "dialogflow-fulfillment": "^0.3.0-beta.3",
+    "discord.js": "^11.3.2",
+    "discorddialogflow": "^1.0.0",
     "firebase": "^5.0.4",
     "firebase-admin": "^5.12.1",
     "firebase-functions": "^1.0.3"

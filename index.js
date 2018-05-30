@@ -16,14 +16,15 @@ const functions = require('firebase-functions'),
         Carousel,
         Button
     } = require('actions-on-google'),
-    config = {
+    appName = 'Dragon Spellbook',
+    firebaseConfig = {
         apiKey: "AIzaSyDfwydPClh-B6RCRtS3Nvt-D_0F4j35zHg",
         authDomain: "dnd-wiki-ca7bd.firebaseio.com",
         databaseURL: "https://dnd-wiki-ca7bd.firebaseio.com/",
         storageBucket: "dnd-wiki-ca7bd.appspot.com"
     };
 
-firebase.initializeApp(config);
+firebase.initializeApp(firebaseConfig);
 
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
     const agent = new WebhookClient({
@@ -78,11 +79,19 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
         let res = {};
         res.fulfillmentText = input.output;
         res.payload = {
-            "google": {
-                "expectUserResponse": true,
-                "richResponse": input.richOutput
+            google: {
+                expectUserResponse: true,
+                richResponse: input.richOutput
+            }, 
+            slack: {
+                text: input.output.replace(/\*\*+/g, '*')
             }
         };
+        if (input.slackRichOutput) {
+            res.payload.slack.attachments = [
+                input.slackRichOutput
+            ];
+        }
         if (spell) {
             res.outputContexts = [{
                 "name": `projects/dnd-wiki-ca7bd/agent/sessions/${request.session}/contexts/Spell`,
@@ -92,29 +101,28 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
                 }
             }];
         }
-
         return res;
     }
 
-    function spellDuration() {
+    function spellDuration(agent) {
         return getSpell(agent).then((data) => {
             spell = data;
-            let damage = "This spell has no duration.";
+            let output = "This spell has no duration.";
 
             if (spell) {
-                damage = `${spell.name} lasts for ${spell.duration}`;
+                output = `${spell.name} lasts for ${spell.duration}`;
             }
 
-            let responseInput = damage,
-                suggestions = [];
+            let suggestions = [
+                {
+                    "title": `what is ${spell.name}?`
+                }
+            ];
 
             if (spell.damage) {
-                suggestions.push({"title": `what is ${spell.name}`});
-            }
-            if (spell.duration) {
                 suggestions.push({"title": `what damage does it do`});
             }
-            let talk = setResponse(responseInput, suggestions);
+            let talk = setResponse(output, suggestions);
             response.json(talk);
             return;
         });
@@ -123,21 +131,21 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     function spellDamage(agent) {
         return getSpell(agent).then((data) => {
             spell = data;
-            let damage = "This spell doesn't cause damage.";
+            let output = "This spell doesn't cause damage.";
 
             if (spell) {
-                damage = `${spell.name} does ${spell.damage}`;
+                output = `${spell.name} does ${spell.damage}`;
             }
 
-            let suggestions = [];
-
-            if (spell.damage) {
-                suggestions.push({"title": `what is ${spell.name}?`});
-            }
+            let suggestions = [
+                {
+                    "title": `what is ${spell.name}?`
+                }
+            ];
             if (spell.duration) {
                 suggestions.push({"title": `how long does it last?`});
             }
-            let talk = setResponse(damage, suggestions);
+            let talk = setResponse(output, suggestions);
             response.json(talk);
             return;
         });
@@ -145,8 +153,8 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
 
     function getSpell(agent) {
         return new Promise((resolve, reject) => {
-            // console.log("getSpell -> " + spell);
-            return firebase.database().ref(`/${spell.replace(/\s+/g, '_').toLowerCase()}`)
+            console.log("getting spell -> ", spell, spell.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase());
+            return firebase.database().ref(`/${spell.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase()}`)
             .once('value', (data) => {
                     if (data.val()) {
                         let spell = data.val();
@@ -246,6 +254,10 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
                         }
                     });
                 }
+                responseInput.slackRichOutput = {
+                    title: spell.name,
+                    text: spell.description.replace(/\*\*+/g, '*')
+                }
 
                 talk = setResponse(responseInput, suggestions);
             } else {
@@ -262,5 +274,11 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     intentMap.set('Spell', spellInit);
     intentMap.set('Spell damage', spellDamage);
     intentMap.set('Spell duration', spellDuration);
+
+    // if(request.body.originalDetectIntentRequest.source === 'slack' && request.body.originalDetectIntentRequest.payload.data.event.text.substring(0, request.body.originalDetectIntentRequest.payload.data.authed_users[0].length + 3) !== `<@${request.body.originalDetectIntentRequest.payload.data.authed_users[0]}>`) {
+    //     console.log('ignoring slack');
+    // } else {
     agent.handleRequest(intentMap);
+
+    
 });
