@@ -2,11 +2,8 @@
 
 const functions = require('firebase-functions'),
     firebase = require('firebase'),
-    https = require('https'),
     {
-        WebhookClient
-    } = require('dialogflow-fulfillment'),
-    {
+        WebhookClient,
         Card,
         Suggestion,
     } = require('dialogflow-fulfillment'),
@@ -26,7 +23,7 @@ const functions = require('firebase-functions'),
 
 firebase.initializeApp(firebaseConfig);
 
-exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
+exports.hook = functions.https.onRequest((request, response) => {
     const agent = new WebhookClient({
         request,
         response
