@@ -1,19 +1,10 @@
 'use strict';
 
 const functions = require('firebase-functions'),
-    firebase = require('firebase'),
+    firebase = require('firebase-admin'),
     {
-        WebhookClient,
-        Card,
-        Suggestion,
+        WebhookClient
     } = require('dialogflow-fulfillment'),
-    {
-        BasicCard,
-        Suggestions,
-        Carousel,
-        Button
-    } = require('actions-on-google'),
-    appName = 'Dragon Spellbook',
     firebaseConfig = {
         apiKey: "AIzaSyDfwydPClh-B6RCRtS3Nvt-D_0F4j35zHg",
         authDomain: "dnd-wiki-ca7bd.firebaseio.com",
@@ -23,16 +14,22 @@ const functions = require('firebase-functions'),
 
 firebase.initializeApp(firebaseConfig);
 
+const db = firebase.firestore();
+
 exports.hook = functions.https.onRequest((request, response) => {
+
     const agent = new WebhookClient({
         request,
         response
     });
-    let spell = request.body.queryResult.parameters.spell;
-    if (request.body.queryResult.outputContexts && request.body.queryResult.outputContexts.length) {
+    // get the spell's name from parameters or context
+    let spellName = false;
+    if (request.body.queryResult.parameters.spell) {
+        spellName = request.body.queryResult.parameters.spell;
+    } else if (request.body.queryResult.outputContexts && request.body.queryResult.outputContexts.length) {
         for (var i = request.body.queryResult.outputContexts.length - 1; i >= 0; i--) {
-            if(request.body.queryResult.outputContexts[i].name === `projects/dnd-wiki-ca7bd/agent/sessions/${request.session}/contexts/spell`) {
-                spell = request.body.queryResult.outputContexts[i].parameters.name;
+            if (request.body.queryResult.outputContexts[i].name === `spell`) {
+                spellName = request.body.queryResult.outputContexts[i].parameters.name;
                 break;
             }
         }
@@ -89,12 +86,12 @@ exports.hook = functions.https.onRequest((request, response) => {
                 input.slackRichOutput
             ];
         }
-        if (spell) {
+        if (spellName) {
             res.outputContexts = [{
-                "name": `projects/dnd-wiki-ca7bd/agent/sessions/${request.session}/contexts/Spell`,
+                "name": `spell`,
                 "lifespanCount": 5,
                 "parameters": {
-                    name: spell.name
+                    name: spellName
                 }
             }];
         }
@@ -149,19 +146,7 @@ exports.hook = functions.https.onRequest((request, response) => {
     }
 
     function getSpell(agent) {
-        return new Promise((resolve, reject) => {
-            console.log("getting spell -> ", spell, spell.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase());
-            return firebase.database().ref(`/${spell.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase()}`)
-            .once('value', (data) => {
-                    if (data.val()) {
-                        let spell = data.val();
-                        resolve(spell);
-                    } else {
-                        setResponse("Sorry, I don't know that spell...");
-                        resolve(false);
-                    }
-            });
-        });
+            return db.collection('spells').doc(spellName.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase()).get();
     }
 
     function buildRow(data) {
@@ -180,88 +165,86 @@ exports.hook = functions.https.onRequest((request, response) => {
     }
 
     function spellInit(agent) {
-        return getSpell(agent).then((data) => {
-            let talk = "";
-            spell = data;
-            if (spell) {
-                let speechOutput = `${spell.name} is a ${spell.type}`;
-                if (spell.damage) {
-                    speechOutput = `${speechOutput} which does ${spell.damage}`
-                }
+        return getSpell(agent).then(data => {
+            let talk = "",
+                spell = data.data();
 
-                let responseInput = {
-                        output: speechOutput,
-                        richOutput: {
-                            items: []
+            let speechOutput = `${spell.name} is a ${spell.type}`;
+            if (spell.damage) {
+                speechOutput = `${speechOutput} which does ${spell.damage}`
+            }
+
+            let responseInput = {
+                    output: speechOutput,
+                    richOutput: {
+                        items: []
+                    }
+                },
+                table = {
+                    "title": spell.name,
+                    "subtitle": spell.type,
+                    "rows": [],
+                    "columnProperties": [
+                        {
+                            header: ""
+                        }, {
+                            header: ""
                         }
-                    },
-                    table = {
+                    ]
+                };
+
+            if (spell.damage) {
+                table.rows.push(buildRow(["Damage", spell.damage]));
+            }
+            if (spell.saving_throw) {
+                table.rows.push(buildRow(["Saving Throw", spell.range]));
+            }
+            if (spell.range) {
+                table.rows.push(buildRow(["Range", spell.range]));
+            }
+            if (spell.casting_time) {
+                table.rows.push(buildRow(["Casting Time", spell.range]));
+            }
+            if (spell.duration) {
+                table.rows.push(buildRow(["Duration", spell.duration]));
+            }
+
+            let suggestions = [
+                {
+                    "title": `describe it`
+                }
+            ];
+
+            if (spell.damage) {
+                suggestions.push({"title": `what damage does it do`});
+            }
+            if (spell.components && spell.components.material) {
+                suggestions.push({"title": `what materials do I need`});
+            }
+            if (spell.higher_levels) {
+                suggestions.push({"title": `how does it level up`});
+            }
+
+            if (!table.rows.length) {
+                responseInput.richOutput.items.push({"tableCard": table});
+            } else {
+                responseInput.richOutput.items.push({
+                    "basicCard": {
                         "title": spell.name,
                         "subtitle": spell.type,
-                        "rows": [],
-                        "columnProperties": [
-                            {
-                                header: ""
-                            }, {
-                                header: ""
-                            }
-                        ]
-                    };
-
-                if (spell.damage) {
-                    table.rows.push(buildRow(["Damage", spell.damage]));
-                }
-                if (spell.saving_throw) {
-                    table.rows.push(buildRow(["Saving Throw", spell.range]));
-                }
-                if (spell.range) {
-                    table.rows.push(buildRow(["Range", spell.range]));
-                }
-                if (spell.casting_time) {
-                    table.rows.push(buildRow(["Casting Time", spell.range]));
-                }
-                if (spell.duration) {
-                    table.rows.push(buildRow(["Duration", spell.duration]));
-                }
-
-                let suggestions = [
-                    {
-                        "title": `describe it`
+                        "formattedText": spell.description
                     }
-                ];
-
-                if (spell.damage) {
-                    suggestions.push({"title": `what damage does it do`});
-                }
-                if (spell.components.material) {
-                    suggestions.push({"title": `what materials do I need`});
-                }
-                if (spell.higher_levels) {
-                    suggestions.push({"title": `how does it level up`});
-                }
-
-                if (!table.rows.length) {
-                    responseInput.richOutput.items.push({"tableCard": table});
-                } else {
-                    responseInput.richOutput.items.push({
-                        "basicCard": {
-                            "title": spell.name,
-                            "subtitle": spell.type,
-                            "formattedText": spell.description
-                        }
-                    });
-                }
-                responseInput.slackRichOutput = {
-                    title: spell.name,
-                    text: spell.description.replace(/\*\*+/g, '*')
-                }
-
-                talk = setResponse(responseInput, suggestions);
-            } else {
-                talk = setResponse("Sorry, I don't know that spell...");
+                });
             }
-            response.json(talk);
-            return true;
+            responseInput.slackRichOutput = {
+                title: spell.name,
+                text: spell.description.replace(/\*\*+/g, '*')
+            }
+
+            talk = setResponse(responseInput, suggestions);
+            console.log(JSON.stringify(response));
+            response.status(200).json(talk).end();
+            return;
         });
     }
 
@@ -272,10 +255,5 @@ exports.hook = functions.https.onRequest((request, response) => {
     intentMap.set('Spell damage', spellDamage);
     intentMap.set('Spell duration', spellDuration);
 
-    // if(request.body.originalDetectIntentRequest.source === 'slack' && request.body.originalDetectIntentRequest.payload.data.event.text.substring(0, request.body.originalDetectIntentRequest.payload.data.authed_users[0].length + 3) !== `<@${request.body.originalDetectIntentRequest.payload.data.authed_users[0]}>`) {
-    //     console.log('ignoring slack');
-    // } else {
     agent.handleRequest(intentMap);
-
-    
 });
