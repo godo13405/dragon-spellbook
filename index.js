@@ -15,7 +15,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore(),
     ex = express();
 
-process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_credentials
+process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_credentials;
 
 ex.use(bodyParser.json());
 
@@ -115,6 +115,8 @@ ex.post('/', (request, response) => {
                     ]));
 
                     response.json(talk);
+                }).catch(err => {
+                    console.log(err);
                 });
         }
     };
