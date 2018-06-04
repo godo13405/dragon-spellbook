@@ -15,6 +15,8 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore(),
     ex = express();
 
+ex.use(bodyParser.json());
+
 ex.post('/', (request, response) => {
     console.log(request, response);
     // get the spell's name from parameters or context
