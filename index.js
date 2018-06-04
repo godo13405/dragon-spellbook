@@ -15,10 +15,11 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore(),
     ex = express();
 
+process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_credentials
+
 ex.use(bodyParser.json());
 
 ex.post('/', (request, response) => {
-    console.log(request, response);
     // get the spell's name from parameters or context
     let spellNameLet = false;
     if (request.body.queryResult.parameters.spell) {
@@ -227,12 +228,6 @@ ex.post('/', (request, response) => {
                 }];
             }
             return res;
-            /*
-                agent.add(input.output);
-                agent.add(new Payload(agent.ACTIONS_ON_GOOGLE, res.payload.google));
-                agent.add(new Payload(agent.SLACK, res.payload.slack));
-                console.log(agent);
-            */
         }
     };
 
