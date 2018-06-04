@@ -1,11 +1,9 @@
 'use strict';
 
 const functions = require('firebase-functions'),
+    express = require('express'),
     firebase = require('firebase-admin'),
     bodyParser = require('body-parser'),
-    {
-        WebhookClient
-    } = require('dialogflow-fulfillment'),
     firebaseConfig = {
         apiKey: "AIzaSyDfwydPClh-B6RCRtS3Nvt-D_0F4j35zHg",
         authDomain: "dnd-wiki-ca7bd.firebaseio.com",
@@ -15,9 +13,10 @@ const functions = require('firebase-functions'),
 
 firebase.initializeApp(firebaseConfig);
 
-const db = firebase.firestore();
+const db = firebase.firestore(),
+    ex = epress();
 
-exports.hook = functions.https.onRequest((request, response) => {
+ex.post('/expressHook', (request, response) => {
 
     // get the spell's name from parameters or context
     let spellNameLet = false;
@@ -258,3 +257,5 @@ exports.hook = functions.https.onRequest((request, response) => {
             responses.fallback();
     }
 });
+
+app.listen(3000, () => console.log('Example app listening on port 3000!'));
