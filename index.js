@@ -1,7 +1,6 @@
 'use strict';
 
-const functions = require('firebase-functions'),
-    express = require('express'),
+const express = require('express'),
     firebase = require('firebase-admin'),
     bodyParser = require('body-parser'),
     firebaseConfig = {
