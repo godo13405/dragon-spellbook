@@ -2,9 +2,9 @@
 
 const functions = require('firebase-functions'),
     firebase = require('firebase-admin'),
+    bodyParser = require('body-parser'),
     {
-        WebhookClient,
-        Payload
+        WebhookClient
     } = require('dialogflow-fulfillment'),
     firebaseConfig = {
         apiKey: "AIzaSyDfwydPClh-B6RCRtS3Nvt-D_0F4j35zHg",
@@ -19,35 +19,33 @@ const db = firebase.firestore();
 
 exports.hook = functions.https.onRequest((request, response) => {
 
-    const agent = new WebhookClient({
-        request: request,
-        response: response
-    });
     // get the spell's name from parameters or context
-    let spellName = false;
+    let spellNameLet = false;
     if (request.body.queryResult.parameters.spell) {
-        spellName = request.body.queryResult.parameters.spell;
+        spellNameLet = request.body.queryResult.parameters.spell;
     } else if (request.body.queryResult.outputContexts && request.body.queryResult.outputContexts.length) {
         for (var i = request.body.queryResult.outputContexts.length - 1; i >= 0; i--) {
             if (request.body.queryResult.outputContexts[i].name === `spell`) {
-                spellName = request.body.queryResult.outputContexts[i].parameters.name;
+                spellNameLet = request.body.queryResult.outputContexts[i].parameters.name;
                 break;
             }
         }
     }
+    const spellName = spellNameLet;
 
-    const welcome = () => {
+    const responses = {
+        welcome: () => {
             let talk = tools.setResponse(`Hi! What spell do you want to know about?`, tools.getSuggestions([
                 `what is Acid Splash`,
                 `what damage does Harm do`
             ]));
             response.json(talk);
         },
-        fallback = () => {
+        fallback: () => {
             let talk = tools.spells.tools.setResponse(`Sorry, I didn't get that, can you try again?`);
             return response.json(talk);
         },
-        spellDuration = () => {
+        spellDuration: () => {
             return tools.getSpell().then(data => {
                 spell = data;
                 let output = "This spell has no duration.";
@@ -71,7 +69,7 @@ exports.hook = functions.https.onRequest((request, response) => {
                 return;
             });
         },
-        spellDamage = () => {
+        spellDamage: () => {
             return tools.getSpell().then(data => {
                 spell = data;
                 let output = "This spell doesn't cause damage.";
@@ -93,7 +91,7 @@ exports.hook = functions.https.onRequest((request, response) => {
                 return;
             });
         },
-        spellInit = () => {
+        spellInit: () => {
             tools.getSpell()
                 .then(data => {
                     let talk = "",
@@ -115,17 +113,10 @@ exports.hook = functions.https.onRequest((request, response) => {
                         'higher_levels'
                     ]));
 
-                    console.log(request.getresponse(), request.getresponse().read());
-                    response = talk;
-                }).catch(err => {
-                    console.log(err);
-                    let excuses = [
-                        `Sorry, I seem to have misplaced my spellbook. Try again later.`
-                    ];
-                    excuses = excuses[Math.floor(Math.random() * excuses.length)];
-                    response.json(tools.setResponse(excuses)).end();
+                    response.json(talk);
                 });
         }
+    };
 
     const tools = {
         getSpell: () => {
@@ -245,12 +236,25 @@ exports.hook = functions.https.onRequest((request, response) => {
         }
     };
 
-    let intentMap = new Map();
-    intentMap.set('Default Welcome Intent', welcome);
-    intentMap.set('Default Fallback Intent', fallback);
-    intentMap.set('Spell', spellInit);
-    intentMap.set('Spell damage', spellDamage);
-    intentMap.set('Spell duration', spellDuration);
-
-    agent.handleRequest(intentMap);
+    switch (request.body.queryResult.action) {
+        case 'spell.init':
+            responses.spellInit();
+            break;
+        case 'spell.damage':
+            responses.spellDamage();
+            break;
+        case 'spell.duration':
+            responses.spellDuration();
+            break;
+        case 'spell.castTime':
+            break;
+        case 'input.welcome':
+            responses.welcome();
+            break;
+        case 'input.unknown':
+            responses.fallback();
+            break;
+        default:
+            responses.fallback();
+    }
 });
