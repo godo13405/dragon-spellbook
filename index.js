@@ -14,7 +14,7 @@ const functions = require('firebase-functions'),
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore(),
-    ex = epress();
+    ex = express();
 
 ex.post('/expressHook', (request, response) => {
 
@@ -258,4 +258,4 @@ ex.post('/expressHook', (request, response) => {
     }
 });
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'));
+ex.listen(3000, () => console.log('Spell Book listening on port 3000!'));
