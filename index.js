@@ -3,7 +3,8 @@
 const functions = require('firebase-functions'),
     firebase = require('firebase-admin'),
     {
-        WebhookClient
+        WebhookClient,
+        Payload
     } = require('dialogflow-fulfillment'),
     firebaseConfig = {
         apiKey: "AIzaSyDfwydPClh-B6RCRtS3Nvt-D_0F4j35zHg",
@@ -39,7 +40,7 @@ exports.hook = functions.https.onRequest((request, response) => {
             let talk = tools.setResponse(`Hi! What spell do you want to know about?`, tools.getSuggestions([
                 `what is Acid Splash`,
                 `what damage does Harm do`
-            ]);
+            ]));
             response.json(talk);
         },
         fallback = () => {
@@ -65,7 +66,8 @@ exports.hook = functions.https.onRequest((request, response) => {
                     });
                 }
                 let talk = tools.setResponse(output, suggestions);
-                response.json(talk);
+                // response.json(talk);
+                resolve(talk);
                 return;
             });
         },
@@ -107,23 +109,21 @@ exports.hook = functions.https.onRequest((request, response) => {
                         }
                     };
 
-
                     talk = tools.setResponse(responseInput, tools.getSuggestions(spell, [
                         'damage',
                         'materials',
                         'higher_levels'
                     ]));
 
-                    console.log(response.body, talk);
-                    return response.json(talk);
+                    console.log(request.getresponse(), request.getresponse().read());
+                    response = talk;
                 }).catch(err => {
                     console.log(err);
                     let excuses = [
                         `Sorry, I seem to have misplaced my spellbook. Try again later.`
                     ];
                     excuses = excuses[Math.floor(Math.random() * excuses.length)];
-                    response.json(tools.setResponse(excuses));
-                    return response;
+                    response.json(tools.setResponse(excuses)).end();
                 });
         }
 
@@ -145,7 +145,7 @@ exports.hook = functions.https.onRequest((request, response) => {
 
             return output;
         },
-        getSuggestions: (spell = null, input) => {
+        getSuggestions: (spell = null, input = []) => {
             let suggestions = [];
 
             if (spell) {
@@ -236,6 +236,12 @@ exports.hook = functions.https.onRequest((request, response) => {
                 }];
             }
             return res;
+            /*
+                agent.add(input.output);
+                agent.add(new Payload(agent.ACTIONS_ON_GOOGLE, res.payload.google));
+                agent.add(new Payload(agent.SLACK, res.payload.slack));
+                console.log(agent);
+            */
         }
     };
 
