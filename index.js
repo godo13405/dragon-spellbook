@@ -232,7 +232,7 @@ ex.post('/', (request, response) => {
             return res;
         }
     };
-
+console.log(request.body);
     switch (request.body.queryResult.action) {
         case 'spell.init':
             responses.spellInit();
