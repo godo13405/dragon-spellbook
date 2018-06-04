@@ -15,8 +15,8 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore(),
     ex = express();
 
-ex.post('/expressHook', (request, response) => {
-
+ex.post('/', (request, response) => {
+    console.log(request, response);
     // get the spell's name from parameters or context
     let spellNameLet = false;
     if (request.body.queryResult.parameters.spell) {
