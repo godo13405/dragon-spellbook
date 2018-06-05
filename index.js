@@ -19,7 +19,7 @@ let spellName = false;
 
 const webhook = (request, response) => {
     // get the spell's name from parameters or context
-    if (request.body.queryResult.parameters.spell) {
+    if (request.body.queryResult && request.body.queryResult.parameters && request.body.queryResult.parameters.spell) {
         spellName = request.body.queryResult.parameters.spell;
     } else if (request.body.queryResult.outputContexts && request.body.queryResult.outputContexts.length) {
         for (var i = request.body.queryResult.outputContexts.length - 1; i >= 0; i--) {
@@ -247,8 +247,8 @@ const responses = {
                 console.log(err);
             });
 
-            console.log(`Sending spell ${talk.payload.slack.attachments[0].title}`);
-            response.json(talk);
+        console.log(`Sending spell ${talk.payload.slack.attachments[0].title}`);
+        response.json(talk).end();
     }
 };
 
