@@ -131,12 +131,13 @@ const tools = {
                 "textToSpeech": input.output
             }
         });
-
+        /*
         if (input.suggestions) {
             input.richOutput.suggestions = input.suggestions;
         } else if (suggestions.length) {
             input.richOutput.suggestions = suggestions;
         }
+        */
         let res = {};
         res.fulfillmentText = input.output;
         res.payload = {
@@ -153,6 +154,7 @@ const tools = {
                 input.slackRichOutput
             ];
         }
+        /*
         if (spellName) {
             res.outputContexts = [{
                 "name": `spell`,
@@ -162,6 +164,7 @@ const tools = {
                 }
             }];
         }
+        */
         return res;
     }
 };
