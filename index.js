@@ -2,15 +2,15 @@
 
 const express = require('express'),
     firebase = require('firebase-admin'),
-    bodyParser = require('body-parser'),
-    firebaseConfig = {
+    bodyParser = require('body-parser');
+
+firebase.initializeApp({
+        credential: firebase.credential.cert('./service-key.json'),
         apiKey: "AIzaSyDfwydPClh-B6RCRtS3Nvt-D_0F4j35zHg",
         authDomain: "dnd-wiki-ca7bd.firebaseio.com",
         databaseURL: "https://dnd-wiki-ca7bd.firebaseio.com/",
         storageBucket: "dnd-wiki-ca7bd.appspot.com"
-    };
-
-firebase.initializeApp(firebaseConfig);
+    });
 
 const db = firebase.firestore(),
     ex = express();
@@ -232,7 +232,7 @@ ex.post('/', (request, response) => {
             return res;
         }
     };
-console.log(request.body);
+
     switch (request.body.queryResult.action) {
         case 'spell.init':
             responses.spellInit();
