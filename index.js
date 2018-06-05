@@ -167,11 +167,15 @@ const tools = {
 
 const responses = {
     welcome: (response) => {
+        new Promise((resolve) => {
         let talk = tools.setResponse(`Hi! What spell do you want to know about?`, tools.getSuggestions([
             `what is Acid Splash`,
             `what damage does Harm do`
         ]));
+        resolve(talk);
+    }).then(talk => {
         response.json(talk);
+    });
     },
     fallback: (response) => {
         let talk = tools.spells.tools.setResponse(`Sorry, I didn't get that, can you try again?`);
