@@ -15,20 +15,20 @@ firebase.initializeApp({
 const db = firebase.firestore(),
     ex = express();
 
+let spellName = false;
+
 const webhook = (request, response) => {
     // get the spell's name from parameters or context
-    let spellNameLet = false;
     if (request.body.queryResult.parameters.spell) {
-        spellNameLet = request.body.queryResult.parameters.spell;
+        spellName = request.body.queryResult.parameters.spell;
     } else if (request.body.queryResult.outputContexts && request.body.queryResult.outputContexts.length) {
         for (var i = request.body.queryResult.outputContexts.length - 1; i >= 0; i--) {
             if (request.body.queryResult.outputContexts[i].name === `spell`) {
-                spellNameLet = request.body.queryResult.outputContexts[i].parameters.name;
+                spellName = request.body.queryResult.outputContexts[i].parameters.name;
                 break;
             }
         }
     }
-    const spellName = spellNameLet;
 
     switch (request.body.queryResult.action) {
         case 'spell.init':
