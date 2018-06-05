@@ -285,10 +285,10 @@ const responses = {
                 });
         },
         spellLevel: (request, response) => {
-                let level = request.body.queryResult.parameters.Level;
-                tools.querySpell('school', level.toLowerCase(), 1000).then(list => {
+                let level = parseInt(request.body.queryResult.parameters.Level);
+                tools.querySpell('level', level, 1000).then(list => {
                     let spells = [],
-                        output = "I can't any spells of this level",
+                        output = "I don't know any spells of this level",
                         levelName = `Level ${level} spell`,
                         listSize = list.size,
                         readLimit = 5,
