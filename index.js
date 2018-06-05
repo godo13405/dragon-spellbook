@@ -45,6 +45,9 @@ const webhook = (request, response) => {
             case 'query.school':
                 responses.query.spellSchool(request, response);
                 break;
+            case 'query.level':
+                responses.query.spellLevel(request, response);
+                break;
             case 'input.welcome':
                 responses.welcome(request, response);
                 break;
