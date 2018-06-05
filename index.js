@@ -53,93 +53,6 @@ const webhook = (request, response) => {
     }
 };
 
-const responses = {
-    welcome: () => {
-        let talk = tools.setResponse(`Hi! What spell do you want to know about?`, tools.getSuggestions([
-            `what is Acid Splash`,
-            `what damage does Harm do`
-        ]));
-        response.json(talk);
-    },
-    fallback: () => {
-        let talk = tools.spells.tools.setResponse(`Sorry, I didn't get that, can you try again?`);
-        return response.json(talk);
-    },
-    spellDuration: () => {
-        return tools.getSpell().then(data => {
-            spell = data;
-            let output = "This spell has no duration.";
-
-            if (spell) {
-                output = `${spell.name} lasts for ${spell.duration}`;
-            }
-
-            let suggestions = [{
-                "title": `what is ${spell.name}?`
-            }];
-
-            if (spell.damage) {
-                suggestions.push({
-                    "title": `what damage does it do`
-                });
-            }
-            let talk = tools.setResponse(output, suggestions);
-            // response.json(talk);
-            resolve(talk);
-            return;
-        });
-    },
-    spellDamage: () => {
-        return tools.getSpell().then(data => {
-            spell = data;
-            let output = "This spell doesn't cause damage.";
-
-            if (spell) {
-                output = `${spell.name} does ${spell.damage}`;
-            }
-
-            let suggestions = [{
-                "title": `what is ${spell.name}?`
-            }];
-            if (spell.duration) {
-                suggestions.push({
-                    "title": `how long does it last?`
-                });
-            }
-            let talk = tools.setResponse(output, suggestions);
-            response.json(talk);
-            return;
-        });
-    },
-    spellInit: async () => {
-        let talk = await tools.getSpell()
-            .then(data => {
-                let spell = data.data();
-
-                let speechOutput = `${spell.name} is a ${spell.type}`;
-
-                let responseInput = {
-                    output: speechOutput,
-                    slackRichOutput: {
-                        title: spell.name,
-                        text: spell.description.replace(/\*\*+/g, '*')
-                    }
-                };
-
-                return tools.setResponse(responseInput, tools.getSuggestions(spell, [
-                    'damage',
-                    'materials',
-                    'higher_levels'
-                ]));
-            }).catch(err => {
-                console.log(err);
-            });
-
-            console.log(`Sending spell ${talk.payload.slack.attachments[0].title}`);
-            response.json(talk);
-    }
-};
-
 const tools = {
     getSpell: () => {
         return db.collection('spells').doc(spellName.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase()).get();
@@ -251,6 +164,94 @@ const tools = {
         return res;
     }
 };
+
+const responses = {
+    welcome: () => {
+        let talk = tools.setResponse(`Hi! What spell do you want to know about?`, tools.getSuggestions([
+            `what is Acid Splash`,
+            `what damage does Harm do`
+        ]));
+        response.json(talk);
+    },
+    fallback: () => {
+        let talk = tools.spells.tools.setResponse(`Sorry, I didn't get that, can you try again?`);
+        return response.json(talk);
+    },
+    spellDuration: () => {
+        return tools.getSpell().then(data => {
+            spell = data;
+            let output = "This spell has no duration.";
+
+            if (spell) {
+                output = `${spell.name} lasts for ${spell.duration}`;
+            }
+
+            let suggestions = [{
+                "title": `what is ${spell.name}?`
+            }];
+
+            if (spell.damage) {
+                suggestions.push({
+                    "title": `what damage does it do`
+                });
+            }
+            let talk = tools.setResponse(output, suggestions);
+            // response.json(talk);
+            resolve(talk);
+            return;
+        });
+    },
+    spellDamage: () => {
+        return tools.getSpell().then(data => {
+            spell = data;
+            let output = "This spell doesn't cause damage.";
+
+            if (spell) {
+                output = `${spell.name} does ${spell.damage}`;
+            }
+
+            let suggestions = [{
+                "title": `what is ${spell.name}?`
+            }];
+            if (spell.duration) {
+                suggestions.push({
+                    "title": `how long does it last?`
+                });
+            }
+            let talk = tools.setResponse(output, suggestions);
+            response.json(talk);
+            return;
+        });
+    },
+    spellInit: async () => {
+        let talk = await tools.getSpell()
+            .then(data => {
+                let spell = data.data();
+
+                let speechOutput = `${spell.name} is a ${spell.type}`;
+
+                let responseInput = {
+                    output: speechOutput,
+                    slackRichOutput: {
+                        title: spell.name,
+                        text: spell.description.replace(/\*\*+/g, '*')
+                    }
+                };
+
+                return tools.setResponse(responseInput, tools.getSuggestions(spell, [
+                    'damage',
+                    'materials',
+                    'higher_levels'
+                ]));
+            }).catch(err => {
+                console.log(err);
+            });
+
+            console.log(`Sending spell ${talk.payload.slack.attachments[0].title}`);
+            response.json(talk);
+    }
+};
+
 
 process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_credentials;
 
