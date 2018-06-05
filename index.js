@@ -186,7 +186,7 @@ const responses = {
         response.json(talk);
     },
     fallback: (request, response) => {
-        let talk = tools.spells.tools.setResponse(request, `Sorry, I didn't get that, can you try again?`);
+        let talk = tools.setResponse(request, `Sorry, I didn't get that, can you try again?`);
         return response.json(talk);
     },
     spellDuration: (request, response) => {
