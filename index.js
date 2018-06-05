@@ -5,12 +5,12 @@ const express = require('express'),
     bodyParser = require('body-parser');
 
 firebase.initializeApp({
-        credential: firebase.credential.cert('./service-key.json'),
-        apiKey: "AIzaSyDfwydPClh-B6RCRtS3Nvt-D_0F4j35zHg",
-        authDomain: "dnd-wiki-ca7bd.firebaseio.com",
-        databaseURL: "https://dnd-wiki-ca7bd.firebaseio.com/",
-        storageBucket: "dnd-wiki-ca7bd.appspot.com"
-    });
+    credential: firebase.credential.cert('./service-key.json'),
+    apiKey: "AIzaSyDfwydPClh-B6RCRtS3Nvt-D_0F4j35zHg",
+    authDomain: "dnd-wiki-ca7bd.firebaseio.com",
+    databaseURL: "https://dnd-wiki-ca7bd.firebaseio.com/",
+    storageBucket: "dnd-wiki-ca7bd.appspot.com"
+});
 
 const db = firebase.firestore(),
     ex = express();
@@ -19,6 +19,7 @@ let spellName = false;
 
 const webhook = (request, response) => {
     // get the spell's name from parameters or context
+    console.log(request.body);
     if (request.body.queryResult && request.body.queryResult.parameters && request.body.queryResult.parameters.spell) {
         spellName = request.body.queryResult.parameters.spell;
     } else if (request.body.queryResult.outputContexts && request.body.queryResult.outputContexts.length) {
@@ -109,7 +110,7 @@ const tools = {
             for (var i = 0; i < input.length; i++) {
                 suggestions.push({
                     "title": input[i]
-                });                    
+                });
             }
         }
         return suggestions;
@@ -167,15 +168,11 @@ const tools = {
 
 const responses = {
     welcome: (response) => {
-        new Promise((resolve) => {
         let talk = tools.setResponse(`Hi! What spell do you want to know about?`, tools.getSuggestions([
             `what is Acid Splash`,
             `what damage does Harm do`
         ]));
-        resolve(talk);
-    }).then(talk => {
         response.json(talk);
-    });
     },
     fallback: (response) => {
         let talk = tools.spells.tools.setResponse(`Sorry, I didn't get that, can you try again?`);
@@ -227,8 +224,8 @@ const responses = {
             return;
         });
     },
-    spellInit: async (response) => {
-        let talk = await tools.getSpell()
+    spellInit: (response) => {
+        tools.getSpell()
             .then(data => {
                 let spell = data.data();
 
@@ -242,17 +239,16 @@ const responses = {
                     }
                 };
 
-                return tools.setResponse(responseInput, tools.getSuggestions(spell, [
+
+                console.log(`Sending spell ${spell.name}`);
+                response.json(tools.setResponse(responseInput, tools.getSuggestions(spell, [
                     'damage',
                     'materials',
                     'higher_levels'
-                ]));
+                ])));
             }).catch(err => {
                 console.log(err);
             });
-
-        console.log(`Sending spell ${talk.payload.slack.attachments[0].title}`);
-        response.json(talk).end();
     }
 };
 
