@@ -280,6 +280,46 @@ const responses = {
                     let suggestions = [];
                     response.json(tools.setResponse(request, output, suggestions));
                 });
+        },
+        spellLevel: (request, response) => {
+                let level = request.body.queryResult.parameters.Level;
+                tools.querySpell('school', level.toLowerCase(), 1000).then(list => {
+                    let spells = [],
+                        output = "I can't any spells of this level",
+                        levelName = `Level ${level} spell`,
+                        listSize = list.size,
+                        readLimit = 5,
+                        readCounter = 0;
+
+                    list.forEach(spell => {
+                        if(readCounter <= readLimit) {
+                            spells.push(spell.data().name);
+                            readCounter = readCounter + 1;
+                        } else {
+                            list = null;
+                        }
+                    });
+
+                    // Deal with the bloody cantrips
+                    if (level === 0) {
+                        levelName = 'Cantrip';
+                    }
+                    if (listSize > 1) {
+                        levelName = levelName + 's include';
+                    } else {
+                        levelName = levelName + ' is';
+                    }
+
+                    if(spells.length) {
+                        output = `${levelName} ${spells.join(", ")}`;
+                        if (listSize > readLimit) {
+                            output = `${output} and ${listSize - 5} others.`;
+                        }
+                    }
+
+                    let suggestions = [];
+                    response.json(tools.setResponse(request, output, suggestions));
+                });
         }
     }
 };
