@@ -19,7 +19,6 @@ let spellName = false;
 
 const webhook = (request, response) => {
     // get the spell's name from parameters or context
-    console.log(request.body);
     if (request.body.queryResult && request.body.queryResult.parameters && request.body.queryResult.parameters.spell) {
         spellName = request.body.queryResult.parameters.spell;
     } else if (request.body.queryResult.outputContexts && request.body.queryResult.outputContexts.length) {
@@ -33,24 +32,24 @@ const webhook = (request, response) => {
 
     switch (request.body.queryResult.action) {
         case 'spell.init':
-            responses.spellInit(response);
+            responses.spellInit(request, response);
             break;
         case 'spell.damage':
-            responses.spellDamage(response);
+            responses.spellDamage(request, response);
             break;
         case 'spell.duration':
-            responses.spellDuration(response);
+            responses.spellDuration(request, response);
             break;
         case 'spell.castTime':
             break;
         case 'input.welcome':
-            responses.welcome(response);
+            responses.welcome(request, response);
             break;
         case 'input.unknown':
-            responses.fallback(response);
+            responses.fallback(request, response);
             break;
         default:
-            responses.fallback(response);
+            responses.fallback(request, response);
     }
 };
 
@@ -115,7 +114,7 @@ const tools = {
         }
         return suggestions;
     },
-    setResponse: (input, suggestions = []) => {
+    setResponse: (request, input, suggestions = []) => {
         if (typeof input === 'string') {
             input = {
                 output: input
@@ -166,18 +165,18 @@ const tools = {
 };
 
 const responses = {
-    welcome: (response) => {
-        let talk = tools.setResponse(`Hi! What spell do you want to know about?`, tools.getSuggestions([
+    welcome: (request, response) => {
+        let talk = tools.setResponse(request, `Hi! What spell do you want to know about?`, tools.getSuggestions([
             `what is Acid Splash`,
             `what damage does Harm do`
         ]));
         response.json(talk);
     },
-    fallback: (response) => {
-        let talk = tools.spells.tools.setResponse(`Sorry, I didn't get that, can you try again?`);
+    fallback: (request, response) => {
+        let talk = tools.spells.tools.setResponse(request, `Sorry, I didn't get that, can you try again?`);
         return response.json(talk);
     },
-    spellDuration: (response) => {
+    spellDuration: (request, response) => {
         return tools.getSpell().then(data => {
             spell = data;
             let output = "This spell has no duration.";
@@ -195,13 +194,13 @@ const responses = {
                     "title": `what damage does it do`
                 });
             }
-            let talk = tools.setResponse(output, suggestions);
+            let talk = tools.setResponse(request, output, suggestions);
             // response.json(talk);
             resolve(talk);
             return;
         });
     },
-    spellDamage: (response) => {
+    spellDamage: (request, response) => {
         return tools.getSpell().then(data => {
             spell = data;
             let output = "This spell doesn't cause damage.";
@@ -218,12 +217,12 @@ const responses = {
                     "title": `how long does it last?`
                 });
             }
-            let talk = tools.setResponse(output, suggestions);
+            let talk = tools.setResponse(request, output, suggestions);
             response.json(talk);
             return;
         });
     },
-    spellInit: (response) => {
+    spellInit: (request, response) => {
         tools.getSpell()
             .then(data => {
                 let spell = data.data();
@@ -239,8 +238,7 @@ const responses = {
                 };
 
 
-                console.log(`Sending spell ${spell.name}`);
-                response.json(tools.setResponse(responseInput, tools.getSuggestions(spell, [
+                response.json(tools.setResponse(request, responseInput, tools.getSuggestions(spell, [
                     'damage',
                     'materials',
                     'higher_levels'
