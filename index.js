@@ -131,13 +131,11 @@ const tools = {
                 "textToSpeech": input.output
             }
         });
-        /*
         if (input.suggestions) {
             input.richOutput.suggestions = input.suggestions;
         } else if (suggestions.length) {
             input.richOutput.suggestions = suggestions;
         }
-        */
         let res = {};
         res.fulfillmentText = input.output;
         res.payload = {
@@ -156,7 +154,7 @@ const tools = {
         }
         if (spellName) {
             res.outputContexts = [{
-                "name": `spell`,
+                "name": `${request.body.session}/contexts/spell`,
                 "lifespanCount": 5,
                 "parameters": {
                     name: spellName
