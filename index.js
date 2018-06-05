@@ -32,24 +32,24 @@ const webhook = (request, response) => {
 
     switch (request.body.queryResult.action) {
         case 'spell.init':
-            responses.spellInit();
+            responses.spellInit(response);
             break;
         case 'spell.damage':
-            responses.spellDamage();
+            responses.spellDamage(response);
             break;
         case 'spell.duration':
-            responses.spellDuration();
+            responses.spellDuration(response);
             break;
         case 'spell.castTime':
             break;
         case 'input.welcome':
-            responses.welcome();
+            responses.welcome(response);
             break;
         case 'input.unknown':
-            responses.fallback();
+            responses.fallback(response);
             break;
         default:
-            responses.fallback();
+            responses.fallback(response);
     }
 };
 
@@ -166,18 +166,18 @@ const tools = {
 };
 
 const responses = {
-    welcome: () => {
+    welcome: (response) => {
         let talk = tools.setResponse(`Hi! What spell do you want to know about?`, tools.getSuggestions([
             `what is Acid Splash`,
             `what damage does Harm do`
         ]));
         response.json(talk);
     },
-    fallback: () => {
+    fallback: (response) => {
         let talk = tools.spells.tools.setResponse(`Sorry, I didn't get that, can you try again?`);
         return response.json(talk);
     },
-    spellDuration: () => {
+    spellDuration: (response) => {
         return tools.getSpell().then(data => {
             spell = data;
             let output = "This spell has no duration.";
@@ -201,7 +201,7 @@ const responses = {
             return;
         });
     },
-    spellDamage: () => {
+    spellDamage: (response) => {
         return tools.getSpell().then(data => {
             spell = data;
             let output = "This spell doesn't cause damage.";
@@ -223,7 +223,7 @@ const responses = {
             return;
         });
     },
-    spellInit: async () => {
+    spellInit: async (response) => {
         let talk = await tools.getSpell()
             .then(data => {
                 let spell = data.data();
