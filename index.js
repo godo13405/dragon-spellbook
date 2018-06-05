@@ -19,43 +19,53 @@ let spellName = false;
 
 const webhook = (request, response) => {
     // get the spell's name from parameters or context
-    if (request.body.queryResult && request.body.queryResult.parameters && request.body.queryResult.parameters.spell) {
-        spellName = request.body.queryResult.parameters.spell;
-    } else if (request.body.queryResult.outputContexts && request.body.queryResult.outputContexts.length) {
-        for (var i = request.body.queryResult.outputContexts.length - 1; i >= 0; i--) {
-            if (request.body.queryResult.outputContexts[i].name === `spell`) {
-                spellName = request.body.queryResult.outputContexts[i].parameters.name;
-                break;
+    if (request.body.queryResult) {
+        if (request.body.queryResult.parameters && request.body.queryResult.parameters.spell) {
+            spellName = request.body.queryResult.parameters.spell;
+        } else if (request.body.queryResult.outputContexts && request.body.queryResult.outputContexts.length) {
+            for (var i = request.body.queryResult.outputContexts.length - 1; i >= 0; i--) {
+                if (request.body.queryResult.outputContexts[i].name === `spell`) {
+                    spellName = request.body.queryResult.outputContexts[i].parameters.name;
+                    break;
+                }
             }
         }
-    }
-
-    switch (request.body.queryResult.action) {
-        case 'spell.init':
-            responses.spellInit(request, response);
-            break;
-        case 'spell.damage':
-            responses.spellDamage(request, response);
-            break;
-        case 'spell.duration':
-            responses.spellDuration(request, response);
-            break;
-        case 'spell.castTime':
-            break;
-        case 'input.welcome':
-            responses.welcome(request, response);
-            break;
-        case 'input.unknown':
-            responses.fallback(request, response);
-            break;
-        default:
-            responses.fallback(request, response);
+        switch (request.body.queryResult.action) {
+            case ('spell.init' || 'spell.folllowupInit'):
+                responses.spellInit(request, response);
+                break;
+            case 'spell.damage':
+                responses.spellDamage(request, response);
+                break;
+            case 'spell.duration':
+                responses.spellDuration(request, response);
+                break;
+            case 'spell.castTime':
+                break;
+            case 'query.school':
+                responses.query.spellSchool(request, response);
+                break;
+            case 'input.welcome':
+                responses.welcome(request, response);
+                break;
+            case 'input.unknown':
+                responses.fallback(request, response);
+                break;
+            default:
+                responses.fallback(request, response);
+        }
+    } else {
+        console.log(request);
+        response.send('Problem with the resuest.body. Check the console.log');
     }
 };
 
 const tools = {
     getSpell: () => {
         return db.collection('spells').doc(spellName.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase()).get();
+    },
+    querySpell: (key, value, limit = 5, operator = '==', order = 'name') => {
+        return db.collection('spells').where(key, operator, value).orderBy(order).limit(limit).get();
     },
     buildRow: data => {
         let output = {
@@ -177,11 +187,11 @@ const responses = {
         return response.json(talk);
     },
     spellDuration: (request, response) => {
-        return tools.getSpell().then(data => {
-            spell = data;
-            let output = "This spell has no duration.";
+        tools.getSpell().then(data => {
+            let spell = data.data(),
+                output = "This spell has no duration.";
 
-            if (spell) {
+            if (spell && spell.duration) {
                 output = `${spell.name} lasts for ${spell.duration}`;
             }
 
@@ -194,18 +204,15 @@ const responses = {
                     "title": `what damage does it do`
                 });
             }
-            let talk = tools.setResponse(request, output, suggestions);
-            // response.json(talk);
-            resolve(talk);
-            return;
+            response.json(tools.setResponse(request, output, suggestions));
         });
     },
     spellDamage: (request, response) => {
-        return tools.getSpell().then(data => {
-            spell = data;
-            let output = "This spell doesn't cause damage.";
+        tools.getSpell().then(data => {
+            let spell = data.data(),
+                output = "This spell doesn't cause damage.";
 
-            if (spell) {
+            if (spell && spell.damage) {
                 output = `${spell.name} does ${spell.damage}`;
             }
 
@@ -217,9 +224,7 @@ const responses = {
                     "title": `how long does it last?`
                 });
             }
-            let talk = tools.setResponse(request, output, suggestions);
-            response.json(talk);
-            return;
+            response.json(tools.setResponse(request, output, suggestions));
         });
     },
     spellInit: (request, response) => {
@@ -246,6 +251,36 @@ const responses = {
             }).catch(err => {
                 console.log(err);
             });
+    },
+    query: {
+        spellSchool: (request, response) => {
+                tools.querySpell('school', request.body.queryResult.parameters.School.toLowerCase(), 1000).then(list => {
+                    let spells = [],
+                        output = "I can't find this School",
+                        listSize = list.size,
+                        readLimit = 5,
+                        readCounter = 0;
+
+                    list.forEach(spell => {
+                        if(readCounter <= readLimit) {
+                            spells.push(spell.data().name);
+                            readCounter = readCounter + 1;
+                        } else {
+                            list = null;
+                        }
+                    });
+
+                    if(spells.length) {
+                        output = `The School of ${request.body.queryResult.parameters.School} includes ${spells.join(", ")}`;
+                        if (listSize > readLimit) {
+                            output = `${output} and ${listSize - 5} others.`;
+                        }
+                    }
+
+                    let suggestions = [];
+                    response.json(tools.setResponse(request, output, suggestions));
+                });
+        }
     }
 };
 
