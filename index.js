@@ -154,7 +154,6 @@ const tools = {
                 input.slackRichOutput
             ];
         }
-        /*
         if (spellName) {
             res.outputContexts = [{
                 "name": `spell`,
@@ -164,7 +163,6 @@ const tools = {
                 }
             }];
         }
-        */
         return res;
     }
 };
