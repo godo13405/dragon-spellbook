@@ -177,6 +177,42 @@ const tools = {
             }];
         }
         return res;
+    },
+    listByLevel: (level, list) => {
+        let spells = [],
+            output = `I don't know any level ${level} spells.`,
+            levelName = `Level ${level} spell`,
+            listSize = list.size,
+            readLimit = listSize > 1 ? 3 : 5,
+            readCounter = 0;
+
+        list.forEach(spell => {
+            if (readCounter <= readLimit) {
+                spells.push(spell.data().name);
+                readCounter = readCounter + 1;
+            } else {
+                list = null;
+            }
+        });
+
+        // Deal with the bloody cantrips
+        if (level === 0) {
+            levelName = 'Cantrip';
+        }
+        if (listSize > 1) {
+            levelName = levelName + 's include';
+        } else {
+            levelName = levelName + ' is';
+        }
+
+        if (spells.length) {
+            output = `${levelName} ${spells.join(", ")}`;
+            if (listSize > readLimit) {
+                output = `${output} and ${listSize - readLimit} others.`;
+            }
+        }
+
+        return output;
     }
 };
 
@@ -260,102 +296,87 @@ const responses = {
     },
     query: {
         spellSchool: (request, response) => {
-                tools.querySpell('school', request.body.queryResult.parameters.School.toLowerCase(), 1000).then(list => {
-                    let spells = [],
-                        output = "I can't find this School",
-                        listSize = list.size,
-                        readLimit = 5,
-                        readCounter = 0;
+            tools.querySpell('school', request.body.queryResult.parameters.School.toLowerCase(), 1000).then(list => {
+                let spells = [],
+                    output = "I can't find this School",
+                    listSize = list.size,
+                    readLimit = 5,
+                    readCounter = 0;
 
-                    list.forEach(spell => {
-                        if(readCounter <= readLimit) {
-                            spells.push(spell.data().name);
-                            readCounter = readCounter + 1;
-                        } else {
-                            list = null;
-                        }
-                    });
-
-                    if(spells.length) {
-                        output = `The School of ${request.body.queryResult.parameters.School} includes ${spells.join(", ")}`;
-                        if (listSize > readLimit) {
-                            output = `${output} and ${listSize - 5} others.`;
-                        }
+                list.forEach(spell => {
+                    if (readCounter <= readLimit) {
+                        spells.push(spell.data().name);
+                        readCounter = readCounter + 1;
+                    } else {
+                        list = null;
                     }
-
-                    let suggestions = [];
-                    response.json(tools.setResponse(request, output, suggestions));
                 });
+
+                if (spells.length) {
+                    output = `The School of ${request.body.queryResult.parameters.School} includes ${spells.join(", ")}`;
+                    if (listSize > readLimit) {
+                        output = `${output} and ${listSize - 5} others.`;
+                    }
+                }
+
+                let suggestions = [];
+                response.json(tools.setResponse(request, output, suggestions));
+            });
         },
         spellClass: (request, response) => {
-                tools.querySpell(`class.${request.body.queryResult.parameters.Class.toLowerCase()}`, true, 1000).then(list => {
-                    let spells = [],
-                        output = "I can't find spells for this Class",
-                        listSize = list.size,
-                        readLimit = 5,
-                        readCounter = 0;
+            tools.querySpell(`class.${request.body.queryResult.parameters.Class.toLowerCase()}`, true, 1000).then(list => {
+                let spells = [],
+                    output = "I can't find spells for this Class",
+                    listSize = list.size,
+                    readLimit = 5,
+                    readCounter = 0;
 
-                    list.forEach(spell => {
-                        if(readCounter <= readLimit) {
-                            spells.push(spell.data().name);
-                            readCounter = readCounter + 1;
-                        } else {
-                            list = null;
-                        }
-                    });
-
-                    if(spells.length) {
-                        output = `${request.body.queryResult.parameters.Class} spells include ${spells.join(", ")}`;
-                        if (listSize > readLimit) {
-                            output = `${output} and ${listSize - 5} others.`;
-                        }
+                list.forEach(spell => {
+                    if (readCounter <= readLimit) {
+                        spells.push(spell.data().name);
+                        readCounter = readCounter + 1;
+                    } else {
+                        list = null;
                     }
-
-                    let suggestions = [];
-                    response.json(tools.setResponse(request, output, suggestions));
                 });
+
+                if (spells.length) {
+                    output = `${request.body.queryResult.parameters.Class} spells include ${spells.join(", ")}`;
+                    if (listSize > readLimit) {
+                        output = `${output} and ${listSize - 5} others.`;
+                    }
+                }
+
+                let suggestions = [];
+                response.json(tools.setResponse(request, output, suggestions));
+            });
         },
         spellLevel: (request, response) => {
-                let level = parseInt(request.body.queryResult.parameters.Level);
-                tools.querySpell('level', level, 1000).then(list => {
-                    let spells = [],
-                        output = "I don't know any spells of this level",
-                        levelName = `Level ${level} spell`,
-                        listSize = list.size,
-                        readLimit = 5,
-                        readCounter = 0;
+            let levels = request.body.queryResult.parameters.Level;
 
-                    list.forEach(spell => {
-                        if(readCounter <= readLimit) {
-                            spells.push(spell.data().name);
-                            readCounter = readCounter + 1;
-                        } else {
-                            list = null;
-                        }
-                    });
+            let talk = "",
+                outputs = [],
+                suggestions = [],
+                queries = [],
+                level;
+            levels.forEach((lvl) => {
+                queries.push(
+                    tools.querySpell('level', parseInt(lvl), 1000).then(list => {
+                        let output = tools.listByLevel(lvl, list);
+                        outputs.push(output);
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                );
+            });
 
-                    // Deal with the bloody cantrips
-                    if (level === 0) {
-                        levelName = 'Cantrip';
-                    }
-                    if (listSize > 1) {
-                        levelName = levelName + 's include';
-                    } else {
-                        levelName = levelName + ' is';
-                    }
-
-                    if(spells.length) {
-                        output = `${levelName} ${spells.join(", ")}`;
-                        if (listSize > readLimit) {
-                            output = `${output} and ${listSize - 5} others.`;
-                        }
-                    }
-
-                    let suggestions = [];
-                    response.json(tools.setResponse(request, output, suggestions));
-                });
+            Promise.all(queries).then(() => {
+                outputs = outputs.join('\n');
+                response.json(tools.setResponse(request, outputs, suggestions));
+            });
         }
     }
+
 };
 
 
