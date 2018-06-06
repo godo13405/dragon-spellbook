@@ -1,7 +1,7 @@
 {
     "acid_splash": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -32,7 +32,7 @@
     },
     "alarm": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "ranger": true,
             "wizard": true
         },
@@ -61,7 +61,7 @@
     },
     "animal_friendship": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "ranger": true
@@ -96,7 +96,7 @@
     },
     "bane": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true
         },
@@ -126,7 +126,7 @@
     },
     "blade_ward": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -156,7 +156,7 @@
     },
     "bless": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true
         },
@@ -185,7 +185,7 @@
     },
     "burning_hands": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -219,7 +219,7 @@
     },
     "charm_person": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -258,7 +258,7 @@
     },
     "chill_touch": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "warlock": true,
             "wizard": true
@@ -291,7 +291,7 @@
     },
     "chromatic_orb": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -325,7 +325,7 @@
     },
     "color_spray": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -355,7 +355,7 @@
     },
     "command": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true
         },
@@ -385,7 +385,7 @@
     },
     "compelled_duel": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -412,7 +412,7 @@
     },
     "comprehend_languages": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -445,7 +445,7 @@
     },
     "create_or_destroy_water": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true
         },
@@ -476,7 +476,7 @@
 
     "cure_wounds": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -510,7 +510,7 @@
     },
     "dancing_lights": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -541,7 +541,7 @@
     },
     "detect_evil_and_good": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true
         },
@@ -567,7 +567,7 @@
     },
     "detect_magic": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -603,7 +603,7 @@
     },
     "detect_poison_or_disease": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "paladin": true,
@@ -636,7 +636,7 @@
     },
     "disguise_self": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "sorcerer": true,
@@ -667,7 +667,7 @@
     },
     "divine_favor": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -691,7 +691,7 @@
     },
     "dissonant_whispers": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true
         },
         "components": {
@@ -723,7 +723,7 @@
     },
     "druidcraft": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -747,7 +747,7 @@
     },
     "eldritch_blast": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "warlock": true
         },
         "components": {
@@ -775,7 +775,7 @@
     },
     "ensnaring_strike": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "ranger": true
         },
         "components": {
@@ -800,7 +800,7 @@
     },
     "entangle": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -824,7 +824,7 @@
     },
     "faerie_fire": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true
         },
@@ -853,7 +853,7 @@
     },
     "expeditious_retreat": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "warlock": true,
             "wizard": true
@@ -881,7 +881,7 @@
     },
     "false_life": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -911,7 +911,7 @@
     },
     "feather_fall": {
         "casting_time": "1 reaction, which you take when you or a creature within 60 feet of you falls",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -942,7 +942,7 @@
     },
     "find_familiar": {
         "casting_time": "1 hour",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -969,7 +969,7 @@
     },
     "fire_bolt": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -995,7 +995,7 @@
     },
     "fog_cloud": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true,
             "sorcerer": true,
@@ -1026,7 +1026,7 @@
     },
     "friends": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -1059,7 +1059,7 @@
     },
     "goodberry": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true
         },
@@ -1088,7 +1088,7 @@
     },
     "grease": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -1118,7 +1118,7 @@
     },
     "guidance": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true
         },
@@ -1144,7 +1144,7 @@
     },
     "guiding_bolt": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -1169,7 +1169,7 @@
     },
     "hail_of_thorns": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "ranger": true
         },
         "components": {
@@ -1197,7 +1197,7 @@
     },
     "healing_word": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true
@@ -1226,7 +1226,7 @@
     },
     "hellish_rebuke": {
         "casting_time": "1 reaction, which you take in response to being damaged by a creature within 60 feet of you that you can see.",
-        "classes": {
+        "class": {
             "warlock": true
         },
         "components": {
@@ -1254,7 +1254,7 @@
     },
     "hex": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "warlock": true
         },
         "components": {
@@ -1282,7 +1282,7 @@
     },
     "heroism": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "paladin": true
         },
@@ -1308,7 +1308,7 @@
     },
     "hunter's_mark": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "ranger": true
         },
         "components": {
@@ -1333,7 +1333,7 @@
     },
     "identify": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "bard": true,
             "wizard": true
         },
@@ -1362,7 +1362,7 @@
     },
     "illusory_script": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "bard": true,
             "warlock": true,
             "wizard": true
@@ -1393,7 +1393,7 @@
     },
     "inflict_wounds": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -1418,7 +1418,7 @@
     },
     "jump": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true,
             "sorcerer": true,
@@ -1451,7 +1451,7 @@
     },
     "light": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "sorcerer": true,
@@ -1487,7 +1487,7 @@
     },
     "longstrider": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "ranger": true,
@@ -1521,7 +1521,7 @@
     },
     "mage_armor": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -1550,7 +1550,7 @@
     },
     "mage_hand": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -1580,7 +1580,7 @@
     },
     "magic_missile": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -1607,7 +1607,7 @@
     },
     "mending": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -1642,7 +1642,7 @@
     },
     "message": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -1673,7 +1673,7 @@
     },
     "minor_illusion": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -1706,7 +1706,7 @@
     },
     "poison_spray": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "warlock": true,
@@ -1739,7 +1739,7 @@
     },
     "prestidigitation": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -1769,7 +1769,7 @@
     },
     "produce_flame": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -1793,7 +1793,7 @@
     },
     "protection_from_evil_and_good": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true,
             "warlock": true,
@@ -1826,7 +1826,7 @@
     },
     "purify_food_and_drink": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "paladin": true
@@ -1854,7 +1854,7 @@
     },
     "ray_of_frost": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -1880,7 +1880,7 @@
     },
     "ray_of_sickness": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -1910,7 +1910,7 @@
     },
     "remove_curse": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true,
             "warlock": true,
@@ -1940,7 +1940,7 @@
     },
     "resistance": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true
         },
@@ -1969,7 +1969,7 @@
     },
     "sacred_flame": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -1996,7 +1996,7 @@
     },
     "sanctuary": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -2026,7 +2026,7 @@
     },
     "shield_of_faith": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true
         },
@@ -2055,7 +2055,7 @@
     },
     "searing_smite": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -2083,7 +2083,7 @@
     },
     "shield": {
         "casting_time": "1 reaction, which you take when you are hit by an attack or targeted by the magic missile spell",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -2109,7 +2109,7 @@
     },
     "shillelagh": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -2136,7 +2136,7 @@
     },
     "shocking_grasp": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -2162,7 +2162,7 @@
     },
     "silent_image": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -2193,7 +2193,7 @@
     },
     "sleep": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -2225,7 +2225,7 @@
     },
     "spare_the_dying": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -2249,7 +2249,7 @@
     },
     "speak_with_animals": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "ranger": true
@@ -2277,7 +2277,7 @@
     },
     "thaumaturgy": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -2301,7 +2301,7 @@
     },
     "thorn_whip": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -2328,7 +2328,7 @@
     },
     "thunderous_smite": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -2352,7 +2352,7 @@
     },
     "thunderwave": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "sorcerer": true,
@@ -2386,7 +2386,7 @@
     },
     "true_strike": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -2416,7 +2416,7 @@
     },
     "unseen_servant": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "warlock": true,
             "wizard": true
@@ -2447,7 +2447,7 @@
     },
     "vicious_mockery": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true
         },
         "components": {
@@ -2474,7 +2474,7 @@
     },
     "witch_bolt": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "warlock": true,
             "wizard": true
@@ -2506,7 +2506,7 @@
     },
     "wrathful_smite": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -2533,7 +2533,7 @@
     },
     "aid": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true
         },
@@ -2563,7 +2563,7 @@
     },
     "animal_messenger": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "ranger": true
@@ -2595,7 +2595,7 @@
     },
     "blindness_or_deafness": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "sorcerer": true,
@@ -2629,7 +2629,7 @@
     },
     "augury": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -2656,7 +2656,7 @@
     },
     "calm_emotions": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true
         },
@@ -2682,7 +2682,7 @@
     },
     "hold_person": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -2723,7 +2723,7 @@
     },
     "lesser_restoration": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -2755,7 +2755,7 @@
     },
     "prayer_of_healing": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -2780,7 +2780,7 @@
     },
     "silence": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "ranger": true
@@ -2808,7 +2808,7 @@
     },
     "spiritual_weapon": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -2832,7 +2832,7 @@
     },
     "warding_bond": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -2859,7 +2859,7 @@
     },
     "animate_dead": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "cleric": true,
             "wizard": true
         },
@@ -2889,7 +2889,7 @@
     },
     "arcane_eye": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -2916,7 +2916,7 @@
     },
     "aura_of_life": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -2940,7 +2940,7 @@
     },
     "aura_of_purity": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -2964,7 +2964,7 @@
     },
     "aura_of_vitality": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -2988,7 +2988,7 @@
     },
     "banishment": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true,
             "sorcerer": true,
@@ -3024,7 +3024,7 @@
     },
     "beacon_of_hope": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -3051,7 +3051,7 @@
     },
     "blight": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "warlock": true,
@@ -3085,7 +3085,7 @@
     },
     "bestow_curse": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "wizard": true
@@ -3117,7 +3117,7 @@
     },
     "blinding_smite": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -3144,7 +3144,7 @@
     },
     "blink": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -3170,7 +3170,7 @@
     },
     "call_lightning": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -3198,7 +3198,7 @@
     },
     "clairvoyance": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "sorcerer": true,
@@ -3231,7 +3231,7 @@
     },
     "cloud_of_daggers": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -3265,7 +3265,7 @@
     },
     "compulsion": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true
         },
         "components": {
@@ -3292,7 +3292,7 @@
     },
     "conjure_animals": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true
         },
@@ -3319,7 +3319,7 @@
     },
     "conjure_barrage": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "ranger": true
         },
         "components": {
@@ -3349,7 +3349,7 @@
     },
     "counterspell": {
         "casting_time": "1 reaction, which you take when you see a creature within 60 feet of you casting a spell.",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "warlock": true,
             "wizard": true
@@ -3378,7 +3378,7 @@
     },
     "create_food_and_water": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true
         },
@@ -3404,7 +3404,7 @@
     },
     "crusader's_mantle": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -3428,7 +3428,7 @@
     },
     "daylight": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "ranger": true,
@@ -3459,7 +3459,7 @@
     },
     "dispel_magic": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -3496,7 +3496,7 @@
     },
     "elemental_weapon": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -3521,7 +3521,7 @@
     },
     "fear": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -3557,7 +3557,7 @@
     },
     "feign_death": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -3590,7 +3590,7 @@
     },
     "fireball": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -3623,7 +3623,7 @@
     },
     "fly": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "warlock": true,
             "wizard": true
@@ -3655,7 +3655,7 @@
     },
     "gaseous_form": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -3687,7 +3687,7 @@
     },
     "haste": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -3719,7 +3719,7 @@
     },
     "hypnotic_pattern": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -3755,7 +3755,7 @@
     },
     "lightning_arrow": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "ranger": true
         },
         "components": {
@@ -3783,7 +3783,7 @@
     },
     "magic_circle": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true,
             "warlock": true,
@@ -3817,7 +3817,7 @@
     },
     "major_image": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -3851,7 +3851,7 @@
     },
     "mass_healing_word": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -3876,7 +3876,7 @@
     },
     "alter_self": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -3902,7 +3902,7 @@
     },
     "arcane_lock": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -3929,7 +3929,7 @@
     },
     "barkskin": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true
         },
@@ -3958,7 +3958,7 @@
     },
     "nondetection": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "ranger": true
@@ -3989,7 +3989,7 @@
     },
     "meld_into_stone": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true
         },
@@ -4015,7 +4015,7 @@
     },
     "phantom_steed": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -4039,7 +4039,7 @@
     },
     "plant_growth": {
         "casting_time": "1 action or 8 hours",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "ranger": true
@@ -4067,7 +4067,7 @@
     },
     "protection_from_energy": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "ranger": true,
@@ -4099,7 +4099,7 @@
     },
     "revivify": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true
         },
@@ -4128,7 +4128,7 @@
     },
     "sending": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "wizard": true
@@ -4159,7 +4159,7 @@
     },
     "sleet_storm": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -4194,7 +4194,7 @@
     },
     "slow": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -4227,7 +4227,7 @@
     },
     "speak_with_dead": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true
         },
@@ -4256,7 +4256,7 @@
     },
     "speak_with_plants": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "ranger": true
@@ -4284,7 +4284,7 @@
     },
     "spirit_guardians": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -4315,7 +4315,7 @@
     },
     "stinking_cloud": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -4349,7 +4349,7 @@
     },
     "confusion": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "sorcerer": true,
@@ -4386,7 +4386,7 @@
     },
     "conjure_minor_elementals": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "druid": true,
             "wizard": true
         },
@@ -4413,7 +4413,7 @@
     },
     "control_water": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "wizard": true
@@ -4444,7 +4444,7 @@
     },
     "conjure_woodland_beings": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true
         },
@@ -4474,7 +4474,7 @@
     },
     "death_ward": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true
         },
@@ -4500,7 +4500,7 @@
     },
     "tongues": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "sorcerer": true,
@@ -4535,7 +4535,7 @@
     },
     "beast_sense": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true
         },
@@ -4561,7 +4561,7 @@
     },
     "blur": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -4587,7 +4587,7 @@
     },
     "branding_smite": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -4612,7 +4612,7 @@
     },
     "cordon_of_arrows": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "ranger": true
         },
         "components": {
@@ -4643,7 +4643,7 @@
     },
     "crown_of_madness": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -4676,7 +4676,7 @@
     },
     "darkness": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "warlock": true,
             "wizard": true
@@ -4707,7 +4707,7 @@
     },
     "darkvision": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true,
             "sorcerer": true,
@@ -4740,7 +4740,7 @@
     },
     "detect_thoughts": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -4774,7 +4774,7 @@
     },
     "animal_shapes": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -4798,7 +4798,7 @@
     },
     "antimagic_field": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "wizard": true
         },
@@ -4827,7 +4827,7 @@
     },
     "antipathy_or_sympathy": {
         "casting_time": "1 hour",
-        "classes": {
+        "class": {
             "druid": true,
             "wizard": true
         },
@@ -4859,7 +4859,7 @@
     },
     "astral_projection": {
         "casting_time": "1 hour",
-        "classes": {
+        "class": {
             "cleric": true,
             "warlock": true,
             "wizard": true
@@ -4890,7 +4890,7 @@
     },
     "clone": {
         "casting_time": "1 hour",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -4917,7 +4917,7 @@
     },
     "control_weather": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "wizard": true
@@ -4948,7 +4948,7 @@
     },
     "demiplane": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "warlock": true,
             "wizard": true
         },
@@ -4974,7 +4974,7 @@
     },
     "dominate_monster": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -5008,7 +5008,7 @@
     },
     "earthquake": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "sorcerer": true
@@ -5043,7 +5043,7 @@
     },
     "feeblemind": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "warlock": true,
@@ -5076,7 +5076,7 @@
     },
     "foresight": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "warlock": true,
@@ -5109,7 +5109,7 @@
     },
     "gate": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "sorcerer": true,
             "wizard": true
@@ -5140,7 +5140,7 @@
     },
     "glibness": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "warlock": true
         },
@@ -5166,7 +5166,7 @@
     },
     "holy_aura": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -5196,7 +5196,7 @@
     },
     "imprisonment": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "warlock": true,
             "wizard": true
         },
@@ -5228,7 +5228,7 @@
     },
     "incendiary_cloud": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -5257,7 +5257,7 @@
     },
     "mass_heal": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -5281,7 +5281,7 @@
     },
     "maze": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -5305,7 +5305,7 @@
     },
     "meteor_swarm": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -5334,7 +5334,7 @@
     },
     "mind_blank": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "wizard": true
         },
@@ -5360,7 +5360,7 @@
     },
     "power_word_heal": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true
         },
         "components": {
@@ -5384,7 +5384,7 @@
     },
     "power_word_kill": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -5414,7 +5414,7 @@
     },
     "power_word_stun": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -5447,7 +5447,7 @@
     },
     "prismatic_wall": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -5475,7 +5475,7 @@
     },
     "shapechange": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "wizard": true
         },
@@ -5504,7 +5504,7 @@
     },
     "storm_of_vengeance": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -5531,7 +5531,7 @@
     },
     "telepathy": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -5558,7 +5558,7 @@
     },
     "sunburst": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -5592,7 +5592,7 @@
     },
     "time_stop": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -5618,7 +5618,7 @@
     },
     "true_polymorph": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "warlock": true,
             "wizard": true
@@ -5652,7 +5652,7 @@
     },
     "tsunami": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -5676,7 +5676,7 @@
     },
     "true_resurrection": {
         "casting_time": "1 hour",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true
         },
@@ -5705,7 +5705,7 @@
     },
     "weird": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -5732,7 +5732,7 @@
     },
     "wish": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -5758,7 +5758,7 @@
     },
     "conjure_celestial": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -5783,7 +5783,7 @@
     },
     "delayed_blast_fireball": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -5816,7 +5816,7 @@
     },
     "dimension_door": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -5846,7 +5846,7 @@
     },
     "divine_word": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -5870,7 +5870,7 @@
     },
     "etherealness": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "sorcerer": true,
@@ -5903,7 +5903,7 @@
     },
     "finger_of_death": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "warlock": true,
             "wizard": true
@@ -5934,7 +5934,7 @@
     },
     "fire_storm": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "sorcerer": true
@@ -5965,7 +5965,7 @@
     },
     "forcecage": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "warlock": true,
             "wizard": true
@@ -5996,7 +5996,7 @@
     },
     "mirage_arcane": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "wizard": true
@@ -6024,7 +6024,7 @@
     },
     "prismatic_spray": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -6053,7 +6053,7 @@
     },
     "project_image": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "wizard": true
         },
@@ -6082,7 +6082,7 @@
     },
     "plane_shift": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "sorcerer": true,
@@ -6117,7 +6117,7 @@
     },
     "regenerate": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true
@@ -6148,7 +6148,7 @@
     },
     "resurrection": {
         "casting_time": "1 hour",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true
@@ -6179,7 +6179,7 @@
     },
     "reverse_gravity": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -6213,7 +6213,7 @@
     },
     "sequester": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -6240,7 +6240,7 @@
     },
     "simulacrum": {
         "casting_time": "12 hours",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -6267,7 +6267,7 @@
     },
     "symbol": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "bard": true,
             "wizard": true
         },
@@ -6296,7 +6296,7 @@
     },
     "teleport": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -6324,7 +6324,7 @@
     },
     "suggestion": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -6360,7 +6360,7 @@
     },
     "invisibility": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -6394,7 +6394,7 @@
     },
     "animate_objects": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -6423,7 +6423,7 @@
     },
     "antilife_shell": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -6447,7 +6447,7 @@
     },
     "arcane_gate": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "warlock": true,
             "wizard": true
@@ -6475,7 +6475,7 @@
     },
     "awaken": {
         "casting_time": "8 hours",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true
         },
@@ -6504,7 +6504,7 @@
     },
     "banishing_smite": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -6528,7 +6528,7 @@
     },
     "chain_lightning": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -6561,7 +6561,7 @@
     },
     "blade_barrier": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -6588,7 +6588,7 @@
     },
     "circle_of_death": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "warlock": true,
             "wizard": true
@@ -6623,7 +6623,7 @@
     },
     "circle_of_power": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -6647,7 +6647,7 @@
     },
     "cloudkill": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -6677,7 +6677,7 @@
     },
     "commune_with_nature": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true
         },
@@ -6703,7 +6703,7 @@
     },
     "commune": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -6730,7 +6730,7 @@
     },
     "cone_of_cold": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -6763,7 +6763,7 @@
     },
     "conjure_elemental": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "druid": true,
             "wizard": true
         },
@@ -6793,7 +6793,7 @@
     },
     "conjure_fey": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "druid": true,
             "warlock": true
         },
@@ -6820,7 +6820,7 @@
     },
     "conjure_volley": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "ranger": true
         },
         "components": {
@@ -6850,7 +6850,7 @@
     },
     "contact_other_plane": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "warlock": true,
             "wizard": true
         },
@@ -6876,7 +6876,7 @@
     },
     "contagion": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true
         },
@@ -6905,7 +6905,7 @@
     },
     "contingency": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -6932,7 +6932,7 @@
     },
     "create_undead": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "cleric": true,
             "warlock": true,
             "wizard": true
@@ -6964,7 +6964,7 @@
     },
     "continual_flame": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "wizard": true
         },
@@ -6993,7 +6993,7 @@
     },
     "creation": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -7023,7 +7023,7 @@
     },
     "destructive_wave": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -7050,7 +7050,7 @@
     },
     "disintegrate": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -7083,7 +7083,7 @@
     },
     "divination": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -7110,7 +7110,7 @@
     },
     "dispel_evil_and_good": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true
         },
@@ -7139,7 +7139,7 @@
     },
     "dominate_beast": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true
         },
@@ -7169,7 +7169,7 @@
     },
     "dominate_person": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -7201,7 +7201,7 @@
     },
     "dream": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "bard": true,
             "warlock": true,
             "wizard": true
@@ -7235,7 +7235,7 @@
     },
     "enhance_ability": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -7269,7 +7269,7 @@
     },
     "enlarge_or_reduce": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -7301,7 +7301,7 @@
     },
     "enthrall": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "warlock": true
         },
@@ -7330,7 +7330,7 @@
     },
     "fabricate": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -7354,7 +7354,7 @@
     },
     "eyebite": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -7387,7 +7387,7 @@
     },
     "find_steed": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -7411,7 +7411,7 @@
     },
     "find_the_path": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true
@@ -7442,7 +7442,7 @@
     },
     "find_traps": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "ranger": true
@@ -7470,7 +7470,7 @@
     },
     "fire_shield": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -7497,7 +7497,7 @@
     },
     "flame_blade": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -7525,7 +7525,7 @@
     },
     "flame_strike": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -7556,7 +7556,7 @@
     },
     "flaming_sphere": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "wizard": true
         },
@@ -7589,7 +7589,7 @@
     },
     "flesh_to_stone": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "warlock": true,
             "wizard": true
         },
@@ -7621,7 +7621,7 @@
     },
     "forbiddance": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -7648,7 +7648,7 @@
     },
     "freedom_of_movement": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -7681,7 +7681,7 @@
     },
     "geas": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "cleric": true,
             "wizard": true,
             "paladin": true,
@@ -7717,7 +7717,7 @@
     },
     "gentle_repose": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "wizard": true
         },
@@ -7746,7 +7746,7 @@
     },
     "giant_insect": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -7770,7 +7770,7 @@
     },
     "globe_of_invulnerability": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -7800,7 +7800,7 @@
     },
     "glyph_of_warding": {
         "casting_time": "1 hour",
-        "classes": {
+        "class": {
             "cleric": true,
             "wizard": true,
             "bard": true
@@ -7832,7 +7832,7 @@
     },
     "grasping_vine": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "ranger": true,
             "druid": true
         },
@@ -7861,7 +7861,7 @@
     },
     "greater_invisibility": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true,
             "bard": true
@@ -7889,7 +7889,7 @@
     },
     "greater_restoration": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "bard": true
@@ -7920,7 +7920,7 @@
     },
     "guardian_of_faith": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -7947,7 +7947,7 @@
     },
     "guards_and_wards": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "wizard": true,
             "bard": true
         },
@@ -7976,7 +7976,7 @@
     },
     "gust_of_wind": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true,
             "druid": true
@@ -8007,7 +8007,7 @@
     },
     "hallucinatory_terrain": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "warlock": true,
@@ -8040,7 +8040,7 @@
     },
     "hallow": {
         "casting_time": "24 hours",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -8067,7 +8067,7 @@
     },
     "harm": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -8098,7 +8098,7 @@
     },
     "heat_metal": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "bard": true
         },
@@ -8131,7 +8131,7 @@
     },
     "heal": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true
         },
@@ -8158,7 +8158,7 @@
     },
     "heroes'_feast": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true
         },
@@ -8190,7 +8190,7 @@
     },
     "hold_monster": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -8227,7 +8227,7 @@
     },
     "ice_storm": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -8262,7 +8262,7 @@
     },
     "insect_plague": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "sorcerer": true
@@ -8297,7 +8297,7 @@
     },
     "knock": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true,
             "bard": true
@@ -8325,7 +8325,7 @@
     },
     "legend_lore": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "cleric": true,
             "wizard": true,
             "bard": true
@@ -8356,7 +8356,7 @@
     },
     "levitate": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -8388,7 +8388,7 @@
     },
     "locate_animals_or_plants": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "ranger": true
@@ -8419,7 +8419,7 @@
     },
     "lightning_bolt": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -8452,7 +8452,7 @@
     },
     "locate_creature": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -8489,7 +8489,7 @@
     },
     "locate_object": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -8526,7 +8526,7 @@
     },
     "magic_jar": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -8553,7 +8553,7 @@
     },
     "magic_weapon": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "paladin": true,
             "wizard": true
         },
@@ -8580,7 +8580,7 @@
     },
     "magic_mouth": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "bard": true,
             "wizard": true
         },
@@ -8609,7 +8609,7 @@
     },
     "mass_cure_wounds": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true
@@ -8638,7 +8638,7 @@
     },
     "mass_suggestion": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "warlock": true,
@@ -8675,7 +8675,7 @@
     },
     "mirror_image": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "warlock": true,
             "wizard": true
@@ -8703,7 +8703,7 @@
     },
     "mislead": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "wizard": true
         },
@@ -8729,7 +8729,7 @@
     },
     "misty_step": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "warlock": true,
             "wizard": true
@@ -8757,7 +8757,7 @@
     },
     "modify_memory": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "wizard": true
         },
@@ -8787,7 +8787,7 @@
     },
     "moonbeam": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -8818,7 +8818,7 @@
     },
     "move_earth": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -8849,7 +8849,7 @@
     },
     "pass_without_trace": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true
         },
@@ -8878,7 +8878,7 @@
     },
     "passwall": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -8905,7 +8905,7 @@
     },
     "phantasmal_killer": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -8933,7 +8933,7 @@
     },
     "phantasmal_force": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -8964,7 +8964,7 @@
     },
     "planar_ally": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -8988,7 +8988,7 @@
     },
     "planar_binding": {
         "casting_time": "1 hour",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -9022,7 +9022,7 @@
     },
     "polymorph": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "sorcerer": true,
@@ -9058,7 +9058,7 @@
     },
     "programmed_illusion": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "wizard": true
         },
@@ -9087,7 +9087,7 @@
     },
     "raise_dead": {
         "casting_time": "1 hour",
-        "classes": {
+        "class": {
             "cleric": true,
             "paladin": true,
             "bard": true
@@ -9118,7 +9118,7 @@
     },
     "protection_from_poison": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "ranger": true,
             "paladin": true,
@@ -9148,7 +9148,7 @@
     },
     "ray_of_enfeeblement": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "warlock": true,
             "wizard": true
         },
@@ -9177,7 +9177,7 @@
     },
     "reincarnate": {
         "casting_time": "1 hour",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -9204,7 +9204,7 @@
     },
     "rope_trick": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -9231,7 +9231,7 @@
     },
     "scorching_ray": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -9258,7 +9258,7 @@
     },
     "scrying": {
         "casting_time": "10 minutes",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "druid": true,
@@ -9296,7 +9296,7 @@
     },
     "seeming": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -9324,7 +9324,7 @@
     },
     "see_invisibility": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -9355,7 +9355,7 @@
     },
     "shatter": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "warlock": true,
             "wizard": true
@@ -9390,7 +9390,7 @@
     },
     "spider_climb": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "warlock": true,
             "wizard": true
@@ -9421,7 +9421,7 @@
     },
     "spike_growth": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true
         },
@@ -9450,7 +9450,7 @@
     },
     "staggering_smite": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "paladin": true
         },
         "components": {
@@ -9477,7 +9477,7 @@
     },
     "stone_shape": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "wizard": true
@@ -9508,7 +9508,7 @@
     },
     "sunbeam": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -9542,7 +9542,7 @@
     },
     "stoneskin": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "ranger": true,
@@ -9575,7 +9575,7 @@
     },
     "swift_quiver": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "ranger": true
         },
         "components": {
@@ -9602,7 +9602,7 @@
     },
     "telekinesis": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -9628,7 +9628,7 @@
     },
     "teleportation_circle": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -9659,7 +9659,7 @@
     },
     "transport_via_plants": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -9683,7 +9683,7 @@
     },
     "tree_stride": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true
         },
@@ -9709,7 +9709,7 @@
     },
     "true_seeing": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "sorcerer": true,
@@ -9744,7 +9744,7 @@
     },
     "vampiric_touch": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "warlock": true,
             "wizard": true
         },
@@ -9771,7 +9771,7 @@
     },
     "wall_of_fire": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -9806,7 +9806,7 @@
     },
     "wall_of_ice": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -9837,7 +9837,7 @@
     },
     "wall_of_force": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {
@@ -9864,7 +9864,7 @@
     },
     "wall_of_stone": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -9898,7 +9898,7 @@
     },
     "wall_of_thorns": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -9929,7 +9929,7 @@
     },
     "water_breathing": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true,
             "sorcerer": true,
@@ -9962,7 +9962,7 @@
     },
     "water_walk": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true,
             "druid": true,
             "ranger": true,
@@ -9995,7 +9995,7 @@
     },
     "web": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -10027,7 +10027,7 @@
     },
     "wind_walk": {
         "casting_time": "1 minute",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -10054,7 +10054,7 @@
     },
     "wind_wall": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true
         },
@@ -10083,7 +10083,7 @@
     },
     "word_of_recall": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "cleric": true
         },
         "components": {
@@ -10107,7 +10107,7 @@
     },
     "zone_of_truth": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "cleric": true,
             "paladin": true
@@ -10135,7 +10135,7 @@
     },
     "earth_tremor": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "sorcerer": true,
@@ -10169,7 +10169,7 @@
     },
     "pyrotechnics": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "sorcerer": true,
             "wizard": true
@@ -10197,7 +10197,7 @@
     },
     "skywrite": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "wizard": true
@@ -10225,7 +10225,7 @@
     },
     "thunderclap": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "sorcerer": true,
@@ -10260,7 +10260,7 @@
     },
     "warding_wind": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "bard": true,
             "druid": true,
             "sorcerer": true
@@ -10288,7 +10288,7 @@
     },
     "control_flames": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -10316,7 +10316,7 @@
     },
     "create_bonfire": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "warlock": true,
@@ -10349,7 +10349,7 @@
     },
     "frostbite": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "warlock": true,
@@ -10382,7 +10382,7 @@
     },
     "gust": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -10410,7 +10410,7 @@
     },
     "magic_stone": {
         "casting_time": "1 bonus action",
-        "classes": {
+        "class": {
             "druid": true,
             "warlock": true
         },
@@ -10436,7 +10436,7 @@
     },
     "mold_earth": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -10464,7 +10464,7 @@
     },
     "shape_water": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -10492,7 +10492,7 @@
     },
     "absorb_elements": {
         "casting_time": "1 reaction, which you take when you take acid, cold, fire, lightning, or thunder damage",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true,
             "wizard": true
@@ -10521,7 +10521,7 @@
     },
     "beast_bond": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true
         },
@@ -10550,7 +10550,7 @@
     },
     "ice_knife": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -10585,7 +10585,7 @@
     },
     "earthbind": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "warlock": true,
@@ -10615,7 +10615,7 @@
     },
     "dust_devil": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -10647,7 +10647,7 @@
     },
     "catapult": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -10677,7 +10677,7 @@
     },
     "control_winds": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -10705,7 +10705,7 @@
     },
     "bones_of_the_earth": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -10733,7 +10733,7 @@
     },
     "erupting_earth": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -10768,7 +10768,7 @@
     },
     "elemental_bane": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "warlock": true,
             "wizard": true
@@ -10800,7 +10800,7 @@
     },
     "flame_arrows": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "ranger": true,
             "sorcerer": true,
@@ -10831,7 +10831,7 @@
     },
     "investiture_of_flame": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "warlock": true,
@@ -10864,7 +10864,7 @@
     },
     "investiture_of_ice": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "warlock": true,
@@ -10897,7 +10897,7 @@
     },
     "investiture_of_stone": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "warlock": true,
@@ -10930,7 +10930,7 @@
     },
     "investiture_of_wind": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "warlock": true,
@@ -10963,7 +10963,7 @@
     },
     "maelstrom": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -10990,7 +10990,7 @@
     },
     "primordial_ward": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true
         },
         "components": {
@@ -11014,7 +11014,7 @@
     },
     "tidal_wave": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "wizard": true
         },
@@ -11046,7 +11046,7 @@
     },
     "transmute_rock": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "wizard": true
         },
@@ -11078,7 +11078,7 @@
     },
     "wall_of_water": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -11109,7 +11109,7 @@
     },
     "watery_sphere": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "sorcerer": true,
             "wizard": true
@@ -11140,7 +11140,7 @@
     },
     "whirlwind": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "druid": true,
             "wizard": true
         },
@@ -11172,7 +11172,7 @@
     },
     "immolation": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -11201,7 +11201,7 @@
     },
     "storm_sphere": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -11228,7 +11228,7 @@
     },
     "vitriolic_sphere": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "sorcerer": true,
             "wizard": true
         },
@@ -11261,7 +11261,7 @@
     },
     "wall_of_sand": {
         "casting_time": "1 action",
-        "classes": {
+        "class": {
             "wizard": true
         },
         "components": {

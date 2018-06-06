@@ -48,6 +48,9 @@ const webhook = (request, response) => {
             case 'query.level':
                 responses.query.spellLevel(request, response);
                 break;
+            case 'query.class':
+                responses.query.spellClass(request, response);
+                break;
             case 'input.welcome':
                 responses.welcome(request, response);
                 break;
@@ -68,7 +71,7 @@ const tools = {
         return db.collection('spells').doc(spellName.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase()).get();
     },
     querySpell: (key, value, limit = 5, operator = '==', order = 'name') => {
-        return db.collection('spells').where(key, operator, value).orderBy(order).limit(limit).get();
+        return db.collection('spells').where(key, operator, value).limit(limit).get();
     },
     buildRow: data => {
         let output = {
@@ -275,6 +278,34 @@ const responses = {
 
                     if(spells.length) {
                         output = `The School of ${request.body.queryResult.parameters.School} includes ${spells.join(", ")}`;
+                        if (listSize > readLimit) {
+                            output = `${output} and ${listSize - 5} others.`;
+                        }
+                    }
+
+                    let suggestions = [];
+                    response.json(tools.setResponse(request, output, suggestions));
+                });
+        },
+        spellClass: (request, response) => {
+                tools.querySpell(`class.${request.body.queryResult.parameters.Class.toLowerCase()}`, true, 1000).then(list => {
+                    let spells = [],
+                        output = "I can't find spells for this Class",
+                        listSize = list.size,
+                        readLimit = 5,
+                        readCounter = 0;
+
+                    list.forEach(spell => {
+                        if(readCounter <= readLimit) {
+                            spells.push(spell.data().name);
+                            readCounter = readCounter + 1;
+                        } else {
+                            list = null;
+                        }
+                    });
+
+                    if(spells.length) {
+                        output = `${request.body.queryResult.parameters.Class} spells include ${spells.join(", ")}`;
                         if (listSize > readLimit) {
                             output = `${output} and ${listSize - 5} others.`;
                         }
