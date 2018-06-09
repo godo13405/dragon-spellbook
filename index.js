@@ -136,36 +136,27 @@ const tools = {
                 output: input
             };
         }
-        if (!input.richOutput) {
-            input.richOutput = {
-                "items": []
-            };
-        }
-        input.richOutput.items.unshift({
-            "simpleResponse": {
-                "textToSpeech": input.output
-            }
-        });
-        if (input.suggestions) {
-            input.richOutput.suggestions = input.suggestions;
-        } else if (suggestions.length) {
-            input.richOutput.suggestions = suggestions;
-        }
-        let res = {};
-        res.fulfillmentText = input.output;
+        let res = {
+            fulfillmentText: input.output,
+            fulfillmentMessages: []
+        };
         res.payload = {
             google: {
                 expectUserResponse: true,
-                richResponse: input.richOutput
+                richResponse: {
+                    items: [{
+                        simpleResponse: {
+                            textToSpeech: input.output
+                        }
+                    }]
+                }
             },
             slack: {
-                text: input.output.replace(/\*\*+/g, '*')
+                text: tools.formatText(input.output, 'slack')
             }
         };
-        if (input.slackRichOutput) {
-            res.payload.slack.attachments = [
-                input.slackRichOutput
-            ];
+        if (input.card) {
+            res = tools.buildCard(res, input.card);
         }
         if (spellName) {
             res.outputContexts = [{
@@ -177,6 +168,101 @@ const tools = {
             }];
         }
         return res;
+    },
+    buildButtons: (input, platform = 'google') => {
+        let buttons = [],
+            output = false,
+            button;
+        switch (platform) {
+            case ('dialogflow'):
+                buttons = [];
+                input.forEach(btn => {
+                    button = {};
+                    input.title ? button.title = input.title : null;
+                    input.url ? button.postback = input.url : null;
+                    buttons.push(button);
+                });
+                output = buttons;
+                break;
+            case ('google'):
+                buttons = [];
+                input.forEach(btn => {
+                    button = {};
+                    input.title ? button.title = input.title : null;
+                    input.url ? button.openUrlAction = {
+                        url: input.url
+                    } : null;
+                    buttons.push(button);
+                });
+                output = buttons;
+                break;
+            case ('slack'):
+                actions = [];
+                input.forEach(btn => {
+                    button = {};
+                    if (input.title) {
+                        button.text = input.title;
+                        button.type = input.title;
+                        button.value = input.title;
+                    }
+                    actions.push(button);
+                });
+                output = actions;
+                break;
+        }
+        return output;
+    },
+    formatText: (input, platform = 'slack') => {
+        let output;
+
+        switch (platform) {
+            case ('slack'):
+                output = input.replace(/\*\*+/g, '*');
+                break;
+        }
+        return output;
+    },
+    buildCard: (output, input, platforms = ['dialogflow', 'google', 'slack']) => {
+        let card;
+
+        if (platforms.includes('dialogflow')) {
+            card = {};
+            input.title ? card.title = input.title : null;
+            input.text ? card.subtitle = input.text : null;
+            input.image ? card.imageUri = input.imageUri : null;
+            input.buttons && input.buttons.length ? card.buildButtons(input.buttons, 'dialogflow') : null;
+            output.fulfillmentMessages.push({
+                card
+            });
+        }
+        if (platforms.includes('google')) {
+            card = {};
+            input.title ? card.title = input.title : null;
+            input.subtitle ? card.subtitle = input.subtitle : null;
+            input.text ? card.formattedText = input.text : null;
+            input.image ? card.image_url = input.image : null;
+            output.payload.google.richResponse.items.push({
+                basicCard: card
+            });
+        }
+        if (platforms.includes('slack')) {
+            card = {};
+            input.title ? card.title = input.title : null;
+            input.subtitle ? card.author_name = input.subtitle : null;
+            input.text ? card.formattedText = input.text : null;
+            input.image ? card.image = {
+                url: input.image,
+                accessibilityText: input.title ? input.title : null
+            } : null;
+            input.buttons && input.buttons.length ? card.actions = buildButtons(input.buttons, 'slack') : null;
+            input.suggestions && input.suggestions.length ? card.push(buildButtons(input.suggestions, 'slack')) : null;
+            if (!output.payload.slack.attachments || !output.payload.slack.attachments.length) {
+                output.payload.slack.attachments = [];
+            }
+            output.payload.slack.attachments.push(card);
+        }
+
+        return output;
     },
     listByLevel: (level, list) => {
         let spells = [],
@@ -247,6 +333,8 @@ const responses = {
                 });
             }
             response.json(tools.setResponse(request, output, suggestions));
+        }).catch(err => {
+            console.log(err);
         });
     },
     spellDamage: (request, response) => {
@@ -267,6 +355,8 @@ const responses = {
                 });
             }
             response.json(tools.setResponse(request, output, suggestions));
+        }).catch(err => {
+            console.log(err);
         });
     },
     spellInit: (request, response) => {
@@ -278,9 +368,10 @@ const responses = {
 
                 let responseInput = {
                     output: speechOutput,
-                    slackRichOutput: {
+                    card: {
                         title: spell.name,
-                        text: spell.description.replace(/\*\*+/g, '*')
+                        subtitle: spell.type,
+                        text: spell.description
                     }
                 };
 
@@ -321,6 +412,8 @@ const responses = {
 
                 let suggestions = [];
                 response.json(tools.setResponse(request, output, suggestions));
+            }).catch(err => {
+                console.log(err);
             });
         },
         spellClass: (request, response) => {
@@ -349,6 +442,8 @@ const responses = {
 
                 let suggestions = [];
                 response.json(tools.setResponse(request, output, suggestions));
+            }).catch(err => {
+                console.log(err);
             });
         },
         spellLevel: (request, response) => {
@@ -368,11 +463,15 @@ const responses = {
                         console.log(err);
                     })
                 );
+            }).catch(err => {
+                console.log(err);
             });
 
             Promise.all(queries).then(() => {
                 outputs = outputs.join('\n');
                 response.json(tools.setResponse(request, outputs, suggestions));
+            }).catch(err => {
+                console.log(err);
             });
         }
     }
