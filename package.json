@@ -5,7 +5,7 @@
     "lint": "eslint .",
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",
-    "start": "clear && eslint . && node index",
+    "start": "node index",
     "deploy": "clear && firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
