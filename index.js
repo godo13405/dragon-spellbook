@@ -130,14 +130,17 @@ const tools = {
         }
         return suggestions;
     },
+    cleanText: text => {
+        return text.replace(/\*+/g, '').replace(/\_+/g, '');
+    },
     setResponse: (request, input, suggestions = []) => {
         if (typeof input === 'string') {
             input = {
-                output: input
+                speech: input
             };
         }
         let res = {
-            fulfillmentText: input.output,
+            fulfillmentText: input.speech,
             fulfillmentMessages: []
         };
         res.payload = {
@@ -146,13 +149,14 @@ const tools = {
                 richResponse: {
                     items: [{
                         simpleResponse: {
-                            textToSpeech: input.output
+                            textToSpeech: input.speech ? input.speech : input.text,
+                            displayText: input.text ? input.text : input.speech
                         }
                     }]
                 }
             },
             slack: {
-                text: tools.formatText(input.output, 'slack')
+                text: tools.formatText(input.speech, 'slack')
             }
         };
         if (input.card) {
@@ -213,12 +217,13 @@ const tools = {
         return output;
     },
     formatText: (input, platform = 'slack') => {
-        let output;
-
-        switch (platform) {
-            case ('slack'):
-                output = input.replace(/\*\*+/g, '*');
-                break;
+        let output = null;
+        if (input && input.length) {
+            switch (platform) {
+                case ('slack'):
+                    output = input.replace(/\*\*+/g, '*');
+                    break;
+            }
         }
         return output;
     },
@@ -249,7 +254,7 @@ const tools = {
             card = {};
             input.title ? card.title = input.title : null;
             input.subtitle ? card.author_name = input.subtitle : null;
-            input.text ? card.formattedText = input.text : null;
+            input.text ? card.text = input.text : null;
             input.image ? card.image = {
                 url: input.image,
                 accessibilityText: input.title ? input.title : null
@@ -299,6 +304,37 @@ const tools = {
         }
 
         return output;
+    },
+    listByClass: (theClass, list) => {
+        let output = {
+                speech: `I don't know any ${theClass} spells.`,
+                data: []
+            },
+            listSize = list.size,
+            readLimit = listSize > 1 ? 3 : 5,
+            readCounter = 0,
+            className = listSize > 1 ? `${theClass} spells include` : `${theClass} spell is`;
+
+        list.forEach(spell => {
+            if (readCounter <= readLimit) {
+                output.data.push(`${spell.data().name}`);
+                readCounter = readCounter + 1;
+            } else {
+                list = null;
+            }
+        });
+
+        if (output.data.length) {
+            output.speech = `${className} ${output.data.join(", ")}`;
+            if (listSize > readLimit) {
+                output.speech = `${output.speech} and ${listSize - readLimit} others.`;
+            }
+        }
+
+        output.size = listSize;
+        output.className = theClass;
+
+        return output;
     }
 };
 
@@ -317,10 +353,10 @@ const responses = {
     spellDuration: (request, response) => {
         tools.getSpell().then(data => {
             let spell = data.data(),
-                output = "This spell has no duration.";
+                speech = "This spell has no duration.";
 
             if (spell && spell.duration) {
-                output = `${spell.name} lasts for ${spell.duration}`;
+                speech = `${spell.name} lasts for ${spell.duration}`;
             }
 
             let suggestions = [{
@@ -332,7 +368,7 @@ const responses = {
                     "title": `what damage does it do`
                 });
             }
-            response.json(tools.setResponse(request, output, suggestions));
+            response.json(tools.setResponse(request, speech, suggestions));
         }).catch(err => {
             console.log(err);
         });
@@ -340,10 +376,10 @@ const responses = {
     spellDamage: (request, response) => {
         tools.getSpell().then(data => {
             let spell = data.data(),
-                output = "This spell doesn't cause damage.";
+                speech = "This spell doesn't cause damage.";
 
             if (spell && spell.damage) {
-                output = `${spell.name} does ${spell.damage}`;
+                speech = `${spell.name} does ${spell.damage}`;
             }
 
             let suggestions = [{
@@ -354,7 +390,7 @@ const responses = {
                     "title": `how long does it last?`
                 });
             }
-            response.json(tools.setResponse(request, output, suggestions));
+            response.json(tools.setResponse(request, speech, suggestions));
         }).catch(err => {
             console.log(err);
         });
@@ -367,7 +403,7 @@ const responses = {
                 let speechOutput = `${spell.name} is a ${spell.type}`;
 
                 let responseInput = {
-                    output: speechOutput,
+                    speech: speechOutput,
                     card: {
                         title: spell.name,
                         subtitle: spell.type,
@@ -417,34 +453,38 @@ const responses = {
             });
         },
         spellClass: (request, response) => {
-            tools.querySpell(`class.${request.body.queryResult.parameters.Class.toLowerCase()}`, true, 1000).then(list => {
-                let spells = [],
-                    output = "I can't find spells for this Class",
-                    listSize = list.size,
-                    readLimit = 5,
-                    readCounter = 0;
+            let classes = request.body.queryResult.parameters.Class;
 
-                list.forEach(spell => {
-                    if (readCounter <= readLimit) {
-                        spells.push(spell.data().name);
-                        readCounter = readCounter + 1;
-                    } else {
-                        list = null;
-                    }
+            let talk = "",
+                outputs = [],
+                suggestions = [],
+                queries = [],
+                level;
+            classes.forEach((theClass) => {
+                queries.push(
+                    tools.querySpell(`class.${theClass.toLowerCase()}`, true, 1000).then(list => {
+                        let output = tools.listByClass(theClass, list);
+                        outputs.push(output);
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                );
+            });
+
+            Promise.all(queries).then(() => {
+                let respond = {
+                        speech: []
+                    };
+                outputs.forEach(theResponse => {
+                    respond.speech.push(theResponse.speech);
                 });
 
-                if (spells.length) {
-                    output = `${request.body.queryResult.parameters.Class} spells include ${spells.join(", ")}`;
-                    if (listSize > readLimit) {
-                        output = `${output} and ${listSize - 5} others.`;
-                    }
-                }
-
-                let suggestions = [];
-                response.json(tools.setResponse(request, output, suggestions));
+                respond.speech = respond.speech.join('\n');
+                response.json(tools.setResponse(request, respond));
             }).catch(err => {
                 console.log(err);
             });
+
         },
         spellLevel: (request, response) => {
             let levels = request.body.queryResult.parameters.Level;
@@ -463,12 +503,10 @@ const responses = {
                         console.log(err);
                     })
                 );
-            }).catch(err => {
-                console.log(err);
             });
 
             Promise.all(queries).then(() => {
-                outputs = outputs.join('\n');
+                outputs = outputs.join('.\n    ');
                 response.json(tools.setResponse(request, outputs, suggestions));
             }).catch(err => {
                 console.log(err);
