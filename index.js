@@ -34,6 +34,9 @@ const webhook = (request, response) => {
             case ('spell.init' || 'spell.folllowupInit'):
                 responses.spellInit(request, response);
                 break;
+            case ('spell.description'):
+                responses.spellDescription(request, response);
+                break;
             case 'spell.damage':
                 responses.spellDamage(request, response);
                 break;
@@ -394,6 +397,25 @@ const responses = {
         }).catch(err => {
             console.log(err);
         });
+    },
+    spellDescription: (request, response) => {
+        tools.getSpell()
+            .then(data => {
+                let spell = data.data();
+
+                let responseInput = {
+                    speech: spell.description
+                };
+
+
+                response.json(tools.setResponse(request, responseInput, tools.getSuggestions(spell, [
+                    'damage',
+                    'materials',
+                    'higher_levels'
+                ])));
+            }).catch(err => {
+                console.log(err);
+            });
     },
     spellInit: (request, response) => {
         tools.getSpell()
