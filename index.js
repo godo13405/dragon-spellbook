@@ -90,7 +90,7 @@ const tools = {
 
         return output;
     },
-    getSuggestions: (spell = null, input = []) => {
+    getSuggestions: (input = [], spell = null) => {
         let suggestions = [];
 
         if (spell) {
@@ -125,11 +125,11 @@ const tools = {
                 });
             }
         } else {
-            for (var i = 0; i < input.length; i++) {
+            input.forEach(sugg => {
                 suggestions.push({
-                    "title": input[i]
+                    "title": sugg
                 });
-            }
+            });
         }
         return suggestions;
     },
@@ -152,8 +152,8 @@ const tools = {
                 richResponse: {
                     items: [{
                         simpleResponse: {
-                            textToSpeech: input.speech ? input.speech : input.text,
-                            displayText: input.text ? input.text : input.speech
+                            textToSpeech: tools.cleanText(input.speech ? input.speech : input.text),
+                            displayText: tools.cleanText(input.text ? input.text : input.speech)
                         }
                     }]
                 }
@@ -164,6 +164,9 @@ const tools = {
         };
         if (input.card) {
             res = tools.buildCard(res, input.card);
+        }
+        if (suggestions.length) {
+            res.payload.google.richResponse.suggestions = suggestions;
         }
         if (spellName) {
             res.outputContexts = [{
@@ -408,11 +411,11 @@ const responses = {
                 };
 
 
-                response.json(tools.setResponse(request, responseInput, tools.getSuggestions(spell, [
+                response.json(tools.setResponse(request, responseInput, tools.getSuggestions([
                     'damage',
                     'materials',
                     'higher_levels'
-                ])));
+                ], spell)));
             }).catch(err => {
                 console.log(err);
             });
@@ -434,11 +437,11 @@ const responses = {
                 };
 
 
-                response.json(tools.setResponse(request, responseInput, tools.getSuggestions(spell, [
+                response.json(tools.setResponse(request, responseInput, tools.getSuggestions([
                     'damage',
                     'materials',
                     'higher_levels'
-                ])));
+                ], spell)));
             }).catch(err => {
                 console.log(err);
             });
