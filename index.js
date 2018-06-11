@@ -2,7 +2,8 @@
 
 const express = require('express'),
     firebase = require('firebase-admin'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    capabilities = [];
 
 firebase.initializeApp({
     credential: firebase.credential.cert('./service-key.json'),
@@ -18,6 +19,21 @@ const db = firebase.firestore(),
 let spellName = false;
 
 const webhook = (request, response) => {
+    // Get surface capabilities, such as screen
+    if (request.body.originalDetectIntentRequest.payload && request.body.originalDetectIntentRequest.source === 'google') {
+        request.body.originalDetectIntentRequest.payload.surface.capabilities.forEach(cap => {
+            cap = cap.name.split('.');
+            cap = cap[cap.length - 1];
+            capabilities.push(cap);
+        });
+        /*
+             [ 'AUDIO_OUTPUT',
+              'SCREEN_OUTPUT',
+              'MEDIA_RESPONSE_AUDIO',
+              'WEB_BROWSER' ]
+        */
+    }
+
     // get the spell's name from parameters or context
     if (request.body.queryResult) {
         if (request.body.queryResult.parameters && request.body.queryResult.parameters.spell) {
@@ -69,6 +85,32 @@ const webhook = (request, response) => {
     }
 };
 
+const sak = {
+    shuffleArray: (arr, limit) => {
+        let output = arr.sort(() => {
+            return 0.5 - Math.random()
+        });
+        if (limit) {
+            output = output.slice(0, limit + 1);
+        }
+        return output;
+    },
+    cleanText: text => {
+        return text.replace(/\*+/g, '').replace(/\_+/g, '');
+    },
+    formatText: (input, platform = 'slack') => {
+        let output = null;
+        if (input && input.length) {
+            switch (platform) {
+                case ('slack'):
+                    output = input.replace(/\*\*+/g, '*');
+                    break;
+            }
+        }
+        return output;
+    }
+};
+
 const tools = {
     getSpell: () => {
         return db.collection('spells').doc(spellName.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase()).get();
@@ -90,39 +132,75 @@ const tools = {
 
         return output;
     },
-    getSuggestions: (input = [], spell = null) => {
+    getSuggestions: (input = [], spell = null, suggestionIntro = 'I can also tell you ') => {
         let suggestions = [];
 
         if (spell) {
             if (input.includes('description') && spell.description) {
-                suggestions.push({
-                    "title": `what is ${spellName}?`
-                });
+                if (capabilities.includes('SCREEN_OUTPUT')) {
+                    suggestions.push({
+                        "title": `what is ${spellName}?`
+                    });
+                } else if (capabilities.includes('AUDIO_OUTPUT')){
+                    suggestions.push({
+                        "title": `what it is`
+                    });
+                }
             }
             if (input.includes('damage') && spell.damage) {
-                suggestions.push({
-                    "title": `what damage does it do?`
-                });
+                if (capabilities.includes('SCREEN_OUTPUT')) {
+                    suggestions.push({
+                        "title": `what damage does it do?`
+                    });
+                } else if (capabilities.includes('AUDIO_OUTPUT')){
+                    suggestions.push({
+                        "title": `what damage it does`
+                    });
+                }
             }
             if (input.includes('duration') && spell.duration) {
-                suggestions.push({
-                    "title": `how long does it last?`
-                });
+                if (capabilities.includes('SCREEN_OUTPUT')) {
+                    suggestions.push({
+                        "title": `how long does it last?`
+                    });
+                } else if (capabilities.includes('AUDIO_OUTPUT')){
+                    suggestions.push({
+                        "title": `how long it lasts`
+                    });
+                }
             }
             if (input.includes('cast_time') && spell.cast_time) {
-                suggestions.push({
-                    "title": `how long does it take to cast?`
-                });
+                if (capabilities.includes('SCREEN_OUTPUT')) {
+                    suggestions.push({
+                        "title": `how long does it take to cast?`
+                    });
+                } else if (capabilities.includes('AUDIO_OUTPUT')){
+                    suggestions.push({
+                        "title": `how long it takes to cast`
+                    });
+                }
             }
             if (input.includes('materials') && spell.components && spell.components.material) {
-                suggestions.push({
-                    "title": `what materials do I need`
-                });
+                if (capabilities.includes('SCREEN_OUTPUT')) {
+                    suggestions.push({
+                        "title": `what materials do I need`
+                    });
+                } else if (capabilities.includes('AUDIO_OUTPUT')){
+                    suggestions.push({
+                        "title": `what materials it needs`
+                    });
+                }
             }
             if (input.includes('materials') && spell.higher_levels) {
-                suggestions.push({
-                    "title": `how does it level up`
-                });
+                if (capabilities.includes('SCREEN_OUTPUT')) {
+                    suggestions.push({
+                        "title": `how does it level up`
+                    });
+                } else if (capabilities.includes('AUDIO_OUTPUT')){
+                    suggestions.push({
+                        "title": `how it levels up`
+                    });
+                }
             }
         } else {
             input.forEach(sugg => {
@@ -131,10 +209,25 @@ const tools = {
                 });
             });
         }
+
+        // prevent too many suggestions
+        suggestions = sak.shuffleArray(suggestions, 3);
+
+        // structure voice suggestions
+        if (!capabilities.includes('SCREEN_OUTPUT') && capabilities.includes('AUDIO_OUTPUT')) {
+            let sugg = '';
+            for (var i = suggestions.length - 1; i >= 0; i--) {
+                sugg = sugg + suggestions[i].title;
+                if (i === 1) {
+                    sugg = sugg + " or ";
+                } else if (i > 1){
+                    sugg = sugg + ', ';
+                }
+            }
+            suggestions = `${suggestionIntro} ${sugg}`;
+        }
+
         return suggestions;
-    },
-    cleanText: text => {
-        return text.replace(/\*+/g, '').replace(/\_+/g, '');
     },
     setResponse: (request, input, suggestions = []) => {
         if (typeof input === 'string') {
@@ -142,6 +235,19 @@ const tools = {
                 speech: input
             };
         }
+
+        // no text? take the speech
+        if (!input.text && input.speech)
+            input.text = input.speech;
+        // no speech? take the text
+        if (!input.speech && input.text)
+            input.speech = input.text;
+
+        // if it doesn't have a screen, read out the suggestions
+        if (suggestions.length && !capabilities.includes('SCREEN_OUTPUT') && capabilities.includes('AUDIO_OUTPUT')) {
+            input.speech = `<speech>${input.speech}.<break time='5s'/>${suggestions}</speech>`;
+        }
+
         let res = {
             fulfillmentText: input.speech,
             fulfillmentMessages: []
@@ -149,23 +255,24 @@ const tools = {
         res.payload = {
             google: {
                 expectUserResponse: true,
+                is_ssml: true,
                 richResponse: {
                     items: [{
                         simpleResponse: {
-                            textToSpeech: tools.cleanText(input.speech ? input.speech : input.text),
-                            displayText: tools.cleanText(input.text ? input.text : input.speech)
+                            textToSpeech: sak.cleanText(input.speech),
+                            displayText: sak.cleanText(input.text)
                         }
                     }]
                 }
             },
             slack: {
-                text: tools.formatText(input.speech, 'slack')
+                text: sak.formatText(input.speech, 'slack')
             }
         };
         if (input.card) {
             res = tools.buildCard(res, input.card);
         }
-        if (suggestions.length) {
+        if (suggestions.length  && capabilities.includes('SCREEN_OUTPUT')) {
             res.payload.google.richResponse.suggestions = suggestions;
         }
         if (spellName) {
@@ -219,17 +326,6 @@ const tools = {
                 });
                 output = actions;
                 break;
-        }
-        return output;
-    },
-    formatText: (input, platform = 'slack') => {
-        let output = null;
-        if (input && input.length) {
-            switch (platform) {
-                case ('slack'):
-                    output = input.replace(/\*\*+/g, '*');
-                    break;
-            }
         }
         return output;
     },
@@ -317,9 +413,9 @@ const tools = {
                 data: []
             },
             listSize = list.size,
-            readLimit = listSize > 1 ? 3 : 5,
+            readLimit = 3,
             readCounter = 0,
-            className = listSize > 1 ? `${theClass} spells include` : `${theClass} spell is`;
+            className = listSize > 1 ? `There are ${listSize} ${theClass} spells including` : `${theClass} spell is`;
 
         list.forEach(spell => {
             if (readCounter <= readLimit) {
@@ -332,9 +428,7 @@ const tools = {
 
         if (output.data.length) {
             output.speech = `${className} ${output.data.join(", ")}`;
-            if (listSize > readLimit) {
-                output.speech = `${output.speech} and ${listSize - readLimit} others.`;
-            }
+            output.speech.replace(/,([^,]*)$/,' and');
         }
 
         output.size = listSize;
@@ -349,7 +443,7 @@ const responses = {
         let talk = tools.setResponse(request, `Hi! What spell do you want to know about?`, tools.getSuggestions([
             `what is Acid Splash`,
             `what damage does Harm do`
-        ]));
+        ], undefined, 'You can ask me stuff like '));
         response.json(talk);
     },
     fallback: (request, response) => {
@@ -441,7 +535,7 @@ const responses = {
                     'damage',
                     'materials',
                     'higher_levels'
-                ], spell)));
+                ], spell, 'Would you like to know ')));
             }).catch(err => {
                 console.log(err);
             });
@@ -478,37 +572,30 @@ const responses = {
             });
         },
         spellClass: (request, response) => {
-            let classes = request.body.queryResult.parameters.Class;
-
-            let talk = "",
-                outputs = [],
+            let classes = request.body.queryResult.parameters.Class,
                 suggestions = [],
-                queries = [],
                 level;
-            classes.forEach((theClass) => {
-                queries.push(
+
+            if (classes.length > 1) {
+                let classesSuggestion = [];
+                classes.forEach(theClass => {
+                    classesSuggestion.push(`what are ${theClass} spells?`);
+                });
+                tools.setResponse(request, 'Sorry, can we do this one at a time?', tools.getSuggestions(classesSuggestion))
+            } else {
                     tools.querySpell(`class.${theClass.toLowerCase()}`, true, 1000).then(list => {
-                        let output = tools.listByClass(theClass, list);
-                        outputs.push(output);
+                        let output = {
+                            speech: tools.listByClass(theClass, list)
+                        };
+                        console.log(output);
+                        response.json(tools.setResponse(request, output, [
+                            'level 1',
+                            `level 3 ${classes[0]} spells`
+                        ]));
                     }).catch(err => {
                         console.log(err);
-                    })
-                );
-            });
-
-            Promise.all(queries).then(() => {
-                let respond = {
-                        speech: []
-                    };
-                outputs.forEach(theResponse => {
-                    respond.speech.push(theResponse.speech);
-                });
-
-                respond.speech = respond.speech.join('\n');
-                response.json(tools.setResponse(request, respond));
-            }).catch(err => {
-                console.log(err);
-            });
+                    });
+            }
 
         },
         spellLevel: (request, response) => {
