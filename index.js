@@ -80,7 +80,6 @@ const webhook = (request, response) => {
                 responses.fallback(request, response);
         }
     } else {
-        console.log(request);
         response.send('Problem with the resuest.body. Check the console.log');
     }
 };
@@ -91,12 +90,15 @@ const sak = {
             return 0.5 - Math.random()
         });
         if (limit) {
-            output = output.slice(0, limit + 1);
+            output = output.slice(0, limit);
         }
         return output;
     },
     cleanText: text => {
         return text.replace(/\*+/g, '').replace(/\_+/g, '');
+    },
+    clearSpeech: text => {console.log('clearSpeech', text.replace(/<[^>]*>+/g, ''));
+        return text.replace(/<[^>]*>+/g, '');
     },
     formatText: (input, platform = 'slack') => {
         let output = null;
@@ -245,7 +247,7 @@ const tools = {
 
         // if it doesn't have a screen, read out the suggestions
         if (suggestions.length && !capabilities.includes('SCREEN_OUTPUT') && capabilities.includes('AUDIO_OUTPUT')) {
-            input.speech = `<speech>${input.speech}.<break time='5s'/>${suggestions}</speech>`;
+            input.speech = `${input.speech}.<break time='5s'/>${suggestions}`;
         }
 
         let res = {
@@ -259,8 +261,8 @@ const tools = {
                 richResponse: {
                     items: [{
                         simpleResponse: {
-                            textToSpeech: sak.cleanText(input.speech),
-                            displayText: sak.cleanText(input.text)
+                            textToSpeech: `<speech>${sak.cleanText(input.speech)}</speech>`,
+                            displayText: sak.cleanText(sak.clearSpeech(input.text))
                         }
                     }]
                 }
@@ -407,32 +409,32 @@ const tools = {
 
         return output;
     },
-    listByClass: (theClass, list) => {
+    listByClass: (theClass, listRaw) => {
         let output = {
                 speech: `I don't know any ${theClass} spells.`,
                 data: []
             },
-            listSize = list.size,
-            readLimit = 3,
-            readCounter = 0,
-            className = listSize > 1 ? `There are ${listSize} ${theClass} spells including` : `${theClass} spell is`;
+            listSize = listRaw && listRaw.size ? listRaw.size : 0,
+            shortList = listRaw && listRaw.docs ? sak.shuffleArray(listRaw.docs, 4) : null,
+            className = listSize > 1 ? `There are ${listSize} ${theClass} spells, <break time='350ms' /> including` : `${theClass} spell is`;
 
-        list.forEach(spell => {
-            if (readCounter <= readLimit) {
-                output.data.push(`${spell.data().name}`);
-                readCounter = readCounter + 1;
-            } else {
-                list = null;
+        if (listSize) {
+            output.speech = '';
+            for (var i = shortList.length - 1; i >= 0; i--) {
+                output.speech = output.speech + shortList[i]._fieldsProto.name.stringValue;
+                if (i === 1) {
+                    output.speech = output.speech + ' and ';
+                } else if (i > 1) {
+                    output.speech = output.speech + ', ';
+                }
+                console.log(i, shortList[i]._fieldsProto.name.stringValue, output.speech);
             }
-        });
-
-        if (output.data.length) {
-            output.speech = `${className} ${output.data.join(", ")}`;
-            output.speech.replace(/,([^,]*)$/,' and');
+            output.speech = `${className} ${output.speech}`;
         }
 
         output.size = listSize;
         output.className = theClass;
+
 
         return output;
     }
@@ -572,29 +574,19 @@ const responses = {
             });
         },
         spellClass: (request, response) => {
-            let classes = request.body.queryResult.parameters.Class,
-                suggestions = [],
-                level;
+            let classes = request.body.queryResult.parameters.Class;
 
             if (classes.length > 1) {
-                let classesSuggestion = [];
-                classes.forEach(theClass => {
-                    classesSuggestion.push(`what are ${theClass} spells?`);
-                });
-                tools.setResponse(request, 'Sorry, can we do this one at a time?', tools.getSuggestions(classesSuggestion))
+                response.json(tools.setResponse(request, 'Sorry, can we do this one class at a time?'));
             } else {
-                    tools.querySpell(`class.${theClass.toLowerCase()}`, true, 1000).then(list => {
-                        let output = {
-                            speech: tools.listByClass(theClass, list)
-                        };
-                        console.log(output);
-                        response.json(tools.setResponse(request, output, [
-                            'level 1',
-                            `level 3 ${classes[0]} spells`
-                        ]));
-                    }).catch(err => {
-                        console.log(err);
-                    });
+                tools.querySpell(`class.${classes[0].toLowerCase()}`, true, 1000).then(list => {
+                    let output = tools.listByClass(classes[0], list);
+                    response.json(tools.setResponse(request, output, tools.getSuggestions([
+                        `which are level ${Math.ceil(Math.random()*9)}`
+                    ])));
+                }).catch(err => {
+                    console.log(err);
+                });
             }
 
         },
