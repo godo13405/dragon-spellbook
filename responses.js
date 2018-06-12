@@ -1,18 +1,18 @@
 'use strict';
 
 exports = module.exports = {
-    welcome: (request, response) => {
+    welcome: () => {
         let talk = tools.setResponse(request, `Hi! What spell do you want to know about?`, tools.getSuggestions([
             `what is Acid Splash`,
             `what damage does Harm do`
         ], undefined, 'You can ask me stuff like '));
         response.json(talk);
     },
-    fallback: (request, response) => {
+    fallback: () => {
         let talk = tools.setResponse(request, `Sorry, I didn't get that, can you try again?`);
         return response.json(talk);
     },
-    spellDuration: (request, response) => {
+    spellDuration: () => {
         tools.getSpell().then(data => {
             let spell = data.data(),
                 speech = "This spell has no duration.";
@@ -35,7 +35,7 @@ exports = module.exports = {
             console.log(err);
         });
     },
-    spellDamage: (request, response) => {
+    spellDamage: () => {
         tools.getSpell().then(data => {
             let spell = data.data(),
                 speech = "This spell doesn't cause damage.";
@@ -57,7 +57,7 @@ exports = module.exports = {
             console.log(err);
         });
     },
-    spellDescription: (request, response) => {
+    spellDescription: () => {
         tools.getSpell()
             .then(data => {
                 let spell = data.data();
@@ -76,7 +76,7 @@ exports = module.exports = {
                 console.log(err);
             });
     },
-    spellInit: (request, response) => {
+    spellInit: () => {
         tools.getSpell()
             .then(data => {
                 let spell = data.data();
@@ -103,7 +103,7 @@ exports = module.exports = {
             });
     },
     query: {
-        spellComplex: (request, response) => {
+        spellComplex: () => {
             // check how many parameters are defined
             let keys = {
                 Class: false,
@@ -127,11 +127,6 @@ exports = module.exports = {
             queryWhere = [];
 
             for (let k in keys) {
-                // is it a direct comparison, or do I need to look in an object?
-                let q = `${k}`;
-                if (keysSetup[k].deep) {
-                    q = `${k}.${keys[k]}`;
-                }
 
                 // is this key in a context from a previous action?
                 let spellContext = false;
@@ -143,34 +138,42 @@ exports = module.exports = {
                     }
                 } 
                 if (request.body.queryResult.parameters[k] && request.body.queryResult.parameters[k].length) {
-                    keys[k] = request.body.queryResult.parameters[k];
+                	if (request.body.queryResult.parameters[k].length > 1) {
+                		response.json(tools.setResponse(request, `Sorry, can we do this one ${k.toLowerCase()} at a time?`));
+                		break;
+                	} else {
+                    	keys[k] = request.body.queryResult.parameters[k][0];
+                    }
                 } else if (spellContext && spellContext.parameters[k]) {
                     keys[k] = spellContext.parameters[k];
                 }
 
-                if (keys[k].length > 1) {
-                    response.json(tools.setResponse(request, `Sorry, can we do this one ${k.toLowerCase()} at a time?`));
-                    break;
-                } else {
+                // is it a direct comparison, or do I need to look in an object?
+                let q = `${k.toLowerCase()}`;
+                if (keysSetup[k].deep && keys[k]) {
+                    q = `${k.toLowerCase()}.${keys[k].toLowerCase()}`;
+                }
+
+                if (keys[k]){
                     queryWhere.push([
                         q,
                         '==',
-                        true
+                        keysSetup[k].deep ? true : keys[k].toLowerCase()
                     ]);
+                    console.log('queryWhere: ', queryWhere);
                 }
             };
 
             tools.querySpell(queryWhere).then(list => {
-                let output = tools.listByClass(keys, keysSetup, list);
-                response.json(tools.setResponse(request, output, tools.getSuggestions([
+                let output = tools.setResponse(tools.listComplex(keys, keysSetup, list), tools.getSuggestions([
                     `which are level ${Math.ceil(Math.random()*9)}`
-                ])));
+                ]));
+                response.json(output);
             }).catch(err => {
                 console.log(err);
             });
-
         },
-        spellSchool: (request, response) => {
+        spellSchool: () => {
             tools.querySpell('school', request.body.queryResult.parameters.School.toLowerCase(), 1000).then(list => {
                 let spells = [],
                     output = "I can't find this School",
@@ -200,7 +203,7 @@ exports = module.exports = {
                 console.log(err);
             });
         },
-        spellClass: (request, response) => {
+        spellClass: () => {
             let classes = request.body.queryResult.parameters.Class;
 
             if (classes.length > 1) {
@@ -215,9 +218,8 @@ exports = module.exports = {
                     console.log(err);
                 });
             }
-
         },
-        spellLevel: (request, response) => {
+        spellLevel: () => {
             let levels = request.body.queryResult.parameters.Level;
 
             let talk = "",

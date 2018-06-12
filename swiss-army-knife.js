@@ -11,10 +11,10 @@ exports = module.exports = {
         return output;
     },
     cleanText: text => {
-        return text.replace(/\*+/g, '').replace(/\_+/g, '');
+        return text && text.length ? text.replace(/\*+/g, '').replace(/\_+/g, '') : null;
     },
     clearSpeech: text => {
-        return text.replace(/<[^>]*>+/g, '');
+        return text && text.length ? text.replace(/<[^>]*>+/g, '') : null;
     },
     formatText: (input, platform = 'slack') => {
         let output = null;
@@ -28,12 +28,14 @@ exports = module.exports = {
         return output;
     },
     combinePhrase: input => {
-        let output = '';
-        for (var i = 0; i < input.length; i++) {
+        let output = '',
+        	len = input.length,
+        	last = len - 2;
+        for (var i = 0; i < len; i++) {
             output = output + input[i];
-            if (i === 1) {
+            if (i === last) {
                 output = output + ' and ';
-            } else if (i > 1) {
+            } else if (i < last) {
                 output = output + ', ';
             }
         }

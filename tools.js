@@ -5,10 +5,12 @@ exports = module.exports = {
         return db.collection('spells').doc(spellName.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase()).get();
     },
     querySpell: (where, limit, order = 'name') => {
-        let output = db.collection('spells');
+        let output = db.collection('spells'),
+        log = [];
 
         for (var i = where.length - 1; i >= 0; i--) {
             output = output.where(where[i][0], where[i][1], where[i][2]);
+            log.push([where[i][0], where[i][1], where[i][2]]);
         }
 
         if (limit) {
@@ -128,7 +130,7 @@ exports = module.exports = {
 
         return suggestions;
     },
-    setResponse: (request, input, suggestions = []) => {
+    setResponse: (input, suggestions = []) => {
         if (typeof input === 'string') {
             input = {
                 speech: input
@@ -147,11 +149,11 @@ exports = module.exports = {
             input.speech = `${input.speech}.<break time='5s'/>${suggestions}`;
         }
 
-        let res = {
+        let output = {
             fulfillmentText: input.speech,
             fulfillmentMessages: []
         };
-        res.payload = {
+        output.payload = {
             google: {
                 expectUserResponse: true,
                 is_ssml: true,
@@ -169,13 +171,13 @@ exports = module.exports = {
             }
         };
         if (input.card) {
-            res = tools.buildCard(res, input.card);
+            output = tools.buildCard(output, input.card);
         }
         if (suggestions.length  && capabilities.includes('SCREEN_OUTPUT')) {
-            res.payload.google.richResponse.suggestions = suggestions;
+            output.payload.google.richResponse.suggestions = suggestions;
         }
         if (spellName) {
-            res.outputContexts = [{
+            output.outputContexts = [{
                 "name": `${request.body.session}/contexts/spell`,
                 "lifespanCount": 5,
                 "parameters": {
@@ -183,7 +185,7 @@ exports = module.exports = {
                 }
             }];
         }
-        return res;
+        return output;
     },
     buildButtons: (input, platform = 'google') => {
         let buttons = [],
@@ -336,14 +338,16 @@ exports = module.exports = {
         return output;
     },
     listComplex: (keys, keysSetup, listRaw) => {
-        let keyPhrase = [];
-        for (var i = 0; i < keyPhrase.length; i++) {
-            if (keyPhrase[i]) {
-                keyPhrase.push(keyPhrase[i]);
+        let keyPhrase = '';
+        for (let k in keys) {
+            if(keys[k]) {
+                let out = keys[k];
+                if (keysSetup[k] && keysSetup[k].phrase && keysSetup[k].phrase.length) {
+                    out = keysSetup[k].phrase + out;
+                }
+                keyPhrase = keyPhrase + ' ' + out;
             }
-        }
-        keyPhrase = sak.combinePhrase(keyPhrase);
-
+        };
 
         let output = {
                 speech: `I don't know any ${keyPhrase} spells.`,
@@ -354,7 +358,8 @@ exports = module.exports = {
             className = listSize > 1 ? `There are ${listSize} ${keyPhrase} spells, <break time='350ms' /> including` : `The only ${keyPhrase} spell is`;
 
         if (listSize) {
-            spellNames = [];
+            let spellNames = [];
+            output.speech = '';
             for (var i = shortList.length - 1; i >= 0; i--) {
                 output.speech = output.speech + shortList[i]._fieldsProto.name.stringValue;
                 if (i === 1) {

@@ -19,6 +19,8 @@ global.ex = express();
 global.spellName = false;
 
 const webhook = (request, response) => {
+    global.request = request;
+    global.response = response;
     // Get surface capabilities, such as screen
     if (request.body.originalDetectIntentRequest.payload && request.body.originalDetectIntentRequest.source === 'google') {
         request.body.originalDetectIntentRequest.payload.surface.capabilities.forEach(cap => {
@@ -48,39 +50,39 @@ const webhook = (request, response) => {
         }
         switch (request.body.queryResult.action) {
             case ('spell.init' || 'spell.folllowupInit'):
-                responses.spellInit(request, response);
+                responses.spellInit();
                 break;
             case ('spell.description'):
-                responses.spellDescription(request, response);
+                responses.spellDescription();
                 break;
             case 'spell.damage':
-                responses.spellDamage(request, response);
+                responses.spellDamage();
                 break;
             case 'spell.duration':
-                responses.spellDuration(request, response);
+                responses.spellDuration();
                 break;
             case 'spell.castTime':
                 break;
             case 'query.school':
-                responses.query.spellSchool(request, response);
+                responses.query.spellSchool();
                 break;
             case 'query.level':
-                responses.query.spellLevel(request, response);
+                responses.query.spellLevel();
                 break;
             case 'query.complex':
-                responses.query.spellComplex(request, response);
+                responses.query.spellComplex();
                 break;
             case 'query.class':
-                responses.query.spellClass(request, response);
+                responses.query.spellClass();
                 break;
             case 'input.welcome':
-                responses.welcome(request, response);
+                responses.welcome();
                 break;
             case 'input.unknown':
-                responses.fallback(request, response);
+                responses.fallback();
                 break;
             default:
-                responses.fallback(request, response);
+                responses.fallback();
         }
     } else {
         response.send('Problem with the resuest.body. Check the console.log');
