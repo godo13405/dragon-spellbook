@@ -68,6 +68,7 @@ const webhook = (request, response) => {
                 responses.spellDuration();
                 break;
             case 'spell.castTime':
+                responses.spellCastTime();
                 break;
             case 'query.school':
                 responses.query.spellSchool();

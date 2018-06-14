@@ -35,6 +35,29 @@ exports = module.exports = {
             console.log(err);
         });
     },
+    spellCastTime: () => {
+        tools.getSpell()
+            .then(data => {
+                let spell = data.data(),
+                	output = [];
+
+				for (var i = spell.casting_time.length - 1; i >= 0; i--) {
+					let o =`${spell.name} takes ${spell.casting_time[i].amount} ${spell.casting_time[i].amount > 1 ? sak.plural(spell.casting_time[i].unit) : spell.casting_time[i].unit} to cast.`;
+	                if (spell.casting_time.description) {
+	                	o = `${o} You can take it ${spell.casting_time.description}`;
+	                }
+	                output.push(o);
+				}
+
+                response.json(tools.setResponse(output.join(" or "), tools.getSuggestions([
+                    'damage',
+                    'materials',
+                    'higher_levels'
+                ], spell, 'Would you like to know ')));
+            }).catch(err => {
+                console.log(err);
+            });
+    },
     spellDamage: () => {
         tools.getSpell().then(data => {
             let spell = data.data(),
@@ -81,10 +104,8 @@ exports = module.exports = {
             .then(data => {
                 let spell = data.data();
 
-                let speechOutput = `${spell.name} is a ${spell.type}`;
-
                 let responseInput = {
-                    speech: speechOutput,
+                    speech: `${spell.name} is a ${spell.type}`,
                     card: {
                         title: spell.name,
                         subtitle: spell.type,

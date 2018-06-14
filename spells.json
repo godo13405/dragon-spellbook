@@ -1003,7 +1003,7 @@
         "casting_time": [{
             "amount": 1,
             "unit": "reaction",
-            "detail": "which you take when you or a creature within 60 feet of you falls"
+            "detail": "when you or a creature within 60 feet of you falls"
         }],
         "class": {
             "bard": true,
@@ -2297,7 +2297,7 @@
         "casting_time": [{
             "amount": 1,
             "unit": "reaction",
-            "detail": "which you take when you are hit by an attack or targeted by the magic missile spell"
+            "detail": "when you are hit by an attack or targeted by the magic missile spell"
         }],
         "class": {
             "sorcerer": true,
@@ -3696,7 +3696,7 @@
         "casting_time": [{
             "amount": 1,
             "unit": "reaction",
-            "detail": "which you take when you see a creature within 60 feet of you casting a spell."
+            "detail": "when you see a creature within 60 feet of you casting a spell."
         }],
         "class": {
             "sorcerer": true,
@@ -11560,7 +11560,7 @@
         "casting_time": [{
             "amount": 1,
             "unit": "reaction",
-            "detail": "which you take when you take acid, cold, fire, lightning, or thunder damage"
+            "detail": "when you take acid, cold, fire, lightning, or thunder damage"
         }],
         "class": {
             "druid": true,
