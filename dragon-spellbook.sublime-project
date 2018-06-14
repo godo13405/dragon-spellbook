@@ -2,7 +2,11 @@
 	"folders":
 	[
 		{
-			"path": "/Users/ANDRADG/Documents/DnD Wiki"
+			"path": "/Users/ANDRADG/Documents/DnD Wiki/functions",
+            "folder_exclude_patterns":
+            [
+                "node_noludes",
+            ],
 		}
 	]
 }

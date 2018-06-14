@@ -1,135 +1,326 @@
 'use strict';
-const firebaseAdmin = require('firebase-admin'),
-    serviceAccount = require("./service-key.json");
 
-firebaseAdmin.initializeApp({
-    credential: firebaseAdmin.credential.cert(serviceAccount),
-    databaseURL: "https://dnd-wiki-ca7bd.firebaseio.com/"
-});
-const db = firebaseAdmin.firestore().collection('spells');
+exports = module.exports = {
+    getSpell: () => {
+        return db.collection('spells').doc(params.spell.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase()).get();
+    },
+    querySpell: (where, limit, order = 'name') => {
+        let output = db.collection('spells'),
+        log = [];
 
-exports.spells = {    
-        setResponse: (input, spellName, suggestions = []) => {
-            if (typeof input === 'string') {
-                input = {
-                    output: input
-                };
-            }
-            if (!input.richOutput) {
-                input.richOutput = {
-                    "items": []
-                };
-            }
-            input.richOutput.items.unshift({
-                "simpleResponse": {
-                    "textToSpeech": input.output
-                }
-            });
-
-            if (input.suggestions) {
-                input.richOutput.suggestions = input.suggestions;
-            } else if (suggestions.length) {
-                input.richOutput.suggestions = suggestions;
-            }
-            let res = {};
-            res.fulfillmentText = input.output;
-            /*
-            res.messages = [
-              {
-                speech: input.output,
-                type: 0
-              }
-            ];
-            */
-            res.payload = {
-                google: {
-                    expectUserResponse: true,
-                    richResponse: input.richOutput
-                },
-                slack: {
-                    text: input.output.replace(/\*\*+/g, '*')
-                }
-            };
-            /*
-            if (input.richOutput.basicCard) {
-                let cardAgnostic;
-                cardAgnostic.type = 1;
-                input.messages.push(cardAgnostic);
-            }
-            */
-            if (input.slackRichOutput) {
-                res.payload.slack.attachments = [
-                    input.slackRichOutput
-                ];
-            }
-            if (spellName) {
-                res.outputContexts = [{
-                    "name": `spell`,
-                    "lifespanCount": 5,
-                    "parameters": {
-                        name: spellName
-                    }
-                }];
-            }
-            return res;
-        },
-        getSuggestions: (input) => {
-            let suggestions = [];
-
-            if (input.includes('description')) {
-                suggestions.push({
-                    "title": `what is ${spellName}?`
-                });
-            }
-            if (input.includes('damage')) {
-                suggestions.push({
-                    "title": `what damage does it do?`
-                });
-            }
-            if (input.includes('duration')) {
-                suggestions.push({
-                    "title": `how long does it last?`
-                });
-            }
-            if (input.includes('cast time')) {
-                suggestions.push({
-                    "title": `how long does it take to cast?`
-                });
-            }
-
-            return suggestions;
-        },
-        getSpell: (agent, spellName) => {
-            let out = db.doc(spellName.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase())
-                .get();
-            return out;
-        },
-        querySpell: (agent, value = 'name', key = '') => {
-            return new Promise((resolve, reject) => {
-                return firebase.database().ref(`/`).orderBy(value).equalTo(key)
-                    .once('value', (data) => {
-                        if (data.val()) {
-                            let spell = data.val();
-                            resolve(spell);
-                        } else {
-                            tools.setResponse("Sorry, I don't know that spell...");
-                            resolve(false);
-                        }
-                    });
-            });
-        },
-        buildRow: (data) => {
-            let output = {
-                "cells": [],
-                "dividerAfter": true
-            };
-
-            for (var i = data.length - 1; i >= 0; i--) {
-                output.cells.unshift({
-                    text: data[i]
-                });
-            }
-
-            return output;
+        for (var i = where.length - 1; i >= 0; i--) {
+            output = output.where(where[i][0], where[i][1], where[i][2]);
+            log.push([where[i][0], where[i][1], where[i][2]]);
         }
-    };
+
+        if (limit) {
+            output = output.limit(limit);
+        }
+
+        return output.get();
+    },
+    buildRow: data => {
+        let output = {
+            "cells": [],
+            "dividerAfter": true
+        };
+
+        for (var i = data.length - 1; i >= 0; i--) {
+            output.cells.unshift({
+                text: data[i]
+            });
+        }
+
+        return output;
+    },
+    getSuggestions: (input = [], spell = null, suggestionIntro = 'I can also ') => {
+        let suggestions = [];
+
+        // if speech variant has't been defined, clone text
+        if (Array.isArray(input)){
+            input = {
+                text: input,
+                speech: input
+            };
+        }
+
+        if (spell) {
+            if (capabilities.includes('SCREEN_OUTPUT')) {
+                if (input.text.includes('description') && spell.description) {
+                    suggestions.push({
+                        "title": `what is ${params.spell}?`
+                    });
+                }
+                if (input.text.includes('damage') && spell.damage) {
+                    suggestions.push({
+                        "title": `what damage does it do?`
+                    });
+                }
+                if (input.text.includes('duration') && spell.duration) {
+                    suggestions.push({
+                        "title": `how long does it last?`
+                    });
+                }
+                if (input.text.includes('cast_time') && spell.cast_time) {
+                    suggestions.push({
+                        "title": `how long does it take to cast?`
+                    });
+                }
+                if (input.text.includes('materials') && spell.components && spell.components.material) {
+                    suggestions.push({
+                        "title": `what materials do I need`
+                    });
+                }
+                if (input.text.includes('materials') && spell.higher_levels) {
+                    suggestions.push({
+                        "title": `how does it level up`
+                    });
+                }
+            } else if (capabilities.includes('AUDIO_OUTPUT')){
+                if (input.speech.includes('description') && spell.description) {
+                    suggestions.push({
+                        "title": `what it is`
+                    });
+                }
+                if (input.speech.includes('damage') && spell.damage) {
+                    suggestions.push({
+                        "title": `what damage it does`
+                    });
+                }
+                if (input.speech.includes('duration') && spell.duration) {
+                    suggestions.push({
+                        "title": `how long it lasts`
+                    });
+                }
+                if (input.speech.includes('cast_time') && spell.cast_time) {
+                    suggestions.push({
+                        "title": `how long it takes to cast`
+                    });
+                }
+                if (input.speech.includes('materials') && spell.components && spell.components.material) {
+                    suggestions.push({
+                        "title": `what materials it needs`
+                    });
+                }
+                if (input.speech.includes('materials') && spell.higher_levels) {
+                    suggestions.push({
+                        "title": `how it levels up`
+                    });
+                }
+            }
+        } else {
+            if (capabilities.includes('SCREEN_OUTPUT')) {
+                input.text.forEach(sugg => {
+                    suggestions.push({
+                        "title": sugg
+                    });
+                });
+            } else if (capabilities.includes('AUDIO_OUTPUT')){
+                input.speech.forEach(sugg => {
+                    suggestions.push({
+                        "title": sugg
+                    });
+                });
+            }
+        }
+
+        // prevent too many suggestions
+        suggestions = sak.shuffleArray(suggestions, 3);
+
+        // structure voice suggestions
+        if (!capabilities.includes('SCREEN_OUTPUT') && capabilities.includes('AUDIO_OUTPUT')) {
+            let sugg = '';
+            for (var i = suggestions.length - 1; i >= 0; i--) {
+                sugg = sugg + suggestions[i].title;
+                if (i === 1) {
+                    sugg = sugg + " or ";
+                } else if (i > 1){
+                    sugg = sugg + ', ';
+                }
+            }
+            suggestions = `${suggestionIntro} ${sugg}`;
+        }
+
+        return suggestions;
+    },
+    setResponse: (input, suggestions = [], pause = 5) => {
+        if (typeof input === 'string') {
+            input = {
+                speech: input
+            };
+        }
+
+        // no text? take the speech
+        if (!input.text && input.speech)
+            input.text = sak.clearSpeech(input.speech);
+        // no speech? take the text
+        if (!input.speech && input.text)
+            input.speech = input.text;
+
+        // if it doesn't have a screen, read out the suggestions
+        if (suggestions.length && !capabilities.includes('SCREEN_OUTPUT') && capabilities.includes('AUDIO_OUTPUT')) {
+            input.speech = `${input.speech}.<break time='${pause}s'/>${suggestions}`;
+        }
+
+        let output = {
+            fulfillmentText: input.text,
+            fulfillmentMessages: []
+        };
+        output.payload = {
+            google: {
+                expectUserResponse: true,
+                is_ssml: true,
+                richResponse: {
+                    items: [{
+                        simpleResponse: {
+                            textToSpeech: `<speech>${sak.cleanText(input.speech)}</speech>`,
+                            displayText: sak.cleanText(sak.clearSpeech(input.text))
+                        }
+                    }]
+                }
+            },
+            slack: {
+                text: sak.formatText(input.text, 'slack')
+            }
+        };
+        if (input.card) {
+            output = tools.buildCard(output, input.card);
+        }
+        if (suggestions.length  && capabilities.includes('SCREEN_OUTPUT')) {
+            output.payload.google.richResponse.suggestions = suggestions;
+        }
+
+        // set contexts
+        output.outputContexts = [{
+            "name": `${request.body.session}/contexts/spell`,
+            "lifespanCount": 5,
+            "parameters": params
+        }];
+
+        return output;
+    },
+    buildButtons: (input, platform = 'google') => {
+        let buttons = [],
+            output = false,
+            button;
+        switch (platform) {
+            case ('dialogflow'):
+                buttons = [];
+                input.forEach(btn => {
+                    button = {};
+                    input.title ? button.title = input.title : null;
+                    input.url ? button.postback = input.url : null;
+                    buttons.push(button);
+                });
+                output = buttons;
+                break;
+            case ('google'):
+                buttons = [];
+                input.forEach(btn => {
+                    button = {};
+                    input.title ? button.title = input.title : null;
+                    input.url ? button.openUrlAction = {
+                        url: input.url
+                    } : null;
+                    buttons.push(button);
+                });
+                output = buttons;
+                break;
+            case ('slack'):
+                actions = [];
+                input.forEach(btn => {
+                    button = {};
+                    if (input.title) {
+                        button.text = input.title;
+                        button.type = input.title;
+                        button.value = input.title;
+                    }
+                    actions.push(button);
+                });
+                output = actions;
+                break;
+        }
+        return output;
+    },
+    buildCard: (output, input, platforms = ['dialogflow', 'google', 'slack']) => {
+        let card;
+
+        if (platforms.includes('dialogflow')) {
+            card = {};
+            input.title ? card.title = input.title : null;
+            input.text ? card.subtitle = input.text : null;
+            input.image ? card.imageUri = input.imageUri : null;
+            input.buttons && input.buttons.length ? card.buildButtons(input.buttons, 'dialogflow') : null;
+            output.fulfillmentMessages.push({
+                card
+            });
+        }
+        if (platforms.includes('google')) {
+            card = {};
+            input.title ? card.title = input.title : null;
+            input.subtitle ? card.subtitle = input.subtitle : null;
+            input.text ? card.formattedText = input.text : null;
+            input.image ? card.image_url = input.image : null;
+            output.payload.google.richResponse.items.push({
+                basicCard: card
+            });
+        }
+        if (platforms.includes('slack')) {
+            card = {};
+            input.title ? card.title = input.title : null;
+            input.subtitle ? card.author_name = input.subtitle : null;
+            input.text ? card.text = input.text : null;
+            input.image ? card.image = {
+                url: input.image,
+                accessibilityText: input.title ? input.title : null
+            } : null;
+            input.buttons && input.buttons.length ? card.actions = buildButtons(input.buttons, 'slack') : null;
+            input.suggestions && input.suggestions.length ? card.push(buildButtons(input.suggestions, 'slack')) : null;
+            if (!output.payload.slack.attachments || !output.payload.slack.attachments.length) {
+                output.payload.slack.attachments = [];
+            }
+            output.payload.slack.attachments.push(card);
+        }
+
+        return output;
+    },
+    listComplex: (keys, keysSetup, listRaw) => {
+        let keyPhrase = '';
+        for (let k in keys) {
+            if(keys[k]) {
+                let out = keys[k];
+                if (keysSetup[k] && keysSetup[k].phrase && keysSetup[k].phrase.length) {
+                    out = keysSetup[k].phrase + out;
+                }
+                keyPhrase = keyPhrase + ' ' + out;
+            }
+        };
+
+        let output = {
+                speech: `I don't know any ${keyPhrase} spells.`,
+                data: []
+            },
+            listSize = listRaw && listRaw.size ? listRaw.size : 0,
+            shortList = listRaw && listRaw.docs ? sak.shuffleArray(listRaw.docs, 4) : null,
+            className = listSize > 1 ? `There are ${listSize} ${keyPhrase} spells, <break time='350ms' /> including` : `The only ${keyPhrase} spell is`;
+
+        if (listSize) {
+            output.speech = '';
+            for (var i = shortList.length - 1; i >= 0; i--) {
+                output.speech = output.speech + shortList[i]._fieldsProto.name.stringValue;
+                if (i === 1) {
+                    output.speech = output.speech + ' and ';
+                } else if (i > 1) {
+                    output.speech = output.speech + ', ';
+                }
+            }
+            output.speech = `${className} ${output.speech}`;
+        }
+
+        output.size = listSize;
+        output.className = keyPhrase;
+        output.contexts = keys;
+
+        return output;
+    }
+};
