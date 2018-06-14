@@ -16,11 +16,12 @@ firebase.initializeApp({
 global.db = firebase.firestore();
 global.ex = express();
 
-global.spellName = false;
+global.params = {};
 
 const webhook = (request, response) => {
     global.request = request;
     global.response = response;
+
     // Get surface capabilities, such as screen
     if (request.body.originalDetectIntentRequest.payload && request.body.originalDetectIntentRequest.source === 'google') {
         request.body.originalDetectIntentRequest.payload.surface.capabilities.forEach(cap => {
@@ -34,19 +35,24 @@ const webhook = (request, response) => {
               'MEDIA_RESPONSE_AUDIO',
               'WEB_BROWSER' ]
         */
+    } else {
+        capabilities.push('SCREEN_OUTPUT');
+    }
+
+    // get context parameters
+    if (request.body.queryResult && request.body.queryResult.outputContexts && request.body.queryResult.outputContexts.length) {
+        for (var i = request.body.queryResult.outputContexts.length - 1; i >= 0; i--) {
+            if (request.body.queryResult.outputContexts[i].name === `${request.body.session}/contexts/spell`) {
+                params = request.body.queryResult.outputContexts[i].parameters;
+                break;
+            }
+        }
     }
 
     // get the spell's name from parameters or context
     if (request.body.queryResult) {
         if (request.body.queryResult.parameters && request.body.queryResult.parameters.spell) {
-            spellName = request.body.queryResult.parameters.spell;
-        } else if (request.body.queryResult.outputContexts && request.body.queryResult.outputContexts.length) {
-            for (var i = request.body.queryResult.outputContexts.length - 1; i >= 0; i--) {
-                if (request.body.queryResult.outputContexts[i].name === `spell`) {
-                    spellName = request.body.queryResult.outputContexts[i].parameters.name;
-                    break;
-                }
-            }
+            params.name = request.body.queryResult.parameters.spell;
         }
         switch (request.body.queryResult.action) {
             case ('spell.init' || 'spell.folllowupInit'):
@@ -97,5 +103,8 @@ global.responses = require('./responses');
 process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_credentials;
 
 ex.use(bodyParser.json());
+ex.get('/', (req,res) => {
+    res.redirect(301, 'https://bot.dialogflow.com/spell-book')
+});
 ex.post('/', webhook);
 ex.listen((process.env.PORT || 3000), () => console.log('Spell Book is open'));

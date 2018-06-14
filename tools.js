@@ -2,7 +2,7 @@
 
 exports = module.exports = {
     getSpell: () => {
-        return db.collection('spells').doc(spellName.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase()).get();
+        return db.collection('spells').doc(params.spell.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase()).get();
     },
     querySpell: (where, limit, order = 'name') => {
         let output = db.collection('spells'),
@@ -33,89 +33,102 @@ exports = module.exports = {
 
         return output;
     },
-    getSuggestions: (input = [], spell = null, suggestionIntro = 'I can also tell you ') => {
+    getSuggestions: (input = [], spell = null, suggestionIntro = 'I can also ') => {
         let suggestions = [];
 
+        // if speech variant has't been defined, clone text
+        if (Array.isArray(input)){
+            input = {
+                text: input,
+                speech: input
+            };
+        }
+
         if (spell) {
-            if (input.includes('description') && spell.description) {
-                if (capabilities.includes('SCREEN_OUTPUT')) {
+            if (capabilities.includes('SCREEN_OUTPUT')) {
+                if (input.text.includes('description') && spell.description) {
                     suggestions.push({
-                        "title": `what is ${spellName}?`
+                        "title": `what is ${params.spell}?`
                     });
-                } else if (capabilities.includes('AUDIO_OUTPUT')){
+                }
+                if (input.text.includes('damage') && spell.damage) {
+                    suggestions.push({
+                        "title": `what damage does it do?`
+                    });
+                }
+                if (input.text.includes('duration') && spell.duration) {
+                    suggestions.push({
+                        "title": `how long does it last?`
+                    });
+                }
+                if (input.text.includes('cast_time') && spell.cast_time) {
+                    suggestions.push({
+                        "title": `how long does it take to cast?`
+                    });
+                }
+                if (input.text.includes('materials') && spell.components && spell.components.material) {
+                    suggestions.push({
+                        "title": `what materials do I need`
+                    });
+                }
+                if (input.text.includes('materials') && spell.higher_levels) {
+                    suggestions.push({
+                        "title": `how does it level up`
+                    });
+                }
+            } else if (capabilities.includes('AUDIO_OUTPUT')){
+                if (input.speech.includes('description') && spell.description) {
                     suggestions.push({
                         "title": `what it is`
                     });
                 }
-            }
-            if (input.includes('damage') && spell.damage) {
-                if (capabilities.includes('SCREEN_OUTPUT')) {
-                    suggestions.push({
-                        "title": `what damage does it do?`
-                    });
-                } else if (capabilities.includes('AUDIO_OUTPUT')){
+                if (input.speech.includes('damage') && spell.damage) {
                     suggestions.push({
                         "title": `what damage it does`
                     });
                 }
-            }
-            if (input.includes('duration') && spell.duration) {
-                if (capabilities.includes('SCREEN_OUTPUT')) {
-                    suggestions.push({
-                        "title": `how long does it last?`
-                    });
-                } else if (capabilities.includes('AUDIO_OUTPUT')){
+                if (input.speech.includes('duration') && spell.duration) {
                     suggestions.push({
                         "title": `how long it lasts`
                     });
                 }
-            }
-            if (input.includes('cast_time') && spell.cast_time) {
-                if (capabilities.includes('SCREEN_OUTPUT')) {
-                    suggestions.push({
-                        "title": `how long does it take to cast?`
-                    });
-                } else if (capabilities.includes('AUDIO_OUTPUT')){
+                if (input.speech.includes('cast_time') && spell.cast_time) {
                     suggestions.push({
                         "title": `how long it takes to cast`
                     });
                 }
-            }
-            if (input.includes('materials') && spell.components && spell.components.material) {
-                if (capabilities.includes('SCREEN_OUTPUT')) {
-                    suggestions.push({
-                        "title": `what materials do I need`
-                    });
-                } else if (capabilities.includes('AUDIO_OUTPUT')){
+                if (input.speech.includes('materials') && spell.components && spell.components.material) {
                     suggestions.push({
                         "title": `what materials it needs`
                     });
                 }
-            }
-            if (input.includes('materials') && spell.higher_levels) {
-                if (capabilities.includes('SCREEN_OUTPUT')) {
-                    suggestions.push({
-                        "title": `how does it level up`
-                    });
-                } else if (capabilities.includes('AUDIO_OUTPUT')){
+                if (input.speech.includes('materials') && spell.higher_levels) {
                     suggestions.push({
                         "title": `how it levels up`
                     });
                 }
             }
         } else {
-            input.forEach(sugg => {
-                suggestions.push({
-                    "title": sugg
+            if (capabilities.includes('SCREEN_OUTPUT')) {
+                input.text.forEach(sugg => {
+                    suggestions.push({
+                        "title": sugg
+                    });
                 });
-            });
+            } else if (capabilities.includes('AUDIO_OUTPUT')){
+                input.speech.forEach(sugg => {
+                    suggestions.push({
+                        "title": sugg
+                    });
+                });
+            }
         }
 
         // prevent too many suggestions
         suggestions = sak.shuffleArray(suggestions, 3);
 
         // structure voice suggestions
-        if (capabilities !== undefined && !capabilities.includes('SCREEN_OUTPUT') && capabilities.includes('AUDIO_OUTPUT')) {
+        if (!capabilities.includes('SCREEN_OUTPUT') && capabilities.includes('AUDIO_OUTPUT')) {
             let sugg = '';
             for (var i = suggestions.length - 1; i >= 0; i--) {
                 sugg = sugg + suggestions[i].title;
@@ -130,7 +143,7 @@ exports = module.exports = {
 
         return suggestions;
     },
-    setResponse: (input, suggestions = []) => {
+    setResponse: (input, suggestions = [], pause = 5) => {
         if (typeof input === 'string') {
             input = {
                 speech: input
@@ -139,18 +152,18 @@ exports = module.exports = {
 
         // no text? take the speech
         if (!input.text && input.speech)
-            input.text = input.speech;
+            input.text = sak.clearSpeech(input.speech);
         // no speech? take the text
         if (!input.speech && input.text)
             input.speech = input.text;
 
         // if it doesn't have a screen, read out the suggestions
         if (suggestions.length && !capabilities.includes('SCREEN_OUTPUT') && capabilities.includes('AUDIO_OUTPUT')) {
-            input.speech = `${input.speech}.<break time='5s'/>${suggestions}`;
+            input.speech = `${input.speech}.<break time='${pause}s'/>${suggestions}`;
         }
 
         let output = {
-            fulfillmentText: input.speech,
+            fulfillmentText: input.text,
             fulfillmentMessages: []
         };
         output.payload = {
@@ -167,7 +180,7 @@ exports = module.exports = {
                 }
             },
             slack: {
-                text: sak.formatText(input.speech, 'slack')
+                text: sak.formatText(input.text, 'slack')
             }
         };
         if (input.card) {
@@ -176,15 +189,14 @@ exports = module.exports = {
         if (suggestions.length  && capabilities.includes('SCREEN_OUTPUT')) {
             output.payload.google.richResponse.suggestions = suggestions;
         }
-        if (spellName) {
-            output.outputContexts = [{
-                "name": `${request.body.session}/contexts/spell`,
-                "lifespanCount": 5,
-                "parameters": {
-                    name: spellName
-                }
-            }];
-        }
+
+        // set contexts
+        output.outputContexts = [{
+            "name": `${request.body.session}/contexts/spell`,
+            "lifespanCount": 5,
+            "parameters": params
+        }];
+
         return output;
     },
     buildButtons: (input, platform = 'google') => {
@@ -272,71 +284,6 @@ exports = module.exports = {
 
         return output;
     },
-    listByLevel: (level, list) => {
-        let spells = [],
-            output = `I don't know any level ${level} spells.`,
-            levelName = `Level ${level} spell`,
-            listSize = list.size,
-            readLimit = listSize > 1 ? 3 : 5,
-            readCounter = 0;
-
-        list.forEach(spell => {
-            if (readCounter <= readLimit) {
-                spells.push(spell.data().name);
-                readCounter = readCounter + 1;
-            } else {
-                list = null;
-            }
-        });
-
-        // Deal with the bloody cantrips
-        if (level === 0) {
-            levelName = 'Cantrip';
-        }
-        if (listSize > 1) {
-            levelName = levelName + 's include';
-        } else {
-            levelName = levelName + ' is';
-        }
-
-        if (spells.length) {
-            output = `${levelName} ${spells.join(", ")}`;
-            if (listSize > readLimit) {
-                output = `${output} and ${listSize - readLimit} others.`;
-            }
-        }
-
-        return output;
-    },
-    listByClass: (theClass, listRaw) => {
-        let output = {
-                speech: `I don't know any ${theClass} spells.`,
-                data: []
-            },
-            listSize = listRaw && listRaw.size ? listRaw.size : 0,
-            shortList = listRaw && listRaw.docs ? sak.shuffleArray(listRaw.docs, 4) : null,
-            className = listSize > 1 ? `There are ${listSize} ${theClass} spells, <break time='350ms' /> including` : `${theClass} spell is`;
-
-        if (listSize) {
-            output.speech = '';
-            for (var i = shortList.length - 1; i >= 0; i--) {
-                output.speech = output.speech + shortList[i]._fieldsProto.name.stringValue;
-                if (i === 1) {
-                    output.speech = output.speech + ' and ';
-                } else if (i > 1) {
-                    output.speech = output.speech + ', ';
-                }
-                console.log(i, shortList[i]._fieldsProto.name.stringValue, output.speech);
-            }
-            output.speech = `${className} ${output.speech}`;
-        }
-
-        output.size = listSize;
-        output.className = theClass;
-
-
-        return output;
-    },
     listComplex: (keys, keysSetup, listRaw) => {
         let keyPhrase = '';
         for (let k in keys) {
@@ -358,7 +305,6 @@ exports = module.exports = {
             className = listSize > 1 ? `There are ${listSize} ${keyPhrase} spells, <break time='350ms' /> including` : `The only ${keyPhrase} spell is`;
 
         if (listSize) {
-            let spellNames = [];
             output.speech = '';
             for (var i = shortList.length - 1; i >= 0; i--) {
                 output.speech = output.speech + shortList[i]._fieldsProto.name.stringValue;
@@ -373,7 +319,7 @@ exports = module.exports = {
 
         output.size = listSize;
         output.className = keyPhrase;
-
+        output.contexts = keys;
 
         return output;
     }

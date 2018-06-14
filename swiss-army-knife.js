@@ -33,6 +33,9 @@ exports = module.exports = {
         	last = len - 2;
         for (var i = 0; i < len; i++) {
             output = output + input[i];
+            if (!capabilities.includes('SCREEN_OUTPUT') && capabilities.includes('AUDIO_OUTPUT')) {
+            	output = output + '<break time=\'500ms\' />';
+            }
             if (i === last) {
                 output = output + ' and ';
             } else if (i < last) {
