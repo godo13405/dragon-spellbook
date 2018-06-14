@@ -1,6 +1,9 @@
-{
+﻿{
     "acid_splash": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -31,7 +34,10 @@
         "type": "Conjuration cantrip"
     },
     "alarm": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "ranger": true,
             "wizard": true
@@ -60,7 +66,10 @@
         "type": "1st-level abjuration (ritual)"
     },
     "animal_friendship": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -95,7 +104,10 @@
         "type": "1st-level enchantment"
     },
     "bane": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true
@@ -125,7 +137,10 @@
         "type": "1st-level enchantment"
     },
     "blade_ward": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -155,7 +170,10 @@
         "type": "Abjuration cantrip"
     },
     "bless": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "paladin": true
@@ -184,7 +202,10 @@
         "type": "1st-level enchantment"
     },
     "burning_hands": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -218,7 +239,10 @@
         "type": "1st-level evocation"
     },
     "charm_person": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -257,7 +281,10 @@
         "type": "1st-level enchantment"
     },
     "chill_touch": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "warlock": true,
@@ -290,7 +317,10 @@
         "type": "Necromancy cantrip"
     },
     "chromatic_orb": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -324,7 +354,10 @@
         "type": "1st-level evocation"
     },
     "color_spray": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -354,7 +387,10 @@
         "type": "1st-level illusion"
     },
     "command": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "paladin": true
@@ -384,7 +420,10 @@
         "type": "1st-level enchantment"
     },
     "compelled_duel": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "paladin": true
         },
@@ -411,7 +450,10 @@
         "type": "1st-level enchantment"
     },
     "comprehend_languages": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -444,7 +486,10 @@
         "type": "1st-level divination (Ritual)"
     },
     "create_or_destroy_water": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true
@@ -475,7 +520,10 @@
     },
 
     "cure_wounds": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -509,7 +557,10 @@
         "type": "1st-level evocation"
     },
     "dancing_lights": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -540,7 +591,10 @@
         "type": "Evocation cantrip"
     },
     "detect_evil_and_good": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "paladin": true
@@ -566,7 +620,10 @@
         "type": "1st-level divination"
     },
     "detect_magic": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -602,7 +659,10 @@
         "type": "1st-level divination (Ritual)"
     },
     "detect_poison_or_disease": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -635,7 +695,10 @@
         "type": "1st-level divination (Ritual)"
     },
     "disguise_self": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -666,7 +729,10 @@
         "type": "1st-level illusion"
     },
     "divine_favor": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "paladin": true
         },
@@ -690,7 +756,10 @@
         "type": "1st-level evocation"
     },
     "dissonant_whispers": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true
         },
@@ -722,7 +791,10 @@
         "type": "1st-level enchantment"
     },
     "druidcraft": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -746,7 +818,10 @@
         "type": "Transmutation cantrip"
     },
     "eldritch_blast": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "warlock": true
         },
@@ -774,7 +849,10 @@
         "type": "Evocation cantrip"
     },
     "ensnaring_strike": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "ranger": true
         },
@@ -799,7 +877,10 @@
         "type": "1st-level conjuration"
     },
     "entangle": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -823,7 +904,10 @@
         "type": "1st-level conjuration"
     },
     "faerie_fire": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true
@@ -852,7 +936,10 @@
         "type": "1st-level evocation"
     },
     "expeditious_retreat": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "sorcerer": true,
             "warlock": true,
@@ -880,7 +967,10 @@
         "type": "1st-level transmutation"
     },
     "false_life": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -910,7 +1000,11 @@
         "type": "1st-level necromancy"
     },
     "feather_fall": {
-        "casting_time": "1 reaction, which you take when you or a creature within 60 feet of you falls",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "reaction",
+            "detail": "which you take when you or a creature within 60 feet of you falls"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -941,7 +1035,10 @@
         "type": "1st-level transmutation"
     },
     "find_familiar": {
-        "casting_time": "1 hour",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "hour"
+        }],
         "class": {
             "wizard": true
         },
@@ -968,7 +1065,10 @@
         "type": "1st-level conjuration (ritual)"
     },
     "fire_bolt": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -994,7 +1094,10 @@
         "type": "Evocation cantrip"
     },
     "fog_cloud": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true,
@@ -1025,7 +1128,10 @@
         "type": "1st-level conjuration"
     },
     "friends": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -1058,7 +1164,10 @@
         "type": "Enchantment cantrip"
     },
     "goodberry": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true
@@ -1087,7 +1196,10 @@
         "type": "1st-level transmutation"
     },
     "grease": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -1117,7 +1229,10 @@
         "type": "1st-level conjuration"
     },
     "guidance": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true
@@ -1143,7 +1258,10 @@
         "type": "Divination cantrip"
     },
     "guiding_bolt": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -1168,7 +1286,10 @@
         "type": "1st-level evocation"
     },
     "hail_of_thorns": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "ranger": true
         },
@@ -1196,7 +1317,10 @@
         "type": "1st-level conjuration"
     },
     "healing_word": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -1225,7 +1349,11 @@
         "type": "1st-level evocation"
     },
     "hellish_rebuke": {
-        "casting_time": "1 reaction, which you take in response to being damaged by a creature within 60 feet of you that you can see.",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "reaction",
+            "description": "which you take in response to being damaged by a creature within 60 feet of you that you can see."
+        }],
         "class": {
             "warlock": true
         },
@@ -1253,7 +1381,10 @@
         "type": "1st-level evocation"
     },
     "hex": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "warlock": true
         },
@@ -1281,7 +1412,10 @@
         "type": "1st-level enchantment"
     },
     "heroism": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "paladin": true
@@ -1307,7 +1441,10 @@
         "type": "1st-level enchantment"
     },
     "hunter's_mark": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "ranger": true
         },
@@ -1332,7 +1469,10 @@
         "type": "1st-level divination"
     },
     "identify": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "wizard": true
@@ -1361,7 +1501,10 @@
         "type": "1st-level divination (Ritual)"
     },
     "illusory_script": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "warlock": true,
@@ -1392,7 +1535,10 @@
         "type": "1st-level illusion (Ritual)"
     },
     "inflict_wounds": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -1417,7 +1563,10 @@
         "type": "1st-level necromancy"
     },
     "jump": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true,
@@ -1450,7 +1599,10 @@
         "type": "1st-level transmutation"
     },
     "light": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -1486,7 +1638,10 @@
         "type": "Evocation cantrip"
     },
     "longstrider": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -1520,7 +1675,10 @@
         "type": "1st-level transmutation"
     },
     "mage_armor": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -1549,7 +1707,10 @@
         "type": "1st-level abjuration"
     },
     "mage_hand": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -1579,7 +1740,10 @@
         "type": "Conjuration cantrip"
     },
     "magic_missile": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -1606,7 +1770,10 @@
         "type": "1st-level evocation"
     },
     "mending": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -1641,7 +1808,10 @@
         "type": "Transmutation cantrip"
     },
     "message": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -1672,7 +1842,10 @@
         "type": "Transmutation cantrip"
     },
     "minor_illusion": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -1705,7 +1878,10 @@
         "type": "Illusion cantrip"
     },
     "poison_spray": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -1738,7 +1914,10 @@
         "type": "Conjuration cantrip"
     },
     "prestidigitation": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -1768,7 +1947,10 @@
         "type": "Transmutation cantrip"
     },
     "produce_flame": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -1792,7 +1974,10 @@
         "type": "Conjuration cantrip"
     },
     "protection_from_evil_and_good": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "paladin": true,
@@ -1825,7 +2010,10 @@
         "type": "1st-level abjuration"
     },
     "purify_food_and_drink": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -1853,7 +2041,10 @@
         "type": "1st-level transmutation"
     },
     "ray_of_frost": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -1879,7 +2070,10 @@
         "type": "Evocation cantrip"
     },
     "ray_of_sickness": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -1909,7 +2103,10 @@
         "type": "1st-level necromancy"
     },
     "remove_curse": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "paladin": true,
@@ -1939,7 +2136,10 @@
         "type": "3rd-level abjuration"
     },
     "resistance": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true
@@ -1968,7 +2168,10 @@
         "type": "Abjuration cantrip"
     },
     "sacred_flame": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -1995,7 +2198,10 @@
         "type": "Evocation cantrip"
     },
     "sanctuary": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "cleric": true
         },
@@ -2025,7 +2231,10 @@
         "type": "1st-level abjuration"
     },
     "shield_of_faith": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "cleric": true,
             "paladin": true
@@ -2054,7 +2263,10 @@
         "type": "1st-level abjuration"
     },
     "searing_smite": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "paladin": true
         },
@@ -2082,7 +2294,11 @@
         "type": "1st-level evocation"
     },
     "shield": {
-        "casting_time": "1 reaction, which you take when you are hit by an attack or targeted by the magic missile spell",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "reaction",
+            "detail": "which you take when you are hit by an attack or targeted by the magic missile spell"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -2108,7 +2324,10 @@
         "type": "1st-level abjuration"
     },
     "shillelagh": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "druid": true
         },
@@ -2135,7 +2354,10 @@
         "type": "Transmutation cantrip"
     },
     "shocking_grasp": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -2161,7 +2383,10 @@
         "type": "Evocation cantrip"
     },
     "silent_image": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -2192,7 +2417,10 @@
         "type": "1st-level illusion"
     },
     "sleep": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -2224,7 +2452,10 @@
         "type": "1st-level enchantment"
     },
     "spare_the_dying": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -2248,7 +2479,10 @@
         "type": "Necromancy cantrip"
     },
     "speak_with_animals": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -2276,7 +2510,10 @@
         "type": "1st-level divination (ritual)"
     },
     "thaumaturgy": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -2300,7 +2537,10 @@
         "type": "Transmutation cantrip"
     },
     "thorn_whip": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -2327,7 +2567,10 @@
         "type": "Transmutation cantrip"
     },
     "thunderous_smite": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "paladin": true
         },
@@ -2351,7 +2594,10 @@
         "type": "1st-level evocation"
     },
     "thunderwave": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -2385,7 +2631,10 @@
         "type": "1st-level evocation"
     },
     "true_strike": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -2415,7 +2664,10 @@
         "type": "Divination cantrip"
     },
     "unseen_servant": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "warlock": true,
@@ -2446,7 +2698,10 @@
         "type": "1st-level conjuration (ritual)"
     },
     "vicious_mockery": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true
         },
@@ -2473,7 +2728,10 @@
         "type": "Enchantment cantrip"
     },
     "witch_bolt": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "warlock": true,
@@ -2505,7 +2763,10 @@
         "type": "1st-level evocation"
     },
     "wrathful_smite": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "paladin": true
         },
@@ -2532,7 +2793,10 @@
         "type": "1st-level evocation"
     },
     "aid": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "paladin": true
@@ -2562,7 +2826,10 @@
         "type": "2nd-level abjuration"
     },
     "animal_messenger": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -2594,7 +2861,10 @@
         "type": "2nd-level enchantment (ritual)"
     },
     "blindness_or_deafness": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -2628,7 +2898,10 @@
         "type": "2nd-level Necromancy"
     },
     "augury": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "cleric": true
         },
@@ -2655,7 +2928,10 @@
         "type": "2nd-level divination (ritual)"
     },
     "calm_emotions": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true
@@ -2681,7 +2957,10 @@
         "type": "2nd-level Enchantment"
     },
     "hold_person": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -2722,7 +3001,10 @@
         "type": "2nd-level divination (ritual)"
     },
     "lesser_restoration": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -2754,7 +3036,10 @@
         "type": "2nd-level abjuration"
     },
     "prayer_of_healing": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "cleric": true
         },
@@ -2779,7 +3064,10 @@
         "type": "2nd-level evocation"
     },
     "silence": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -2807,7 +3095,10 @@
         "type": "2nd-level illusion (ritual)"
     },
     "spiritual_weapon": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "cleric": true
         },
@@ -2831,7 +3122,10 @@
         "type": "2nd-level evocation"
     },
     "warding_bond": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -2858,7 +3152,10 @@
         "type": "2nd-level abjuration"
     },
     "animate_dead": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "cleric": true,
             "wizard": true
@@ -2888,7 +3185,10 @@
         "type": "3rd-level necromancy"
     },
     "arcane_eye": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -2915,7 +3215,10 @@
         "type": "4th-level divination"
     },
     "aura_of_life": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "paladin": true
         },
@@ -2939,7 +3242,10 @@
         "type": "4th-level abjuration"
     },
     "aura_of_purity": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "paladin": true
         },
@@ -2963,7 +3269,10 @@
         "type": "4th-level abjuration"
     },
     "aura_of_vitality": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "paladin": true
         },
@@ -2987,7 +3296,10 @@
         "type": "3rd-level evocation"
     },
     "banishment": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "paladin": true,
@@ -3023,7 +3335,10 @@
         "type": "4th-level abjuration"
     },
     "beacon_of_hope": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -3050,7 +3365,10 @@
         "type": "3rd-level abjuration"
     },
     "blight": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -3084,7 +3402,10 @@
         "type": "4th-level necromancy"
     },
     "bestow_curse": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -3116,7 +3437,10 @@
         "type": "3rd-level necromancy"
     },
     "blinding_smite": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "paladin": true
         },
@@ -3143,7 +3467,10 @@
         "type": "3rd-level evocation"
     },
     "blink": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -3169,7 +3496,10 @@
         "type": "3rd-level transmutation"
     },
     "call_lightning": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -3197,7 +3527,10 @@
         "type": "3rd-level conjuration"
     },
     "clairvoyance": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -3230,7 +3563,10 @@
         "type": "3rd-level divination"
     },
     "cloud_of_daggers": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -3264,7 +3600,10 @@
         "type": "2nd-level Conjuration"
     },
     "compulsion": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true
         },
@@ -3291,7 +3630,10 @@
         "type": "4th-level enchantment"
     },
     "conjure_animals": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true
@@ -3318,7 +3660,10 @@
         "type": "3rd-level conjuration"
     },
     "conjure_barrage": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "ranger": true
         },
@@ -3348,7 +3693,11 @@
         "type": "3rd-level conjuration"
     },
     "counterspell": {
-        "casting_time": "1 reaction, which you take when you see a creature within 60 feet of you casting a spell.",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "reaction",
+            "detail": "which you take when you see a creature within 60 feet of you casting a spell."
+        }],
         "class": {
             "sorcerer": true,
             "warlock": true,
@@ -3377,7 +3726,10 @@
         "type": "3rd-level abjuration"
     },
     "create_food_and_water": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "paladin": true
@@ -3403,7 +3755,10 @@
         "type": "3rd-level conjuration"
     },
     "crusader's_mantle": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "paladin": true
         },
@@ -3427,7 +3782,10 @@
         "type": "3rd-level evocation"
     },
     "daylight": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -3458,7 +3816,10 @@
         "type": "3rd-level evocation"
     },
     "dispel_magic": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -3495,7 +3856,10 @@
         "type": "3rd-level abjuration"
     },
     "elemental_weapon": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "paladin": true
         },
@@ -3520,7 +3884,10 @@
         "type": "3rd-level transmutation"
     },
     "fear": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -3556,7 +3923,10 @@
         "type": "3rd-level illusion"
     },
     "feign_death": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -3589,7 +3959,10 @@
         "type": "3rd-level necromancy (ritual)"
     },
     "fireball": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -3622,7 +3995,10 @@
         "type": "3rd-level evocation"
     },
     "fly": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "warlock": true,
@@ -3654,7 +4030,10 @@
         "type": "3rd-level transmutation"
     },
     "gaseous_form": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -3686,7 +4065,10 @@
         "type": "3rd-level transmutation"
     },
     "haste": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -3718,7 +4100,10 @@
         "type": "3rd-level transmutation"
     },
     "hypnotic_pattern": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -3754,7 +4139,10 @@
         "type": "3rd-level illusion"
     },
     "lightning_arrow": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "ranger": true
         },
@@ -3782,7 +4170,10 @@
         "type": "3rd-level transmutation"
     },
     "magic_circle": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "cleric": true,
             "paladin": true,
@@ -3816,7 +4207,10 @@
         "type": "3rd-level abjuration"
     },
     "major_image": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -3850,7 +4244,10 @@
         "type": "3rd-level illusion"
     },
     "mass_healing_word": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "cleric": true
         },
@@ -3875,7 +4272,10 @@
         "type": "3rd-level evocation"
     },
     "alter_self": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -3901,7 +4301,10 @@
         "type": "2nd-Level Transmutation"
     },
     "arcane_lock": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -3928,7 +4331,10 @@
         "type": "2nd-Level abjuration"
     },
     "barkskin": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true
@@ -3957,7 +4363,10 @@
         "type": "2nd-level transmutation"
     },
     "nondetection": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -3988,7 +4397,10 @@
         "type": "3rd-level abjuration"
     },
     "meld_into_stone": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true
@@ -4014,7 +4426,10 @@
         "type": "3rd-level transmutation (ritual)"
     },
     "phantom_steed": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "wizard": true
         },
@@ -4038,7 +4453,13 @@
         "type": "3rd-level illusion (ritual)"
     },
     "plant_growth": {
-        "casting_time": "1 action or 8 hours",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }, {
+            "amount": 8,
+            "unit": "hours"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -4066,7 +4487,10 @@
         "type": "3rd-level transmutation"
     },
     "protection_from_energy": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -4098,7 +4522,10 @@
         "type": "3rd-level abjuration"
     },
     "revivify": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "paladin": true
@@ -4127,7 +4554,10 @@
         "type": "3rd-level conjuration"
     },
     "sending": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -4158,7 +4588,10 @@
         "type": "3rd-level evocation"
     },
     "sleet_storm": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -4193,7 +4626,10 @@
         "type": "3rd-level conjuration"
     },
     "slow": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -4226,7 +4662,10 @@
         "type": "3rd-level transmutation"
     },
     "speak_with_dead": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true
@@ -4255,7 +4694,10 @@
         "type": "3rd-level necromancy"
     },
     "speak_with_plants": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -4283,7 +4725,10 @@
         "type": "3rd-level transmutation"
     },
     "spirit_guardians": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -4314,7 +4759,10 @@
         "type": "3rd-level conjuration"
     },
     "stinking_cloud": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -4348,7 +4796,10 @@
         "type": "3rd-level conjuration"
     },
     "confusion": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -4385,7 +4836,10 @@
         "type": "4th-level enchantment"
     },
     "conjure_minor_elementals": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "druid": true,
             "wizard": true
@@ -4412,7 +4866,10 @@
         "type": "4th-level conjuration"
     },
     "control_water": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -4443,7 +4900,10 @@
         "type": "4th-level transmutation"
     },
     "conjure_woodland_beings": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true
@@ -4473,7 +4933,10 @@
         "type": "4th-level conjuration"
     },
     "death_ward": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "paladin": true
@@ -4499,7 +4962,10 @@
         "type": "4th-level abjuration"
     },
     "tongues": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -4534,7 +5000,10 @@
         "type": "3rd-level divination"
     },
     "beast_sense": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true
@@ -4560,7 +5029,10 @@
         "type": "2nd-level divination (ritual)"
     },
     "blur": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -4586,7 +5058,10 @@
         "type": "2nd-Level illusion"
     },
     "branding_smite": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "paladin": true
         },
@@ -4611,7 +5086,10 @@
         "type": "2nd-Level evocation"
     },
     "cordon_of_arrows": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "ranger": true
         },
@@ -4642,7 +5120,10 @@
         "type": "2nd-Level transmutation"
     },
     "crown_of_madness": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -4675,7 +5156,10 @@
         "type": "2nd-Level enchantment"
     },
     "darkness": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "warlock": true,
@@ -4706,7 +5190,10 @@
         "type": "2nd-Level evocation"
     },
     "darkvision": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true,
@@ -4739,7 +5226,10 @@
         "type": "2nd-level transmutation"
     },
     "detect_thoughts": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -4773,7 +5263,10 @@
         "type": "2nd-Level divination"
     },
     "animal_shapes": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -4797,7 +5290,10 @@
         "type": "8th-level transmutation"
     },
     "antimagic_field": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "wizard": true
@@ -4826,7 +5322,10 @@
         "type": "8th-level abjuration"
     },
     "antipathy_or_sympathy": {
-        "casting_time": "1 hour",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "hour"
+        }],
         "class": {
             "druid": true,
             "wizard": true
@@ -4858,7 +5357,10 @@
         "type": "8th-level enchantment"
     },
     "astral_projection": {
-        "casting_time": "1 hour",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "hour"
+        }],
         "class": {
             "cleric": true,
             "warlock": true,
@@ -4889,7 +5391,10 @@
         "type": "9th-level necromancy"
     },
     "clone": {
-        "casting_time": "1 hour",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "hour"
+        }],
         "class": {
             "wizard": true
         },
@@ -4916,7 +5421,10 @@
         "type": "8th-level necromancy"
     },
     "control_weather": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -4947,7 +5455,10 @@
         "type": "Wind"
     },
     "demiplane": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "warlock": true,
             "wizard": true
@@ -4973,7 +5484,10 @@
         "type": "8th-level conjuration"
     },
     "dominate_monster": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -5007,7 +5521,10 @@
         "type": "8th-level enchantment"
     },
     "earthquake": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -5025,8 +5542,8 @@
         "description": "You create a seismic disturbance at a point on the ground that you can see within range. For the duration, an intense tremor rips through the ground in a 100-foot-radius circle centered on that point and shakes creatures and structures in contact with the ground in that area.\n\nThe ground in the area becomes difficult terrain. Each creature on the ground that is concentrating must make a Constitution saving throw. On a failed save, the creature's concentration is broken.\n\nWhen you cast this spell and at the end of each turn you spend concentrating on it, each creature on the ground in the area must make a Dexterity saving throw. On a failed save, the creature is knocked prone.\n\nThis spell can have additional effects depending on the terrain in the area, as determined by the DM.\n\nA fissure that opens beneath a structure causes it to automatically collapse (see below).",
         "saving_throw": {
             "Constitution": true,
-        "Dexterity": true
-    },
+            "Dexterity": true
+        },
         "duration": "Concentration, up to 1 minute",
         "level": "8",
         "name": "Earthquake",
@@ -5042,7 +5559,10 @@
         "type": "8th-level evocation"
     },
     "feeblemind": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -5075,7 +5595,10 @@
         "type": "8th-level enchantment"
     },
     "foresight": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -5108,7 +5631,10 @@
         "type": "9th-level divination"
     },
     "gate": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "sorcerer": true,
@@ -5139,7 +5665,10 @@
         "type": "9th-level conjuration"
     },
     "glibness": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "warlock": true
@@ -5165,7 +5694,10 @@
         "type": "8th-level transmutation"
     },
     "holy_aura": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -5195,7 +5727,10 @@
         "type": "8th-level abjuration"
     },
     "imprisonment": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "warlock": true,
             "wizard": true
@@ -5227,7 +5762,10 @@
         "type": "9th-level abjuration"
     },
     "incendiary_cloud": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -5256,7 +5794,10 @@
         "type": "8th-level conjuration"
     },
     "mass_heal": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -5280,7 +5821,10 @@
         "type": "9th-level conjuration"
     },
     "maze": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -5304,7 +5848,10 @@
         "type": "8th-level conjuration"
     },
     "meteor_swarm": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -5333,7 +5880,10 @@
         "type": "9th-level evocation"
     },
     "mind_blank": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "wizard": true
@@ -5359,7 +5909,10 @@
         "type": "8th-level abjuration"
     },
     "power_word_heal": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true
         },
@@ -5383,7 +5936,10 @@
         "type": "9th-level evocation"
     },
     "power_word_kill": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -5413,7 +5969,10 @@
         "type": "9th-level enchantment"
     },
     "power_word_stun": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -5446,7 +6005,10 @@
         "type": "8th-level enchantment"
     },
     "prismatic_wall": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -5474,7 +6036,10 @@
         "type": "9th-level abjuration"
     },
     "shapechange": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "wizard": true
@@ -5503,7 +6068,10 @@
         "type": "9th-level transmutation"
     },
     "storm_of_vengeance": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -5530,7 +6098,10 @@
         "type": "9th-level conjuration"
     },
     "telepathy": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -5557,7 +6128,10 @@
         "type": "8th-level evocation"
     },
     "sunburst": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -5591,7 +6165,10 @@
         "type": "8th-level evocation"
     },
     "time_stop": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -5617,7 +6194,10 @@
         "type": "9th-level transmutation"
     },
     "true_polymorph": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "warlock": true,
@@ -5651,7 +6231,10 @@
         "type": "9th-level transmutation"
     },
     "tsunami": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "druid": true
         },
@@ -5675,7 +6258,10 @@
         "type": "8th-level conjuration"
     },
     "true_resurrection": {
-        "casting_time": "1 hour",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "hour"
+        }],
         "class": {
             "cleric": true,
             "druid": true
@@ -5704,7 +6290,10 @@
         "type": "9th-level necromancy"
     },
     "weird": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -5731,7 +6320,10 @@
         "type": "9th-level illusion"
     },
     "wish": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -5757,7 +6349,10 @@
         "type": "9th-level conjuration"
     },
     "conjure_celestial": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "cleric": true
         },
@@ -5782,7 +6377,10 @@
         "type": "7th-level conjuration"
     },
     "delayed_blast_fireball": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -5815,7 +6413,10 @@
         "type": "7th-level evocation"
     },
     "dimension_door": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -5845,7 +6446,10 @@
         "type": "4th-level conjuration"
     },
     "divine_word": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "cleric": true
         },
@@ -5869,7 +6473,10 @@
         "type": "7th-level evocation"
     },
     "etherealness": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -5902,7 +6509,10 @@
         "type": "7th-level transmutation"
     },
     "finger_of_death": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "warlock": true,
@@ -5933,7 +6543,10 @@
         "type": "7th-level necromancy"
     },
     "fire_storm": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -5964,7 +6577,10 @@
         "type": "7th-level evocation"
     },
     "forcecage": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "warlock": true,
@@ -5995,7 +6611,10 @@
         "type": "7th-level evocation"
     },
     "mirage_arcane": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -6023,7 +6642,10 @@
         "type": "7th-level illusion"
     },
     "prismatic_spray": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -6052,7 +6674,10 @@
         "type": "7th-level evocation"
     },
     "project_image": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "wizard": true
@@ -6081,7 +6706,10 @@
         "type": "7th-level illusion"
     },
     "plane_shift": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -6116,7 +6744,10 @@
         "type": "7th-level conjuration"
     },
     "regenerate": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -6147,7 +6778,10 @@
         "type": "7th-level transmutation"
     },
     "resurrection": {
-        "casting_time": "1 hour",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "hour"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -6178,7 +6812,10 @@
         "type": "7th-level necromancy"
     },
     "reverse_gravity": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -6212,7 +6849,10 @@
         "type": "7th-level transmutation"
     },
     "sequester": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -6239,7 +6879,10 @@
         "type": "7th-level transmutation"
     },
     "simulacrum": {
-        "casting_time": "12 hours",
+        "casting_time": [{
+            "amount": 12,
+            "unit": "hour"
+        }],
         "class": {
             "wizard": true
         },
@@ -6266,7 +6909,10 @@
         "type": "7th-level illusion"
     },
     "symbol": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "wizard": true
@@ -6295,7 +6941,10 @@
         "type": "7th-level abjuration"
     },
     "teleport": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -6323,7 +6972,10 @@
         "type": "7th-level conjuration"
     },
     "suggestion": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -6359,7 +7011,10 @@
         "type": "2nd-level enchantment"
     },
     "invisibility": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -6393,7 +7048,10 @@
         "type": "2nd-level illusion"
     },
     "animate_objects": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -6422,7 +7080,10 @@
         "type": "ANIMATED OBJECTS STATISTICS"
     },
     "antilife_shell": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -6446,7 +7107,10 @@
         "type": "5th-level abjuration"
     },
     "arcane_gate": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "warlock": true,
@@ -6474,7 +7138,10 @@
         "type": "6th-level conjuration"
     },
     "awaken": {
-        "casting_time": "8 hours",
+        "casting_time": [{
+            "amount": 8,
+            "unit": "hour"
+        }],
         "class": {
             "bard": true,
             "druid": true
@@ -6503,7 +7170,10 @@
         "type": "5th-level transmutation"
     },
     "banishing_smite": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "paladin": true
         },
@@ -6527,7 +7197,10 @@
         "type": "5th-level abjuration"
     },
     "chain_lightning": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -6560,7 +7233,10 @@
         "type": "6th-level evocation"
     },
     "blade_barrier": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -6587,7 +7263,10 @@
         "type": "6th-level evocation"
     },
     "circle_of_death": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "warlock": true,
@@ -6622,7 +7301,10 @@
         "type": "6th-level necromancy"
     },
     "circle_of_power": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "paladin": true
         },
@@ -6646,7 +7328,10 @@
         "type": "5th-level abjuration"
     },
     "cloudkill": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -6676,7 +7361,10 @@
         "type": "5th-level conjuration"
     },
     "commune_with_nature": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "druid": true,
             "ranger": true
@@ -6702,7 +7390,10 @@
         "type": "5th-level divination (ritual)"
     },
     "commune": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "cleric": true
         },
@@ -6729,7 +7420,10 @@
         "type": "5th-level divination (ritual)"
     },
     "cone_of_cold": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -6762,7 +7456,10 @@
         "type": "5th-level evocation"
     },
     "conjure_elemental": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "druid": true,
             "wizard": true
@@ -6792,7 +7489,10 @@
         "type": "5th-level conjuration"
     },
     "conjure_fey": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "druid": true,
             "warlock": true
@@ -6819,7 +7519,10 @@
         "type": "6th-level conjuration"
     },
     "conjure_volley": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "ranger": true
         },
@@ -6849,7 +7552,10 @@
         "type": "5th-level Conjuration"
     },
     "contact_other_plane": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "warlock": true,
             "wizard": true
@@ -6875,7 +7581,10 @@
         "type": "5th-level divination (ritual)"
     },
     "contagion": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true
@@ -6904,7 +7613,10 @@
         "type": "5th-level necromancy"
     },
     "contingency": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "wizard": true
         },
@@ -6931,7 +7643,10 @@
         "type": "6th-level evocation"
     },
     "create_undead": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "cleric": true,
             "warlock": true,
@@ -6963,7 +7678,10 @@
         "type": "6th-level necromancy"
     },
     "continual_flame": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "wizard": true
@@ -6992,7 +7710,10 @@
         "type": "2nd-level evocation"
     },
     "creation": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -7022,7 +7743,10 @@
         "type": "5th-level illusion"
     },
     "destructive_wave": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "paladin": true
         },
@@ -7049,7 +7773,10 @@
         "type": "5th-level evocation"
     },
     "disintegrate": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -7082,7 +7809,10 @@
         "type": "6th-level transmutation"
     },
     "divination": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -7109,7 +7839,10 @@
         "type": "4th-level divination (ritual)"
     },
     "dispel_evil_and_good": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "paladin": true
@@ -7138,7 +7871,10 @@
         "type": "5th-level abjuration"
     },
     "dominate_beast": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true
@@ -7168,7 +7904,10 @@
         "type": "4th-level enchantment"
     },
     "dominate_person": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -7200,7 +7939,10 @@
         "type": "5th-level enchantment"
     },
     "dream": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "warlock": true,
@@ -7234,7 +7976,10 @@
         "type": "5th-level illusion"
     },
     "enhance_ability": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -7268,7 +8013,10 @@
         "type": "2nd-level transmutation"
     },
     "enlarge_or_reduce": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -7300,7 +8048,10 @@
         "type": "2nd-level transmutation"
     },
     "enthrall": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "warlock": true
@@ -7329,7 +8080,10 @@
         "type": "2nd-level enchantment"
     },
     "fabricate": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "wizard": true
         },
@@ -7353,7 +8107,10 @@
         "type": "4th-level transmutation"
     },
     "eyebite": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -7386,7 +8143,10 @@
         "type": "6th-level necromancy"
     },
     "find_steed": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "paladin": true
         },
@@ -7410,7 +8170,10 @@
         "type": "2nd-level conjuration"
     },
     "find_the_path": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -7441,7 +8204,10 @@
         "type": "6th-level divination"
     },
     "find_traps": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -7469,7 +8235,10 @@
         "type": "2nd-level divination"
     },
     "fire_shield": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -7496,7 +8265,10 @@
         "type": "4th-level evocation"
     },
     "flame_blade": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "druid": true
         },
@@ -7524,7 +8296,10 @@
         "type": "2nd-level evocation"
     },
     "flame_strike": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -7555,7 +8330,10 @@
         "type": "5th-level evocation"
     },
     "flaming_sphere": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "wizard": true
@@ -7588,7 +8366,10 @@
         "type": "2nd-level conjuration"
     },
     "flesh_to_stone": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "warlock": true,
             "wizard": true
@@ -7620,7 +8401,10 @@
         "type": "6th-level transmutation"
     },
     "forbiddance": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "cleric": true
         },
@@ -7647,7 +8431,10 @@
         "type": "6th-level abjuration (ritual)"
     },
     "freedom_of_movement": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -7680,7 +8467,10 @@
         "type": "4th-level abjuration"
     },
     "geas": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "cleric": true,
             "wizard": true,
@@ -7716,7 +8506,10 @@
         "type": "5th-level enchantment"
     },
     "gentle_repose": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "wizard": true
@@ -7745,7 +8538,10 @@
         "type": "2nd-level necromancy (ritual)"
     },
     "giant_insect": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -7769,7 +8565,10 @@
         "type": "4th-level transmutation"
     },
     "globe_of_invulnerability": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -7799,7 +8598,10 @@
         "type": "6th-level abjuration"
     },
     "glyph_of_warding": {
-        "casting_time": "1 hour",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "hour"
+        }],
         "class": {
             "cleric": true,
             "wizard": true,
@@ -7831,7 +8633,10 @@
         "type": "3rd-level abjuration"
     },
     "grasping_vine": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "ranger": true,
             "druid": true
@@ -7860,7 +8665,10 @@
         "type": "4th-level conjuration"
     },
     "greater_invisibility": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true,
@@ -7888,7 +8696,10 @@
         "type": "4th-level illusion"
     },
     "greater_restoration": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -7919,7 +8730,10 @@
         "type": "5th-level abjuration"
     },
     "guardian_of_faith": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -7946,7 +8760,10 @@
         "type": "4th-level conjuration"
     },
     "guards_and_wards": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "wizard": true,
             "bard": true
@@ -7975,7 +8792,10 @@
         "type": "6th-level abjuration"
     },
     "gust_of_wind": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true,
@@ -8006,7 +8826,10 @@
         "type": "2nd-level evocation"
     },
     "hallucinatory_terrain": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -8039,7 +8862,10 @@
         "type": "4th-level illusion"
     },
     "hallow": {
-        "casting_time": "24 hours",
+        "casting_time": [{
+            "amount": 24,
+            "unit": "hour"
+        }],
         "class": {
             "cleric": true
         },
@@ -8066,7 +8892,10 @@
         "type": "5th-level evocation"
     },
     "harm": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -8097,7 +8926,10 @@
         "type": "6th-level necromancy"
     },
     "heat_metal": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "bard": true
@@ -8130,7 +8962,10 @@
         "type": "2nd-level transmutation"
     },
     "heal": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true
@@ -8157,7 +8992,10 @@
         "type": "6th-level evocation"
     },
     "heroes'_feast": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "cleric": true,
             "druid": true
@@ -8189,7 +9027,10 @@
         "type": "6th-level conjuration"
     },
     "hold_monster": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -8226,7 +9067,10 @@
         "type": "5th-level enchantment"
     },
     "ice_storm": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -8261,7 +9105,10 @@
         "type": "4th-level evocation"
     },
     "insect_plague": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -8296,7 +9143,10 @@
         "type": "5th-level conjuration"
     },
     "knock": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true,
@@ -8324,7 +9174,10 @@
         "type": "2nd-level transmutation"
     },
     "legend_lore": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "cleric": true,
             "wizard": true,
@@ -8355,7 +9208,10 @@
         "type": "5th-level divination"
     },
     "levitate": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -8387,7 +9243,10 @@
         "type": "2nd-level transmutation"
     },
     "locate_animals_or_plants": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -8418,7 +9277,10 @@
         "type": "2nd-level divination (ritual)"
     },
     "lightning_bolt": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -8451,7 +9313,10 @@
         "type": "3rd-level evocation"
     },
     "locate_creature": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -8488,7 +9353,10 @@
         "type": "4th-level divination"
     },
     "locate_object": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -8525,7 +9393,10 @@
         "type": "2nd-level divination"
     },
     "magic_jar": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "wizard": true
         },
@@ -8552,7 +9423,10 @@
         "type": "6th-level necromancy"
     },
     "magic_weapon": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "paladin": true,
             "wizard": true
@@ -8579,7 +9453,10 @@
         "type": "2nd-level transmutation"
     },
     "magic_mouth": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "wizard": true
@@ -8608,7 +9485,10 @@
         "type": "2nd-level illusion (ritual)"
     },
     "mass_cure_wounds": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -8637,7 +9517,10 @@
         "type": "5th-level conjuration"
     },
     "mass_suggestion": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -8674,7 +9557,10 @@
         "type": "6th-level enchantment"
     },
     "mirror_image": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "warlock": true,
@@ -8702,7 +9588,10 @@
         "type": "2nd-level illusion"
     },
     "mislead": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "wizard": true
@@ -8728,7 +9617,10 @@
         "type": "5th-level illusion"
     },
     "misty_step": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "sorcerer": true,
             "warlock": true,
@@ -8756,7 +9648,10 @@
         "type": "2nd-level conjuration"
     },
     "modify_memory": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "wizard": true
@@ -8786,7 +9681,10 @@
         "type": "5th-level enchantment"
     },
     "moonbeam": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -8817,7 +9715,10 @@
         "type": "2nd-level evocation"
     },
     "move_earth": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -8848,7 +9749,10 @@
         "type": "6th-level transmutation"
     },
     "pass_without_trace": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true
@@ -8877,7 +9781,10 @@
         "type": "2nd-level abjuration"
     },
     "passwall": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -8904,7 +9811,10 @@
         "type": "5th-level transmutation"
     },
     "phantasmal_killer": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -8932,7 +9842,10 @@
         "type": "4th-level illusion"
     },
     "phantasmal_force": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -8963,7 +9876,10 @@
         "type": "2nd-level illusion"
     },
     "planar_ally": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "cleric": true
         },
@@ -8987,7 +9903,10 @@
         "type": "6th-level conjuration"
     },
     "planar_binding": {
-        "casting_time": "1 hour",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "hour"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -9021,7 +9940,10 @@
         "type": "5th-level abjuration"
     },
     "polymorph": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -9057,7 +9979,10 @@
         "type": "4th-level transmutation"
     },
     "programmed_illusion": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "wizard": true
@@ -9086,7 +10011,10 @@
         "type": "6th-level illusion"
     },
     "raise_dead": {
-        "casting_time": "1 hour",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "hour"
+        }],
         "class": {
             "cleric": true,
             "paladin": true,
@@ -9117,7 +10045,10 @@
         "type": "5th-level necromancy"
     },
     "protection_from_poison": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "ranger": true,
@@ -9147,7 +10078,10 @@
         "type": "2nd-level abjuration"
     },
     "ray_of_enfeeblement": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "warlock": true,
             "wizard": true
@@ -9176,7 +10110,10 @@
         "type": "2nd-level necromancy"
     },
     "reincarnate": {
-        "casting_time": "1 hour",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "hour"
+        }],
         "class": {
             "druid": true
         },
@@ -9203,7 +10140,10 @@
         "type": "5th-level transmutation"
     },
     "rope_trick": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -9230,7 +10170,10 @@
         "type": "2nd-level transmutation"
     },
     "scorching_ray": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -9257,7 +10200,10 @@
         "type": "2nd-level evocation"
     },
     "scrying": {
-        "casting_time": "10 minutes",
+        "casting_time": [{
+            "amount": 10,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -9295,7 +10241,10 @@
         "type": "5th-level divination"
     },
     "seeming": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -9323,7 +10272,10 @@
         "type": "5th-level illusion"
     },
     "see_invisibility": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -9354,7 +10306,10 @@
         "type": "2nd-level divination"
     },
     "shatter": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "warlock": true,
@@ -9389,7 +10344,10 @@
         "type": "2nd-level evocation"
     },
     "spider_climb": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "warlock": true,
@@ -9420,7 +10378,10 @@
         "type": "2nd-level transmutation"
     },
     "spike_growth": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true
@@ -9449,7 +10410,10 @@
         "type": "2nd-level transmutation"
     },
     "staggering_smite": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "paladin": true
         },
@@ -9476,7 +10440,10 @@
         "type": "4th-level evocation"
     },
     "stone_shape": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -9507,7 +10474,10 @@
         "type": "4th-level transmutation"
     },
     "sunbeam": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -9541,7 +10511,10 @@
         "type": "6th-level evocation"
     },
     "stoneskin": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -9574,7 +10547,10 @@
         "type": "4th-level abjuration"
     },
     "swift_quiver": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "ranger": true
         },
@@ -9601,7 +10577,10 @@
         "type": "5th-level transmutation"
     },
     "telekinesis": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -9627,7 +10606,10 @@
         "type": "5th-level transmutation"
     },
     "teleportation_circle": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -9658,7 +10640,10 @@
         "type": "5th-level conjuration"
     },
     "transport_via_plants": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -9682,7 +10667,10 @@
         "type": "6th-level conjuration"
     },
     "tree_stride": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true
@@ -9708,7 +10696,10 @@
         "type": "5th-level conjuration"
     },
     "true_seeing": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -9743,7 +10734,10 @@
         "type": "6th-level divination"
     },
     "vampiric_touch": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "warlock": true,
             "wizard": true
@@ -9770,7 +10764,10 @@
         "type": "3rd-level necromancy"
     },
     "wall_of_fire": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -9805,7 +10802,10 @@
         "type": "4th-level evocation"
     },
     "wall_of_ice": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -9836,7 +10836,10 @@
         "type": "6th-level evocation"
     },
     "wall_of_force": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
@@ -9863,7 +10866,10 @@
         "type": "5th-level evocation"
     },
     "wall_of_stone": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -9897,7 +10903,10 @@
         "type": "5th-level evocation"
     },
     "wall_of_thorns": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -9928,7 +10937,10 @@
         "type": "6th-level conjuration"
     },
     "water_breathing": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true,
@@ -9961,7 +10973,10 @@
         "type": "3rd-level transmutation (ritual)"
     },
     "water_walk": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true,
             "druid": true,
@@ -9994,7 +11009,10 @@
         "type": "3rd-level transmutation (ritual)"
     },
     "web": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -10026,7 +11044,10 @@
         "type": "2nd-level conjuration"
     },
     "wind_walk": {
-        "casting_time": "1 minute",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "minute"
+        }],
         "class": {
             "druid": true
         },
@@ -10053,7 +11074,10 @@
         "type": "6th-level transmutation"
     },
     "wind_wall": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true
@@ -10082,7 +11106,10 @@
         "type": "3rd-level evocation"
     },
     "word_of_recall": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "cleric": true
         },
@@ -10106,7 +11133,10 @@
         "type": "6th-level conjuration"
     },
     "zone_of_truth": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "cleric": true,
@@ -10134,7 +11164,10 @@
         "type": "2nd-level enchantment"
     },
     "earth_tremor": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -10168,7 +11201,10 @@
         "type": "1st-level evocation"
     },
     "pyrotechnics": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "sorcerer": true,
@@ -10196,7 +11232,10 @@
         "type": "2nd-level transmutation"
     },
     "skywrite": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -10224,7 +11263,10 @@
         "type": "2nd-level transmutation (ritual)"
     },
     "thunderclap": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -10259,7 +11301,10 @@
         "type": "Evocation cantrip"
     },
     "warding_wind": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "bard": true,
             "druid": true,
@@ -10287,7 +11332,10 @@
         "type": "2nd level evocation"
     },
     "control_flames": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10315,7 +11363,10 @@
         "type": "Transmutation cantrip"
     },
     "create_bonfire": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10348,7 +11399,10 @@
         "type": "Conjuration cantrip"
     },
     "frostbite": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10381,7 +11435,10 @@
         "type": "Evocation cantrip"
     },
     "gust": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10409,7 +11466,10 @@
         "type": "Transmutation cantrip"
     },
     "magic_stone": {
-        "casting_time": "1 bonus action",
+        "casting_time": [{
+            "amount": 1,
+            "description": "bonus action"
+        }],
         "class": {
             "druid": true,
             "warlock": true
@@ -10435,7 +11495,10 @@
         "type": "Transmutation cantrip"
     },
     "mold_earth": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10463,7 +11526,10 @@
         "type": "Transmutation cantrip"
     },
     "shape_water": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10491,7 +11557,11 @@
         "type": "Transmutation cantrip"
     },
     "absorb_elements": {
-        "casting_time": "1 reaction, which you take when you take acid, cold, fire, lightning, or thunder damage",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "reaction",
+            "detail": "which you take when you take acid, cold, fire, lightning, or thunder damage"
+        }],
         "class": {
             "druid": true,
             "ranger": true,
@@ -10520,7 +11590,10 @@
         "type": "1st-level abjuration"
     },
     "beast_bond": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true
@@ -10549,7 +11622,10 @@
         "type": "1st-level divination"
     },
     "ice_knife": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10584,7 +11660,10 @@
         "type": "1st-level conjuration"
     },
     "earthbind": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10614,7 +11693,10 @@
         "type": "2nd-level transmutation"
     },
     "dust_devil": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10646,7 +11728,10 @@
         "type": "2nd-level conjuration"
     },
     "catapult": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -10676,7 +11761,10 @@
         "type": "1st-level transmutation"
     },
     "control_winds": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10704,7 +11792,10 @@
         "type": "5th-level transmutation"
     },
     "bones_of_the_earth": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -10732,7 +11823,10 @@
         "type": "6th-level transmutation"
     },
     "erupting_earth": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10767,7 +11861,10 @@
         "type": "3rd-level transmutation"
     },
     "elemental_bane": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "warlock": true,
@@ -10799,7 +11896,10 @@
         "type": "4th-level transmutation"
     },
     "flame_arrows": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "ranger": true,
@@ -10830,7 +11930,10 @@
         "type": "3rd-level transmutation"
     },
     "investiture_of_flame": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10863,7 +11966,10 @@
         "type": "6th-level transmutation"
     },
     "investiture_of_ice": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10896,7 +12002,10 @@
         "type": "6th-level transmutation"
     },
     "investiture_of_stone": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10929,7 +12038,10 @@
         "type": "6th-level transmutation"
     },
     "investiture_of_wind": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -10962,7 +12074,10 @@
         "type": "6th-level transmutation"
     },
     "maelstrom": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -10989,7 +12104,10 @@
         "type": "5th-level evocation"
     },
     "primordial_ward": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true
         },
@@ -11013,7 +12131,10 @@
         "type": "6th-level abjuration"
     },
     "tidal_wave": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "wizard": true
@@ -11045,7 +12166,10 @@
         "type": "3rd-level conjuration"
     },
     "transmute_rock": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "wizard": true
@@ -11077,7 +12201,10 @@
         "type": "5th-level transmutation"
     },
     "wall_of_water": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -11108,7 +12235,10 @@
         "type": "3rd-level evocation"
     },
     "watery_sphere": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "sorcerer": true,
@@ -11139,7 +12269,10 @@
         "type": "4th-level conjuration"
     },
     "whirlwind": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "druid": true,
             "wizard": true
@@ -11171,7 +12304,10 @@
         "type": "7th-level evocation"
     },
     "immolation": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -11200,7 +12336,10 @@
         "type": "5th-level evocation"
     },
     "storm_sphere": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -11227,7 +12366,10 @@
         "type": "4th-level evocation"
     },
     "vitriolic_sphere": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "sorcerer": true,
             "wizard": true
@@ -11260,7 +12402,10 @@
         "type": "4th-level evocation"
     },
     "wall_of_sand": {
-        "casting_time": "1 action",
+        "casting_time": [{
+            "amount": 1,
+            "unit": "action"
+        }],
         "class": {
             "wizard": true
         },
