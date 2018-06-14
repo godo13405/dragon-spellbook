@@ -78,6 +78,9 @@ const webhook = (request, response) => {
             case 'query.complex':
                 responses.query.spellComplex();
                 break;
+            case 'count.complex':
+                responses.query.countComplex();
+                break;
             case 'query.class':
                 responses.query.spellClass();
                 break;

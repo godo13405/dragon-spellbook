@@ -1,12 +1,65 @@
 'use strict';
 
+const keysSetup = {
+        Class: {
+            deep: true,
+            phrase: false
+        },
+        Level: {
+            deep: false,
+            phrase: 'level '
+        },
+        School: {
+            deep: false,
+            phrase: 'school of'
+        }
+    };
+
 exports = module.exports = {
+    getQuery: (multipleAllowed = false) => {
+        // check how many parameters are defined
+        let output = [];
+
+        for (let kParam in request.body.queryResult.parameters) {
+            let thisParam = request.body.queryResult.parameters[kParam];
+
+            if (!multipleAllowed) {
+                if (thisParam.length > 1) {
+                    response.json(tools.setResponse(`Sorry, can we do this one ${kParam.toLowerCase()} at a time?`));
+                    return false;
+                }
+            }
+            for (var i = thisParam.length - 1; i >= 0; i--) {
+                output.push(tools.queryArgumentBuild(thisParam[i], kParam));
+            }
+        }
+
+        return output;
+    },
+    queryArgumentBuild: (input, className) => {
+        // is it a direct comparison, or do I need to look in an object?
+        let output = `${className.toLowerCase()}`;
+        if (keysSetup[className].deep) {
+            output = `${className}.${input.toLowerCase()}`;
+        }
+
+        output = [
+            output,
+            '==',
+            keysSetup[className].deep ? true : input.toLowerCase()
+        ];
+
+        return output;
+    },
     getSpell: () => {
-        return db.collection('spells').doc(params.spell.replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase()).get();
+        return db.collection('spells')
+            .doc(params.spell.replace(/\s+/g, '_')
+            .replace(/\/+/g, '_or_').toLowerCase())
+            .get();
     },
     querySpell: (where, limit, order = 'name') => {
         let output = db.collection('spells'),
-        log = [];
+            log = [];
 
         for (var i = where.length - 1; i >= 0; i--) {
             output = output.where(where[i][0], where[i][1], where[i][2]);
@@ -37,7 +90,7 @@ exports = module.exports = {
         let suggestions = [];
 
         // if speech variant has't been defined, clone text
-        if (Array.isArray(input)){
+        if (Array.isArray(input)) {
             input = {
                 text: input,
                 speech: input
@@ -76,7 +129,7 @@ exports = module.exports = {
                         "title": `how does it level up`
                     });
                 }
-            } else if (capabilities.includes('AUDIO_OUTPUT')){
+            } else if (capabilities.includes('AUDIO_OUTPUT')) {
                 if (input.speech.includes('description') && spell.description) {
                     suggestions.push({
                         "title": `what it is`
@@ -115,7 +168,7 @@ exports = module.exports = {
                         "title": sugg
                     });
                 });
-            } else if (capabilities.includes('AUDIO_OUTPUT')){
+            } else if (capabilities.includes('AUDIO_OUTPUT')) {
                 input.speech.forEach(sugg => {
                     suggestions.push({
                         "title": sugg
@@ -134,7 +187,7 @@ exports = module.exports = {
                 sugg = sugg + suggestions[i].title;
                 if (i === 1) {
                     sugg = sugg + " or ";
-                } else if (i > 1){
+                } else if (i > 1) {
                     sugg = sugg + ', ';
                 }
             }
@@ -186,7 +239,7 @@ exports = module.exports = {
         if (input.card) {
             output = tools.buildCard(output, input.card);
         }
-        if (suggestions.length  && capabilities.includes('SCREEN_OUTPUT')) {
+        if (suggestions.length && capabilities.includes('SCREEN_OUTPUT')) {
             output.payload.google.richResponse.suggestions = suggestions;
         }
 
@@ -284,42 +337,61 @@ exports = module.exports = {
 
         return output;
     },
-    listComplex: (keys, keysSetup, listRaw) => {
-        let keyPhrase = '';
-        for (let k in keys) {
-            if(keys[k]) {
-                let out = keys[k];
+    addPhrase: () => {
+        let output = '';
+        for (let k in request.body.queryResult.parameters) {
+            if (request.body.queryResult.parameters[k].length) {
+                let out = request.body.queryResult.parameters[k];
                 if (keysSetup[k] && keysSetup[k].phrase && keysSetup[k].phrase.length) {
                     out = keysSetup[k].phrase + out;
                 }
-                keyPhrase = keyPhrase + ' ' + out;
+                output = output + ' ' + out;
             }
-        };
+        }
+
+        return output;
+    },
+    listComplex: (listRaw, verboseLevel) => {
+        let keyPhrase = tools.addPhrase();
 
         let output = {
                 speech: `I don't know any ${keyPhrase} spells.`,
                 data: []
             },
             listSize = listRaw && listRaw.size ? listRaw.size : 0,
-            shortList = listRaw && listRaw.docs ? sak.shuffleArray(listRaw.docs, 4) : null,
-            className = listSize > 1 ? `There are ${listSize} ${keyPhrase} spells, <break time='350ms' /> including` : `The only ${keyPhrase} spell is`;
+            shortList = listRaw && listRaw.docs ? sak.shuffleArray(listRaw.docs, 4) : null;
 
-        if (listSize) {
-            output.speech = '';
-            for (var i = shortList.length - 1; i >= 0; i--) {
-                output.speech = output.speech + shortList[i]._fieldsProto.name.stringValue;
-                if (i === 1) {
-                    output.speech = output.speech + ' and ';
-                } else if (i > 1) {
-                    output.speech = output.speech + ', ';
+        switch (true) {
+            case (!listSize):
+                output.speech = `I don't know any ${keyPhrase} spells.`;
+                break;
+            case (listSize === 1):
+                output.speech = `There is only 1 ${keyPhrase} spell`;
+                break;
+            case (listSize >1):
+                output.speech = `There are ${listSize} ${keyPhrase} spells.`;
+                break;
+        }
+
+        if (verboseLevel) {
+            let className = listSize > 1 ? `There are ${listSize} ${keyPhrase} spells, <break time='350ms' /> including` : `The only ${keyPhrase} spell is`;
+
+            if (listSize) {
+                output.speech = '';
+                for (var i = shortList.length - 1; i >= 0; i--) {
+                    output.speech = output.speech + shortList[i]._fieldsProto.name.stringValue;
+                    if (i === 1) {
+                        output.speech = output.speech + ' and ';
+                    } else if (i > 1) {
+                        output.speech = output.speech + ', ';
+                    }
                 }
+                output.speech = `${className} ${output.speech}`;
             }
-            output.speech = `${className} ${output.speech}`;
         }
 
         output.size = listSize;
-        output.className = keyPhrase;
-        output.contexts = keys;
+        output.keyPhrase = keyPhrase;
 
         return output;
     }

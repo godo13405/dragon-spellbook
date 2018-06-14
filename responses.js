@@ -104,82 +104,60 @@ exports = module.exports = {
     },
     query: {
         spellComplex: () => {
-            // check how many parameters are defined
-            let keys = {
-                Class: false,
-                Level: false,
-                School: false
-            },
-            keysSetup = {
-                Class: {
-                    deep: true,
-                    phrase: false
-                },
-                Level: {
-                    deep: false,
-                    phrase: 'level '
-                },
-                School: {
-                    deep: false,
-                    phrase: 'school of'
-                }
-            },
-            queryWhere = [];
+        	let q = tools.getQuery();
+        	if (q) {
+	            tools.querySpell(q).then(list => {
+	            	// set suggestions
+	            	let sugg = {
+	            		text: [
+		                    `which are level ${Math.ceil(Math.random()*9)}`
+		                ],
+		                speech: [
+		                	`tell you which are level ${Math.ceil(Math.random()*9)}`
+		                ]
+		            };
 
-            for (let k in keys) {
-                if (request.body.queryResult.parameters[k] && request.body.queryResult.parameters[k].length) {
-                	if (request.body.queryResult.parameters[k].length > 1) {
-                		response.json(tools.setResponse(`Sorry, can we do this one ${k.toLowerCase()} at a time?`));
-                		break;
-                	} else {
-                    	keys[k] = request.body.queryResult.parameters[k][0];
-                    	params[k] = [keys[k]];
-                    }
-                } else if (params[k]) {
-                    keys[k] = params[k];
-                }
-
-                // is it a direct comparison, or do I need to look in an object?
-                let q = `${k.toLowerCase()}`;
-                if (keysSetup[k].deep && keys[k]) {
-                    q = `${k.toLowerCase()}.${keys[k].toLowerCase()}`;
-                }
-
-                if (keys[k]){
-                    queryWhere.push([
-                        q,
-                        '==',
-                        keysSetup[k].deep ? true : keys[k].toLowerCase()
-                    ]);
-                }
-            };
-
-            tools.querySpell(queryWhere).then(list => {
-            	// set suggestions
-            	let sugg = {
-            		text: [
-	                    `which are level ${Math.ceil(Math.random()*9)}`
-	                ],
-	                speech: [
-	                	`tell you which are level ${Math.ceil(Math.random()*9)}`
-	                ]
-	            };
-
-                // if they are a manageable number, offer to read them out loud
-                if (list.size <= 10) {
-                	sugg.text.push('read them all out');
-                	sugg.speech.push('read them all out');
-                }
+	                // if they are a manageable number, offer to read them out loud
+	                if (list.size <= 10) {
+	                	sugg.text.push('read them all out');
+	                	sugg.speech.push('read them all out');
+	                }
 
 
-                let output = tools.setResponse(tools.listComplex(keys, keysSetup, list), tools.getSuggestions(sugg), 2);
-                response.json(output);
-            }).catch(err => {
-                console.log(err);
-            });
+	                let output = tools.setResponse(tools.listComplex(list, 'summary'), tools.getSuggestions(sugg), 2);
+	                response.json(output);
+	            }).catch(err => {
+	                console.log(err);
+	            });
+	        }
         },
         countComplex: () => {
-        	
+        	let q = tools.getQuery(true);
+        	if (q) {
+	            tools.querySpell(q).then(list => {
+	            	// set suggestions
+	            	let sugg = {
+	            		text: [
+		                    `which are level ${Math.ceil(Math.random()*9)}`
+		                ],
+		                speech: [
+		                	`tell you which are level ${Math.ceil(Math.random()*9)}`
+		                ]
+		            };
+
+	                // if they are a manageable number, offer to read them out loud
+	                if (list.size <= 10) {
+	                	sugg.text.push('read them all out');
+	                	sugg.speech.push('read them all out');
+	                }
+
+
+	                let output = tools.setResponse(tools.listComplex(list), tools.getSuggestions(sugg), 2);
+	                response.json(output);
+	            }).catch(err => {
+	                console.log(err);
+	            });
+	        }
         }
     }
 };
