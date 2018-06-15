@@ -33,7 +33,7 @@ exports = module.exports = {
         	last = len - 2;
         for (var i = 0; i < len; i++) {
             output = output + input[i];
-            if (!capabilities.includes('SCREEN_OUTPUT') && capabilities.includes('AUDIO_OUTPUT')) {
+            if (!capabilities.screen && capabilities.audio) {
             	output = output + '<break time=\'500ms\' />';
             }
             if (i === last) {
@@ -43,5 +43,13 @@ exports = module.exports = {
             }
         }
         return output;
+    },
+    plural: input => {
+        let add = 's';
+        if (str.slice(-1) === 't') {
+            add = 'es';
+        }
+
+        return input + add;
     }
 };

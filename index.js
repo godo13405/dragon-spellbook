@@ -26,7 +26,7 @@ const webhook = (request, response) => {
     if (request.body.originalDetectIntentRequest.payload && request.body.originalDetectIntentRequest.source === 'google') {
         request.body.originalDetectIntentRequest.payload.surface.capabilities.forEach(cap => {
             cap = cap.name.split('.');
-            cap = cap[cap.length - 1];
+            cap = cap[cap.length - 1].replace(/_OUTPUT/g, '').toLowerCase;
             capabilities.push(cap);
         });
         /*
@@ -36,7 +36,7 @@ const webhook = (request, response) => {
               'WEB_BROWSER' ]
         */
     } else {
-        capabilities.push('SCREEN_OUTPUT');
+        capabilities.push('screen');
     }
 
     // get context parameters
@@ -61,13 +61,13 @@ const webhook = (request, response) => {
             case ('spell.description'):
                 responses.spellDescription();
                 break;
-            case 'spell.damage':
-                responses.spellDamage();
+            case 'spell.what.damage':
+                responses.what.spellDamage();
                 break;
             case 'spell.duration':
                 responses.spellDuration();
                 break;
-            case 'spell.castTime':
+            case 'spell.what.castTime':
                 responses.spellCastTime();
                 break;
             case 'query.school':

@@ -18,7 +18,14 @@
         "saving_throw": {
             "Dexterity": true
         },
-        "damage": "1d6 acid damage",
+        "damage": [{
+            "amount": 1,
+            "dice": "d6",
+            "type": "acid"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "higher_levels": "increases by 1d6 when you reach levels 5, 11 and 17.",
         "duration": "Instantaneous",
         "level": "0",
@@ -220,7 +227,11 @@
         "saving_throw": {
             "Dexterity": true
         },
-        "damage": "3d6 fire damage, half as much on save",
+        "damage": [{
+            "amount": 3,
+            "dice": "d6",
+            "type": "fire"
+        }],
         "damage_type": {
             "fire": true
         },
@@ -298,7 +309,11 @@
         },
         "description": "You create a ghostly, skeletal hand in the space of a creature within range. Make a ranged spell attack against the creature to assail it with the chill of the grave. On a hit, the target takes **1d8 necrotic damage**, and it can't regain hit points until the start of your next turn. Until then, the hand clings to the target.\n\nIf you hit an undead target, it also has disadvantage on attack rolls against you until the end of your next turn.",
         "duration": "1 round",
-        "damage": "1d8 necrotic damage",
+        "damage": [{
+            "amount": 1,
+            "dice": "d8",
+            "type": "necrotic"
+        }],
         "damage_type": {
             "necrotic": true
         },
@@ -336,9 +351,26 @@
         },
         "description": "You hurl a 4-inch-diameter sphere of energy at a creature that you can see within range. You choose acid, cold, fire, lightning, poison, or thunder for the type of orb you create, and then make a ranged spell attack against the target. If the attack hits, the creature takes **3d8 damage of the type you chose**.",
         "duration": "Instantaneous",
-        "damage": "3d8 damage of the type you chose",
+        "damage": [{
+            "amount": 3,
+            "dice": "d8",
+            "type": "any type you chose"
+        }],
         "damage_type": {
-            "your choosing": true
+            "any": true,
+            "acid": true,
+"bludgeoning": true,
+"cold": true,
+"fire": true,
+"force": true,
+"lightning": true,
+"necrotic": true,
+"piercing": true,
+"poison": true,
+"psychic": true,
+"radiant": true,
+"slashing": true,
+"thunder": true
         },
         "higher_levels": "When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d8 for each slot level above 1st.",
         "level": "1",
@@ -743,6 +775,14 @@
             "verbal": true
         },
         "description": "Your prayer empowers you with divine radiance. Until the spell ends, your weapon attacks deal an extra 1d4 radiant damage on a hit.",
+        "damage": [{
+            "amount": 1,
+            "dice": "d4",
+            "type": "radiant"
+        }],
+        "damage_type": {
+            "radiant": true
+        },
         "duration": "Concentration, up to 1 minute",
         "level": "1",
         "name": "Divine Favor",
@@ -773,7 +813,7 @@
         "saving_throw": {
             "Wisdom": true
         },
-        "damage": "3d6 psychic damage",
+        "damage": [{"amount": 3,"dice": "d6", "type": "psychic"}],
         "damage_type": {
             "psychic": true
         },
@@ -832,7 +872,7 @@
             "verbal": true
         },
         "description": "A beam of crackling energy streaks toward a creature within range. Make a ranged spell attack against the target. On a hit, the target takes **1d10 force damage**.",
-        "damage": "1d10 force damage.",
+        "damage": [{"amount": 1, "dice": "d10", "type": "force"}],
         "damage_type": {
             "force": true
         },
@@ -863,6 +903,14 @@
             "verbal": true
         },
         "description": "The next time you hit a creature with a weapon attack before this spell ends, a writhing mass of thorny vines appears at the point of impact, and the target must succeed on a Strength saving throw or be restrained by the magical vines until the spell ends. A Large or larger creature has advantage on this saving throw. If the target succeeds on the save, the vines shrivel away.\n\nWhile restrained by this spell, the target takes 1d6 piercing damage at the start of each of its turns. A creature restrained by the vines or one that can touch a creature can use its action to make a Strength check against your spell save DC. On a success, the target is freed.",
+        "damage": [{
+            "amount": 1,
+            "dice": "d6",
+            "type": "piercing"
+        }],
+        "damage_type": {
+            "piercing": true
+        },
         "duration": "Concentration, up to 1 minute",
         "higher_levels": "If you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d6 for each slot level above 1st.",
         "level": "1",
@@ -1079,7 +1127,16 @@
             "somatic": true,
             "verbal": true
         },
-        "description": "You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 fire damage. A flammable object hit by this spell ignites if it isn't being worn or carried. This spell\u2019s damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10).",
+        "description": "You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 fire damage. A flammable object hit by this spell ignites if it isn't being worn or carried.",
+        "damage": [{
+            "amount": 1,
+            "dice": "d10",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
+        "higher_levels": "This spell\u2019s damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10).",
         "duration": "Instantaneous",
         "level": "0",
         "name": "Fire Bolt",
@@ -1273,6 +1330,14 @@
         },
         "description": "A flash of light streaks toward a creature of your choice within range. Make a ranged spell attack against the target. On a hit, the target takes 4d6 radiant damage, and the next attack roll made against this target before the end of your next turn has advantage, thanks to the mystical dim light glittering on the target until then.",
         "duration": "1 round",
+        "damage": [{
+            "amount": 4,
+            "dice": "d6",
+            "type": "radiant"
+        }],
+        "damage_type": {
+            "radiant": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d6 for each slot level above 1st.",
         "level": "1",
         "name": "Guiding Bolt",
@@ -1302,6 +1367,14 @@
         "description": "The next time you hit a creature with a ranged weapon attack before this spell ends, this spell creates a rain of thorns that sprouts from your ranged weapon or ammunition. In addition to the normal effects of the attack, the target of the attack and each creature within 5 feet of it must make a Dexterity saving throw. A creature takes 1d10 piercing damage on a failed save, or half as much damage on a successful one.",
         "saving_throw": {
             "Dexterity": true
+        },
+        "damage": [{
+            "amount": 1,
+            "dice": "d10",
+            "type": "piercing"
+        }],
+        "damage_type": {
+            "piercing": true
         },
         "duration": "Concentration, up to 1 minute",
         "higher_levels": "If you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d10 for each slot level above 1st (to a maximum of 6d10).",
@@ -1366,6 +1439,14 @@
         "description": "You point your finger, and the creature that damaged you is momentarily surrounded by hellish flames. The creature must make a Dexterity saving throw. It takes 2d10 fire damage on a failed save, or half as much damage on a successful one.",
         "saving_throw": {
             "Dexterity": true
+        },
+        "damage": [{
+            "amount": 2,
+            "dice": "d10",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
         },
         "duration": "Instantaneous",
         "higher_levels": "When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d10 for each slot level above 1st.",
@@ -1456,6 +1537,14 @@
         },
         "description": "You choose a creature you can see within range and mystically mark it as your quarry. Until the spell ends, you deal an extra 1d6 damage to the target whenever you hit it with a weapon attack, and you have advantage on any Wisdom (Perception) or Wisdom (Survival) check you make to find it. If the target drops to 0 hit points before this spell ends, you can use a bonus action on a subsequent turn of yours to mark a new creature.",
         "duration": "Concentration, up to 1 hour",
+        "damage": [{
+            "amount": 1,
+            "dice": "d6",
+            "type": "extra"
+        }],
+        "damage_type": {
+            "extra": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 3rd or 4th level, you can maintain your concentration on the spell for up to 8 hours. When you use a spell slot of 5th level or higher, you can maintain your concentration on the spell for up to 24 hours.",
         "level": "1",
         "name": "Hunter's Mark",
@@ -1550,6 +1639,14 @@
         },
         "description": "Make a melee spell attack against a creature you can\n\nreach. On a hit, the target takes 3d10 necrotic damage.\n\nspell slot of 2nd level or higher, the damage increases by\n\n1d10 for each slot level above 1st.",
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 3,
+            "dice": "d10",
+            "type": "necrotic"
+        }],
+        "damage_type": {
+            "necrotic": true
+        },
         "higher_levels": "When you cast this spell using a",
         "level": "1",
         "name": "Inflict Wounds",
@@ -2181,10 +2278,19 @@
             "somatic": true,
             "verbal": true
         },
-        "description": "Flame-like radiance descends on a creature that you can see within range. The target must succeed on a Dexterity saving throw or take 1d8 radiant damage. The target gains no benefit from cover for this saving throw.\n\nThe spell\u2019s damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
+        "description": "Flame-like radiance descends on a creature that you can see within range. The target must succeed on a Dexterity saving throw or take 1d8 radiant damage. The target gains no benefit from cover for this saving throw.",
         "saving_throw": {
             "Dexterity": true
         },
+        "damage": [{
+            "amount": 1,
+            "dice": "d8",
+            "type": "radiant"
+        }],
+        "damage_type": {
+            "radiant": true
+        },
+        "higher_levels": "The spell\u2019s damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
         "duration": "Instantaneous",
         "level": "0",
         "name": "Sacred Flame",
@@ -3454,6 +3560,15 @@
         "saving_throw": {
             "Constitution": true
         },
+        "damage": [{
+            "amount": 3,
+            "dice": "d8",
+            "type": "radiant"
+        }],
+        "damage_type": {
+            "radiant": true,
+            "extra": true
+        },
         "duration": "Concentration, up to 1 minute",
         "level": "3",
         "name": "Blinding Smite",
@@ -3770,6 +3885,15 @@
         },
         "description": "Holy power radiates from you in an aura with a 30-foot radius, awakening boldness in friendly creatures. Until the spell ends, the aura moves with you, centered on you. While in the aura, each nonhostile creature in the aura (including you) deals an extra 1d4 radiant damage when it hits with a weapon attack.",
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 1,
+            "dice": "d4",
+            "type": "radiant"
+        }],
+        "damage_type": {
+            "radiant": true,
+            "extra": true
+        },
         "level": "3",
         "name": "Crusader's Mantle",
         "range": "Self",
@@ -3981,6 +4105,14 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 8,
+            "dice": "d6",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd.",
         "level": "3",
         "name": "Fireball",
@@ -4745,6 +4877,15 @@
         "saving_throw": {
             "Wisdom": true
         },
+        "damage": [{
+            "amount": 3,
+            "dice": "d8",
+            "type": "radiant or necrotic"
+        }],
+        "damage_type": {
+            "radiant": true,
+            "necrotic": true
+        },
         "duration": "Concentration, up to 10 minutes",
         "higher_levels": "When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d8 for each slot level above 3rd.",
         "level": "3",
@@ -4886,6 +5027,14 @@
         },
         "description": "Until the spell ends, you control any freestanding water inside an area you choose that is a cube up to 100 feet on a side. You can choose from any of the following effects when you cast this spell. As an action on your turn, you can repeat the same effect or choose a different one.\n\nIf you choose an area in a large body of water, you can instead create a 20-foot tall wave that travels from one side of the area to the other and then crashes down. Any Huge or smaller vehicles in the wave's path are carried with it to the other side. Any Huge or smaller vehicles struck by the wave have a 25 percent chance of capsizing.\n\nThe water level remains elevated until the spell ends or you choose a different effect. If this effect produced a wave, the wave repeats on the start of your next turn while the flood effect lasts.\n\nWhen a creature enters the vortex for the first time on a turn, or starts its turn there, it must make a Strength saving throw. On a failed save, the creature takes 2d8 bludgeoning damage and is caught in the vortex until the spell ends. On a successful save, the creature takes half damage, and isn't caught in the vortex. A creature caught in the vortex can use its action to try and swim away from the vortex as described above, but has disadvantage on the Strength (Athletics) check to do so.\n\nThe first time each turn that an object enters the vortex, the object takes 2d8 bludgeoning damage; this damage occurs each round it remains in the vortex.",
         "duration": "Concentration, up to 10 minutes",
+        "damage": [{
+            "amount": 2,
+            "dice": "d8",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "level": "4",
         "name": "Control Water",
         "range": "300 feet",
@@ -5073,6 +5222,14 @@
         },
         "description": "The next time you hit a creature with a weapon attack before this spell ends, the weapon gleams with astral radiance as you strike. The attack deals an extra 2d6 radiant damage to the target, which becomes visible if it\u2019s invisible, and the target sheds dim light in a 5-foot radius and can\u2019t become invisible until the spell ends.",
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 2,
+            "dice": "d6",
+            "type": "radiant"
+        }],
+        "damage_type": {
+            "radiant": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 3rd level or higher, the extra damage increases by 1d6 for each slot level above 2nd.",
         "level": "2",
         "name": "Branding Smite",
@@ -5107,6 +5264,14 @@
             "Dexterity": true
         },
         "duration": "8 hours",
+        "damage": [{
+            "amount": 1,
+            "dice": "d6",
+            "type": "piercing"
+        }],
+        "damage_type": {
+            "piercing": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 3rd level or higher, the amount of ammunition that can be affected increases by two for each slot level above 2nd.",
         "level": "2",
         "name": "Cordon Of Arrows",
@@ -5781,6 +5946,14 @@
             "Dexterity": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 8,
+            "dice": "d10",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "level": "8",
         "name": "Incendiary Cloud",
         "range": "150 feet",
@@ -5867,6 +6040,19 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 20,
+            "dice": "d6",
+            "type": "fire"
+        }, {
+            "amount": 20,
+            "dice": "d6",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "fire": true,
+            "bludgeoning": true
+        },
         "level": "9",
         "name": "Meteor Swarm",
         "range": "1 mile",
@@ -6086,6 +6272,14 @@
             "Constitution": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 2,
+            "dice": "d6",
+            "type": "thunder"
+        }],
+        "damage_type": {
+            "thunder": true
+        },
         "level": "9",
         "name": "Storm of Vengeance",
         "range": "Sight",
@@ -6246,6 +6440,14 @@
         },
         "description": "A wall of water springs into existence at a point you choose within range. You can make the wall up to 300 feet long, 300 feet high, and 50 feet thick. The wall lasts for the duration.\n\nWhen the wall appears, each creature within its area must make a Strength saving throw. On a failed save, a creature takes 6d10 bludgeoning damage, or half as much damage on a successful save.\n\nAt the start of each of your turns after the wall appears, the wall, along with any creatures in it, moves 50 feet away from you. Any Huge or smaller creature inside the wall or whose space the wall enters when it moves must succeed on a Strength saving throw or take 5d10 bludgeoning damage. A creature can take theis damage only once per round. At the end of the turn, the wall's height is reduced by 50 feet, and the damage creatures take from the the spell on subsequent rounds is reduced by 1d10. When the wall reaches 0 feet in height, the spell ends.\n\nA creature caught in the wall can move by swimming. Because of the force of the wave, though, the creature must make a successful Strength (Athletics) check against your spell save DC in order to move at all. If it fails the check, it can't move. A creature that moves out of the area falls to the ground.",
         "duration": "Concentration, up to 6 rounds",
+        "damage": [{
+            "amount": 5,
+            "dice": "d10",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "level": "8",
         "name": "Tsunami",
         "range": "Sight",
@@ -6308,6 +6510,14 @@
             "Wisdom": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 4,
+            "dice": "d10",
+            "type": "psychic"
+        }],
+        "damage_type": {
+            "psychic": true
+        },
         "level": "9",
         "name": "Weird",
         "range": "120 feet",
@@ -6399,6 +6609,14 @@
             "Dexterity": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 12,
+            "dice": "d6",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "higher_levels": "When you cast theis spell using a spell slot of 8th level or higher, the base damage increases by 1d6 for each slot level above 7th.",
         "level": "7",
         "name": "Delayed Blast Fireball",
@@ -6431,6 +6649,14 @@
         },
         "description": "You teleport yourself from your current location to any other spot within range. You arrive at exactly the spot desired. It can be a place you can see, one you can visualise, or one you can describe by stating distance and direction, such as \"200 feet straight downward\" or \"upward to the northwest at a 45-degree angle, 300 feet.\"\n\nYou can bring along objects as long as their weight doesn't exceed what you can carry. You can also bring one willing creature of your size or smaller who is carrying gear up to its carrying capacity. The creature must be within 5 feet of you when you cast this spell.\n\nIf you would arrive in a place already occupied by an object or a creature, you and any creature travelling with you each take 4d6 force damage, and the spell fails to teleport you.",
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 4,
+            "dice": "d6",
+            "type": "force"
+        }],
+        "damage_type": {
+            "force": true
+        },
         "level": "4",
         "name": "Dimension Door",
         "range": "500 feet",
@@ -6529,6 +6755,15 @@
             "Constitution": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 7,
+            "dice": "d8",
+            "type": "necrotic",
+            "extra": 30
+        }],
+        "damage_type": {
+            "necrotic": true
+        },
         "level": "7",
         "name": "Finger of Death",
         "range": "60 feet",
@@ -6563,6 +6798,14 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 7,
+            "dice": "d10",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "level": "7",
         "name": "Fire Storm",
         "range": "150 feet",
@@ -7185,6 +7428,14 @@
         },
         "description": "The next time you hit a creature with a weapon attack before this spell ends, your weapon crackles with force, and the attack deals an extra 5d10 force damage to the target. Additionally, if this attack reduces the target to 50 hit points or fewer, you banish it. If the target is native to a different plane of existence than the one you're on, the target disappears, returning to its home plane. If the target is native to the plane you're on, the creature vanishes into a harmless demiplane. While there, the target is incapacitated. It remains there until the spell ends, at which point the target reappears in the space it left or in the nearest unoccupied space if that space is occupied.",
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 5,
+            "dice": "d10",
+            "type": "force"
+        }],
+        "damage_type": {
+            "force": true
+        },
         "level": "5",
         "name": "Banishing Smite",
         "range": "Self",
@@ -7219,6 +7470,14 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 10,
+            "dice": "d8",
+            "type": "lightning"
+        }],
+        "damage_type": {
+            "lightning": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 7th level or higher, one additional bolt leaps from the first target to another target for each slot level above 6th.",
         "level": "6",
         "name": "Chain Lightning",
@@ -7251,6 +7510,14 @@
             "Dexterity": true
         },
         "duration": "Concentration, up to 10 minutes",
+        "damage": [{
+            "amount": 6,
+            "dice": "d10",
+            "type": "slashing"
+        }],
+        "damage_type": {
+            "slashing": true
+        },
         "level": "6",
         "name": "Blade Barrier",
         "range": "90 feet",
@@ -7286,6 +7553,14 @@
             "Constitution": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 8,
+            "dice": "d6",
+            "type": "necrotic"
+        }],
+        "damage_type": {
+            "necrotic": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 7th level or higher, the damage increases by 2d6 for each slot level above 6th.",
         "level": "6",
         "name": "Circle of Death",
@@ -7347,6 +7622,14 @@
             "Constitution": true
         },
         "duration": "Concentration, up to 10 minutes",
+        "damage": [{
+            "amount": 5,
+            "dice": "d8",
+            "type": "poison"
+        }],
+        "damage_type": {
+            "poison": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 6th level or higher, the damage increases by 1d8 for each slot level above 5th.",
         "level": "5",
         "name": "Cloudkill",
@@ -7442,6 +7725,14 @@
             "Constitution": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 8,
+            "dice": "d8",
+            "type": "cold"
+        }],
+        "damage_type": {
+            "cold": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 6th level or higher, the damage increases by 1d8 for each slot level above 5th.",
         "level": "5",
         "name": "Cone of Cold",
@@ -7540,6 +7831,14 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 8,
+            "dice": "d8",
+            "type": "any"
+        }],
+        "damage_type": {
+            "any": true
+        },
         "level": "5",
         "name": "Conjure Volley",
         "range": "150 feet",
@@ -7568,6 +7867,14 @@
         },
         "description": "You mentally contact a demigod, the spirit of a long-dead sage, or some other mysterious entity from another plane. Contacting this extraplanar intelligence can strain or even break your mind. When you cast this spell, make a DC 15 Intelligence saving throw. On a failure, you take 6d6 psychic damage and are insane until you finish a long rest. While insane, you can't take actions, can't understand what other creatures say, can't read, and speak only in gibberish. A *[greater restoration](../greater-restoration \"greater restoration (lvl 5)\")* spell cast on you ends this effect.\n\nOn a successful save, you can ask the entity up to five questions. You must ask your questions before the spell ends. The DM answers each question with one word, such as \"yes,\" \"no,\" \"maybe,\" \"never,\" \"irrelevant,\" or \"unclear\" (if the entity doesn't know the answer to the question). If a one-word answer would be misleading, the DM might instead offer a short phrase as an answer.",
         "duration": "1 minute",
+        "damage": [{
+            "amount": 6,
+            "dice": "d6",
+            "type": "psychic"
+        }],
+        "damage_type": {
+            "psychic": true
+        },
         "level": "5",
         "name": "Contact Other Plane",
         "range": "Self",
@@ -7761,6 +8068,20 @@
             "Constitution": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 5,
+            "dice": "d6",
+            "type": "thunder"
+        }, {
+            "amount": 5,
+            "dice": "d6",
+            "type": "radiant or necrotic"
+        }],
+        "damage_type": {
+            "thunder": true,
+            "radiant": true,
+            "necrotic": true
+        },
         "level": "5",
         "name": "Destructive Wave",
         "range": "Self (30-foot radius)",
@@ -7795,6 +8116,15 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 10,
+            "dice": "d6",
+            "type": "force",
+            "extra": 40
+        }],
+        "damage_type": {
+            "force": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 7th level or higher, the damage increases by 3d6 for each slot level above 6th.",
         "level": "6",
         "name": "Disintegrate",
@@ -7962,6 +8292,14 @@
             "Wisdom": true
         },
         "duration": "8 hours",
+        "damage": [{
+            "amount": 3,
+            "dice": "d6",
+            "type": "psychic"
+        }],
+        "damage_type": {
+            "psychic": true
+        },
         "level": "5",
         "name": "Dream",
         "range": "Special",
@@ -8253,6 +8591,15 @@
         },
         "description": "Thin and wispy flames wreathe your body for the duration, shedding bright light in a 10-foot radius and dim light for an additional 10 feet, You can end the spell early by using an action to dismiss it.\n\nThe flames provide you with a warm shield or a chill shield, as you choose. The warm shield grants you resistance to cold damage, and the chill shield grants you resistance to fire damage.\n\nIn addition, whenever a creature within 5 feet of you hits you with a melee attack, the shield erupts with flame. The attacker takes 2d8 fire damage from a warm shield, or 2d8 cold damage from a cold shield.",
         "duration": "10 minutes",
+        "damage": [{
+            "amount": 2,
+            "dice": "d8",
+            "type": "fire or cold"
+        }],
+        "damage_type": {
+            "fire": true,
+            "cold": true
+        },
         "level": "4",
         "name": "Fire Shield",
         "range": "Self",
@@ -8283,6 +8630,14 @@
         },
         "description": "You evoke a fiery blade in your free hand. The blade is similar in size and shape to a scimitar, and it lasts for the duration. If you let go of the blade, it disappears, but you can evoke the blade again as a bonus action.\n\nYou can use your action to make a melee spell attack with the fiery blade. On a hit, the target takes 3d6 fire damage.\n\nThe flaming blade sheds bright light in a 10-foot radius and dim light for an additional 10 feet.",
         "duration": "Concentration, up to 10 minutes",
+        "damage": [{
+            "amount": 3,
+            "dice": "d6",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for every two slot levels above 2nd.",
         "level": "2",
         "name": "Flame Blade",
@@ -8317,6 +8672,19 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 4,
+            "dice": "d6",
+            "type": "fire"
+        }, {
+            "amount": 4,
+            "dice": "d6",
+            "type": "radiant"
+        }],
+        "damage_type": {
+            "radiant": true,
+            "fire": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 6th level or higher, the fire damage or the radiant damage (your choice) inceases by 1d6 for each slot level above 5th.",
         "level": "5",
         "name": "Flame Strike",
@@ -8352,6 +8720,14 @@
             "Dexterity": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 2,
+            "dice": "d6",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d6 for each slot level above 2nd.",
         "level": "2",
         "name": "Flaming Sphere",
@@ -8489,6 +8865,14 @@
             "Wisdom": true
         },
         "duration": "30 days",
+        "damage": [{
+            "amount": 5,
+            "dice": "d10",
+            "type": "psychic"
+        }],
+        "damage_type": {
+            "psychic": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 7th or 8th level, the duration is 1 year. When you cast this spell using a spell slot of 9th level, the spell lasts until it is ended by one of the spells mentioned above.",
         "level": "5",
         "name": "Geas",
@@ -8748,6 +9132,13 @@
             "Dexterity": true
         },
         "duration": "8 hours",
+        "damage": [{
+            "amount": 20,
+            "type": "radiant"
+        }],
+        "damage_type": {
+            "radiant": true
+        },
         "level": "4",
         "name": "Guardian of Faith",
         "range": "30 feet",
@@ -8909,7 +9300,12 @@
         "saving_throw": {
             "Constitution": true
         },
-        "damage": "14d6 necrotic damage",
+        "damage": [{"amount": 14, "dice": "d6", "type": "necrotic"}],
+        "damage": [{
+            "amount": 14,
+            "dice": "d6",
+            "type": "necrotic"
+        }],
         "damage_type": {
             "necrotic": true
         },
@@ -8948,6 +9344,14 @@
             "Constitution": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 2,
+            "dice": "d8",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d8 for each slot level above 2nd.",
         "level": "2",
         "name": "Heat Metal",
@@ -9090,6 +9494,19 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 2,
+            "dice": "d8",
+            "type": "bludgeoning"
+        }, {
+            "amount": 4,
+            "dice": "d6",
+            "type": "cold"
+        }],
+        "damage_type": {
+            "bludgeoning": true,
+            "cold": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 5th level or higher, the bludgeoning damage increases by 1d8 for each slot level above 4th.",
         "level": "4",
         "name": "Ice Storm",
@@ -9128,6 +9545,14 @@
             "Constitution": true
         },
         "duration": "Concentration, up to 10 minutes",
+        "damage": [{
+            "amount": 4,
+            "dice": "d10",
+            "type": "piercing"
+        }],
+        "damage_type": {
+            "piercing": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 6th levei or higher, the damage increases by 1d10 for each slot level above 5th.",
         "level": "5",
         "name": "Insect Plague",
@@ -9299,6 +9724,14 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 8,
+            "dice": "d6",
+            "type": "lightning"
+        }],
+        "damage_type": {
+            "lightning": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd.",
         "level": "3",
         "name": "Lightning Bolt",
@@ -9702,6 +10135,14 @@
             "Constitution": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 2,
+            "dice": "d10",
+            "type": "radiant"
+        }],
+        "damage_type": {
+            "radiant": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d10 for each slot level above 2nd.",
         "level": "2",
         "name": "Moonbeam",
@@ -9829,6 +10270,14 @@
             "Wisdom": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 4,
+            "dice": "d10",
+            "type": "psychic"
+        }],
+        "damage_type": {
+            "psychic": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 5th level or higher, the damage increases by 1d10 for each slot level above 4th.",
         "level": "4",
         "name": "Phantasmal Killer",
@@ -9862,6 +10311,14 @@
         },
         "description": "You craft an illusion that takes root in the mind of a creature that you can see within range. The target must make an Intelligence saving throw. On a failed save, you create a phantasmal object, creature, or other visible phenomenon of your choice that is no larger than a 1O-foot cube and that is perceivable only to the target for the duration. This spell has no effect on undead or constructs.\n\nThe phantasm includes sound, temperature, and other stimuli, also evident only to the creature.\n\nThe target can use its action to examine the phantasm with an Intelligence (Investigation) check against your spell save DC. If the check succeeds, the target realizes that the phantasm is an illusion, and the spell ends.\n\nWhile a target is affected by the spell, the target treats the phantasm as if it were real. The target rationalizes any illogical outcomes from interacting with the phantasm. For example, a target attempting to walk across a phantasmal bridge that spans a chasm falls once it steps onto the bridge. If the target survives the fall, it still believes that the bridge exists and comes up with some other explanation for its fall--it was pushed, it slipped, or a strong wind might have knocked it off.\n\nAn affected target is so convinced of the phantasm's reality that it can even take damage from the illusion. A phantasm created to appear as a creature can attack the target. Similarly. a phantasm created to appear as fire, a pool of acid, or lava can burn the target. Each round on your turn, the phantasm can deal 1d6 psychic damage to the target if it is in the phantasm's area or within 5 feet of the phantasm, provided that the illusion is of a creature ar hazard that could logically deal damage, such as by attacking. The target perceives the damage as a type appropriate to the illusion.",
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 1,
+            "dice": "d6",
+            "type": "psychic"
+        }],
+        "damage_type": {
+            "psychic": true
+        },
         "level": "2",
         "name": "Phantasmal Force",
         "range": "60 feet",
@@ -10186,6 +10643,14 @@
         },
         "description": "You create three rays of fire and hurl them at targets within range. You can hurl them at one target or several.\n\nMake a ranged spell attack for each ray. On a hit, the target takes 2d6 fire damage.",
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 2,
+            "dice": "d6",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 3rd level or higher, you create one additional ray for each slot level above 2nd.",
         "level": "2",
         "name": "Scorching Ray",
@@ -10329,6 +10794,14 @@
             "Constitution": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 3,
+            "dice": "d10",
+            "type": "thunder"
+        }],
+        "damage_type": {
+            "thunder": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 3rd levei or higher, the damage increases by ld8 for each slot level above 2nd.",
         "level": "2",
         "name": "Shatter",
@@ -10397,6 +10870,14 @@
         },
         "description": "The ground in a 20-foot radius centered on a point within range twists and sprouts hard spikes and thorns. The area becomes difficult terrain for the duration. When a creature moves into or within the area, it takes 2d4 piercing damage for every 5 feet it travels.\n\nThe transformation of the ground is camouflaged to look natural. Any creature that can't see the area at the time the spell is cast must make a Wisdom (Perception) check against your spell save DC to recognize the terrain as hazardous before entering it.",
         "duration": "Concentration, up to 10 minutes",
+        "damage": [{
+            "amount": 2,
+            "dice": "d4",
+            "type": "piercing"
+        }],
+        "damage_type": {
+            "piercing": true
+        },
         "level": "2",
         "name": "Spike Growth",
         "range": "150 feet",
@@ -10428,6 +10909,14 @@
             "Wisdom": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 4,
+            "dice": "d6",
+            "type": "psychic"
+        }],
+        "damage_type": {
+            "psychic": true
+        },
         "level": "4",
         "name": "Staggering Smite",
         "range": "Self",
@@ -10497,6 +10986,14 @@
             "Constitution": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 6,
+            "dice": "d8",
+            "type": "radiance"
+        }],
+        "damage_type": {
+            "radiance": true
+        },
         "level": "6",
         "name": "Sunbeam",
         "range": "Self (60-foot line)",
@@ -10750,6 +11247,14 @@
         },
         "description": "The touch of your shadow-wreathed hand can siphon life force from others to heal your wounds. Make a melee spell attack against a creature within your reach. On a hit, the target takes 3d6 necrotic damage, and you regain hit points equal to half the amount of necrotic damage dealt. Until the spell ends, you can make the attack again on each of your turns as an action.",
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 3,
+            "dice": "d6",
+            "type": "necrotic"
+        }],
+        "damage_type": {
+            "necrotic": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd.",
         "level": "3",
         "name": "Vampiric Touch",
@@ -10787,6 +11292,14 @@
             "Dexterity": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 5,
+            "dice": "d8",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 5th level or higher, the damage increases by 1d8 for each slot level above 4th.",
         "level": "4",
         "name": "Wall of Fire",
@@ -10824,6 +11337,14 @@
             "Dexterity": true
         },
         "duration": "Concentration, up to 10 minutes",
+        "damage": [{
+            "amount": 10,
+            "dice": "d6",
+            "type": "cold"
+        }],
+        "damage_type": {
+            "cold": true
+        },
         "level": "6",
         "name": "Wall of Ice",
         "range": "120 feet",
@@ -10924,6 +11445,14 @@
             "Dexterity": true
         },
         "duration": "Concentration, up to 10 minutes",
+        "damage": [{
+            "amount": 7,
+            "dice": "d10",
+            "type": "piercing"
+        }],
+        "damage_type": {
+            "piercing": true
+        },
         "higher_levels": "When you cast this spell using a spell slot o f 7th level or higher, both types of damage increase by 1d8 for each slot level above 6th.",
         "level": "6",
         "name": "Wall of Thorns",
@@ -11031,6 +11560,14 @@
             "Dexterity": true
         },
         "duration": "Concentration, up to 1 hour",
+        "damage": [{
+            "amount": 2,
+            "dice": "d4",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "level": "2",
         "name": "Web",
         "range": "60 feet",
@@ -11093,6 +11630,14 @@
         },
         "description": "A wall of strong wind rises from the ground at a point you choose within range. You can make the wall up to 50 feet long, 15 feet high, and 1 foot thick. You can shape the wall in any way you choose so long as it makes one continuous path along the ground. The wall lasts for the duration.\n\nWhen the wall appears, each creature within its area must make a Strength saving throw. A creature takes 3d8 bludgeoning damage on a failed save, or half as much damage on a successful one.\n\nThe strong wind keeps fog, smoke, and other gases at bay. Small or smaller flying creatures or objects can't pass through the wall. Loose, lightweight materials brought into the wall fly upward. Arrows, bolts, and other ordinary projectiles launched at targets behind the wall are deflected upward and automatically miss. (Boulders hurled by giants or siege engines, and similar projectiles, are unaffected.) Creatures in gaseous form can\u2019t pass through it.",
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 3,
+            "dice": "d6",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "level": "3",
         "name": "Wind Wall",
         "range": "120 feet",
@@ -11185,6 +11730,14 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 1,
+            "dice": "d6",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d6 for each slot level above 1st.",
         "level": "1",
         "name": "Earth Tremor",
@@ -11280,11 +11833,20 @@
             "somatic": true,
             "verbal": false
         },
-        "description": "You create a burst of thunderous sound, which can be heard 100 feet away. Each creature other than you within 5 feet of you must make a Constitution saving throw. On a failed save, the creature takes 1d6 thunder damage.\n\nThe spell\u2019s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
+        "description": "You create a burst of thunderous sound, which can be heard 100 feet away. Each creature other than you within 5 feet of you must make a Constitution saving throw. On a failed save, the creature takes 1d6 thunder damage.",
         "saving_throw": {
             "Constitution": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 1,
+            "dice": "d6",
+            "type": "thunder"
+        }],
+        "damage_type": {
+            "thunder": true
+        },
+        "higher_levels": "The spell\u2019s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
         "level": "0",
         "name": "Thunderclap",
         "range": "Self (5-foot radius)",
@@ -11379,11 +11941,20 @@
             "somatic": true,
             "verbal": true
         },
-        "description": "You create a bonfire on ground that you can see within range. Until the spell ends, the bonfire fills a 5-foot cube. Any creature in the bonfire\u2019s space when you cast the spell must succeed on a Dexterity saving throw or take 1d8 fire damage. A creature must also make the saving throw when it enters the bonfire\u2019s space for the first time on a turn or ends its turn there.\n\nThe spell\u2019s damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
+        "description": "You create a bonfire on ground that you can see within range. Until the spell ends, the bonfire fills a 5-foot cube. Any creature in the bonfire\u2019s space when you cast the spell must succeed on a Dexterity saving throw or take 1d8 fire damage. A creature must also make the saving throw when it enters the bonfire\u2019s space for the first time on a turn or ends its turn there.",
         "saving_throw": {
             "Dexterity": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 1,
+            "dice": "d8",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
+        "higher_levels": "The spell\u2019s damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
         "level": "0",
         "name": "Create Bonfire",
         "range": "60 feet",
@@ -11415,11 +11986,20 @@
             "somatic": true,
             "verbal": true
         },
-        "description": "You cause numbing frost to form on one creature that you can see within range. The target must make a Constitution saving throw. On a failed save, the target takes 1d6 cold damage, and it has disadvantage on the next weapon attack roll it makes before the end of its next turn.\n\nThe spell\u2019s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
+        "description": "You cause numbing frost to form on one creature that you can see within range. The target must make a Constitution saving throw. On a failed save, the target takes 1d6 cold damage, and it has disadvantage on the next weapon attack roll it makes before the end of its next turn.",
         "saving_throw": {
             "Constitution": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 1,
+            "dice": "d6",
+            "type": "cold"
+        }],
+        "damage_type": {
+            "cold": true
+        },
+        "higher_levels": "The spell\u2019s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
         "level": "0",
         "name": "Frostbite",
         "range": "60 feet",
@@ -11482,6 +12062,15 @@
         },
         "description": "You touch one to three pebbles and imbue them with magic. You or someone else can make a ranged spell attack with one of the pebbles by throwing it or hurling it with a sling. If thrown, it has a range of 60 feet. If someone else attacks with the pebble, that attacker adds your spellcasting ability modifier, not the attacker\u2019s, to the attack roll. On a hit, the target takes bludgeoning damage equal to 1d6 + your spellcasting ability modifier. Hit or miss, the spell then ends on the stone.\n\nIf you cast this spell again, the spell ends early on any pebbles still affected by it.",
         "duration": "1 minute",
+        "damage": [{
+            "amount": 1,
+            "dice": "d6",
+            "type": "bludgeoning",
+            "extra": "your spellcasting ability modifier"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "level": "0",
         "name": "Magic Stone",
         "range": "Touch",
@@ -11575,6 +12164,14 @@
         },
         "description": "The spell captures some of the incoming energy, lessening its effect on you and storing it for your next melee attack. You have resistance to the triggering damage type until the start of your next turn. Also, the first time you hit with a melee attack on your next turn, the target takes an extra 1d6 damage of the triggering type, and the spell ends.",
         "duration": "1 round",
+        "damage": [{
+            "amount": 1,
+            "dice": "d6",
+            "type": "any"
+        }],
+        "damage_type": {
+            "any": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 2nd level or higher, the extra damage increases by 1d6 for each slot level above 1st.",
         "level": "1",
         "name": "Absorb Elements",
@@ -11645,6 +12242,19 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 2,
+            "dice": "d10",
+            "type": "piercing"
+        }, {
+            "amount": 2,
+            "dice": "d6",
+            "type": "cold"
+        }],
+        "damage_type": {
+            "piercing": true,
+            "cold": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 2nd level or higher, the cold damage increases by 1d6 for each slot level above 1st.",
         "level": "1",
         "name": "Ice Knife",
@@ -11713,6 +12323,14 @@
         },
         "description": "Choose an unoccupied 5-foot cube of air that you can see within range. An elemental force that resembles a dust devil appears in the cube and lasts for the spell\u2019s duration.\n\nAny creature that ends its turn within 5 feet of the dust devil must make a Strength saving throw. On a failed save, the creature takes 1d8 bludgeoning damage and is pushed 10 feet away. On a successful save, the creature takes half as much damage and isn\u2019t pushed.\n\nAs a bonus action, you can move the dust devil up to 30 feet in any direction. If the dust devil moves over sand, dust, loose dirt, or small gravel, it sucks up the material and forms a 10-foot-radius cloud of debris around itself that lasts until the start of your next turn. The cloud heavily obscures its area.",
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 1,
+            "dice": "d8",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d8 for each slot level above 2nd.",
         "level": "2",
         "name": "Dust Devil",
@@ -11747,6 +12365,14 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 3,
+            "dice": "d8",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 2nd level or higher, the maximum weight of objects that you can target with this spell increases by 5 pounds, and the damage increases by 1d8, for each slot level above 1st.",
         "level": "1",
         "name": "Catapult",
@@ -11810,6 +12436,14 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 6,
+            "dice": "d6",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 7th level or higher, you can create two additional pillars for each slot level above 6th.",
         "level": "6",
         "name": "Bones of the Earth",
@@ -11846,6 +12480,14 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 3,
+            "dice": "d12",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d12 for each slot level above 2nd.",
         "level": "3",
         "name": "Erupting Earth",
@@ -11881,6 +12523,14 @@
             "Constitution": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 2,
+            "dice": "d6",
+            "type": "any"
+        }],
+        "damage_type": {
+            "any": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 5th level or higher, you can target one additional creature for each slot level above 4th. The creatures must be within 30 feet of each other when you target them.",
         "level": "4",
         "name": "Elemental Bane",
@@ -11914,6 +12564,14 @@
         },
         "description": "You touch a quiver containing arrows or bolts. When a target is hit by a ranged weapon attack using a piece of ammunition drawn from the quiver, the target takes an extra 1d6 fire damage. The spell\u2019s magic ends on the piece of ammunition when it hits or misses, and the spell ends when twelve pieces of ammunition have been drawn from the quiver.",
         "duration": "Concentration, up to 1 hour",
+        "damage": [{
+            "amount": 1,
+            "dice": "d6",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 4th level or higher, the number of pieces of ammunition you can affect with this spell increases by two for each slot level above 3rd.",
         "level": "3",
         "name": "Flame Arrows",
@@ -11951,6 +12609,14 @@
             "Dexterity": true
         },
         "duration": "Concentration, up to 10 minutes",
+        "damage": [{
+            "amount": 1,
+            "dice": "d10",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "level": "6",
         "name": "Investiture of Flame",
         "range": "Self",
@@ -11987,6 +12653,14 @@
             "Constitution": true
         },
         "duration": "Concentration, up to 10 minutes",
+        "damage": [{
+            "amount": 4,
+            "dice": "d6",
+            "type": "cold"
+        }],
+        "damage_type": {
+            "cold": true
+        },
         "level": "6",
         "name": "Investiture of Ice",
         "range": "Self",
@@ -12059,6 +12733,14 @@
             "Constitution": true
         },
         "duration": "Concentration, up to 10 minutes",
+        "damage": [{
+            "amount": 2,
+            "dice": "d10",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "level": "6",
         "name": "Investiture of Wind",
         "range": "Self",
@@ -12092,6 +12774,14 @@
         },
         "description": "A mass of 5-foot-deep water appears and swirls in a 30-foot radius centered on a point you can see within range. The point must be on ground or in a body of water. Until the spell ends, that area is difficult terrain, and any creature that starts its turn there must succeed on a Strength saving throw or take 6d6 bludgeoning damage and be pulled 10 feet toward the center.",
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 6,
+            "dice": "d6",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "level": "5",
         "name": "Maelstrom",
         "range": "120 feet",
@@ -12153,6 +12843,14 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 4,
+            "dice": "d8",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "level": "3",
         "name": "Tidal Wave",
         "range": "120 feet",
@@ -12188,6 +12886,14 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 4,
+            "dice": "d8",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "level": "5",
         "name": "Transmute Rock",
         "range": "120 feet",
@@ -12291,6 +12997,14 @@
             "Dexterity": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 10,
+            "dice": "d6",
+            "type": "bludgeoning"
+        }],
+        "damage_type": {
+            "bludgeoning": true
+        },
         "level": "7",
         "name": "Whirlwind",
         "range": "300 feet",
@@ -12323,6 +13037,14 @@
             "Dexterity": true
         },
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 3,
+            "dice": "d6",
+            "type": "fire"
+        }],
+        "damage_type": {
+            "fire": true
+        },
         "level": "5",
         "name": "Immolation",
         "range": "90 feet",
@@ -12352,6 +13074,19 @@
         },
         "description": "A 20-foot-radius sphere of whirling air springs into existence centered on a point you choose within range. The sphere remains for the spell\u2019s duration. Each creature in the sphere when it appears or that ends its turn there must succeed on a Strength saving throw or take 2d6 bludgeoning damage. The sphere\u2019s space is difficult terrain.\n\nUntil the spell ends, you can use a bonus action on each of your turns to cause a bolt of lightning to leap from the center of the sphere toward one creature you choose within 60 feet of the center. Make a ranged spell attack. You have advantage on the attack roll if the target is in the sphere. On a hit, the target takes 4d6 lightning damage.\n\nCreatures within 30 feet of the sphere have disadvantage on Wisdom (Perception) checks made to listen.",
         "duration": "Concentration, up to 1 minute",
+        "damage": [{
+            "amount": 2,
+            "dice": "d6",
+            "type": "bludgeoning"
+        }, {
+            "amount": 4,
+            "dice": "d6",
+            "type": "lightning"
+        }],
+        "damage_type": {
+            "bludgeoning": true,
+            "lightning": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 5th level or higher, the damage increases for each of its effects by 1d6 for each slot level above 4th.",
         "level": "4",
         "name": "Storm Sphere",
@@ -12388,6 +13123,18 @@
             "Dexterity": true
         },
         "duration": "Instantaneous",
+        "damage": [{
+            "amount": 10,
+            "dice": "d4",
+            "type": "acid"
+        }, {
+            "amount": 5,
+            "dice": "d4",
+            "type": "acid"
+        }],
+        "damage_type": {
+            "acid": true
+        },
         "higher_levels": "When you cast this spell using a spell slot of 5th level or higher, the initial damage increases by 2d4 for each slot level above 4th.",
         "level": "4",
         "name": "Vitriolic Sphere",

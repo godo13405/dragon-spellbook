@@ -98,7 +98,7 @@ exports = module.exports = {
         }
 
         if (spell) {
-            if (capabilities.includes('SCREEN_OUTPUT')) {
+            if (capabilities.screen) {
                 if (input.text.includes('description') && spell.description) {
                     suggestions.push({
                         "title": `what is ${params.spell}?`
@@ -129,7 +129,7 @@ exports = module.exports = {
                         "title": `how does it level up`
                     });
                 }
-            } else if (capabilities.includes('AUDIO_OUTPUT')) {
+            } else if (capabilities.audio) {
                 if (input.speech.includes('description') && spell.description) {
                     suggestions.push({
                         "title": `what it is`
@@ -162,13 +162,13 @@ exports = module.exports = {
                 }
             }
         } else {
-            if (capabilities.includes('SCREEN_OUTPUT')) {
+            if (capabilities.screen) {
                 input.text.forEach(sugg => {
                     suggestions.push({
                         "title": sugg
                     });
                 });
-            } else if (capabilities.includes('AUDIO_OUTPUT')) {
+            } else if (capabilities.audio) {
                 input.speech.forEach(sugg => {
                     suggestions.push({
                         "title": sugg
@@ -181,7 +181,7 @@ exports = module.exports = {
         suggestions = sak.shuffleArray(suggestions, 3);
 
         // structure voice suggestions
-        if (!capabilities.includes('SCREEN_OUTPUT') && capabilities.includes('AUDIO_OUTPUT')) {
+        if (!capabilities.screen && capabilities.audio) {
             let sugg = '';
             for (var i = suggestions.length - 1; i >= 0; i--) {
                 sugg = sugg + suggestions[i].title;
@@ -211,7 +211,7 @@ exports = module.exports = {
             input.speech = input.text;
 
         // if it doesn't have a screen, read out the suggestions
-        if (suggestions.length && !capabilities.includes('SCREEN_OUTPUT') && capabilities.includes('AUDIO_OUTPUT')) {
+        if (suggestions.length && !capabilities.screen && capabilities.audio) {
             input.speech = `${input.speech}.<break time='${pause}s'/>${suggestions}`;
         }
 
@@ -239,7 +239,7 @@ exports = module.exports = {
         if (input.card) {
             output = tools.buildCard(output, input.card);
         }
-        if (suggestions.length && capabilities.includes('SCREEN_OUTPUT')) {
+        if (suggestions.length && capabilities.screen) {
             output.payload.google.richResponse.suggestions = suggestions;
         }
 
