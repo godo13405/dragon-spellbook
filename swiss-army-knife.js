@@ -46,7 +46,7 @@ exports = module.exports = {
     },
     plural: input => {
         let add = 's';
-        if (str.slice(-1) === 't') {
+        if (input.slice(-1) === 't') {
             add = 'es';
         }
 

@@ -64,6 +64,9 @@ const webhook = (request, response) => {
             case 'spell.what.damage':
                 responses.what.spellDamage();
                 break;
+            case 'spell.what.Class':
+                responses.what.spellClass();
+                break;
             case 'spell.duration':
                 responses.spellDuration();
                 break;

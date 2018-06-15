@@ -160,6 +160,26 @@ exports = module.exports = {
                     console.log(err);
                 });
         },
+        spellClass: () => {
+            tools.getSpell()
+                .then(data => {
+                    let spell = data.data(),
+                        output = [];
+                    if (spell.class && Object.keys(spell.class).length) {
+                        for (let classy in spell.class) {
+                        	output.push(sak.plural(classy));
+                        }
+
+                        response.json(tools.setResponse(`${spell.name} can be cast by ${sak.combinePhrase(output)}`, tools.getSuggestions([
+                            'description',
+                            'materials',
+                            'higher_levels'
+                        ], spell, 'Would you like to know ')));
+                    }
+                }).catch(err => {
+                    console.log(err);
+                });
+        },
         spellDamage: () => {
             tools.getSpell()
                 .then(data => {
