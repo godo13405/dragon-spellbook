@@ -51,5 +51,7 @@ exports = module.exports = {
         }
 
         return input + add;
-    }
-};
+    },
+    rng: (limit = 9) => {
+        return Math.ceil(Math.random()*limit);
+ }};

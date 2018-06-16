@@ -13,7 +13,7 @@ exports = module.exports = {
         return response.json(talk);
     },
     spellDuration: () => {
-        tools.getSpell().then(data => {
+        tools.getCollection().then(data => {
             let spell = data.data(),
                 speech = "This spell has no duration.";
 
@@ -36,7 +36,7 @@ exports = module.exports = {
         });
     },
     spellDescription: () => {
-        tools.getSpell()
+        tools.getCollection()
             .then(data => {
                 let spell = data.data();
 
@@ -55,7 +55,7 @@ exports = module.exports = {
             });
     },
     spellInit: () => {
-        tools.getSpell()
+        tools.getCollection()
             .then(data => {
                 let spell = data.data();
 
@@ -78,6 +78,41 @@ exports = module.exports = {
                 console.log(err);
             });
     },
+    condition: () => {        tools.getCollection('conditions', 'Condition')
+            .then(data => {
+                let condition = data.data(),
+                	sugg = [];
+
+                let responseInput = {
+                    speech: `With ${params.Condition} ${condition.description}`,
+                    card: {
+                        title: params.Condition,
+                        text: condition.description
+                    }
+                };
+
+                // if the condition is exhaustion, suggest there's more detail
+                if (params.Condition === 'Exhaustion') {
+
+			        // if the condition is exhaustion, check if a level is being asked for
+			        if (params.Level) {
+			        	delete responseInput.card;
+			        	// check if the level exists
+			        	if (condition.levels && condition.levels[params.Level - 1]) {
+			        		responseInput.speech = `Level ${params.Level} exhaustion results in ${condition.levels[params.Level - 1]}`;
+			        		responseInput.text = `${condition.levels[params.Level - 1]}`;
+			        	} else {
+			        		responseInput.speech = 'Exhaustions levels only go from 1 to 6';
+			        	}
+			        }
+                	sugg.push(`what's level ${sak.rng(6)} exhaustion`);
+                }
+
+                response.json(tools.setResponse(responseInput, sugg));
+            }).catch(err => {
+                console.log(err);
+            });
+    },
     query: {
         spellComplex: () => {
             let q = tools.getQuery();
@@ -86,10 +121,10 @@ exports = module.exports = {
                     // set suggestions
                     let sugg = {
                         text: [
-                            `which are level ${Math.ceil(Math.random()*9)}`
+                            `which are level ${sak.rng()}`
                         ],
                         speech: [
-                            `tell you which are level ${Math.ceil(Math.random()*9)}`
+                            `tell you which are level ${sak.rng()}`
                         ]
                     };
 
@@ -114,10 +149,10 @@ exports = module.exports = {
                     // set suggestions
                     let sugg = {
                         text: [
-                            `which are level ${Math.ceil(Math.random()*9)}`
+                            `which are level ${sak.rng()}`
                         ],
                         speech: [
-                            `tell you which are level ${Math.ceil(Math.random()*9)}`
+                            `tell you which are level ${sak.rng()}`
                         ]
                     };
 
@@ -138,7 +173,7 @@ exports = module.exports = {
     },
     what: {
         spellCastTime: () => {
-            tools.getSpell()
+            tools.getCollection()
                 .then(data => {
                     let spell = data.data(),
                         output = [];
@@ -161,7 +196,7 @@ exports = module.exports = {
                 });
         },
         spellClass: () => {
-            tools.getSpell()
+            tools.getCollection()
                 .then(data => {
                     let spell = data.data(),
                         output = [];
@@ -181,7 +216,7 @@ exports = module.exports = {
                 });
         },
         spellDamage: () => {
-            tools.getSpell()
+            tools.getCollection()
                 .then(data => {
                     let spell = data.data(),
                         output = [];

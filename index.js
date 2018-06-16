@@ -42,9 +42,10 @@ const webhook = (request, response) => {
     // get context parameters
     if (request.body.queryResult && request.body.queryResult.outputContexts && request.body.queryResult.outputContexts.length) {
         for (var i = request.body.queryResult.outputContexts.length - 1; i >= 0; i--) {
-            if (request.body.queryResult.outputContexts[i].name === `${request.body.session}/contexts/spell`) {
-                params = request.body.queryResult.outputContexts[i].parameters;
-                break;
+            for (let par in request.body.queryResult.outputContexts[i].parameters) {
+                if (par.substr(par.length - 9) !== '.original') {
+                    params[par] = request.body.queryResult.outputContexts[i].parameters[par];
+                }
             }
         }
     }
@@ -87,6 +88,9 @@ const webhook = (request, response) => {
                 break;
             case 'query.class':
                 responses.query.spellClass();
+                break;
+            case 'condition':
+                responses.condition();
                 break;
             case 'input.welcome':
                 responses.welcome();

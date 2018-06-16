@@ -51,9 +51,9 @@ exports = module.exports = {
 
         return output;
     },
-    getSpell: () => {
-        return db.collection('spells')
-            .doc(params.spell.replace(/\s+/g, '_')
+    getCollection: (collection = 'spells', param = 'spell') => {
+        return db.collection(collection)
+            .doc(params[param].replace(/\s+/g, '_')
             .replace(/\/+/g, '_or_').toLowerCase())
             .get();
     },

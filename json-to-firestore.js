@@ -1,9 +1,9 @@
 const admin = require('firebase-admin');
 const serviceAccount = require("./service-key.json");
 
-const dataRaw = require("./spells.json"),
-    data = {
-        spells: dataRaw
+const data = {
+        spells: require("./data/spells.json"),
+        conditions: require("./data/conditions.json")
     };
 
 admin.initializeApp({
