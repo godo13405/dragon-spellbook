@@ -36,7 +36,7 @@ const webhook = (request, response) => {
               'WEB_BROWSER' ]
         */
     } else {
-        capabilities.push('screen');
+        capabilities.push('audio');
     }
 
     // get context parameters
