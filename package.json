@@ -9,7 +9,7 @@
     "ngrok": "./ngrok http 3000",
     "deploy": "clear && firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "npm run lint && ./node_modules/mocha/bin/mocha tests --exit"
+    "test": "npm run lint && ./node_modules/mocha/bin/mocha tests -c --exit"
   },
   "dependencies": {
     "body-parser": "^1.18.3",

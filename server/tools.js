@@ -7,11 +7,13 @@ const keysSetup = {
         },
         Level: {
             deep: false,
-            phrase: 'level '
+            phrase: 'level ',
+            phraseLevel: 0
         },
         School: {
             deep: false,
-            phrase: 'school of'
+            phrase: 'school of ',
+            phraseLevel: 1
         }
     };
 
@@ -337,17 +339,18 @@ exports = module.exports = {
 
         return output;
     },
-    addPhrase: () => {
+    addPhrase: (level = 0) => {
         let output = '';
-        for (let k in request.body.queryResult.parameters) {
-            if (request.body.queryResult.parameters[k].length) {
-                let out = request.body.queryResult.parameters[k];
-                if (keysSetup[k] && keysSetup[k].phrase && keysSetup[k].phrase.length) {
+        for (let k in params) {
+            if (params[k].length) {
+                let out = params[k];
+                if (keysSetup[k] && keysSetup[k].phrase && keysSetup[k].phrase.length && keysSetup[k].phraseLevel === level) {
                     out = keysSetup[k].phrase + out;
                 }
                 output = output + ' ' + out;
             }
         }
+        output = sak.cleanText(output);
 
         return output;
     },
@@ -366,7 +369,7 @@ exports = module.exports = {
                 output.speech = `I don't know any ${keyPhrase} spells.`;
                 break;
             case (listSize === 1):
-                output.speech = `There is only 1 ${keyPhrase} spell`;
+                output.speech = `There is only 1 ${keyPhrase} spell.`;
                 break;
             case (listSize >1):
                 output.speech = `There are ${listSize} ${keyPhrase} spells.`;

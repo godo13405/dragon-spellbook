@@ -247,18 +247,119 @@ describe('tools', () => {
                         richResponse: {
                             items: []
                         }
+                    },
+                    slack: {
+                        attachments: []
                     }
                 }
             };
         it('google', () => {
             let output = tools.buildCard(data, card, ['google']),
-            	googleCard = {
-	                title: card.title,
-	                subtitle: card.subtitle,
-	                formattedText: card.text
-	            };
+                googleCard = {
+                    title: card.title,
+                    subtitle: card.subtitle,
+                    formattedText: card.text
+                };
 
             expect(googleCard).to.deep.equal(output.payload.google.richResponse.items[0].basicCard);
+        });
+        it('slack', () => {
+            let output = tools.buildCard(data, card, ['slack']),
+                slackCard = {
+                    title: card.title,
+                    author_name: card.subtitle,
+                    text: card.text
+                };
+
+            expect(slackCard).to.deep.equal(output.payload.slack.attachments[0]);
+        });
+        it('dialogflow', () => {
+            let output = tools.buildCard(data, card, ['dialogflow']),
+                dialogflowCard = {
+                    title: card.title,
+                    subtitle: card.text
+                };
+
+            expect(dialogflowCard).to.deep.equal(output.fulfillmentMessages[0].card);
+        });
+    });
+    describe('addPhrase', () => {
+        it('convert to School speech informal', () => {
+            global.params = {
+                'School': [
+                    'necromancy'
+                ]
+            };
+            let output = tools.addPhrase();
+
+            expect(output).to.equal('necromancy');
+        });
+        it('convert to School speech formal', () => {
+            global.params = {
+                'School': [
+                    'necromancy'
+                ]
+            };
+            let output = tools.addPhrase(1);
+
+            expect(output).to.equal('school of necromancy');
+        });
+        it('convert to Level speech', () => {
+            global.params = {
+                'Level': [
+                    '2'
+                ]
+            };
+            let output = tools.addPhrase();
+
+            expect(output).to.equal('level 2');
+        });
+    });
+    describe('listComplex', () => {
+        it('query returns empty', () => {
+	        global.params = {
+	            'Class': [],
+	            'Level': [
+	                '2'
+	            ],
+	            'School': [
+	                'necromancy'
+	            ]
+	        };
+            let output = tools.listComplex([]);
+
+            expect(output.speech).to.equal('I don\'t know any level 2 necromancy spells.');
+            expect(output.data.length).to.equal(0);
+        });
+        it('query returns 1 spell', () => {
+	        global.params = {
+	            'Class': [],
+	            'Level': [
+	                '2'
+	            ],
+	            'School': [
+	                'necromancy'
+	            ]
+	        };
+            let output = tools.listComplex({size: 1});
+
+            expect(output.speech).to.equal('There is only 1 level 2 necromancy spell.');
+            expect(output.data.length).to.equal(0);
+        });
+        it('query returns multiple spells', () => {
+	        global.params = {
+	            'Class': [],
+	            'Level': [
+	                '2'
+	            ],
+	            'School': [
+	                'necromancy'
+	            ]
+	        };
+            let output = tools.listComplex({size: 2});
+
+            expect(output.speech).to.equal('There are 2 level 2 necromancy spells.');
+            expect(output.data.length).to.equal(0);
         });
     });
     /*
