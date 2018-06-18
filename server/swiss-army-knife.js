@@ -11,7 +11,7 @@ exports = module.exports = {
         return output;
     },
     cleanText: text => {
-        return text && text.length ? text.replace(/\*+/g, '').replace(/\_+/g, '') : null;
+        return text && text.length ? text.replace(/\*+/g, '').replace(/_+/g, '') : null;
     },
     clearSpeech: text => {
         return text && text.length ? text.replace(/<[^>]*>+/g, '') : null;
