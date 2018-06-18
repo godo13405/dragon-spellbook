@@ -4,6 +4,7 @@ global.express = require('express');
 global.firebase = require('firebase-admin');
 global.bodyParser = require('body-parser');
 global.capabilities = ['audio'];
+global.i18n = require('../lang/en');
 
 firebase.initializeApp({
     credential: firebase.credential.cert('./service-key.json'),
@@ -57,52 +58,38 @@ const webhook = (request, response) => {
         }
         switch (request.body.queryResult.action) {
             case ('spell.init' || 'spell.folllowupInit'):
-                responses.spellInit();
-                break;
+                return responses.spellInit();
             case ('spell.description'):
-                responses.spellDescription();
-                break;
+                return responses.spellDescription();
             case 'spell.what.damage':
-                responses.what.spellDamage();
-                break;
+                return responses.what.spellDamage();
             case 'spell.what.Class':
-                responses.what.spellClass();
-                break;
+                return responses.what.spellClass();
             case 'spell.duration':
-                responses.spellDuration();
-                break;
+                return responses.spellDuration();
             case 'spell.what.castTime':
-                responses.spellCastTime();
-                break;
+                return responses.spellCastTime();
             case 'query.school':
-                responses.query.spellSchool();
-                break;
+                return responses.query.spellSchool();
             case 'query.level':
-                responses.query.spellLevel();
-                break;
+                return responses.query.spellLevel();
             case 'query.complex':
-                responses.query.spellComplex();
-                break;
+                return responses.query.spellComplex();
             case 'count.complex':
-                responses.query.countComplex();
-                break;
+                return responses.query.countComplex();
             case 'query.class':
-                responses.query.spellClass();
-                break;
+                return responses.query.spellClass();
             case 'condition':
-                responses.condition();
-                break;
+                return responses.condition();
             case 'input.welcome':
-                responses.welcome();
-                break;
+                return responses.welcome();
             case 'input.unknown':
-                responses.fallback();
-                break;
+                return responses.fallback();
             default:
-                responses.fallback();
+                return responses.fallback();
         }
     } else {
-        response.send('Problem with the resuest.body. Check the console.log');
+        return response.send('Problem with the resuest.body. Check the console.log');
     }
 };
 

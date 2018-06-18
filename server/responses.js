@@ -2,11 +2,11 @@
 
 exports = module.exports = {
     welcome: () => {
-        let talk = tools.setResponse(`Hi! What spell do you want to know about?`, tools.getSuggestions([
+        let talk = tools.setResponse(i18n.welcome.say, tools.getSuggestions([
             `what is Acid Splash`,
             `what damage does Harm do`
         ], undefined, 'You can ask me stuff like '));
-        response.json(talk);
+        return response.json(talk);
     },
     fallback: () => {
         let talk = tools.setResponse(`Sorry, I didn't get that, can you try again?`);
