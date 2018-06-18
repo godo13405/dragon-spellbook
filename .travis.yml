@@ -1,4 +1,4 @@
 script:
-    - npm i -dev && npm test
+    - npm i && npm i --only=dev && npm test
 language: 
     - node
