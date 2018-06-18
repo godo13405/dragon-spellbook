@@ -16,7 +16,7 @@ const keysSetup = {
     };
 
 exports = module.exports = {
-    getQuery: (multipleAllowed = false) => {
+    getQuery: (multipleAllowed = false, request = request) => {
         // check how many parameters are defined
         let output = [];
 
@@ -25,7 +25,7 @@ exports = module.exports = {
 
             if (!multipleAllowed) {
                 if (thisParam.length > 1) {
-                    response.json(tools.setResponse(`Sorry, can we do this one ${kParam.toLowerCase()} at a time?`));
+                    response.json(tools.setResponse(i18n.tools.oneAtATime.replace(/<param>/g, kParam.toLowerCase())));
                     return false;
                 }
             }
@@ -60,10 +60,8 @@ exports = module.exports = {
     querySpell: (where, limit, order = 'name') => {
         let output = db.collection('spells'),
             log = [];
-
         for (var i = where.length - 1; i >= 0; i--) {
             output = output.where(where[i][0], where[i][1], where[i][2]);
-            log.push([where[i][0], where[i][1], where[i][2]]);
         }
 
         if (limit) {
@@ -72,22 +70,24 @@ exports = module.exports = {
 
         return output.get();
     },
-    buildRow: data => {
-        let output = {
-            "cells": [],
-            "dividerAfter": true
-        };
+    /*
+        buildRow: data => {
+            let output = {
+                "cells": [],
+                "dividerAfter": true
+            };
 
-        for (var i = data.length - 1; i >= 0; i--) {
-            output.cells.unshift({
-                text: data[i]
-            });
-        }
+            for (var i = data.length - 1; i >= 0; i--) {
+                output.cells.unshift({
+                    text: data[i]
+                });
+            }
 
-        return output;
-    },
-    getSuggestions: (input = [], spell = null, suggestionIntro = 'I can also ') => {
-        let suggestions = [];
+            return output;
+        },
+    */
+    getSuggestions: (input = [], spell = {name: params.Spell}, suggestionIntro = 'I can also tell you') => {
+        let output = [];
 
         // if speech variant has't been defined, clone text
         if (Array.isArray(input)) {
@@ -100,63 +100,63 @@ exports = module.exports = {
         if (spell) {
             if (capabilities.screen) {
                 if (input.text.includes('description') && spell.description) {
-                    suggestions.push({
-                        "title": `what is ${params.spell}?`
+                    output.push({
+                        "title": `what is ${spell.name}?`
                     });
                 }
                 if (input.text.includes('damage') && spell.damage) {
-                    suggestions.push({
+                    output.push({
                         "title": `what damage does it do?`
                     });
                 }
                 if (input.text.includes('duration') && spell.duration) {
-                    suggestions.push({
+                    output.push({
                         "title": `how long does it last?`
                     });
                 }
                 if (input.text.includes('cast_time') && spell.cast_time) {
-                    suggestions.push({
+                    output.push({
                         "title": `how long does it take to cast?`
                     });
                 }
                 if (input.text.includes('materials') && spell.components && spell.components.material) {
-                    suggestions.push({
+                    output.push({
                         "title": `what materials do I need`
                     });
                 }
-                if (input.text.includes('materials') && spell.higher_levels) {
-                    suggestions.push({
+                if (input.text.includes('higher_levels') && spell.higher_levels) {
+                    output.push({
                         "title": `how does it level up`
                     });
                 }
             } else if (capabilities.audio) {
                 if (input.speech.includes('description') && spell.description) {
-                    suggestions.push({
+                    output.push({
                         "title": `what it is`
                     });
                 }
                 if (input.speech.includes('damage') && spell.damage) {
-                    suggestions.push({
+                    output.push({
                         "title": `what damage it does`
                     });
                 }
                 if (input.speech.includes('duration') && spell.duration) {
-                    suggestions.push({
+                    output.push({
                         "title": `how long it lasts`
                     });
                 }
                 if (input.speech.includes('cast_time') && spell.cast_time) {
-                    suggestions.push({
+                    output.push({
                         "title": `how long it takes to cast`
                     });
                 }
                 if (input.speech.includes('materials') && spell.components && spell.components.material) {
-                    suggestions.push({
+                    output.push({
                         "title": `what materials it needs`
                     });
                 }
-                if (input.speech.includes('materials') && spell.higher_levels) {
-                    suggestions.push({
+                if (input.speech.includes('higher_levels') && spell.higher_levels) {
+                    output.push({
                         "title": `how it levels up`
                     });
                 }
@@ -164,13 +164,13 @@ exports = module.exports = {
         } else {
             if (capabilities.screen) {
                 input.text.forEach(sugg => {
-                    suggestions.push({
+                    output.push({
                         "title": sugg
                     });
                 });
             } else if (capabilities.audio) {
                 input.speech.forEach(sugg => {
-                    suggestions.push({
+                    output.push({
                         "title": sugg
                     });
                 });
@@ -178,23 +178,23 @@ exports = module.exports = {
         }
 
         // prevent too many suggestions
-        suggestions = sak.shuffleArray(suggestions, 3);
+        output = sak.shuffleArray(output, 3);
 
         // structure voice suggestions
         if (!capabilities.screen && capabilities.audio) {
             let sugg = '';
-            for (var i = suggestions.length - 1; i >= 0; i--) {
-                sugg = sugg + suggestions[i].title;
+            for (var i = output.length - 1; i >= 0; i--) {
+                sugg = sugg + output[i].title;
                 if (i === 1) {
                     sugg = sugg + " or ";
                 } else if (i > 1) {
                     sugg = sugg + ', ';
                 }
             }
-            suggestions = `${suggestionIntro} ${sugg}`;
+            output = `${suggestionIntro} ${sugg}`;
         }
 
-        return suggestions;
+        return output;
     },
     setResponse: (input, suggestions = [], pause = 5) => {
         if (typeof input === 'string') {

@@ -2,14 +2,14 @@
 
 exports = module.exports = {
     welcome: () => {
-        let talk = tools.setResponse(i18n.welcome.say, tools.getSuggestions([
+        let talk = tools.setResponse(sak.i18n(i18n.welcome.say), tools.getSuggestions([
             `what is Acid Splash`,
             `what damage does Harm do`
         ], undefined, 'You can ask me stuff like '));
         return response.json(talk);
     },
     fallback: () => {
-        let talk = tools.setResponse(`Sorry, I didn't get that, can you try again?`);
+        let talk = tools.setResponse(sak.i18n(i18n.fallback.say));
         return response.json(talk);
     },
     spellDuration: () => {
@@ -78,7 +78,8 @@ exports = module.exports = {
                 console.log(err);
             });
     },
-    condition: () => {        tools.getCollection('conditions', 'Condition')
+    condition: () => {
+        tools.getCollection('conditions', 'Condition')
             .then(data => {
                 let condition = data.data(),
                 	sugg = [];

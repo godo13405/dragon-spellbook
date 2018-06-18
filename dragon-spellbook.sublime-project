@@ -3,10 +3,7 @@
 	[
 		{
 			"path": "/Users/ANDRADG/Documents/DnD Wiki/functions",
-            "folder_exclude_patterns":
-            [
-                "node_noludes",
-            ],
+            "folder_exclude_patterns": [".svn", ".git", ".hg", "CVS", "node_modules"]
 		}
 	]
 }
