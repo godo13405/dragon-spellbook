@@ -3,7 +3,7 @@
 global.express = require('express');
 global.firebase = require('firebase-admin');
 global.bodyParser = require('body-parser');
-global.capabilities = [];
+global.capabilities = ['audio'];
 
 firebase.initializeApp({
     credential: firebase.credential.cert('./service-key.json'),
@@ -25,9 +25,11 @@ const webhook = (request, response) => {
     // Get surface capabilities, such as screen
     if (request.body.originalDetectIntentRequest.payload && request.body.originalDetectIntentRequest.source === 'google') {
         request.body.originalDetectIntentRequest.payload.surface.capabilities.forEach(cap => {
-            cap = cap.name.split('.');
-            cap = cap[cap.length - 1].replace(/_OUTPUT/g, '').toLowerCase;
-            capabilities.push(cap);
+            if (cap.name) {
+                cap = cap.name.split('.');
+                cap = cap[cap.length - 1].replace(/_OUTPUT/g, '').toLowerCase();
+                capabilities.push(cap);
+            }
         });
         /*
              [ 'AUDIO_OUTPUT',
@@ -35,8 +37,6 @@ const webhook = (request, response) => {
               'MEDIA_RESPONSE_AUDIO',
               'WEB_BROWSER' ]
         */
-    } else {
-        capabilities.push('audio');
     }
 
     // get context parameters
@@ -119,3 +119,5 @@ ex.get('/', (req,res) => {
 });
 ex.post('/', webhook);
 ex.listen((process.env.PORT || 3000), () => console.log('Spell Book is open'));
+
+exports = module.exports = webhook;

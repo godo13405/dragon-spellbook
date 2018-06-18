@@ -3,29 +3,13 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        express: {
-            dev: {
-                options: {
-                    script: './server/index.js',
-                    background: false
-                }
-            }
-        },
-        eslint: {
-            options: {
-                configFile: './.eslintrc.json'
-            },
-            src: [
-                './*.js',
-                './server/*.js'
-            ]
-        },
         watch: {
             js: {
                 files: './**/*.js',
                 tasks: [
-                    'eslint',
-                    'express'
+                    'clear',
+                    'exec:lint',
+                    'exec:express'
                 ],
                 options: {
                     spawn: false
@@ -33,15 +17,30 @@ module.exports = function(grunt) {
             }
         },
         concurrent: {
-            target1: ['watch', 'express'],
-            options: {
-                logConcurrentOutput: true
+            serve: {
+                target1: ['watch', 'exec:express'],
+                options: {
+                    logConcurrentOutput: true
+                }
             }
+        },
+        exec: {
+            clear: 'clear',
+            express: 'npm start',
+            lint: 'npm run lint',
+            test: 'npm test',
+            killall: 'killall node'
         }
     });
 
     grunt.registerTask('default', [
-        'eslint',
-        'concurrent'
+        'exec:clear',
+        'exec:lint',
+        'concurrent:serve'
+    ]);
+
+    grunt.registerTask('test', [
+        'exec:clear',
+        'exec:test'
     ]);
 };
