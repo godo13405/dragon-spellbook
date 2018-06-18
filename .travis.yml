@@ -1,2 +1,4 @@
 script:
-    - npm test
+    - npm i -dev && npm test
+language: 
+    - node
