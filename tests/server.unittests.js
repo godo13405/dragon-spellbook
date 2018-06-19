@@ -20,11 +20,12 @@ const chai = require('chai'),
         }
     };
 chai.use(chaiAsPromised);
-global.log = {};
+global.log = {
+    where: [],
+    limit: null
+};
 global.params = {
-	Spell: [
-		'Acid Splash'
-	]
+    spell: 'Acid Splash'
 };
 global.db = {
     collection: (input) => {
@@ -37,19 +38,32 @@ global.db = {
         } else {
             let ret = ({
                 where: (a, b, c) => {
-                    log.where.push([a, b, c]);
+                    log.where.push([a,b,c]);
                     return ret;
                 },
-                limit: (input) => {
+                limit: input => {
                     log.limit = input;
                     return ret;
                 },
+                doc: (input) => {
+                    return ret;
+                },
                 get: () => {
-                    return new Promise((res, rej) => {res(true)});
+                    return log;
                 }
             });
             return ret;
         }
+    }
+};
+global.request = {
+    body: {
+        session: 'sessionId'
+    }
+};
+global.response = {
+    json: input => {
+    	return input;
     }
 };
 
@@ -104,20 +118,141 @@ describe('responses', () => {
         });
     });
     describe('spellDuration', () => {
-        it('spell has no duration', () => {
-        	let ret = {
-            	data: () => {
-            		return false;
-            	}
-            };
-            tools.getCollection = () => { return new Promise((resolve, reject) => { resolve(ret) })};
+        let restore = tools.getCollection;
 
-            let output = responses.spellDuration();
-            expect(output).to.eventually.have.property('fulfillmentText', i18n.spell.noDuration, 'agnostic failed');
-            expect(output).to.deep.eventually.have.property('payload.slack.text', i18n.spell.noDuration, 'slack failed');
-            expect(output).to.deep.eventually.have.property('payload.google.richResponse', i18n.spell.noDuration, 'google failed');
+        describe('spell has no duration', () => {
+            tools.getCollection = () => {
+                return new Promise((res, rej) => {
+                    res({
+                        data: () => {
+                            return {
+                                name: 'spellName'
+                            };
+                        }
+                    });
+                })
+            };
+            let output = responses.spellDuration(),
+                match = i18n.spell.noDuration;
+            it('agnostic', () => {
+                return expect(output).to.eventually.have.property('fulfillmentText', match);
+            });
+            it('slack', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+            });
+            it('google', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+            });
+            tools.getCollection = restore;
+        });
+        describe('spell has a duration', () => {
+            tools.getCollection = () => {
+                return new Promise((res, rej) => {
+                    res({
+                        data: () => {
+                            return {
+                                name: 'spellName',
+                                duration: '1 minute'
+                            };
+                        }
+                    });
+                })
+            };
+            let output = responses.spellDuration(),
+                match = 'spellName lasts for 1 minute';
+            it('agnostic', () => {
+                return expect(output).to.eventually.have.property('fulfillmentText', match);
+            });
+            it('slack', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+            });
+            it('google', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+            });
+            tools.getCollection = restore;
+        });
+        describe('spell is instantaneousn', () => {
+            tools.getCollection = () => {
+                return new Promise((res, rej) => {
+                    res({
+                        data: () => {
+                            return {
+                                name: 'spellName',
+                                duration: 'instantaneous'
+                            };
+                        }
+                    });
+                })
+            };
+            let output = responses.spellDuration(),
+                match = 'spellName is instantaneous';
+            it('agnostic', () => {
+                return expect(output).to.eventually.have.property('fulfillmentText', match);
+            });
+            it('slack', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+            });
+            it('google', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+            });
+            tools.getCollection = restore;
         });
     });
+    /*
+        describe('spellInit', () => {
+            it('summary', () => {
+                let ret = {
+                    data: () => {
+                        return {
+                            name: 'spellName',
+                            type: 'spelltype',
+                            description: 'lorem ipsum'
+                        };
+                    }
+                };
+                tools.getCollection = () => {
+                    return new Promise((resolve, reject) => {
+                        resolve(ret)
+                    })
+                };
+
+                let output = responses.spellDuration(),
+                    match = 'spellName is a spellType!!';
+
+                //test test
+                expect(output).to.eventually.have.property('fulfillmentText', match, 'agnostic text failed');
+                expect(output).to.deep.eventually.have.property('payload.slack.text', match, 'slack text failed');
+                expect(output).to.deep.eventually.have.property('payload.google.richResponse', match, 'google text failed');
+
+                //test card
+                expect(output).to.eventually.have.property('fulfillmentMessages', match, 'agnostic card failed');
+                expect(output).to.deep.eventually.have.property('payload.slack.text', match, 'slack card failed');
+                expect(output).to.deep.eventually.have.property('payload.google.richResponse', match, 'google card failed');
+            });
+        });
+    describe('spellDescription', () => {
+        it('verbose', () => {
+            let ret = {
+                data: () => {
+                    return {
+                        description: 'lorem ipsum'
+                    };
+                }
+            };
+            tools.getCollection = () => {
+                return new Promise((resolve, reject) => {
+                    resolve(ret)
+                })
+            };
+
+            let output = responses.spellDuration(),
+                match = 'lorem ipsum';
+            expect(output).to.eventually.have.property('fulfillmentText', match, 'agnostic failed');
+            expect(output).to.deep.eventually.have.property('payload.slack.text', match, 'slack failed');
+            expect(output).to.deep.eventually.have.property('payload.google.richResponse', match, 'google failed');
+        });
+    });
+        */
 });
 describe('tools', () => {
     describe('queryArgumentBuild', () => {
@@ -170,10 +305,9 @@ describe('tools', () => {
             };
 
             let out = tools.querySpell(w);
-            expect(log.where).to.exist;
-            expect(log.where[0]).to.have.members(w[0]);
+            expect(log.where).to.deep.include.members(w);
         });
-        it('complex query with limit', () => {
+        describe('complex query with limit', () => {
             let w = [
                     ['class', '==', 'wizard'],
                     ['level', '==', '2']
@@ -181,15 +315,24 @@ describe('tools', () => {
                 l = 3;
 
             log = {
-                where: []
+                where: [],
+                limit: null
             };
-
             let out = tools.querySpell(w, l);
-            expect(log.where).to.exist;
-            expect(log.where[0]).to.have.members(w[1]);
-            expect(log.where[1]).to.have.members(w[0]);
-            expect(log.limit).to.exist;
-            expect(log.limit).to.equal(l);
+
+            it('where part of the query', () => {
+                return expect(w).to.deep.include.members(out.where);
+            });
+            it('limit part of the query', () => {
+                return expect(out.limit).to.equal(l);
+            });
+        });
+    });
+    describe('getCollection', () => {
+        it('returns Promise', () => {
+            let output = tools.getCollection();
+
+            expect(output).to.be.an('Promise');
         });
     });
     describe('getSuggestions', () => {
@@ -538,6 +681,12 @@ describe('Swiss Army Knife', () => {
                 obj = sak.i18n(arr);
 
             expect(arr).to.be.an('array').that.includes(obj);
+        });
+        it('replace a variable in a string', () => {
+            let str = 'sample <var> is here',
+                obj = sak.i18n(str, {var: 'variable'});
+
+            expect(obj).to.equal('sample variable is here');
         });
     });
 });

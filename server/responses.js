@@ -14,36 +14,40 @@ exports = module.exports = {
     },
     spellDuration: () => {
         return tools.getCollection().then(data => {
-            let spell = data.data(),
-                speech = sak.i18n(i18n.spell.notFound),
-                suggestions = [];
+            if (data && data.data && typeof data.data === 'function') {
+                let spell = data.data(),
+                    speech = sak.i18n(i18n.spell.notFound),
+                    suggestions = [];
 
-            if (spell) {
-                if (spell.duration) {
-                    speech = `${spell.name} lasts for ${spell.duration}`;
-                } else {
-                    speech = sak.i18n(i18n.spell.noDuration)
-                }
+                if (spell) {
+                    if (spell.duration) {
+                        speech = `${spell.name} ${spell.duration === 'instantaneous' ? 'is' : 'lasts for'} ${spell.duration}`;
+                    } else {
+                        speech = sak.i18n(i18n.spell.noDuration)
+                    }
 
-                if (spell.name) {
-                    suggestions.push({
-                        "title": `what is ${spell.name}?`
-                    });
-                }
+                    if (spell.name) {
+                        suggestions.push({
+                            "title": `what is ${spell.name}?`
+                        });
+                    }
 
-                if (spell.damage) {
-                    suggestions.push({
-                        "title": `what damage does it do`
-                    });
+                    if (spell.damage) {
+                        suggestions.push({
+                            "title": `what damage does it do`
+                        });
+                    }
                 }
+                let talk = tools.setResponse(speech, suggestions);
+                return response.json(talk);
+            } else {
+                return false;
             }
-            let talk = tools.setResponse(speech, suggestions);
-            return response.json(talk);
         }).catch(err => {
             console.log(err);
         });
     },
-    spellDescription: () => {
+    spellDescription: (sugg = ['damage', 'materials', 'higher_levels']) => {
         tools.getCollection()
             .then(data => {
                 let spell = data.data();
@@ -53,11 +57,7 @@ exports = module.exports = {
                 };
 
 
-                response.json(tools.setResponse(responseInput, tools.getSuggestions([
-                    'damage',
-                    'materials',
-                    'higher_levels'
-                ], spell)));
+                response.json(tools.setResponse(responseInput, tools.getSuggestions(sugg), spell));
             }).catch(err => {
                 console.log(err);
             });
@@ -90,7 +90,7 @@ exports = module.exports = {
         tools.getCollection('conditions', 'Condition')
             .then(data => {
                 let condition = data.data(),
-                	sugg = [];
+                    sugg = [];
 
                 let responseInput = {
                     speech: `With ${params.Condition} ${condition.description}`,
@@ -103,18 +103,18 @@ exports = module.exports = {
                 // if the condition is exhaustion, suggest there's more detail
                 if (params.Condition === 'Exhaustion') {
 
-			        // if the condition is exhaustion, check if a level is being asked for
-			        if (params.Level) {
-			        	delete responseInput.card;
-			        	// check if the level exists
-			        	if (condition.levels && condition.levels[params.Level - 1]) {
-			        		responseInput.speech = `Level ${params.Level} exhaustion results in ${condition.levels[params.Level - 1]}`;
-			        		responseInput.text = `${condition.levels[params.Level - 1]}`;
-			        	} else {
-			        		responseInput.speech = 'Exhaustions levels only go from 1 to 6';
-			        	}
-			        }
-                	sugg.push(`what's level ${sak.rng(6)} exhaustion`);
+                    // if the condition is exhaustion, check if a level is being asked for
+                    if (params.Level) {
+                        delete responseInput.card;
+                        // check if the level exists
+                        if (condition.levels && condition.levels[params.Level - 1]) {
+                            responseInput.speech = `Level ${params.Level} exhaustion results in ${condition.levels[params.Level - 1]}`;
+                            responseInput.text = `${condition.levels[params.Level - 1]}`;
+                        } else {
+                            responseInput.speech = 'Exhaustions levels only go from 1 to 6';
+                        }
+                    }
+                    sugg.push(`what's level ${sak.rng(6)} exhaustion`);
                 }
 
                 response.json(tools.setResponse(responseInput, sugg));
@@ -211,7 +211,7 @@ exports = module.exports = {
                         output = [];
                     if (spell.class && Object.keys(spell.class).length) {
                         for (let classy in spell.class) {
-                        	output.push(sak.plural(classy));
+                            output.push(sak.plural(classy));
                         }
 
                         response.json(tools.setResponse(`${spell.name} can be cast by ${sak.combinePhrase(output)}`, tools.getSuggestions([

@@ -16,12 +16,13 @@ exports = module.exports = {
             .replace(/_+/g, '')
             .replace(/^[ \t]+/g, '') // trim leading whitespace
             .replace(/[ \t]+$/g, '') // trim trailing whitespace
-            : null;
+            :
+            null;
     },
     clearSpeech: text => {
         return text && text.length ? text
-        .replace(/<[^>]*>+/g, '')
-        : null;
+            .replace(/<[^>]*>+/g, '') :
+            null;
     },
     formatText: (input, platform = 'slack') => {
         let output = null;
@@ -62,9 +63,16 @@ exports = module.exports = {
     rng: (limit = 9) => {
         return Math.ceil(Math.random() * limit);
     },
-    i18n: input => {
+    i18n: (input, varReplace) => {
         if (Array.isArray(input)) {
             input = input[sak.rng(input.length - 1)];
+        }
+        if (varReplace) {
+            let rex;
+            for (let k in varReplace) {
+                rex = new RegExp(`<${k}>`, "g");
+                input = input.replace(rex, varReplace[k]);
+            }
         }
         return input;
     }

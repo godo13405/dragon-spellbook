@@ -53,19 +53,18 @@ exports = module.exports = {
 
         return output;
     },
-    getCollection: (collection = 'spells', param = 'spell') => {
+    getCollection: (collection = 'spells', param = 'spell', params = false) => {
         if (params && params[param]) {
             return db.collection(collection)
                 .doc(params[param].replace(/\s+/g, '_')
                 .replace(/\/+/g, '_or_').toLowerCase())
                 .get();
         } else {
-            return new Promise((res, reject) => {reject(new Error("something bad happened"))});
+            return new Promise((res, reject) => {res(() => {return false})});
         }
     },
     querySpell: (where, limit, order = 'name') => {
-        let output = db.collection('spells'),
-            log = [];
+        let output = db.collection('spells');
         for (var i = where.length - 1; i >= 0; i--) {
             output = output.where(where[i][0], where[i][1], where[i][2]);
         }
