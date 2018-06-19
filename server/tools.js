@@ -54,10 +54,14 @@ exports = module.exports = {
         return output;
     },
     getCollection: (collection = 'spells', param = 'spell') => {
-        return db.collection(collection)
-            .doc(params[param].replace(/\s+/g, '_')
-            .replace(/\/+/g, '_or_').toLowerCase())
-            .get();
+        if (params && params[param]) {
+            return db.collection(collection)
+                .doc(params[param].replace(/\s+/g, '_')
+                .replace(/\/+/g, '_or_').toLowerCase())
+                .get();
+        } else {
+            return new Promise((res, reject) => {reject(new Error("something bad happened"))});
+        }
     },
     querySpell: (where, limit, order = 'name') => {
         let output = db.collection('spells'),

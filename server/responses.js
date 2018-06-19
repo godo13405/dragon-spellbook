@@ -13,24 +13,32 @@ exports = module.exports = {
         return response.json(talk);
     },
     spellDuration: () => {
-        tools.getCollection().then(data => {
+        return tools.getCollection().then(data => {
             let spell = data.data(),
-                speech = "This spell has no duration.";
+                speech = sak.i18n(i18n.spell.notFound),
+                suggestions = [];
 
-            if (spell && spell.duration) {
-                speech = `${spell.name} lasts for ${spell.duration}`;
+            if (spell) {
+                if (spell.duration) {
+                    speech = `${spell.name} lasts for ${spell.duration}`;
+                } else {
+                    speech = sak.i18n(i18n.spell.noDuration)
+                }
+
+                if (spell.name) {
+                    suggestions.push({
+                        "title": `what is ${spell.name}?`
+                    });
+                }
+
+                if (spell.damage) {
+                    suggestions.push({
+                        "title": `what damage does it do`
+                    });
+                }
             }
-
-            let suggestions = [{
-                "title": `what is ${spell.name}?`
-            }];
-
-            if (spell.damage) {
-                suggestions.push({
-                    "title": `what damage does it do`
-                });
-            }
-            response.json(tools.setResponse(speech, suggestions));
+            let talk = tools.setResponse(speech, suggestions);
+            return response.json(talk);
         }).catch(err => {
             console.log(err);
         });

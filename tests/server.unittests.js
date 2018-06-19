@@ -1,7 +1,8 @@
 const chai = require('chai'),
     should = chai.should,
     expect = chai.expect,
-    assert = require('assert'),
+    assert = chai.assert,
+    chaiAsPromised = require('chai-as-promised'),
     server = require('../server/index'),
     fakeRes = {
         json: (input) => {
@@ -18,8 +19,13 @@ const chai = require('chai'),
             }
         }
     };
-
+chai.use(chaiAsPromised);
 global.log = {};
+global.params = {
+	Spell: [
+		'Acid Splash'
+	]
+};
 global.db = {
     collection: (input) => {
         let arr = [
@@ -39,7 +45,7 @@ global.db = {
                     return ret;
                 },
                 get: () => {
-                    return ret;
+                    return new Promise((res, rej) => {res(true)});
                 }
             });
             return ret;
@@ -78,7 +84,7 @@ describe('server', () => {
         });
     });
 });
-describe('phrases', () => {
+describe('responses', () => {
     describe('welcome', () => {
         it('user says nothing, is greeted', () => {
             let req = fakeReq;
@@ -95,6 +101,21 @@ describe('phrases', () => {
 
             let output = server(req, fakeRes);
             expect(i18n.fallback.say).to.be.an('array').that.includes(output.fulfillmentText);
+        });
+    });
+    describe('spellDuration', () => {
+        it('spell has no duration', () => {
+        	let ret = {
+            	data: () => {
+            		return false;
+            	}
+            };
+            tools.getCollection = () => { return new Promise((resolve, reject) => { resolve(ret) })};
+
+            let output = responses.spellDuration();
+            expect(output).to.eventually.have.property('fulfillmentText', i18n.spell.noDuration, 'agnostic failed');
+            expect(output).to.deep.eventually.have.property('payload.slack.text', i18n.spell.noDuration, 'slack failed');
+            expect(output).to.deep.eventually.have.property('payload.google.richResponse', i18n.spell.noDuration, 'google failed');
         });
     });
 });
@@ -317,49 +338,106 @@ describe('tools', () => {
     });
     describe('listComplex', () => {
         it('query returns empty', () => {
-	        global.params = {
-	            'Class': [],
-	            'Level': [
-	                '2'
-	            ],
-	            'School': [
-	                'necromancy'
-	            ]
-	        };
+            global.params = {
+                'Class': [],
+                'Level': [
+                    '2'
+                ],
+                'School': [
+                    'necromancy'
+                ]
+            };
             let output = tools.listComplex([]);
 
             expect(output.speech).to.equal('I don\'t know any level 2 necromancy spells.');
             expect(output.data.length).to.equal(0);
         });
         it('query returns 1 spell', () => {
-	        global.params = {
-	            'Class': [],
-	            'Level': [
-	                '2'
-	            ],
-	            'School': [
-	                'necromancy'
-	            ]
-	        };
-            let output = tools.listComplex({size: 1});
+            global.params = {
+                'Class': [],
+                'Level': [
+                    '2'
+                ],
+                'School': [
+                    'necromancy'
+                ]
+            };
+            let output = tools.listComplex({
+                size: 1
+            });
 
             expect(output.speech).to.equal('There is only 1 level 2 necromancy spell.');
             expect(output.data.length).to.equal(0);
         });
         it('query returns multiple spells', () => {
-	        global.params = {
-	            'Class': [],
-	            'Level': [
-	                '2'
-	            ],
-	            'School': [
-	                'necromancy'
-	            ]
-	        };
-            let output = tools.listComplex({size: 2});
+            global.params = {
+                'Class': [],
+                'Level': [
+                    '2'
+                ],
+                'School': [
+                    'necromancy'
+                ]
+            };
+            let output = tools.listComplex({
+                size: 2
+            });
 
             expect(output.speech).to.equal('There are 2 level 2 necromancy spells.');
             expect(output.data.length).to.equal(0);
+        });
+        it('query lists out multiple spells', () => {
+            global.params = {
+                'Class': [],
+                'Level': [
+                    '2'
+                ],
+                'School': [
+                    'necromancy'
+                ]
+            };
+            let output = tools.listComplex({
+                size: 6,
+                docs: [{
+                    _fieldsProto: {
+                        name: {
+                            stringValue: 'spell 1'
+                        }
+                    }
+                }, {
+                    _fieldsProto: {
+                        name: {
+                            stringValue: 'spell 2'
+                        }
+                    }
+                }, {
+                    _fieldsProto: {
+                        name: {
+                            stringValue: 'spell 3'
+                        }
+                    }
+                }, {
+                    _fieldsProto: {
+                        name: {
+                            stringValue: 'spell 4'
+                        }
+                    }
+                }, {
+                    _fieldsProto: {
+                        name: {
+                            stringValue: 'spell 5'
+                        }
+                    }
+                }, {
+                    _fieldsProto: {
+                        name: {
+                            stringValue: 'spell 6'
+                        }
+                    }
+                }]
+            }, true);
+
+            expect(output.speech.substr(0, 72)).to.equal('There are 6 level 2 necromancy spells, <break time=\'350ms\' /> including ');
         });
     });
     /*

@@ -65,7 +65,7 @@ const webhook = (request, response) => {
                 return responses.what.spellDamage();
             case 'spell.what.Class':
                 return responses.what.spellClass();
-            case 'spell.duration':
+            case 'spell.what.duration':
                 return responses.spellDuration();
             case 'spell.what.castTime':
                 return responses.spellCastTime();
