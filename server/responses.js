@@ -48,7 +48,7 @@ exports = module.exports = {
         });
     },
     spellDescription: (sugg = ['damage', 'materials', 'higher_levels']) => {
-        tools.getCollection()
+        return tools.getCollection()
             .then(data => {
                 let spell = data.data();
 
@@ -57,13 +57,13 @@ exports = module.exports = {
                 };
 
 
-                response.json(tools.setResponse(responseInput, tools.getSuggestions(sugg), spell));
+                return response.json(tools.setResponse(responseInput, tools.getSuggestions(sugg), spell));
             }).catch(err => {
                 console.log(err);
             });
     },
     spellInit: () => {
-        tools.getCollection()
+        return tools.getCollection()
             .then(data => {
                 let spell = data.data();
 
@@ -77,7 +77,7 @@ exports = module.exports = {
                 };
 
 
-                response.json(tools.setResponse(responseInput, tools.getSuggestions([
+                return response.json(tools.setResponse(responseInput, tools.getSuggestions([
                     'damage',
                     'materials',
                     'higher_levels'
@@ -86,8 +86,8 @@ exports = module.exports = {
                 console.log(err);
             });
     },
-    condition: () => {
-        tools.getCollection('conditions', 'Condition')
+    condition: (params = params) => {
+        return tools.getCollection('conditions', 'Condition')
             .then(data => {
                 let condition = data.data(),
                     sugg = [];
@@ -101,23 +101,23 @@ exports = module.exports = {
                 };
 
                 // if the condition is exhaustion, suggest there's more detail
-                if (params.Condition === 'Exhaustion') {
+                if (condition.levels && condition.levels.length) {
 
                     // if the condition is exhaustion, check if a level is being asked for
                     if (params.Level) {
                         delete responseInput.card;
                         // check if the level exists
-                        if (condition.levels && condition.levels[params.Level - 1]) {
+                        if (condition.levels[parseInt(params.Level) - 1]) {
                             responseInput.speech = `Level ${params.Level} exhaustion results in ${condition.levels[params.Level - 1]}`;
                             responseInput.text = `${condition.levels[params.Level - 1]}`;
                         } else {
-                            responseInput.speech = 'Exhaustions levels only go from 1 to 6';
+                            responseInput.speech = `Exhaustions levels only go up to 6`;
                         }
                     }
                     sugg.push(`what's level ${sak.rng(6)} exhaustion`);
                 }
 
-                response.json(tools.setResponse(responseInput, sugg));
+                return response.json(tools.setResponse(responseInput, sugg));
             }).catch(err => {
                 console.log(err);
             });

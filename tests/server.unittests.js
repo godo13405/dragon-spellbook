@@ -25,7 +25,8 @@ global.log = {
     limit: null
 };
 global.params = {
-    spell: 'Acid Splash'
+    spell: 'Acid Splash',
+    Condition: 'conditioned'
 };
 global.db = {
     collection: (input) => {
@@ -38,7 +39,7 @@ global.db = {
         } else {
             let ret = ({
                 where: (a, b, c) => {
-                    log.where.push([a,b,c]);
+                    log.where.push([a, b, c]);
                     return ret;
                 },
                 limit: input => {
@@ -63,7 +64,7 @@ global.request = {
 };
 global.response = {
     json: input => {
-    	return input;
+        return input;
     }
 };
 
@@ -99,6 +100,7 @@ describe('server', () => {
     });
 });
 describe('responses', () => {
+    let restore = tools.getCollection;
     describe('welcome', () => {
         it('user says nothing, is greeted', () => {
             let req = fakeReq;
@@ -118,8 +120,6 @@ describe('responses', () => {
         });
     });
     describe('spellDuration', () => {
-        let restore = tools.getCollection;
-
         describe('spell has no duration', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
@@ -198,61 +198,168 @@ describe('responses', () => {
             tools.getCollection = restore;
         });
     });
-    /*
-        describe('spellInit', () => {
-            it('summary', () => {
-                let ret = {
-                    data: () => {
-                        return {
-                            name: 'spellName',
-                            type: 'spelltype',
-                            description: 'lorem ipsum'
-                        };
-                    }
-                };
-                tools.getCollection = () => {
-                    return new Promise((resolve, reject) => {
-                        resolve(ret)
-                    })
-                };
-
-                let output = responses.spellDuration(),
-                    match = 'spellName is a spellType!!';
-
-                //test test
-                expect(output).to.eventually.have.property('fulfillmentText', match, 'agnostic text failed');
-                expect(output).to.deep.eventually.have.property('payload.slack.text', match, 'slack text failed');
-                expect(output).to.deep.eventually.have.property('payload.google.richResponse', match, 'google text failed');
-
-                //test card
-                expect(output).to.eventually.have.property('fulfillmentMessages', match, 'agnostic card failed');
-                expect(output).to.deep.eventually.have.property('payload.slack.text', match, 'slack card failed');
-                expect(output).to.deep.eventually.have.property('payload.google.richResponse', match, 'google card failed');
-            });
-        });
     describe('spellDescription', () => {
-        it('verbose', () => {
-            let ret = {
-                data: () => {
-                    return {
-                        description: 'lorem ipsum'
-                    };
-                }
-            };
+        describe('output describtion', () => {
             tools.getCollection = () => {
-                return new Promise((resolve, reject) => {
-                    resolve(ret)
+                return new Promise((res, rej) => {
+                    res({
+                        data: () => {
+                            return {
+                                description: 'lorem ipsum'
+                            }
+                        }
+                    });
                 })
             };
-
-            let output = responses.spellDuration(),
+            let output = responses.spellDescription(),
                 match = 'lorem ipsum';
-            expect(output).to.eventually.have.property('fulfillmentText', match, 'agnostic failed');
-            expect(output).to.deep.eventually.have.property('payload.slack.text', match, 'slack failed');
-            expect(output).to.deep.eventually.have.property('payload.google.richResponse', match, 'google failed');
+            it('agnostic', () => {
+                return expect(output).to.eventually.have.property('fulfillmentText', match);
+            });
+            it('slack', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+            });
+            it('google', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+            });
+
+            tools.getCollection = restore;
         });
     });
-        */
+    describe('spellInit', () => {
+        describe('summary', () => {
+            tools.getCollection = () => {
+                return new Promise((res, rej) => {
+                    res({
+                        data: () => {
+                            return {
+                                name: 'spellName',
+                                type: 'spellType',
+                                description: 'lorem ipsum'
+                            }
+                        }
+                    });
+                })
+            };
+            let output = responses.spellInit(),
+                match = 'spellName is a spellType';
+            it('agnostic text', () => {
+                return expect(output).to.eventually.have.property('fulfillmentText', match);
+            });
+            it('slack text', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+            });
+            it('google text', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+            });
+
+            it('agnostic card', () => {
+                return expect(output).to.eventually.have.deep.nested.property('fulfillmentMessages[0].card', {
+                    title: 'spellName',
+                    subtitle: 'lorem ipsum'
+                });
+            });
+            it('slack card', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.slack.attachments[0]', {
+                    title: 'spellName',
+                    author_name: 'spellType',
+                    text: 'lorem ipsum'
+                });
+            });
+            it('google card', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[1].basicCard', {
+                    title: 'spellName',
+                    subtitle: 'spellType',
+                    formattedText: 'lorem ipsum'
+                });
+            });
+
+            tools.getCollection = restore;
+        });
+    });
+    describe('condition', () => {
+        describe('describe', () => {
+            tools.getCollection = () => {
+                return new Promise((res, rej) => {
+                    res({
+                        data: () => {
+                            return {
+                                description: 'lorem ipsum'
+                            }
+                        }
+                    });
+                })
+            };
+            let output = responses.condition({Condition:'conditioned', Level:2}),
+                match = 'With conditioned lorem ipsum';
+            it('agnostic', () => {
+                return expect(output).to.eventually.have.property('fulfillmentText', match);
+            });
+            it('slack', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+            });
+            it('google', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+            });
+
+            tools.getCollection = restore;
+        });
+        describe('get Exhaustion level', () => {
+            tools.getCollection = () => {
+                return new Promise((res, rej) => {
+                    res({
+                        data: () => {
+                            return {
+                                levels: [
+                                    'not lorem',
+                                    'lorem ipsum'
+                                ]
+                            }
+                        }
+                    });
+                })
+            };
+            let output = responses.condition({Condition:'Exhaustion', Level:2}),
+                match = 'lorem ipsum';
+            it('agnostic', () => {
+                return expect(output).to.eventually.have.property('fulfillmentText', match);
+            });
+            it('slack', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+            });
+            it('google', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+            });
+            tools.getCollection = restore;
+        });
+        describe('get Exhaustion level which doesn\'t exist', () => {
+            tools.getCollection = () => {
+                return new Promise((res, rej) => {
+                    res({
+                        data: () => {
+                            return {
+                                levels: [
+                                    'lorem ipsum'
+                                ]
+                            }
+                        }
+                    });
+                })
+            };
+            let output = responses.condition({Condition:'Exhaustion', Level:9}),
+                match = 'Exhaustions levels only go up to 6';
+            it('agnostic', () => {
+                return expect(output).to.eventually.have.property('fulfillmentText', match);
+            });
+            it('slack', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+            });
+            it('google', () => {
+                return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+            });
+            tools.getCollection = restore;
+        });
+    });
 });
 describe('tools', () => {
     describe('queryArgumentBuild', () => {
@@ -684,7 +791,9 @@ describe('Swiss Army Knife', () => {
         });
         it('replace a variable in a string', () => {
             let str = 'sample <var> is here',
-                obj = sak.i18n(str, {var: 'variable'});
+                obj = sak.i18n(str, {
+                    var: 'variable'
+                });
 
             expect(obj).to.equal('sample variable is here');
         });
