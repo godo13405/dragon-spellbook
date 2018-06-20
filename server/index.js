@@ -24,7 +24,7 @@ const webhook = (request, response) => {
     global.response = response;
 
     // Get surface capabilities, such as screen
-    if (request.body.originalDetectIntentRequest.payload && request.body.originalDetectIntentRequest.source === 'google') {
+    if (request.body.originalDetectIntentRequest && request.body.originalDetectIntentRequest.payload && request.body.originalDetectIntentRequest.source === 'google') {
         request.body.originalDetectIntentRequest.payload.surface.capabilities.forEach(cap => {
             if (cap.name) {
                 cap = cap.name.split('.');

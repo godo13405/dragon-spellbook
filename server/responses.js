@@ -76,12 +76,12 @@ exports = module.exports = {
                     }
                 };
 
-
-                return response.json(tools.setResponse(responseInput, tools.getSuggestions([
+                let talk = tools.setResponse(responseInput, tools.getSuggestions([
                     'damage',
                     'materials',
                     'higher_levels'
-                ], spell, 'Would you like to know ')));
+                ], spell, 'Would you like to know '));
+                return response.json(talk);
             }).catch(err => {
                 console.log(err);
             });

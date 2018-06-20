@@ -53,7 +53,7 @@ exports = module.exports = {
 
         return output;
     },
-    getCollection: (collection = 'spells', param = 'spell', params = false) => {
+    getCollection: (collection = 'spells', param = 'spell') => {
         if (params && params[param]) {
             return db.collection(collection)
                 .doc(params[param].replace(/\s+/g, '_')
