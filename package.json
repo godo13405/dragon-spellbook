@@ -1,33 +1,35 @@
 {
-  "name": "functions",
-  "description": "Cloud Functions for Firebase",
-  "scripts": {
-    "lint": "eslint ./server/",
-    "serve": "firebase serve --only functions",
-    "shell": "firebase functions:shell",
-    "start": "npm test && node ./server/index",
-    "ngrok": "./ngrok http 3000",
-    "deploy": "clear && firebase deploy --only functions",
-    "logs": "firebase functions:log",
-    "test": "npm run lint && ./node_modules/mocha/bin/mocha tests -c --exit --no-warnings"
-  },
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3",
-    "firebase": "^5.0.4",
-    "firebase-admin": "^5.12.1",
-     "chai-as-promised": "^7.1.1",
-    "es6-promise": "^4.2.4",
-    "eslint": "^4.12.0",
-    "eslint-plugin-promise": "^3.6.0",
-  },
-  "devDependencies": {
-    "grunt": "^1.0.3",
-    "grunt-concurrent": "^2.3.1",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-exec": "^3.0.0",
-    "load-grunt-tasks": "^4.0.0",
-    "mocha": "^5.2.0"
-  },
-  "private": true
+    "name": "functions",
+    "description": "Cloud Functions for Firebase",
+    "scripts": {
+        "lint": "eslint ./server/",
+        "serve": "firebase serve --only functions",
+        "shell": "firebase functions:shell",
+        "start": "npm test && node ./server/index",
+        "ngrok": "./ngrok http 3000",
+        "deploy": "clear && firebase deploy --only functions",
+        "logs": "firebase functions:log",
+        "test": "npm run lint && ./node_modules/mocha/bin/mocha tests -c --exit --no-warnings",
+        "dboot": "mongod --dbpath=/data"
+    },
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "chai": "^4.1.2",
+        "chai-as-promised": "^7.1.1",
+        "es6-promise": "^4.2.4",
+        "eslint": "^4.12.0",
+        "eslint-plugin-promise": "^3.6.0",
+        "express": "^4.16.3",
+        "firebase": "^5.0.4",
+        "firebase-admin": "^5.12.1",
+        "mocha": "^5.2.0"
+    },
+    "devDependencies": {
+        "grunt": "^1.0.3",
+        "grunt-concurrent": "^2.3.1",
+        "grunt-contrib-watch": "^1.1.0",
+        "grunt-exec": "^3.0.0",
+        "load-grunt-tasks": "^4.0.0"
+    },
+    "private": true
 }
