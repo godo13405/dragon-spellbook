@@ -3,6 +3,7 @@ require('./setup.js');
 describe('responses', () => {
     let restore = tools.getCollection;
     describe('spellDuration', () => {
+        intention = 'duration';
         describe('spell has no duration', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
@@ -15,8 +16,8 @@ describe('responses', () => {
                     });
                 })
             };
-            let output = responses.spellDuration(),
-                match = i18n.spell.noDuration;
+            let output = responses.whatProperty(),
+                match = i18n.spell.noDuration.replace(/This spell/g, 'spellName');
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
             });
@@ -41,7 +42,7 @@ describe('responses', () => {
                     });
                 })
             };
-            let output = responses.spellDuration(),
+            let output = responses.whatProperty(),
                 match = 'spellName lasts for 1 minute';
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
@@ -67,7 +68,7 @@ describe('responses', () => {
                     });
                 })
             };
-            let output = responses.spellDuration(),
+            let output = responses.whatProperty(),
                 match = 'spellName is instantaneous';
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);

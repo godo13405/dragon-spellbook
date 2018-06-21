@@ -419,6 +419,9 @@ exports = module.exports = {
                     let o = `${spell.damage[da].amount ? spell.damage[da].amount : ''}${spell.damage[da].dice ? spell.damage[da].dice : ''} ${spell.damage[da].type ? spell.damage[da].type : ''} damage${spell.damage[da].extra ? ' and ' + spell.damage[da].extra : ''}`;
                     output.push(o);
                 }
+                output = {
+                    res: sak.combinePhrase(output)
+                };
                 break;
             case ('casting_time'):
                 for (var ct = spell.casting_time.length - 1; ct >= 0; ct--) {
@@ -428,13 +431,25 @@ exports = module.exports = {
                     }
                     output.push(o);
                 }
+                output = {
+                    res: sak.combinePhrase(output)
+                };
                 break;
             case ('class'):
                 for (let classy in spell.class) {
                     output.push(sak.plural(classy));
                 }
+                output = {
+                    res: sak.combinePhrase(output)
+                };
+                break;
+            case ('duration'):
+                output = {
+                    connector: spell.duration === 'instantaneous' ? 'is' : 'lasts for',
+                    res: spell.duration
+                }
                 break;
         }
-        return sak.combinePhrase(output);
+        return output;
     }
 };

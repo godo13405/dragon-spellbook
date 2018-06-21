@@ -4,7 +4,7 @@ global.express = require('express');
 global.firebase = require('firebase-admin');
 global.bodyParser = require('body-parser');
 global.capabilities = ['audio'];
-global.i18n = require('../lang/en');
+global.i18n = require('../config/lang/en');
 
 firebase.initializeApp({
     credential: firebase.credential.cert('./service-key.json'),
@@ -18,6 +18,7 @@ global.db = firebase.firestore();
 global.ex = express();
 
 global.params = {};
+global.suggestions = require('../config/suggestions');
 
 const webhook = (request, response) => {
     if (request.body.queryResult) {
@@ -62,7 +63,6 @@ const webhook = (request, response) => {
         // get the spell's name from parameters or context
         if (request.body.queryResult.parameters) {
             for (let par in request.body.queryResult.parameters) {
-                console.log(par);
                 if (par.substr(par.length - 9) !== '.original') {
                     params[par.toLowerCase()] = request.body.queryResult.parameters[par];
                 }
@@ -78,14 +78,8 @@ const webhook = (request, response) => {
                 return responses.spellInit();
             case ('spell.description'):
                 return responses.spellDescription();
-            case 'spell.what.damage':
-                return responses.what.spellDamage();
-            case 'spell.what.Class':
-                return responses.what.spellClass();
             case 'spell.what.duration':
                 return responses.spellDuration();
-            case 'spell.what.castTime':
-                return responses.spellCastTime();
             case 'query.school':
                 return responses.query.spellSchool();
             case 'query.level':

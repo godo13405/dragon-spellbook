@@ -52,9 +52,11 @@ global.db = {
 };
 global.request = {
     body: {
-        session: 'sessionId'
+        session: 'sessionId',
+        queryResult: {}
     }
 };
+global.intention = '';
 global.response = {
     json: input => {
         return input;
