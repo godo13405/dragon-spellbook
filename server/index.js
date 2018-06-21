@@ -108,8 +108,8 @@ ex.use(bodyParser.json());
 ex.get('/', (req,res) => {
     res.redirect(301, 'https://bot.dialogflow.com/spell-book')
 });
-ex.get('/:ngrok', (req,res) => {
-    res.redirect(301, `https://${req.params('ngrok')}.ngrok.io`)
+ex.post('/:ngrok', (req,res) => {
+    res.redirect(307, `https://${req.params('ngrok')}.ngrok.io`)
 });
 ex.post('/', webhook);
 
