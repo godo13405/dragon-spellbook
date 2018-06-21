@@ -54,6 +54,7 @@ exports = module.exports = {
         return output;
     },
     getCollection: (collection = 'spells', param = 'spell') => {
+        param = param.toLowerCase();
         if (params && params[param]) {
             let doc = params[param][0].replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase();
             return db.collection(collection)
@@ -426,6 +427,11 @@ exports = module.exports = {
                         o = `${o} You can take it ${spell.casting_time.description}`;
                     }
                     output.push(o);
+                }
+                break;
+            case ('class'):
+                for (let classy in spell.class) {
+                    output.push(sak.plural(classy));
                 }
                 break;
         }

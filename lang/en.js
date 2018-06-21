@@ -30,6 +30,10 @@ exports = module.exports = {
 			"casting_time": {
 				"hasProperty": "<spellName> takes <res> to cast",
 				"doesntHaveProperty": "<spellName> has no casting time"
+			},
+			"class": {
+				"hasProperty": "<spellName> can be cast by <res>",
+				"doesntHaveProperty": "<spellName> can't be cast by players"
 			}
 		}
 	}

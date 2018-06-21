@@ -51,16 +51,22 @@ const webhook = (request, response) => {
         for (var i = request.body.queryResult.outputContexts.length - 1; i >= 0; i--) {
             for (let par in request.body.queryResult.outputContexts[i].parameters) {
                 if (par.substr(par.length - 9) !== '.original') {
+                    par = par.toLowerCase();
                     params[par] = request.body.queryResult.outputContexts[i].parameters[par];
                 }
             }
         }
     }
 
-    // get the spell's name from parameters or context
     if (request.body.queryResult) {
-        if (request.body.queryResult.parameters && request.body.queryResult.parameters.spell) {
-            params.name = request.body.queryResult.parameters.spell;
+        // get the spell's name from parameters or context
+        if (request.body.queryResult.parameters) {
+            for (let par in request.body.queryResult.parameters) {
+                console.log(par);
+                if (par.substr(par.length - 9) !== '.original') {
+                    params[par.toLowerCase()] = request.body.queryResult.parameters[par];
+                }
+            }
         }
         switch (actionArr[1]) {
             case ('what'):

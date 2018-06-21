@@ -182,29 +182,6 @@ exports = module.exports = {
         }
     },
     what: {
-        spellCastTime: () => {
-            tools.getCollection()
-                .then(data => {
-                    let spell = data.data(),
-                        output = [];
-
-                    for (var i = spell.casting_time.length - 1; i >= 0; i--) {
-                        let o = `${spell.name} takes ${spell.casting_time[i].amount} ${spell.casting_time[i].amount > 1 ? sak.plural(spell.casting_time[i].unit) : spell.casting_time[i].unit} to cast.`;
-                        if (spell.casting_time.description) {
-                            o = `${o} You can take it ${spell.casting_time.description}`;
-                        }
-                        output.push(o);
-                    }
-
-                    response.json(tools.setResponse(output.join(" or "), tools.getSuggestions([
-                        'damage',
-                        'materials',
-                        'higher_levels'
-                    ], spell, 'Would you like to know ')));
-                }).catch(err => {
-                    console.log(err);
-                });
-        },
         spellClass: () => {
             tools.getCollection()
                 .then(data => {
@@ -237,7 +214,7 @@ exports = module.exports = {
                         let talk = sak.i18n(i18n.spell.what[intention].doesntHaveProperty, {
                             spellName: spell.name
                         });
-                        if (spell[intention] && spell[intention].length) {
+                        if (spell[intention]) {
                             let res = tools.formatWhatData(spell, intention);
                             talk = sak.i18n(i18n.spell.what[intention].hasProperty, {
                                 spellName: spell.name,
