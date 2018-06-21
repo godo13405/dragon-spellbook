@@ -105,6 +105,8 @@ ex.get('/', (req,res) => {
     res.redirect(301, 'https://bot.dialogflow.com/spell-book')
 });
 ex.post('/', webhook);
-ex.listen((process.env.PORT || 3000), () => console.log('Spell Book is open'));
+if (process.env.STATIC !== true) {
+    ex.listen((process.env.PORT || 3000), () => console.log('Spell Book is open'));
+}
 
 exports = module.exports = webhook;
