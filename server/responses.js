@@ -225,32 +225,36 @@ exports = module.exports = {
                     console.log(err);
                 });
         },
-        spellDamage: () => {
+    },
+    whatProperty: () => {
+        if (Array.isArray(params['spell']) && params['spell'].length > 1) {
+            response.json(tools.setResponse(sak.i18n(i18n.tools.oneAtATime)));
+        } else {
             tools.getCollection()
                 .then(data => {
-                    let spell = data.data(),
-                        output = [];
-                    if (spell.damage && spell.damage.length) {
-                        for (var i = spell.damage.length - 1; i >= 0; i--) {
-                            let o = `${spell.damage[i].amount ? spell.damage[i].amount : ''}${spell.damage[i].dice ? spell.damage[i].dice : ''} ${spell.damage[i].type ? spell.damage[i].type : ''} damage${spell.damage[i].extra ? ' and ' + spell.damage[i].extra : ''}`;
-                            output.push(o);
+                    let spell = data.data();
+                    if (spell) {
+                        let talk = sak.i18n(i18n.spell.what[intention].doesntHaveProperty, {
+                            spellName: spell.name
+                        });
+                        if (spell[intention] && spell[intention].length) {
+                            let res = tools.formatWhatData(spell, intention);
+                            talk = sak.i18n(i18n.spell.what[intention].hasProperty, {
+                                spellName: spell.name,
+                                res: res
+                            });
                         }
-
-                        response.json(tools.setResponse(`${spell.name} does ${output.join(" and ")}`, tools.getSuggestions([
+                        response.json(tools.setResponse(talk, tools.getSuggestions([
                             'description',
                             'materials',
                             'higher_levels'
                         ], spell, 'Would you like to know ')));
                     } else {
-                        response.json(tools.setResponse(`${spell.name} doesn't cause any damage.`, tools.getSuggestions([
-                            'description',
-                            'materials',
-                            'higher_levels'
-                        ], spell, 'Would you like to know ')));
+                        response.json(tools.setResponse(sak.i18n(i18n.spell.notFound)));
                     }
                 }).catch(err => {
                     console.log(err);
                 });
-        },
-    }
+        }
+    },
 };

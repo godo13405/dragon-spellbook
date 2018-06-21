@@ -18,9 +18,19 @@ exports = module.exports = {
 	"spell": {
 		"notFound": [
 			"Sorry, I don't know that spell",
-			"Mmm, that spell's not in the book",
+			"Mmm, that spell's not in my book",
 			"I haven't heard of that spell"
 		],
-		"noDuration": "This spell has no duration."
+		"noDuration": "This spell has no duration.",
+		"what": {
+			"damage": {
+				"hasProperty": "<spellName> does <res>",
+				"doesntHaveProperty": "<spellName> doesn't cause any damage."
+			},
+			"casting_time": {
+				"hasProperty": "<spellName> takes <res> to cast",
+				"doesntHaveProperty": "<spellName> has no casting time"
+			}
+		}
 	}
 };

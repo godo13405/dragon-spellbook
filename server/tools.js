@@ -1,21 +1,21 @@
 'use strict';
 
 const keysSetup = {
-        Class: {
-            deep: true,
-            phrase: false
-        },
-        Level: {
-            deep: false,
-            phrase: 'level ',
-            phraseLevel: 0
-        },
-        School: {
-            deep: false,
-            phrase: 'school of ',
-            phraseLevel: 1
-        }
-    };
+    Class: {
+        deep: true,
+        phrase: false
+    },
+    Level: {
+        deep: false,
+        phrase: 'level ',
+        phraseLevel: 0
+    },
+    School: {
+        deep: false,
+        phrase: 'school of ',
+        phraseLevel: 1
+    }
+};
 
 exports = module.exports = {
     getQuery: (multipleAllowed = false, request = request) => {
@@ -60,7 +60,11 @@ exports = module.exports = {
                 .doc(doc)
                 .get();
         } else {
-            return new Promise((res, reject) => {res(() => {return false})});
+            return new Promise((res, reject) => {
+                res(() => {
+                    return false
+                })
+            });
         }
     },
     querySpell: (where, limit, order = 'name') => {
@@ -91,7 +95,9 @@ exports = module.exports = {
             return output;
         },
     */
-    getSuggestions: (input = [], spell = {name: params.Spell}, suggestionIntro = 'I can also tell you') => {
+    getSuggestions: (input = [], spell = {
+        name: params.Spell
+    }, suggestionIntro = 'I can also tell you') => {
         let output = [];
 
         // if speech variant has't been defined, clone text
@@ -377,7 +383,7 @@ exports = module.exports = {
             case (listSize === 1):
                 output.speech = `There is only 1 ${keyPhrase} spell.`;
                 break;
-            case (listSize >1):
+            case (listSize > 1):
                 output.speech = `There are ${listSize} ${keyPhrase} spells.`;
                 break;
         }
@@ -403,5 +409,26 @@ exports = module.exports = {
         output.keyPhrase = keyPhrase;
 
         return output;
+    },
+    formatWhatData: (spell, intnt) => {
+        let output = [];
+        switch (intnt) {
+            case ('damage'):
+                for (var da = spell.damage.length - 1; da >= 0; da--) {
+                    let o = `${spell.damage[da].amount ? spell.damage[da].amount : ''}${spell.damage[da].dice ? spell.damage[da].dice : ''} ${spell.damage[da].type ? spell.damage[da].type : ''} damage${spell.damage[da].extra ? ' and ' + spell.damage[da].extra : ''}`;
+                    output.push(o);
+                }
+                break;
+            case ('casting_time'):
+                for (var ct = spell.casting_time.length - 1; ct >= 0; ct--) {
+                    let o = `${spell.name} takes ${spell.casting_time[ct].amount} ${spell.casting_time[ct].amount > 1 ? sak.plural(spell.casting_time[ct].unit) : spell.casting_time[ct].unit}`;
+                    if (spell.casting_time.description) {
+                        o = `${o} You can take it ${spell.casting_time.description}`;
+                    }
+                    output.push(o);
+                }
+                break;
+        }
+        return sak.combinePhrase(output);
     }
 };

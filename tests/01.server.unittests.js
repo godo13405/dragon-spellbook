@@ -5,6 +5,9 @@ describe('server', () => {
         let cappy = [],
             req = {
                 body: {
+                    queryResult: {
+                        action: 'input.welcome'
+                    },
                     originalDetectIntentRequest: {
                         payload: {}
                     }

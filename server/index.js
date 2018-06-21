@@ -26,6 +26,8 @@ const webhook = (request, response) => {
     }
     global.request = request;
     global.response = response;
+    global.actionArr = request.body.queryResult.action.split(".");
+    global.intention = actionArr[actionArr.length - 1];
 
     // Get surface capabilities, such as screen
     if (request.body.originalDetectIntentRequest && request.body.originalDetectIntentRequest.payload && request.body.originalDetectIntentRequest.source === 'google') {
@@ -60,6 +62,11 @@ const webhook = (request, response) => {
         if (request.body.queryResult.parameters && request.body.queryResult.parameters.spell) {
             params.name = request.body.queryResult.parameters.spell;
         }
+        switch (actionArr[1]) {
+            case ('what'):
+                return responses.whatProperty();
+        }
+
         switch (request.body.queryResult.action) {
             case ('spell.init' || 'spell.folllowupInit'):
                 return responses.spellInit();
@@ -89,12 +96,11 @@ const webhook = (request, response) => {
                 return responses.welcome();
             case 'input.unknown':
                 return responses.fallback();
-            default:
-                return responses.fallback();
         }
     } else {
         return response.send('Problem with the resuest.body. Check the console.log');
     }
+    return false;
 };
 
 global.sak = require('./swiss-army-knife');
@@ -105,10 +111,10 @@ global.responses = require('./responses');
 process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_credentials;
 
 ex.use(bodyParser.json());
-ex.get('/', (req,res) => {
+ex.get('/', (req, res) => {
     res.redirect(301, 'https://bot.dialogflow.com/spell-book')
 });
-ex.post('/:ngrok', (req,res) => {
+ex.post('/:ngrok', (req, res) => {
     res.redirect(307, `https://${req.params('ngrok')}.ngrok.io`)
 });
 ex.post('/', webhook);
