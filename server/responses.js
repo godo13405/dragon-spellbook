@@ -66,6 +66,7 @@ exports = module.exports = {
         return tools.getCollection()
             .then(data => {
                 let spell = data.data();
+                console.log(spell);
 
                 let responseInput = {
                     speech: `${spell.name} is a ${spell.type}`,

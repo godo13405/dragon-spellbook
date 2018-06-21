@@ -55,9 +55,9 @@ exports = module.exports = {
     },
     getCollection: (collection = 'spells', param = 'spell') => {
         if (params && params[param]) {
+            let doc = params[param][0].replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase();
             return db.collection(collection)
-                .doc(params[param].replace(/\s+/g, '_')
-                .replace(/\/+/g, '_or_').toLowerCase())
+                .doc(doc)
                 .get();
         } else {
             return new Promise((res, reject) => {res(() => {return false})});
@@ -247,6 +247,9 @@ exports = module.exports = {
         if (suggestions.length && capabilities.screen) {
             output.payload.google.richResponse.suggestions = suggestions;
         }
+
+        console.log("\x1b[32m", input.text);
+        console.log("\x1b[0m");
 
         // set contexts
         output.outputContexts = [{

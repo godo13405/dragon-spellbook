@@ -1,8 +1,8 @@
 exports = module.exports = {
 	"welcome": {
 		"say": [
-				"!!!Hi! What do you want to know about?",
-				"!!!Hello. What can I help you with today?"
+				"Hi! What do you want to know about?",
+				"Hello. What can I help you with today?"
 			]
 	},
 	"fallback": {

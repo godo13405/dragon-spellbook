@@ -10,6 +10,7 @@
         "deploy": "clear && firebase deploy --only functions",
         "logs": "firebase functions:log",
         "test": "npm run lint && ./node_modules/mocha/bin/mocha tests -c --exit --no-warnings",
+        "test-no-break": "npm run lint && ./node_modules/mocha/bin/mocha tests -c --no-warnings",
         "dboot": "mongod --dbpath=/data"
     },
     "dependencies": {

@@ -21,8 +21,8 @@ global.params = {};
 
 const webhook = (request, response) => {
     if (request.body.queryResult) {
-        console.log("\x1b[36m", request.body.queryResult.queryText);
-        console.log("\x1b[2m", request.body.queryResult.action);
+        console.log("\x1b[36m", request.body.queryResult.queryText, "\x1b[2m", request.body.queryResult.action);
+        console.log("\x1b[0m");
     }
     global.request = request;
     global.response = response;
