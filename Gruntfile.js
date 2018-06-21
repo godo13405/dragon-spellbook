@@ -9,7 +9,18 @@ module.exports = function(grunt) {
                 tasks: [
                     'exec:clear',
                     'exec:lint',
-                    'exec:express'
+                    'express:dev'
+                ],
+                options: {
+                    spawn: false
+                }
+            },
+            test: {
+                files: './tests/*.js',
+                tasks: [
+                    'exec:clear',
+                    'exec:lint',
+                    'exec:test'
                 ],
                 options: {
                     spawn: false
@@ -18,15 +29,21 @@ module.exports = function(grunt) {
         },
         concurrent: {
             serve: {
-                tasks: ['watch', 'exec:express'],
+                tasks: ['watch:js', 'express:dev'],
                 options: {
                     logConcurrentOutput: true
                 }
             }
         },
+        express: {
+            dev: {
+                options: {
+                    script: 'server/index.js'
+                }
+            }
+        },
         exec: {
             clear: 'clear',
-            express: 'npm start',
             lint: 'npm run lint',
             test: 'npm test',
             killall: 'killall node'
@@ -41,6 +58,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('test', [
         'exec:clear',
-        'exec:test'
+        'exec:test',
+        'watch:test'
     ]);
 };

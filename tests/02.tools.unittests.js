@@ -49,7 +49,6 @@ describe('tools', () => {
         });
     });
     describe('querySpell', () => {
-        console.log(db);
         it('simple query', () => {
             let w = [
                 ['class', '==', 'wizard']

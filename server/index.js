@@ -20,6 +20,10 @@ global.ex = express();
 global.params = {};
 
 const webhook = (request, response) => {
+    if (request.body.queryResult) {
+        console.log("\x1b[36m", request.body.queryResult.queryText);
+        console.log("\x1b[2m", request.body.queryResult.action);
+    }
     global.request = request;
     global.response = response;
 
@@ -104,9 +108,11 @@ ex.use(bodyParser.json());
 ex.get('/', (req,res) => {
     res.redirect(301, 'https://bot.dialogflow.com/spell-book')
 });
+ex.get('/:ngrok', (req,res) => {
+    res.redirect(301, `https://${req.params('ngrok')}.ngrok.io`)
+});
 ex.post('/', webhook);
-if (process.env.STATIC !== true) {
-    ex.listen((process.env.PORT || 3000), () => console.log('Spell Book is open'));
-}
+
+ex.listen((process.env.PORT || 3000), () => console.log('Spell Book is open'));
 
 exports = module.exports = webhook;
