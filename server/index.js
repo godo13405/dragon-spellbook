@@ -63,7 +63,7 @@ const webhook = (request, response) => {
         // get the spell's name from parameters or context
         if (request.body.queryResult.parameters) {
             for (let par in request.body.queryResult.parameters) {
-                if (par.substr(par.length - 9) !== '.original') {
+                if (request.body.queryResult.parameters[par].length && par.substr(par.length - 9) !== '.original') {
                     params[par.toLowerCase()] = request.body.queryResult.parameters[par];
                 }
             }

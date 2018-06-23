@@ -136,6 +136,7 @@ exports = module.exports = {
             return tools.getCollection()
                 .then(data => {
                     let spell = data;
+                    console.log(params);
                     if (spell) {
                         let talk = {
                             speech: sak.i18n(i18n.spell.what[intention].doesntHaveProperty, {
