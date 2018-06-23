@@ -1,21 +1,29 @@
 'use strict';
 
-const keysSetup = {
-    Class: {
-        deep: true,
-        phrase: false
-    },
-    Level: {
-        deep: false,
-        phrase: 'level ',
-        phraseLevel: 0
-    },
-    School: {
-        deep: false,
-        phrase: 'school of ',
-        phraseLevel: 1
-    }
-};
+const MongoClient = require('mongodb').MongoClient,
+    keysSetup = {
+        Class: {
+            deep: true,
+            phrase: false
+        },
+        Level: {
+            deep: false,
+            phrase: 'level ',
+            phraseLevel: 0
+        },
+        School: {
+            deep: false,
+            phrase: 'school of ',
+            phraseLevel: 1
+        }
+    };
+
+// Connection URL
+const url = "mongodb+srv://Godo:Lollipop12@cluster0-g9w91.mongodb.net/test?retryWrites=true";
+// mongodb-dragon-book.193b.starter-ca-central-1.openshiftapps.com
+
+// Database Name
+const dbName = 'dragon';
 
 exports = module.exports = {
     getQuery: (multipleAllowed = false, request = request) => {
@@ -53,20 +61,21 @@ exports = module.exports = {
 
         return output;
     },
-    getCollection: (collection = 'spells', param = 'spell') => {
-        param = param.toLowerCase();
-        if (params && params[param]) {
-            let doc = params[param][0].replace(/\s+/g, '_').replace(/\/+/g, '_or_').toLowerCase();
-            return db.collection(collection)
-                .doc(doc)
-                .get();
-        } else {
-            return new Promise((res, reject) => {
-                res(() => {
-                    return false
-                })
+    getCollection: (collection = 'spells', param = 'name', allowMultiple = false) => {
+        let query = sak.queryBuilder(param);
+        return new Promise((resolve, reject) => {
+            MongoClient.connect(url, (err, client) => {
+                if (err) throw err;
+                client.db(dbName).collection(collection).find(query).toArray((err, docs) => {
+                    if (err) throw err;
+                    if (docs.length === 1 || !allowMultiple) {
+                        docs = docs[0];
+                    }
+                    return resolve(docs);
+                });
+                client.close();
             });
-        }
+        });
     },
     querySpell: (where, limit, order = 'name') => {
         let output = db.collection('spells');
@@ -96,9 +105,7 @@ exports = module.exports = {
             return output;
         },
     */
-    getSuggestions: (input = [], spell = {
-        name: params.Spell
-    }, suggestionIntro = 'I can also tell you') => {
+    getSuggestions: (input = [], spell = {name: params.Spell}, suggestionIntro = 'I can also tell you') => {
         let output = [];
 
         // if speech variant has't been defined, clone text
@@ -447,6 +454,11 @@ exports = module.exports = {
                 output = {
                     connector: spell.duration === 'instantaneous' ? 'is' : 'lasts for',
                     res: spell.duration
+                }
+                break;
+            case ('description'):
+                output = {
+                    res: spell.description
                 }
                 break;
         }

@@ -75,5 +75,41 @@ exports = module.exports = {
             }
         }
         return input;
+    },
+    queryBuilder: param => {
+        if (param === 'name') {
+            params['name'] = params['spell'];
+        }
+        let query = {};
+        if (!Array.isArray(param)) {
+            param = [
+                param
+            ];
+        }
+        if (params.length > 1) {
+            // Each parameter, such as Class, Name, Level
+            for (let par in params) {
+                // Each parameter value, such as Wizard, Fireball, 4
+                // let's store each parameter's value in this var
+                let valQuery = [];
+                if (params[par].length > 1) {
+                    for (let val in params[par]) {
+                        let obj = {};
+                        obj[par] = val;
+                        valQuery.push(obj);
+                    }
+                    // let's join the var items in a mongo $and statement
+                    valQuery = {$and: valQuery};
+                } else {
+                    valQuery = {};
+                    valQuery[par] = params[par][0];
+                }
+            }
+            // then join the params in a mongo $and statement
+            query = {$and: valQuery};
+        } else {
+            query[param] = params[param][0];
+        }
+        return query;
     }
 };

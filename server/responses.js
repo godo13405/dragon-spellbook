@@ -12,49 +12,33 @@ exports = module.exports = {
         let talk = tools.setResponse(sak.i18n(i18n.fallback.say));
         return response.json(talk);
     },
-    spellDescription: (sugg = ['damage', 'materials', 'higher_levels']) => {
-        return tools.getCollection()
-            .then(data => {
-                let spell = data.data();
-
-                let responseInput = {
-                    speech: spell.description
-                };
-
-
-                return response.json(tools.setResponse(responseInput, tools.getSuggestions(sugg), spell));
-            }).catch(err => {
-                console.log(err);
-            });
-    },
     spellInit: () => {
-        return tools.getCollection()
+        let output = tools.getCollection()
             .then(data => {
-                let spell = data.data();
-
-                let responseInput = {
-                    speech: `${spell.name} is a ${spell.type}`,
-                    card: {
-                        title: spell.name,
-                        subtitle: spell.type,
-                        text: spell.description
-                    }
-                };
-
-                let talk = tools.setResponse(responseInput, tools.getSuggestions([
-                    'damage',
-                    'materials',
-                    'higher_levels'
-                ], spell, 'Would you like to know '));
+                let spell = data,
+                    responseInput = {
+                        speech: `${spell.name} is a ${spell.type}`,
+                        card: {
+                            title: spell.name,
+                            subtitle: spell.type,
+                            text: spell.description
+                        }
+                    },
+                    talk = tools.setResponse(responseInput, tools.getSuggestions([
+                        'damage',
+                        'materials',
+                        'higher_levels'
+                    ], spell, 'Would you like to know '));
                 return response.json(talk);
             }).catch(err => {
                 console.log(err);
             });
+        return output;
     },
     condition: (params = params) => {
         return tools.getCollection('conditions', 'Condition')
             .then(data => {
-                let condition = data.data(),
+                let condition = data,
                     sugg = [];
 
                 let responseInput = {
@@ -145,21 +129,34 @@ exports = module.exports = {
             }
         }
     },
-    whatProperty: () => {
+    whatProperty: (intention = intention, richResponses) => {
         if (Array.isArray(params['spell']) && params['spell'].length > 1) {
             return response.json(tools.setResponse(sak.i18n(i18n.tools.oneAtATime)));
         } else {
             return tools.getCollection()
                 .then(data => {
-                    let spell = data.data();
+                    let spell = data;
                     if (spell) {
-                        let talk = sak.i18n(i18n.spell.what[intention].doesntHaveProperty, {
-                            spellName: spell.name
-                        });
+                        let talk = {
+                            speech: sak.i18n(i18n.spell.what[intention].doesntHaveProperty, {
+                                spellName: spell.name
+                            })
+                        };
+
                         if (spell[intention]) {
                             let args = tools.formatWhatData(spell, intention);
                             args.spellName = spell.name;
-                            talk = sak.i18n(i18n.spell.what[intention].hasProperty, args);
+                            talk.speech = sak.i18n(i18n.spell.what[intention].hasProperty, args);
+                        }
+
+                        if (richResponses) {
+                            if (richResponses.card) {
+                                talk.card = {
+                                    title: spell.name,
+                                    subtitle: spell.type,
+                                    text: spell.description
+                                };
+                            }
                         }
 
                         let sugg = suggestions[intention] || [
@@ -167,10 +164,11 @@ exports = module.exports = {
                             'materials',
                             'higher_levels'
                         ];
+
                         for (var i = sugg.length - 1; i >= 0; i--) {
                             sugg[i] = sak.i18n(sugg[i]);
                         }
-
+                        console.log(intention, talk)
                         return response.json(tools.setResponse(talk, tools.getSuggestions(sugg, spell, 'Would you like to know ')));
                     } else {
                         return response.json(tools.setResponse(sak.i18n(i18n.spell.notFound)));

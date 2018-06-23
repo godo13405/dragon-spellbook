@@ -3,7 +3,7 @@
     "description": "Cloud Functions for Firebase",
     "main": "server/index.js",
     "scripts": {
-        "lint": "eslint ./server/",
+        "lint": "eslint ./server && eslint ./data && eslint ./lang && eslint ./tests",
         "serve": "firebase serve --only functions",
         "shell": "firebase functions:shell",
         "start": "node ./server/index",
@@ -12,13 +12,14 @@
         "logs": "firebase functions:log",
         "test": "npm run lint && ./node_modules/mocha/bin/mocha tests -c --exit --no-warnings",
         "test-no-break": "npm run lint && ./node_modules/mocha/bin/mocha tests -c --no-warnings",
-        "dboot": "mongod --dbpath=/data"
+        "mongo": "mongod --dbpath=./db"
     },
     "dependencies": {
         "body-parser": "^1.18.3",
         "express": "^4.16.3",
         "firebase": "^5.0.4",
-        "firebase-admin": "^5.12.1"
+        "firebase-admin": "^5.12.1",
+        "mongodb": "^3.0.10"
     },
     "devDependencies": {
         "chai": "^4.1.2",

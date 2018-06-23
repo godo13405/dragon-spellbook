@@ -63,3 +63,15 @@ typings/
 .next
 
 ngrok
+db
+
+diagnostic\.data/
+
+journal/
+
+*.wt
+mongod.lock
+*.bson
+WiredTiger
+WiredTiger.lock
+*.turtle

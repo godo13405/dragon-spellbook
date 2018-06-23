@@ -3,20 +3,15 @@ require('./setup.js');
 describe('responses', () => {
     let restore = tools.getCollection;
     describe('spellDuration', () => {
-        intention = 'duration';
         describe('spell has no duration', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
                     res({
-                        data: () => {
-                            return {
-                                name: 'spellName'
-                            };
-                        }
+                        name: 'spellName'
                     });
                 })
             };
-            let output = responses.whatProperty(),
+            let output = responses.whatProperty('duration'),
                 match = i18n.spell.noDuration.replace(/This spell/g, 'spellName');
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
@@ -33,16 +28,12 @@ describe('responses', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
                     res({
-                        data: () => {
-                            return {
-                                name: 'spellName',
-                                duration: '1 minute'
-                            };
-                        }
+                        name: 'spellName',
+                        duration: '1 minute'
                     });
                 })
             };
-            let output = responses.whatProperty(),
+            let output = responses.whatProperty('duration'),
                 match = 'spellName lasts for 1 minute';
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
@@ -59,16 +50,12 @@ describe('responses', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
                     res({
-                        data: () => {
-                            return {
-                                name: 'spellName',
-                                duration: 'instantaneous'
-                            };
-                        }
+                        name: 'spellName',
+                        duration: 'instantaneous'
                     });
                 })
             };
-            let output = responses.whatProperty(),
+            let output = responses.whatProperty('duration'),
                 match = 'spellName is instantaneous';
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
@@ -83,19 +70,16 @@ describe('responses', () => {
         });
     });
     describe('spellDescription', () => {
-        describe('output describtion', () => {
+        describe('output description', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
                     res({
-                        data: () => {
-                            return {
-                                description: 'lorem ipsum'
-                            }
-                        }
+                        name: 'spellName',
+                        description: 'lorem ipsum'
                     });
                 })
             };
-            let output = responses.spellDescription(),
+            let output = responses.whatProperty('description', {card:true}),
                 match = 'lorem ipsum';
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
@@ -115,13 +99,9 @@ describe('responses', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
                     res({
-                        data: () => {
-                            return {
-                                name: 'spellName',
-                                type: 'spellType',
-                                description: 'lorem ipsum'
-                            }
-                        }
+                        name: 'spellName',
+                        type: 'spellType',
+                        description: 'lorem ipsum'
                     });
                 })
             };
@@ -167,11 +147,7 @@ describe('responses', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
                     res({
-                        data: () => {
-                            return {
-                                description: 'lorem ipsum'
-                            }
-                        }
+                        description: 'lorem ipsum'
                     });
                 })
             };
@@ -196,14 +172,10 @@ describe('responses', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
                     res({
-                        data: () => {
-                            return {
-                                levels: [
-                                    'not lorem',
-                                    'lorem ipsum'
-                                ]
-                            }
-                        }
+                        levels: [
+                            'not lorem',
+                            'lorem ipsum'
+                        ]
                     });
                 })
             };
@@ -227,13 +199,9 @@ describe('responses', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
                     res({
-                        data: () => {
-                            return {
-                                levels: [
-                                    'lorem ipsum'
-                                ]
-                            }
-                        }
+                        levels: [
+                            'lorem ipsum'
+                        ]
                     });
                 })
             };
