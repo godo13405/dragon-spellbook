@@ -38,6 +38,10 @@ exports = module.exports = {
 			"duration": {
 				"hasProperty": "<spellName> <connector> <res>",
 				"doesntHaveProperty": "<spellName> has no duration"
+			},
+			"description": {
+				"hasProperty": "<res>",
+				"doesntHaveProperty": "Sorry, I don't know that spell"
 			}
 		}
 	}

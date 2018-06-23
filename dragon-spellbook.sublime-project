@@ -1,9 +1,26 @@
 {
-	"folders":
-	[
-		{
-			"path": "/Users/ANDRADG/Documents/DnD Wiki/functions",
-            "folder_exclude_patterns": [".svn", ".git", ".hg", "CVS", "node_modules"]
-		}
-	]
+  "folders": [
+    {
+      "path": "/Users/ANDRADG/Documents/DnDWiki/functions",
+      "file_exclude_patterns": [
+      	"*.wt",
+      	"*.lock",
+      	"ngrok",
+      	"*.bson",
+      	"WiredTiger",
+      	"*.turtle"
+      ],
+      "folder_exclude_patterns": [
+        ".svn",
+        ".git",
+        ".hg",
+        "CVS",
+        "node_modules",
+        "db",
+        "etc",
+        "journal",
+        "diagnostic.data"
+      ]
+    }
+  ]
 }

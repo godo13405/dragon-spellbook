@@ -1,11 +1,11 @@
 'use strict';
 
 global.express = require('express');
-global.firebase = require('firebase-admin');
+// global.firebase = require('firebase-admin');
 global.bodyParser = require('body-parser');
 global.capabilities = ['audio'];
 global.i18n = require('../config/lang/en');
-
+/*
 firebase.initializeApp({
     credential: firebase.credential.cert('./service-key.json'),
     apiKey: "AIzaSyDfwydPClh-B6RCRtS3Nvt-D_0F4j35zHg",
@@ -13,8 +13,8 @@ firebase.initializeApp({
     databaseURL: "https://dnd-wiki-ca7bd.firebaseio.com/",
     storageBucket: "dnd-wiki-ca7bd.appspot.com"
 });
-
-global.db = firebase.firestore();
+*/
+// global.db = firebase.firestore();
 global.ex = express();
 
 global.params = {};
@@ -111,6 +111,7 @@ global.responses = require('./responses');
 process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_credentials;
 
 ex.use(bodyParser.json());
+ex.use('/static', express.static('data'));
 ex.get('/', (req, res) => {
     res.redirect(301, 'https://bot.dialogflow.com/spell-book')
 });
