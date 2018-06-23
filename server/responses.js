@@ -129,7 +129,7 @@ exports = module.exports = {
             }
         }
     },
-    whatProperty: (intention = intention, richResponses) => {
+    whatProperty: (intention = global.intention, responses = ['speech','text']) => {
         if (Array.isArray(params['spell']) && params['spell'].length > 1) {
             return response.json(tools.setResponse(sak.i18n(i18n.tools.oneAtATime)));
         } else {
@@ -149,8 +149,8 @@ exports = module.exports = {
                             talk.speech = sak.i18n(i18n.spell.what[intention].hasProperty, args);
                         }
 
-                        if (richResponses) {
-                            if (richResponses.card) {
+                        if (responses) {
+                            if (responses.includes('card')) {
                                 talk.card = {
                                     title: spell.name,
                                     subtitle: spell.type,
@@ -168,8 +168,9 @@ exports = module.exports = {
                         for (var i = sugg.length - 1; i >= 0; i--) {
                             sugg[i] = sak.i18n(sugg[i]);
                         }
-                        console.log(intention, talk)
-                        return response.json(tools.setResponse(talk, tools.getSuggestions(sugg, spell, 'Would you like to know ')));
+
+                        talk = tools.setResponse(talk, tools.getSuggestions(sugg, spell, 'Would you like to know '));
+                        return response.json(talk);
                     } else {
                         return response.json(tools.setResponse(sak.i18n(i18n.spell.notFound)));
                     }

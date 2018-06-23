@@ -229,6 +229,11 @@ exports = module.exports = {
         if (!input.speech && input.text)
             input.speech = input.text;
 
+        // check if the text is too big to output
+        if (input.text.length > 200) {
+            input.text = input.text.substr(0, 199) + '...';
+        }
+
         // if it doesn't have a screen, read out the suggestions
         if (suggestions.length && !capabilities.screen && capabilities.audio) {
             input.speech = `${input.speech}.<break time='${pause}s'/>${suggestions}`;
@@ -419,48 +424,58 @@ exports = module.exports = {
         return output;
     },
     formatWhatData: (spell, intnt) => {
-        let output = [];
+        let output = {
+            res: ''
+        };
         switch (intnt) {
-            case ('damage'):
+            case ('damage'): {
                 for (var da = spell.damage.length - 1; da >= 0; da--) {
                     let o = `${spell.damage[da].amount ? spell.damage[da].amount : ''}${spell.damage[da].dice ? spell.damage[da].dice : ''} ${spell.damage[da].type ? spell.damage[da].type : ''} damage${spell.damage[da].extra ? ' and ' + spell.damage[da].extra : ''}`;
                     output.push(o);
                 }
-                output = {
-                    res: sak.combinePhrase(output)
-                };
+                output.res = sak.combinePhrase(output);
                 break;
-            case ('casting_time'):
+            }
+            case ('casting_time'): {
+                let arr = [];
                 for (var ct = spell.casting_time.length - 1; ct >= 0; ct--) {
                     let o = `${spell.name} takes ${spell.casting_time[ct].amount} ${spell.casting_time[ct].amount > 1 ? sak.plural(spell.casting_time[ct].unit) : spell.casting_time[ct].unit}`;
                     if (spell.casting_time.description) {
                         o = `${o} You can take it ${spell.casting_time.description}`;
                     }
-                    output.push(o);
+                    arr.push(o);
                 }
-                output = {
-                    res: sak.combinePhrase(output)
-                };
+                output.res = sak.combinePhrase(arr);
                 break;
-            case ('class'):
+            }
+            case ('class'): {
                 for (let classy in spell.class) {
                     output.push(sak.plural(classy));
                 }
-                output = {
-                    res: sak.combinePhrase(output)
-                };
+                output.res = sak.combinePhrase(output);
                 break;
-            case ('duration'):
-                output = {
-                    connector: spell.duration === 'instantaneous' ? 'is' : 'lasts for',
-                    res: spell.duration
+            }
+            case ('duration'): {
+                output.connector = spell.duration === 'instantaneous' ? 'is' : 'lasts for';
+                output.res = spell.duration;
+                break;
+            }
+            case ('level'): {
+                if (parseInt(spell.level) === 0) {
+                    output.res = 'a Cantrip';
+                } else {
+                    output.res = 'Level ' + spell.level;
                 }
                 break;
-            case ('description'):
-                output = {
-                    res: spell.description
-                }
+            }
+            case ('description'): {
+                output.res = spell.description;
                 break;
+            }
+            case ('school'): {
+                output.res = spell.school;
+                break;
+            }
         }
         return output;
     }

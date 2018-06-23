@@ -69,27 +69,20 @@ const webhook = (request, response) => {
             }
         }
         switch (actionArr[1]) {
-            case ('what'):
-                return responses.whatProperty();
+            case ('what'): {
+                let arr = ['text', 'speech'];
+                if (intention === 'description') arr = ['speech', 'card'];
+                return responses.whatProperty(global.intention, arr);
+            }
         }
 
         switch (request.body.queryResult.action) {
             case ('spell.init' || 'spell.folllowupInit'):
                 return responses.spellInit();
-            case ('spell.description'):
-                return responses.spellDescription();
-            case 'spell.what.duration':
-                return responses.spellDuration();
-            case 'query.school':
-                return responses.query.spellSchool();
-            case 'query.level':
-                return responses.query.spellLevel();
             case 'query.complex':
                 return responses.query.spellComplex();
             case 'count.complex':
                 return responses.query.countComplex();
-            case 'query.class':
-                return responses.query.spellClass();
             case 'condition':
                 return responses.condition();
             case 'input.welcome':

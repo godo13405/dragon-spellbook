@@ -79,7 +79,7 @@ describe('responses', () => {
                     });
                 })
             };
-            let output = responses.whatProperty('description', {card:true}),
+            let output = responses.whatProperty('description', ['text', 'speech', 'card']),
                 match = 'lorem ipsum';
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
