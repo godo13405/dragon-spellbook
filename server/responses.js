@@ -12,61 +12,45 @@ exports = module.exports = {
         let talk = tools.setResponse(sak.i18n(i18n.fallback.say));
         return response.json(talk);
     },
-    spellInit: () => {
-        let output = tools.getCollection()
-            .then(data => {
-                let spell = data,
-                    responseInput = {
-                        speech: `${spell.name} is a ${spell.type}`,
-                        card: {
-                            title: spell.name,
-                            subtitle: spell.type,
-                            text: spell.description
-                        }
-                    },
-                    talk = tools.setResponse(responseInput, tools.getSuggestions([
-                        'damage',
-                        'materials',
-                        'higher_levels'
-                    ], spell, 'Would you like to know '));
-                return response.json(talk);
-            }).catch(err => {
-                console.log(err);
-            });
-        return output;
-    },
-    condition: (params = params) => {
-        return tools.getCollection('conditions', 'Condition')
+    condition: (params = global.params) => {
+        return tools.getCollection({collection: 'conditions', param: 'condition', customParams: {condition: [params.condition[0]]}})
             .then(data => {
                 let condition = data,
-                    sugg = [];
+                    sugg = [],
+                    talk = sak.i18n(i18n.condition.notFound);
+                if (condition) {
+                  talk = {
+                      speech: `With ${params['condition'][0]} ${condition.description}`,
+                      card: {
+                          title: params['condition'][0],
+                          text: condition.description
+                      }
+                  };
 
-                let responseInput = {
-                    speech: `With ${params.Condition} ${condition.description}`,
-                    card: {
-                        title: params.Condition,
-                        text: condition.description
-                    }
-                };
+                  // if the condition is exhaustion, suggest there's more detail
+                  if (condition.levels && condition.levels.length) {
+                      // if the condition is exhaustion, check if a level is being asked for
+                      if (params.level) {
+                          delete talk.card;
+                          // check if the level exists
+                          if (condition.levels[parseInt(params.level) - 1]) {
+                              talk.speech = `Level ${params.level} Exhaustion results in ${condition.levels[params.level - 1].toLowerCase()}`;
+                              talk.text = `${condition.levels[params.level - 1]}`;
+                          } else {
+                              talk.speech = `Exhaustions levels only go up to 6`;
+                          }
+                      }
+                      sugg.push(`what's level ${sak.rng(6)} exhaustion`);
+                  }
 
-                // if the condition is exhaustion, suggest there's more detail
-                if (condition.levels && condition.levels.length) {
-
-                    // if the condition is exhaustion, check if a level is being asked for
-                    if (params.Level) {
-                        delete responseInput.card;
-                        // check if the level exists
-                        if (condition.levels[parseInt(params.Level) - 1]) {
-                            responseInput.speech = `Level ${params.Level} exhaustion results in ${condition.levels[params.Level - 1]}`;
-                            responseInput.text = `${condition.levels[params.Level - 1]}`;
-                        } else {
-                            responseInput.speech = `Exhaustions levels only go up to 6`;
-                        }
-                    }
-                    sugg.push(`what's level ${sak.rng(6)} exhaustion`);
+                  if (condition.long_description) {
+                    sugg.push('Tell me more');
+                  }
+                } else {
+                  talk = sak.i18n(i18n.server.timeOut);
                 }
 
-                return response.json(tools.setResponse(responseInput, sugg));
+                return response.json(tools.setResponse(talk, sugg));
             }).catch(err => {
                 console.log(err);
             });
@@ -136,15 +120,14 @@ exports = module.exports = {
             return tools.getCollection()
                 .then(data => {
                     let spell = data;
-                    console.log(params);
                     if (spell) {
                         let talk = {
-                            speech: sak.i18n(i18n.spell.what[intention].doesntHaveProperty, {
+                            speech: sak.i18n(i18n.spell.what[intention].doesntHaveProperty ? i18n.spell.what[intention].doesntHaveProperty : i18n.spell.notFound, {
                                 spellName: spell.name
                             })
                         };
 
-                        if (spell[intention]) {
+                        if (spell[intention] || intention === 'init') {
                             let args = tools.formatWhatData(spell, intention);
                             args.spellName = spell.name;
                             talk.speech = sak.i18n(i18n.spell.what[intention].hasProperty, args);

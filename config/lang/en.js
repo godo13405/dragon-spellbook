@@ -3,7 +3,12 @@ exports = module.exports = {
         "say": [
             "Hi! What do you want to know about?",
             "Hello. What can I help you with today?"
-        ]
+        ],
+				"help_intro": "I can",
+				"help": [
+					"lookup spells",
+					"describe conditions"
+				]
     },
     "fallback": {
         "say": [
@@ -21,15 +26,16 @@ exports = module.exports = {
             "Mmm, that spell's not in my book",
             "I haven't heard of that spell"
         ],
-        "noDuration": "This spell has no duration",
         "what": {
+            "init": {
+                "hasProperty": "<spellName> is a <res>"
+            },
             "damage": {
                 "hasProperty": "<spellName> does <res>",
                 "doesntHaveProperty": "<spellName> doesn't cause any damage"
             },
             "casting_time": {
-                "hasProperty": "<spellName> takes <res> to cast",
-                "doesntHaveProperty": "<spellName> has no casting time"
+                "hasProperty": "<spellName> takes <res> to cast"
             },
             "class": {
                 "hasProperty": "<spellName> can be cast by <res>",
@@ -37,7 +43,7 @@ exports = module.exports = {
             },
             "duration": {
                 "hasProperty": "<spellName> <connector> <res>",
-                "doesntHaveProperty": "<spellName> has no duration"
+                "doesntHaveProperty": "<spellName> has no duration",
             },
             "description": {
                 "hasProperty": "<res>",
@@ -58,5 +64,18 @@ exports = module.exports = {
                 "doesntHaveProperty": "Sorry, I don't know which school <spellName> belongs to"
             }
         }
-    }
+    },
+		"condition": {
+	        "notFound": [
+	            "Sorry, I don't know that spell",
+	            "Mmm, that spell's not in my book",
+	            "I haven't heard of that spell"
+	        ]
+		},
+		"server": {
+			"timeOut": [
+				"Sorry, the I took too long to find it",
+				"Ups, the this doesn't seem to be in the book"
+			]
+		}
 };

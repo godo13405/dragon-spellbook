@@ -76,40 +76,40 @@ exports = module.exports = {
         }
         return input;
     },
-    queryBuilder: param => {
-        if (param === 'name') {
-            params['name'] = params['spell'];
-        }
-        let query = {};
-        if (!Array.isArray(param)) {
-            param = [
-                param
-            ];
-        }
-        if (params.length > 1) {
-            // Each parameter, such as Class, Name, Level
-            for (let par in params) {
-                // Each parameter value, such as Wizard, Fireball, 4
-                // let's store each parameter's value in this var
-                let valQuery = [];
-                if (params[par].length > 1) {
-                    for (let val in params[par]) {
-                        let obj = {};
-                        obj[par] = val;
-                        valQuery.push(obj);
-                    }
-                    // let's join the var items in a mongo $and statement
-                    valQuery = {$and: valQuery};
-                } else {
-                    valQuery = {};
-                    valQuery[par] = params[par][0];
-                }
+    queryBuilder: (param, params = global.params) => {
+        let query = [],
+            thisParam = Object.assign({}, params);
+            if (param === 'name') {
+                thisParam['name'] = thisParam['spell'];
+                delete thisParam.spell;
+            } else if (param === 'condition') {
+                thisParam['_id'] = thisParam['condition'];
+                delete thisParam.condition;
             }
-            // then join the params in a mongo $and statement
-            query = {$and: valQuery};
-        } else {
-            query[param] = params[param][0];
-        }
+            if (!Array.isArray(param)) {
+                param = [
+                    param
+                ];
+            }
+            // Each parameter, such as Class, Name, Level
+            for (let par in thisParam) {
+                // Each parameter value, such as Wizard, Fireball, 4
+                    for (let val in thisParam[par]) {
+                        let obj = {};
+                        // regex to make it case insensitive
+                        obj[par] = new RegExp(thisParam[par][val], "i");
+                        query.push(obj);
+                    }
+            }
+            // then join the thisParam in a mongo $and statement
+            query = {$and: query};
         return query;
+    },
+    arrayRemove: (array, element) => {
+        const index = array.indexOf(element);
+
+        if (index !== -1) {
+            array.splice(index, 1);
+        }
     }
 };

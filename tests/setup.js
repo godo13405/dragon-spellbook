@@ -18,8 +18,8 @@ global.log = {
     limit: null
 };
 global.params = {
-    spell: 'Acid Splash',
-    Condition: 'conditioned'
+    spell: ['Acid Splash'],
+    condition: ['conditioned']
 };
 global.db = {
     collection: (input) => {

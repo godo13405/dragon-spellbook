@@ -12,7 +12,7 @@ describe('responses', () => {
                 })
             };
             let output = responses.whatProperty('duration'),
-                match = i18n.spell.noDuration.replace(/This spell/g, 'spellName');
+                match = sak.i18n(i18n.spell.what.duration.doesntHaveProperty, {spellName: 'spellName'});
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
             });
@@ -105,7 +105,7 @@ describe('responses', () => {
                     });
                 })
             };
-            let output = responses.spellInit(),
+            let output = responses.whatProperty('init', ['text', 'speech', 'card']),
                 match = 'spellName is a spellType';
             it('agnostic text', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
@@ -152,8 +152,8 @@ describe('responses', () => {
                 })
             };
             let output = responses.condition({
-                    Condition: 'conditioned',
-                    Level: 2
+                    condition: ['conditioned'],
+                    Level: [2]
                 }),
                 match = 'With conditioned lorem ipsum';
             it('agnostic', () => {
@@ -180,8 +180,8 @@ describe('responses', () => {
                 })
             };
             let output = responses.condition({
-                    Condition: 'Exhaustion',
-                    Level: 2
+                    condition: ['Exhaustion'],
+                    level: [2]
                 }),
                 match = 'lorem ipsum';
             it('agnostic', () => {
@@ -206,8 +206,8 @@ describe('responses', () => {
                 })
             };
             let output = responses.condition({
-                    Condition: 'Exhaustion',
-                    Level: 9
+                    condition: ['Exhaustion'],
+                    level: [9]
                 }),
                 match = 'Exhaustions levels only go up to 6';
             it('agnostic', () => {
