@@ -450,24 +450,25 @@ exports = module.exports = {
   formatWhatData: (spell, intnt) => {
     let output = {
       res: ''
-    };
+    },
+    arr = [];
     switch (intnt) {
       case ('init'):
           output.res = spell.type;
           if (spell.damage) output.res = `${output.res} that does ${tools.formatWhatData(spell, 'damage').res}`;
           break;
       case ('damage'):
-          let dam = []
+          arr = []
           for (var da = spell.damage.length - 1; da >= 0; da--) {
             let o = `${spell.damage[da].amount ? spell.damage[da].amount : ''}${spell.damage[da].dice ? spell.damage[da].dice : ''} ${spell.damage[da].type ? spell.damage[da].type : ''} damage${spell.damage[da].extra ? ' and ' + spell.damage[da].extra : ''}`;
-            dam.push(o);
+            arr.push(o);
           }
-          output.res = sak.combinePhrase(dam);
+          output.res = sak.combinePhrase(arr);
           break;
       case ('casting_time'):
-          let arr = [];
+          arr = [];
           for (var ct = spell.casting_time.length - 1; ct >= 0; ct--) {
-            let o = `${spell.name} takes ${spell.casting_time[ct].amount} ${spell.casting_time[ct].amount > 1 ? sak.plural(spell.casting_time[ct].unit) : spell.casting_time[ct].unit}`;
+            let o = `${spell.casting_time[ct].amount} ${spell.casting_time[ct].amount > 1 ? sak.plural(spell.casting_time[ct].unit) : spell.casting_time[ct].unit}`;
             if (spell.casting_time.description) {
               o = `${o} You can take it ${spell.casting_time.description}`;
             }
@@ -476,10 +477,16 @@ exports = module.exports = {
           output.res = sak.combinePhrase(arr);
           break;
       case ('class'):
+          arr = [];
           for (let classy in spell.class) {
-            output.push(sak.plural(classy));
+            arr.push(sak.plural(classy));
           }
-          output.res = sak.combinePhrase(output);
+          if (spell.class.length > 1) {
+            arr = sak.combinePhrase(arr);
+          } else {
+            arr = `${arr} only`;
+          }
+          output.res = arr;
           break;
       case ('duration'):
           output.connector = spell.duration === 'instantaneous' ? 'is' : 'lasts for';
