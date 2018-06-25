@@ -97,7 +97,7 @@ exports = module.exports = {
                     for (let val in thisParam[par]) {
                         let obj = {};
                         // regex to make it case insensitive
-                        obj[par] = new RegExp(thisParam[par][val], "i");
+                        obj[par] = new RegExp(`^${thisParam[par][val]}$`, "i");
                         query.push(obj);
                     }
             }

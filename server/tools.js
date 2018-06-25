@@ -68,7 +68,6 @@ exports = module.exports = {
       customParams = global.params
     } = {}) => {
     let query = sak.queryBuilder(param, customParams);
-    console.log(query);
     let serve = new Promise((resolve, reject) => {
       MongoClient.connect(url, (err, client) => {
         if (err) throw err;
