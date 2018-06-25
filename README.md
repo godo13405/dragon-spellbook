@@ -34,7 +34,9 @@ Here are some samples of what you can ask and the responses you should get. Bear
 
 ## Weapons
 - **what is a shortsword**
-  >
+  > Shortsword is a a martial melee weapon that does 1d6 piercing damage
+- **how much damage does a longbow do**
+  > Longbow does 1d8 piercing damage
 
 More will be coming soon.
 
