@@ -520,7 +520,7 @@ exports = module.exports = {
       }
       return output;
     },
-    weaponData: ({data = {}, intnt = 'init'} = {}) => {
+    weaponData: ({data = {}, intnt = 'init', concat = 'or'} = {}) => {
       let output = {
         res: ''
       },
@@ -533,10 +533,10 @@ exports = module.exports = {
         case ('damage'):
             arr = []
             for (var da = data.damage.length - 1; da >= 0; da--) {
-              let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''} ${data.damage[da].type ? data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
+              let o = `**${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''} ${data.damage[da].type ? data.damage[da].type : ''} damage**${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
               arr.push(o);
             }
-            output.res = sak.combinePhrase(arr);
+            output.res = sak.combinePhrase(arr, concat);
             break;
       }
       return output;

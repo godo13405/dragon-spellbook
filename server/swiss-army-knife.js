@@ -35,7 +35,7 @@ exports = module.exports = {
     }
     return output;
   },
-  combinePhrase: input => {
+  combinePhrase: (input, concat = 'and') => {
     let output = '',
       len = input.length,
       last = len - 2;
@@ -45,7 +45,7 @@ exports = module.exports = {
         output = output + '<break time=\'500ms\' />';
       }
       if (i === last) {
-        output = output + ' and ';
+        output = output + ' ' + concat + ' ';
       } else if (i < last) {
         output = output + ', ';
       }

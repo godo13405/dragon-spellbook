@@ -75,6 +75,10 @@ exports = module.exports = {
               "init": {
                   "hasProperty": "<targetName> is a <res>"
               },
+              "damage": {
+                  "hasProperty": "<targetName> does <res>",
+                  "doesntHaveProperty": "<targetName> doesn't cause any damage"
+              }
         }
     },
     "condition": {

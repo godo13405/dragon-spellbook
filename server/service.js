@@ -26,7 +26,7 @@ exports = module.exports = {
       case ('what'):
         let arr = ['text', 'speech'];
         if (intention === 'description') arr = ['speech', 'card'];
-        return responses.whatProperty({intention:global.intention, responses: arr});
+        return responses.whatProperty({intention:global.intention, target: global.collection, responses: arr});
     }
 
     switch (input) {
@@ -36,8 +36,6 @@ exports = module.exports = {
         return responses.whatProperty({intention:global.intention, target:'weapon', responses: ['text', 'speech', 'card']});
       case 'query.complex':
         return responses.query.spellComplex();
-      case 'count.complex':
-        return responses.query.countComplex();
       case 'condition':
         return responses.condition();
       case 'input.welcome':

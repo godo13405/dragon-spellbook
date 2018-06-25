@@ -136,9 +136,11 @@ exports = module.exports = {
         .then(data => {
           if (data) {
             let talk = {
-              speech: sak.i18n(i18n[target].what[intention].doesntHaveProperty ? i18n[target].what[intention].doesntHaveProperty : i18n[target].notFound, {
-                targetName: data.name
-              })
+              speech: sak.i18n(i18n[target].what[intention].doesntHaveProperty ?
+                                i18n[target].what[intention].doesntHaveProperty :
+                                i18n[target].notFound, {
+                                  targetName: data.name
+                                })
             };
 
             if (data[intention] || intention === 'init') {
@@ -150,7 +152,7 @@ exports = module.exports = {
             if (responses) {
               if (responses.includes('card')) {
                 talk.card = {
-                  title: data.name,
+                  title: sak.titleCase(data.name),
                   subtitle: data.type,
                   text: tools.getDescription({data: data})
                 };
