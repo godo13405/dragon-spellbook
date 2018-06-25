@@ -76,12 +76,20 @@ exports = module.exports = {
         }
         return input;
     },
-    queryBuilder: (param, params = global.params) => {
+    queryBuilder: ({param = 'name', params = global.params} = {}) => {
         let query = [],
             thisParam = Object.assign({}, params);
-            if (param === 'name') {
-                thisParam['name'] = thisParam['spell'];
-                delete thisParam.spell;
+            if (param) {
+              let temp;
+              if (thisParam.spell && thisParam.spell.length) {
+                  temp = 'spell';
+              } else if (thisParam.weapon && thisParam.weapon.length) {
+                  temp = 'weapon';
+              }
+              if (temp) {
+                thisParam[param] = thisParam[temp];
+                delete thisParam[temp];
+              }
             } else if (param === 'condition') {
                 thisParam['_id'] = thisParam['condition'];
                 delete thisParam.condition;

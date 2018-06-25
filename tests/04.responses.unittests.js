@@ -12,7 +12,7 @@ describe('responses', () => {
                     });
                 })
             };
-            let output = responses.whatProperty('duration'),
+            let output = responses.whatProperty({intention: 'duration', target: 'spell'}),
                 match = sak.i18n(i18n.spell.what.duration.doesntHaveProperty, {targetName: 'spellName'});
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
@@ -34,7 +34,7 @@ describe('responses', () => {
                     });
                 })
             };
-            let output = responses.whatProperty('duration'),
+            let output = responses.whatProperty({intention: 'duration', target: 'spell'}),
                 match = 'spellName lasts for 1 minute';
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
@@ -56,7 +56,7 @@ describe('responses', () => {
                     });
                 })
             };
-            let output = responses.whatProperty('duration'),
+            let output = responses.whatProperty({intention: 'duration', target: 'spell'}),
                 match = 'spellName is instantaneous';
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
@@ -81,7 +81,7 @@ describe('responses', () => {
                     });
                 })
             };
-            let output = responses.whatProperty('description', ['text', 'speech', 'card']),
+            let output = responses.whatProperty({intention: 'description', target: 'spell', responses: ['text', 'speech', 'card']}),
                 match = 'lorem ipsum';
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);

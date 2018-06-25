@@ -133,7 +133,7 @@ exports = module.exports = {
     if (Array.isArray(params[target]) && params[target].length > 1) {
       return response.json(tools.setResponse(sak.i18n(i18n.tools.oneAtATime)));
     } else {
-      return tools.getCollection()
+      return tools.getCollection({collection:target, param: target})
         .then(data => {
           if (data) {
             let talk = {
@@ -143,7 +143,7 @@ exports = module.exports = {
             };
 
             if (data[intention] || intention === 'init') {
-              let args = tools.formatWhatData(data, intention);
+              let args = tools.formatWhatData({data: data, intnt: intention, collection: target});
               args.targetName = data.name;
               talk.speech = sak.i18n(i18n[target].what[intention].hasProperty, args);
             }

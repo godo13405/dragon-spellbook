@@ -65,7 +65,19 @@ exports = module.exports = {
             }
         }
     },
-		"condition": {
+    "weapon":  {
+      "notFound": [
+            "Sorry, I don't know about any <targetName>",
+            "Mmm, that weapon's not in stock",
+            "I haven't heard of <targetName>"
+        ],
+        "what": {
+              "init": {
+                  "hasProperty": "<targetName> is a <res>"
+              },
+        }
+    },
+    "condition": {
 	        "notFound": [
 	            "Sorry, I don't know that spell",
 	            "Mmm, that spell's not in my book",

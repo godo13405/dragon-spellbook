@@ -62,12 +62,12 @@ exports = module.exports = {
     return output;
   },
   getCollection: ({
-      collection = 'spells',
+      collection = 'spell',
       param = 'name',
       allowMultiple = false,
       customParams = global.params
     } = {}) => {
-    let query = sak.queryBuilder(param, customParams);
+    let query = sak.queryBuilder();
     let serve = new Promise((resolve, reject) => {
       MongoClient.connect(url, (err, client) => {
         if (err) throw err;
@@ -446,65 +446,100 @@ exports = module.exports = {
 
     return output;
   },
-  formatWhatData: (spell, intnt) => {
-    let output = {
-      res: ''
-    },
-    arr = [];
-    switch (intnt) {
-      case ('init'):
-          output.res = spell.type;
-          if (spell.damage) output.res = `${output.res} that does ${tools.formatWhatData(spell, 'damage').res}`;
-          break;
-      case ('damage'):
-          arr = []
-          for (var da = spell.damage.length - 1; da >= 0; da--) {
-            let o = `${spell.damage[da].amount ? spell.damage[da].amount : ''}${spell.damage[da].dice ? spell.damage[da].dice : ''} ${spell.damage[da].type ? spell.damage[da].type : ''} damage${spell.damage[da].extra ? ' and ' + spell.damage[da].extra : ''}`;
-            arr.push(o);
-          }
-          output.res = sak.combinePhrase(arr);
-          break;
-      case ('casting_time'):
-          arr = [];
-          for (var ct = spell.casting_time.length - 1; ct >= 0; ct--) {
-            let o = `${spell.casting_time[ct].amount} ${spell.casting_time[ct].amount > 1 ? sak.plural(spell.casting_time[ct].unit) : spell.casting_time[ct].unit}`;
-            if (spell.casting_time.description) {
-              o = `${o} You can take it ${spell.casting_time.description}`;
-            }
-            arr.push(o);
-          }
-          output.res = sak.combinePhrase(arr);
-          break;
-      case ('class'):
-          arr = [];
-          for (let classy in spell.class) {
-            arr.push(sak.plural(classy));
-          }
-          if (spell.class.length > 1) {
-            arr = sak.combinePhrase(arr);
-          } else {
-            arr = `${arr} only`;
-          }
-          output.res = arr;
-          break;
-      case ('duration'):
-          output.connector = spell.duration === 'instantaneous' ? 'is' : 'lasts for';
-          output.res = spell.duration;
-          break;
-      case ('level'):
-          if (parseInt(spell.level) === 0) {
-            output.res = 'a Cantrip';
-          } else {
-            output.res = 'Level ' + spell.level;
-          }
-          break;
-      case ('description'):
-          output.res = spell.description;
-          break;
-      case ('school'):
-          output.res = spell.school;
-          break;
+  formatWhatData: ({data = {}, intnt = 'init', collection = 'spell'}) => {
+    let output;
+    switch (collection) {
+      case ('spell'):
+        output = tools.format.spellData({data: data, intnt: intnt});
+        break;
+      case ('weapon'):
+        output = tools.format.weaponData({data: data, intnt: intnt});
+        break;
     }
     return output;
+  },
+  format: {
+    spellData: ({data = {}, intnt = 'init'} = {}) => {
+      let output = {
+        res: ''
+      },
+      arr = [];
+      switch (intnt) {
+        case ('init'):
+            output.res = data.type;
+            if (data.damage) output.res = `${output.res} that does ${tools.format.spellData({data:data, intnt:'damage'}).res}`;
+            break;
+        case ('damage'):
+            arr = []
+            for (var da = data.damage.length - 1; da >= 0; da--) {
+              let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''} ${data.damage[da].type ? data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
+              arr.push(o);
+            }
+            output.res = sak.combinePhrase(arr);
+            break;
+        case ('casting_time'):
+            arr = [];
+            for (var ct = data.casting_time.length - 1; ct >= 0; ct--) {
+              let o = `${data.casting_time[ct].amount} ${data.casting_time[ct].amount > 1 ? sak.plural(data.casting_time[ct].unit) : data.casting_time[ct].unit}`;
+              if (data.casting_time.description) {
+                o = `${o} You can take it ${data.casting_time.description}`;
+              }
+              arr.push(o);
+            }
+            output.res = sak.combinePhrase(arr);
+            break;
+        case ('class'):
+            arr = [];
+            for (let classy in data.class) {
+              arr.push(sak.plural(classy));
+            }
+            if (data.class.length > 1) {
+              arr = sak.combinePhrase(arr);
+            } else {
+              arr = `${arr} only`;
+            }
+            output.res = arr;
+            break;
+        case ('duration'):
+            output.connector = data.duration === 'instantaneous' ? 'is' : 'lasts for';
+            output.res = data.duration;
+            break;
+        case ('level'):
+            if (parseInt(data.level) === 0) {
+              output.res = 'a Cantrip';
+            } else {
+              output.res = 'Level ' + data.level;
+            }
+            break;
+        case ('description'):
+            output.res = data.description;
+            break;
+        case ('school'):
+            output.res = data.school;
+            break;
+      }
+      return output;
+    },
+    weaponData: ({data = {}, intnt = 'init'} = {}) => {
+      let output = {
+        res: ''
+      },
+      arr = [];
+      switch (intnt) {
+        case ('init'):
+            output.res = data.type;
+            if (data.damage) output.res = `${output.res} that does ${tools.format.spellData({data:data, intnt:'damage'}).res}`;
+            break;
+        case ('damage'):
+            arr = []
+            for (var da = data.damage.length - 1; da >= 0; da--) {
+              let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''} ${data.damage[da].type ? data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
+              arr.push(o);
+            }
+            output.res = sak.combinePhrase(arr);
+            break;
+      }
+      return output;
+    }
   }
 }
