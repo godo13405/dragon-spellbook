@@ -3,6 +3,7 @@ require('./setup.js');
 describe('responses', () => {
     let restore = tools.getCollection;
     describe('spellDuration', () => {
+      global.intention = 'duration';
         describe('spell has no duration', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
@@ -12,7 +13,7 @@ describe('responses', () => {
                 })
             };
             let output = responses.whatProperty('duration'),
-                match = sak.i18n(i18n.spell.what.duration.doesntHaveProperty, {spellName: 'spellName'});
+                match = sak.i18n(i18n.spell.what.duration.doesntHaveProperty, {targetName: 'spellName'});
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
             });
@@ -70,6 +71,7 @@ describe('responses', () => {
         });
     });
     describe('spellDescription', () => {
+      global.intention = 'description';
         describe('output description', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
@@ -95,6 +97,7 @@ describe('responses', () => {
         });
     });
     describe('spellInit', () => {
+      global.intention = 'init';
         describe('summary', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
@@ -105,7 +108,7 @@ describe('responses', () => {
                     });
                 })
             };
-            let output = responses.whatProperty('init', ['text', 'speech', 'card']),
+            let output = responses.whatProperty({intention: 'init', responses: ['text', 'speech', 'card']}),
                 match = 'spellName is a spellType';
             it('agnostic text', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
@@ -143,6 +146,7 @@ describe('responses', () => {
     });
 
     describe('condition', () => {
+      global.intention = 'condition';
         describe('describe', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {

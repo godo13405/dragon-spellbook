@@ -28,40 +28,40 @@ exports = module.exports = {
         ],
         "what": {
             "init": {
-                "hasProperty": "<spellName> is a <res>"
+                "hasProperty": "<targetName> is a <res>"
             },
             "damage": {
-                "hasProperty": "<spellName> does <res>",
-                "doesntHaveProperty": "<spellName> doesn't cause any damage"
+                "hasProperty": "<targetName> does <res>",
+                "doesntHaveProperty": "<targetName> doesn't cause any damage"
             },
             "casting_time": {
-                "hasProperty": "<spellName> takes <res> to cast"
+                "hasProperty": "<targetName> takes <res> to cast"
             },
             "class": {
-                "hasProperty": "<spellName> can be cast by <res>",
-                "doesntHaveProperty": "<spellName> can't be cast by players"
+                "hasProperty": "<targetName> can be cast by <res>",
+                "doesntHaveProperty": "<targetName> can't be cast by players"
             },
             "duration": {
-                "hasProperty": "<spellName> <connector> <res>",
-                "doesntHaveProperty": "<spellName> has no duration",
+                "hasProperty": "<targetName> <connector> <res>",
+                "doesntHaveProperty": "<targetName> has no duration",
             },
             "description": {
                 "hasProperty": "<res>",
                 "doesntHaveProperty": "Sorry, I don't know that spell"
             },
             "level": {
-                "hasProperty": "<spellName> is <res>",
+                "hasProperty": "<targetName> is <res>",
                 "doesntHaveProperty": [
-                	"Mmm, I'm not sure what level <spellName> is",
-                	"Sorry, I don't know the level of <spellName>"
+                	"Mmm, I'm not sure what level <targetName> is",
+                	"Sorry, I don't know the level of <targetName>"
                 ]
             },
             "school": {
                 "hasProperty": [
-                	"<spellName> belongs to the School of <res>",
-                	"<spellName> is from the School of <res>"
+                	"<targetName> belongs to the School of <res>",
+                	"<targetName> is from the School of <res>"
                 ],
-                "doesntHaveProperty": "Sorry, I don't know which school <spellName> belongs to"
+                "doesntHaveProperty": "Sorry, I don't know which school <targetName> belongs to"
             }
         }
     },
