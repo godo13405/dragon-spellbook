@@ -1,17 +1,55 @@
 <doctype html>
-<html>
+  <html>
+
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        display: table-cell;
+        width: 100vw;
+        height: 100vh;
+        vertical-align: middle;
+        text-align: center;
+        position: relative;
+        background: #efefef;
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 40vh;
+        z-index: -1;
+        background: url(/dragon-logo.svg) -4vw 2vh #BD2624 no-repeat;
+        background-size: auto 50vh;
+      }
+
+      .widget-container {
+        width: 100vw;
+        height: 100vh;
+        max-width: 450px;
+        max-height: 820px;
+        margin: 0 auto;
+        border-radius: .75rem;
+        box-shadow: 0 2px 4px rgba(50, 50, 50, .4);
+        position: relative;
+        overflow: hidden;
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+    </style>
   </head>
+
   <body>
-    <script type="text/javascript">
-    (function(d, m){
-      var o = {"appId":"181348d4cc79d39b96f41efe8870fc74a","isAnonymousChat":true,"agentId":"goncaloandradedovale@gmail.com","agentName":"Goncalo Andrade","conversationTitle":"Goncalo Andrade","email":""};
-      var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
-      s.src = "https://api.kommunicate.io/kommunicate.app";
-      var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
-      window.kommunicate = m; m._globals = o;
-    })(document, window.kommunicate || {});
-</script>
+    <div class="widget-container">
+      <iframe src="https://console.dialogflow.com/api-client/demo/embedded/dragon-book"></iframe>
+    </div>
   </body>
-</html>
+
+  </html>
