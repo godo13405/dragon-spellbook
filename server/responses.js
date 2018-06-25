@@ -129,7 +129,6 @@ exports = module.exports = {
       'higher_levels'
     ]
   } = {}) => {
-
     if (Array.isArray(params[target]) && params[target].length > 1) {
       return response.json(tools.setResponse(sak.i18n(i18n.tools.oneAtATime)));
     } else {
@@ -144,7 +143,7 @@ exports = module.exports = {
 
             if (data[intention] || intention === 'init') {
               let args = tools.formatWhatData({data: data, intnt: intention, collection: target});
-              args.targetName = data.name;
+              args.targetName = sak.titleCase(data.name);
               talk.speech = sak.i18n(i18n[target].what[intention].hasProperty, args);
             }
 
@@ -153,7 +152,7 @@ exports = module.exports = {
                 talk.card = {
                   title: data.name,
                   subtitle: data.type,
-                  text: data.description
+                  text: tools.getDescription({data: data})
                 };
               }
             }

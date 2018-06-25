@@ -20,6 +20,7 @@ const webhook = (request, response) => {
   global.request = request;
   global.response = response;
   global.actionArr = request.body.queryResult.action.split(".");
+  global.collection = actionArr[0];
   global.intention = actionArr[actionArr.length - 1];
 
   // Get surface capabilities, such as screen

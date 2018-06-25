@@ -71,7 +71,7 @@ exports = module.exports = {
     let serve = new Promise((resolve, reject) => {
       MongoClient.connect(url, (err, client) => {
         if (err) throw err;
-        console.log('query: ', query);
+        console.log(`${collection} query: `, query);
         client.db(dbName).collection(collection).find(query).toArray((err, docs) => {
           if (err) throw err;
           if (docs.length === 1 || !allowMultiple) {
@@ -350,35 +350,35 @@ exports = module.exports = {
 
     if (platforms.includes('dialogflow')) {
       card = {};
-      input.title ? card.title = input.title : null;
-      input.text ? card.subtitle = input.text : null;
-      input.image ? card.imageUri = input.imageUri : null;
-      input.buttons && input.buttons.length ? card.buildButtons(input.buttons, 'dialogflow') : null;
+      if (input.title) card.title = input.title;
+      if (input.text) card.subtitle = input.text;
+      if (input.image) card.imageUri = input.imageUri;
+      if (input.buttons && input.buttons.length) card.buildButtons(input.buttons, 'dialogflow');
       output.fulfillmentMessages.push({
         card
       });
     }
     if (platforms.includes('google')) {
       card = {};
-      input.title ? card.title = input.title : null;
-      input.subtitle ? card.subtitle = input.subtitle : null;
-      input.text ? card.formattedText = input.text : null;
-      input.image ? card.image_url = input.image : null;
+      if (input.title) card.title = input.title;
+      if (input.subtitle) card.subtitle = input.subtitle;
+      if (input.text) card.formattedText = input.text;
+      if (input.image) card.image_url = input.image;
       output.payload.google.richResponse.items.push({
         basicCard: card
       });
     }
     if (platforms.includes('slack')) {
       card = {};
-      input.title ? card.title = input.title : null;
-      input.subtitle ? card.author_name = input.subtitle : null;
-      input.text ? card.text = input.text : null;
-      input.image ? card.image = {
+      if (input.title) card.title = input.title;
+      if (input.subtitle) card.author_name = input.subtitle;
+      if (input.text) card.text = input.text;
+      if (input.image) card.image = {
         url: input.image,
         accessibilityText: input.title ? input.title : null
-      } : null;
-      input.buttons && input.buttons.length ? card.actions = buildButtons(input.buttons, 'slack') : null;
-      input.suggestions && input.suggestions.length ? card.push(buildButtons(input.suggestions, 'slack')) : null;
+      };
+      if (input.buttons && input.buttons.length) card.actions = buildButtons(input.buttons, 'slack');
+      if (input.suggestions && input.suggestions.length) card.push(buildButtons(input.suggestions, 'slack'));
       if (!output.payload.slack.attachments || !output.payload.slack.attachments.length) {
         output.payload.slack.attachments = [];
       }
@@ -527,8 +527,8 @@ exports = module.exports = {
       arr = [];
       switch (intnt) {
         case ('init'):
-            output.res = data.type;
-            if (data.damage) output.res = `${output.res} that does ${tools.format.spellData({data:data, intnt:'damage'}).res}`;
+            output.res = `${data.tier} ${data.type} weapon`;
+            if (data.damage) output.res = `${sak.preposition(output.res)} that does ${tools.format.weaponData({data:data, intnt:'damage'}).res}`;
             break;
         case ('damage'):
             arr = []
@@ -541,5 +541,14 @@ exports = module.exports = {
       }
       return output;
     }
+  },
+  getDescription: ({data = {}, collection = global.collection}) => {
+    let output;
+    if (data.description) {
+      output = data.description;
+    } else if(collection === 'weapon') {
+      output = `${data.tier} ${data.type} weapon\n${tools.format.weaponData({data:data, intnt:'damage'}).res}`;
+    }
+    return output;
   }
 }

@@ -8,12 +8,12 @@ describe('responses', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
                     res({
-                        name: 'spellName'
+                        name: 'Spellname'
                     });
                 })
             };
             let output = responses.whatProperty({intention: 'duration', target: 'spell'}),
-                match = sak.i18n(i18n.spell.what.duration.doesntHaveProperty, {targetName: 'spellName'});
+                match = sak.i18n(i18n.spell.what.duration.doesntHaveProperty, {targetName: 'Spellname'});
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
             });
@@ -29,13 +29,13 @@ describe('responses', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
                     res({
-                        name: 'spellName',
+                        name: 'Spellname',
                         duration: '1 minute'
                     });
                 })
             };
             let output = responses.whatProperty({intention: 'duration', target: 'spell'}),
-                match = 'spellName lasts for 1 minute';
+                match = 'Spellname lasts for 1 minute';
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
             });
@@ -51,13 +51,13 @@ describe('responses', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
                     res({
-                        name: 'spellName',
+                        name: 'Spellname',
                         duration: 'instantaneous'
                     });
                 })
             };
             let output = responses.whatProperty({intention: 'duration', target: 'spell'}),
-                match = 'spellName is instantaneous';
+                match = 'Spellname is instantaneous';
             it('agnostic', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
             });
@@ -76,7 +76,7 @@ describe('responses', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
                     res({
-                        name: 'spellName',
+                        name: 'Spellname',
                         description: 'lorem ipsum'
                     });
                 })
@@ -102,14 +102,14 @@ describe('responses', () => {
             tools.getCollection = () => {
                 return new Promise((res, rej) => {
                     res({
-                        name: 'spellName',
+                        name: 'Spellname',
                         type: 'spellType',
                         description: 'lorem ipsum'
                     });
                 })
             };
             let output = responses.whatProperty({intention: 'init', responses: ['text', 'speech', 'card']}),
-                match = 'spellName is a spellType';
+                match = 'Spellname is a spellType';
             it('agnostic text', () => {
                 return expect(output).to.eventually.have.property('fulfillmentText', match);
             });
@@ -122,20 +122,20 @@ describe('responses', () => {
 
             it('agnostic card', () => {
                 return expect(output).to.eventually.have.deep.nested.property('fulfillmentMessages[0].card', {
-                    title: 'spellName',
+                    title: 'Spellname',
                     subtitle: 'lorem ipsum'
                 });
             });
             it('slack card', () => {
                 return expect(output).to.eventually.have.deep.nested.property('payload.slack.attachments[0]', {
-                    title: 'spellName',
+                    title: 'Spellname',
                     author_name: 'spellType',
                     text: 'lorem ipsum'
                 });
             });
             it('google card', () => {
                 return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[1].basicCard', {
-                    title: 'spellName',
+                    title: 'Spellname',
                     subtitle: 'spellType',
                     formattedText: 'lorem ipsum'
                 });

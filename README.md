@@ -32,6 +32,10 @@ Here are some samples of what you can ask and the responses you should get. Bear
 - **what's level 3 exhaustion**
    > Disadvantage on attack rolls and saving throws
 
+## Weapons
+- **what is a shortsword**
+  >
+
 More will be coming soon.
 
 # Platforms
