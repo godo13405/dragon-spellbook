@@ -16,6 +16,12 @@ describe('Swiss Army Knife', () => {
             expect(shuffle).to.have.members(arr);
             expect(shuffle).not.to.equal(arr);
         });
+        after(() => {
+          // after this function has been tested, make it always return the 1st element of an array to make responses easier to test
+        sak.shuffleArray = arr => {
+          return [arr[0]];
+        };
+      });
     });
     describe('cleanText', () => {
         it('_ and * removed', () => {

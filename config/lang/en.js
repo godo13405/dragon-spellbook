@@ -67,16 +67,13 @@ exports = module.exports = {
     "check": {
       "class": {
         "doesntHaveProperty": [
-          "No, <targetName> can't be <usePassive> by <checksMatch>"
+          "No, <targetName> can't be <usePassive> by <notMatch>"
         ],
         "hasProperty": [
-          "Yes, <targetName> can be <usePassive> by <checksMatch>"
+          "Yes, <targetName> can be <usePassive> by <match>"
         ],
         "mixedProperty": [
           "<match> can <useActive> <targetName>, but <notMatch> can't"
-        ],
-        "alsoHasProperty": [
-          "<alsoMatch> can also <useActive> <targetName>"
         ]
       }
     }

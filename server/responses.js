@@ -185,6 +185,7 @@ exports = module.exports = {
   },
   checkProperty: ({
     intention = global.intention,
+    collection = global.collection,
     responses = ['speech', 'text'],
     target = 'spell',
     checks = 'class',
@@ -205,63 +206,51 @@ exports = module.exports = {
         let talk = tools.setResponse(sak.i18n(i18n[target].notFound));
         if (data) {
           // check if all the checks came back positive
-          let checksMatch = [],
-            checksNotMatch = [],
-            checksAlsoMatch = [];
-          for (let ch in global.params[checks]) {
-            if (data[checks].includes(global.params[checks][ch])) {
-              checksMatch.push(global.params[checks][ch]);
-            } else {
-              checksNotMatch.push(global.params[checks][ch]);
-            }
-          }
-          for (var ch in data[checks]) {
-            if (!global.params[checks].includes(data[checks][ch])) {
-              checksAlsoMatch.push(data[checks][ch]);
-            }
-          }
+          let checksMatch = [...data[checks]].filter(x => global.params[checks].includes(x)),
+            checksNotMatch = [...global.params[checks]].filter(x => !data[checks].includes(x));
           let conf = {
               spell: {
-                use: {passive: 'cast',
-                active: 'cast'}
+                use: {
+                  passive: 'cast',
+                  active: 'cast'
+                }
               },
               weapon: {
-                use: {passive: 'weilded',
-                active: 'weild'}
+                use: {
+                  passive: 'weilded',
+                  active: 'weild'
+                }
               }
             },
             args = {
-              targetName: sak.titleCase(global.params.spell[0]),
-              usePassive: conf[global.collection].use.passive,
-              useActive: conf[global.collection].use.active,
-              match: sak.combinePhrase({
-                input: checksMatch,
-                makePlural: true,
-                lowerCase: true,
-              }),
-              notMatch: sak.combinePhrase({
-                input: checksNotMatch,
-                makePlural: true,
-                lowerCase: true,
-              }),
-              alsoMatch: sak.combinePhrase({
-                input: checksAlsoMatch,
-                makePlural: true,
-                lowerCase: true,
-              })
+              targetName: sak.titleCase(global.params[target][0]),
+              usePassive: conf[collection].use.passive,
+              useActive: conf[collection].use.active
             },
             targetString = 'doesntHaveProperty';
-            if (args.match && !args.notMatch) {
-              targetString = 'hasProperty'
-            } else if (args.match && args.notMatch) {
-              targetString = 'mixedProperty'
-            }
-          talk = {
-              speech: sak.sentenceCase(sak.i18n(i18n[target].check[intention][targetString], args))
-          };
-          if (checksAlsoMatch) {
-            talk.speech = talk.speech + '.\n<break time="1s"/><emphasis level="low">' + sak.sentenceCase(sak.i18n(i18n[target].check[intention].alsoHasProperty, args)) + '</emphasis>';
+          if (checksMatch.length) {
+            args.match = sak.combinePhrase({
+              input: checksMatch,
+              makePlural: true,
+              lowerCase: true,
+            });
           }
+          if (checksNotMatch.length) {
+            args.notMatch = sak.combinePhrase({
+              input: checksNotMatch,
+              makePlural: true,
+              lowerCase: true,
+              concat: 'or'
+            });
+          }
+          if (checksMatch.length && !checksNotMatch.length) {
+            targetString = 'hasProperty'
+          } else if (checksMatch.length && checksNotMatch.length) {
+            targetString = 'mixedProperty'
+          }
+          talk = {
+            speech: sak.sentenceCase(sak.i18n(i18n[target].check[intention][targetString], args))
+          };
 
           let sugg = suggestions[intention] || suggest;
 

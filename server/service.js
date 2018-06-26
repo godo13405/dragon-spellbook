@@ -85,10 +85,10 @@ exports = module.exports = {
           if (params.school) output.school = params.school;
           break;
       }
-      switch (actionArr[1]) {
-        case ('check'):
+      switch (true) {
+        case (actionArr[1] === 'check' && actionArr[2] === 'class'):
           if (params.spell) output.spell = params.spell;
-          if (params.level) output.level = params.level;
+          if (params.class) output.class = params.class;
           break;
       }
       return output;

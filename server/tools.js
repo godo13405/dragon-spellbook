@@ -62,12 +62,14 @@ exports = module.exports = {
     return output;
   },
   getCollection: ({
-      collection = 'spell',
-      param = 'name',
-      allowMultiple = false,
-      customParams = global.params
-    } = {}) => {
-    let query = sak.queryBuilder({params: customParams});
+    collection = 'spell',
+    param = 'name',
+    allowMultiple = false,
+    customParams = global.params
+  } = {}) => {
+    let query = sak.queryBuilder({
+      params: customParams
+    });
     let serve = new Promise((resolve, reject) => {
       MongoClient.connect(url, (err, client) => {
         if (err) throw err;
@@ -121,8 +123,8 @@ exports = module.exports = {
       },
   */
   getSuggestions: (input = [], spell = {
-      name: params.Spell
-    }, suggestionIntro = 'I can also tell you') => {
+    name: params.Spell
+  }, suggestionIntro = 'I can also tell you') => {
     let output = [];
 
     // if speech variant has't been defined, clone text
@@ -213,21 +215,23 @@ exports = module.exports = {
       }
     }
 
-    // prevent too many suggestions
-    output = sak.shuffleArray(output, 3);
+    if (output.length) {
+      // prevent too many suggestions
+      output = sak.shuffleArray(output, 3);
 
-    // structure voice suggestions
-    if (!capabilities.screen && capabilities.audio) {
-      let sugg = '';
-      for (var i = output.length - 1; i >= 0; i--) {
-        sugg = sugg + output[i].title;
-        if (i === 1) {
-          sugg = sugg + " or ";
-        } else if (i > 1) {
-          sugg = sugg + ', ';
+      // structure voice suggestions
+      if (!capabilities.screen && capabilities.audio) {
+        let sugg = '';
+        for (var i = output.length - 1; i >= 0; i--) {
+          sugg = sugg + output[i].title;
+          if (i === 1) {
+            sugg = sugg + " or ";
+          } else if (i > 1) {
+            sugg = sugg + ', ';
+          }
         }
+        output = `${suggestionIntro} ${sugg}`;
       }
-      output = `${suggestionIntro} ${sugg}`;
     }
 
     return output;
@@ -446,107 +450,133 @@ exports = module.exports = {
 
     return output;
   },
-  formatWhatData: ({data = {}, intnt = 'init', collection = 'spell'}) => {
+  formatWhatData: ({
+    data = {},
+    intnt = 'init',
+    collection = 'spell'
+  }) => {
     let output;
     switch (collection) {
       case ('spell'):
-        output = tools.format.spellData({data: data, intnt: intnt});
+        output = tools.format.spellData({
+          data: data,
+          intnt: intnt
+        });
         break;
       case ('weapon'):
-        output = tools.format.weaponData({data: data, intnt: intnt});
+        output = tools.format.weaponData({
+          data: data,
+          intnt: intnt
+        });
         break;
     }
     return output;
   },
   format: {
-    spellData: ({data = {}, intnt = 'init'} = {}) => {
+    spellData: ({
+      data = {},
+      intnt = 'init'
+    } = {}) => {
       let output = {
-        res: ''
-      },
-      arr = [];
+          res: ''
+        },
+        arr = [];
       switch (intnt) {
         case ('init'):
-            output.res = data.type;
-            if (data.damage) output.res = `${output.res} that does ${tools.format.spellData({data:data, intnt:'damage'}).res}`;
-            break;
+          output.res = data.type;
+          if (data.damage) output.res = `${output.res} that does ${tools.format.spellData({data:data, intnt:'damage'}).res}`;
+          break;
         case ('damage'):
-            arr = []
-            for (var da = data.damage.length - 1; da >= 0; da--) {
-              let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''} ${data.damage[da].type ? data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
-              arr.push(o);
-            }
-            output.res = sak.combinePhrase({input:arr});
-            break;
+          arr = []
+          for (var da = data.damage.length - 1; da >= 0; da--) {
+            let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''} ${data.damage[da].type ? data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
+            arr.push(o);
+          }
+          output.res = sak.combinePhrase({
+            input: arr
+          });
+          break;
         case ('casting_time'):
-            arr = [];
-            for (var ct = data.casting_time.length - 1; ct >= 0; ct--) {
-              let o = `${data.casting_time[ct].amount} ${data.casting_time[ct].amount > 1 ? sak.plural(data.casting_time[ct].unit) : data.casting_time[ct].unit}`;
-              if (data.casting_time.description) {
-                o = `${o} You can take it ${data.casting_time.description}`;
-              }
-              arr.push(o);
+          arr = [];
+          for (var ct = data.casting_time.length - 1; ct >= 0; ct--) {
+            let o = `${data.casting_time[ct].amount} ${data.casting_time[ct].amount > 1 ? sak.plural(data.casting_time[ct].unit) : data.casting_time[ct].unit}`;
+            if (data.casting_time.description) {
+              o = `${o} You can take it ${data.casting_time.description}`;
             }
-            output.res = sak.combinePhrase({input:arr});
-            break;
+            arr.push(o);
+          }
+          output.res = sak.combinePhrase({
+            input: arr
+          });
+          break;
         case ('class'):
-            arr = [];
-            for (let classy in data.class) {
-              arr.push(sak.plural(classy));
-            }
-            if (data.class.length > 1) {
-              arr = sak.combinePhrase({input:arr});
-            } else {
-              arr = `${arr} only`;
-            }
-            output.res = arr;
-            break;
+          arr = [];
+          for (let classy in data.class) {
+            arr.push(sak.plural(classy));
+          }
+          if (data.class.length > 1) {
+            arr = sak.combinePhrase({
+              input: arr
+            });
+          } else {
+            arr = `${arr} only`;
+          }
+          output.res = arr;
+          break;
         case ('duration'):
-            output.connector = data.duration === 'instantaneous' ? 'is' : 'lasts for';
-            output.res = data.duration;
-            break;
+          output.connector = data.duration === 'instantaneous' ? 'is' : 'lasts for';
+          output.res = data.duration;
+          break;
         case ('level'):
-            if (parseInt(data.level) === 0) {
-              output.res = 'a Cantrip';
-            } else {
-              output.res = 'Level ' + data.level;
-            }
-            break;
+          if (parseInt(data.level) === 0) {
+            output.res = 'a Cantrip';
+          } else {
+            output.res = 'Level ' + data.level;
+          }
+          break;
         case ('description'):
-            output.res = data.description;
-            break;
+          output.res = data.description;
+          break;
         case ('school'):
-            output.res = data.school;
-            break;
+          output.res = data.school;
+          break;
       }
       return output;
     },
-    weaponData: ({data = {}, intnt = 'init', concat = 'or'} = {}) => {
+    weaponData: ({
+      data = {},
+      intnt = 'init',
+      concat = 'or'
+    } = {}) => {
       let output = {
-        res: ''
-      },
-      arr = [];
+          res: ''
+        },
+        arr = [];
       switch (intnt) {
         case ('init'):
-            output.res = `${data.tier} ${data.type} weapon`;
-            if (data.damage) output.res = `${sak.preposition(output.res)} that does ${tools.format.weaponData({data:data, intnt:'damage'}).res}`;
-            break;
+          output.res = `${data.tier} ${data.type} weapon`;
+          if (data.damage) output.res = `${sak.preposition(output.res)} that does ${tools.format.weaponData({data:data, intnt:'damage'}).res}`;
+          break;
         case ('damage'):
-            arr = []
-            for (var da = data.damage.length - 1; da >= 0; da--) {
-              let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''} ${data.damage[da].type ? data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
-              arr.push(o);
-            }
-            output.res = sak.preposition(sak.combinePhrase(arr, concat));
-            break;
+          arr = []
+          for (var da = data.damage.length - 1; da >= 0; da--) {
+            let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''} ${data.damage[da].type ? data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
+            arr.push(o);
+          }
+          output.res = sak.preposition(sak.combinePhrase(arr, concat));
+          break;
       }
       return output;
     }
   },
-  getDescription: ({data = {}, collection = global.collection}) => {
+  getDescription: ({
+    data = {},
+    collection = global.collection
+  }) => {
     let output;
     if (data.description) {
       output = data.description;
-    } else if(collection === 'weapon') {
+    } else if (collection === 'weapon') {
       output = `${data.tier} ${data.type} weapon\n${tools.format.weaponData({data:data, intnt:'damage'}).res}`;
     }
     return output;
