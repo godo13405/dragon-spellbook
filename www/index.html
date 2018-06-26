@@ -14,6 +14,7 @@
         background: #efefef;
       }
 
+      body::after,
       body::before {
         content: "";
         position: absolute;
@@ -22,8 +23,23 @@
         right: 0;
         height: 40vh;
         z-index: -1;
+      }
+
+      body::before {
+        top: 0;
+        height: 40vh;
         background: url(/dragon-logo.svg) -4vw 2vh #BD2624 no-repeat;
         background-size: auto 50vh;
+      }
+
+      body::after {
+        top: 40vh;
+        left: -5%;
+        background: url(/brush.svg) no-repeat;
+        transform: rotate(180deg);
+        height: 130px;
+        margin-top: -125px;
+        background-size: 110% 130px;
       }
 
       .widget-container {
