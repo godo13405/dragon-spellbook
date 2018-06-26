@@ -1,0 +1,5 @@
+applications:
+- name: dragon-book
+  memory: 256M
+  routes:
+    - route: https://dragon-book.eu-gb.mybluemix.net/
