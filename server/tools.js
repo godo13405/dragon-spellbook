@@ -67,7 +67,7 @@ exports = module.exports = {
       allowMultiple = false,
       customParams = global.params
     } = {}) => {
-    let query = sak.queryBuilder();
+    let query = sak.queryBuilder({params: customParams});
     let serve = new Promise((resolve, reject) => {
       MongoClient.connect(url, (err, client) => {
         if (err) throw err;
@@ -475,7 +475,7 @@ exports = module.exports = {
               let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''} ${data.damage[da].type ? data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
               arr.push(o);
             }
-            output.res = sak.combinePhrase(arr);
+            output.res = sak.combinePhrase({input:arr});
             break;
         case ('casting_time'):
             arr = [];
@@ -486,7 +486,7 @@ exports = module.exports = {
               }
               arr.push(o);
             }
-            output.res = sak.combinePhrase(arr);
+            output.res = sak.combinePhrase({input:arr});
             break;
         case ('class'):
             arr = [];
@@ -494,7 +494,7 @@ exports = module.exports = {
               arr.push(sak.plural(classy));
             }
             if (data.class.length > 1) {
-              arr = sak.combinePhrase(arr);
+              arr = sak.combinePhrase({input:arr});
             } else {
               arr = `${arr} only`;
             }

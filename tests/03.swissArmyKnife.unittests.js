@@ -43,11 +43,11 @@ describe('Swiss Army Knife', () => {
             capabilities = {
                 'screen': true
             };
-            let text = sak.combinePhrase([
+            let text = sak.combinePhrase({input:[
                 'this',
                 'this',
                 'that'
-            ]);
+            ]});
 
             expect(text).to.equal('this, this and that');
         });
@@ -55,11 +55,11 @@ describe('Swiss Army Knife', () => {
             capabilities = {
                 'audio': true
             };
-            let text = sak.combinePhrase([
+            let text = sak.combinePhrase({input:[
                 'this',
                 'this',
                 'that'
-            ]);
+            ]});
 
             expect(text).to.equal('this<break time=\'500ms\' />, this<break time=\'500ms\' /> and that<break time=\'500ms\' />');
         });

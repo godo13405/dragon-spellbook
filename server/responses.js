@@ -132,19 +132,26 @@ exports = module.exports = {
     if (Array.isArray(params[target]) && params[target].length > 1) {
       return response.json(tools.setResponse(sak.i18n(i18n.tools.oneAtATime)));
     } else {
-      return tools.getCollection({collection:target, param: target})
+      return tools.getCollection({
+          collection: target,
+          param: target
+        })
         .then(data => {
           if (data) {
             let talk = {
               speech: sak.i18n(i18n[target].what[intention].doesntHaveProperty ?
-                                i18n[target].what[intention].doesntHaveProperty :
-                                i18n[target].notFound, {
-                                  targetName: data.name
-                                })
+                i18n[target].what[intention].doesntHaveProperty :
+                i18n[target].notFound, {
+                  targetName: data.name
+                })
             };
 
             if (data[intention] || intention === 'init') {
-              let args = tools.formatWhatData({data: data, intnt: intention, collection: target});
+              let args = tools.formatWhatData({
+                data: data,
+                intnt: intention,
+                collection: target
+              });
               args.targetName = sak.titleCase(data.name);
               talk.speech = sak.i18n(i18n[target].what[intention].hasProperty, args);
             }
@@ -154,7 +161,9 @@ exports = module.exports = {
                 talk.card = {
                   title: sak.titleCase(data.name),
                   subtitle: data.type,
-                  text: tools.getDescription({data: data})
+                  text: tools.getDescription({
+                    data: data
+                  })
                 };
               }
             }
@@ -174,4 +183,96 @@ exports = module.exports = {
         });
     }
   },
+  checkProperty: ({
+    intention = global.intention,
+    responses = ['speech', 'text'],
+    target = 'spell',
+    checks = 'class',
+    suggest = [
+      'description',
+      'materials',
+      'higher_levels'
+    ]
+  } = {}) => {
+    return tools.getCollection({
+        collection: target,
+        param: target,
+        customParams: {
+          name: global.params.spell
+        }
+      })
+      .then(data => {
+        let talk = tools.setResponse(sak.i18n(i18n[target].notFound));
+        if (data) {
+          // check if all the checks came back positive
+          let checksMatch = [],
+            checksNotMatch = [],
+            checksAlsoMatch = [];
+          for (let ch in global.params[checks]) {
+            if (data[checks].includes(global.params[checks][ch])) {
+              checksMatch.push(global.params[checks][ch]);
+            } else {
+              checksNotMatch.push(global.params[checks][ch]);
+            }
+          }
+          for (var ch in data[checks]) {
+            if (!global.params[checks].includes(data[checks][ch])) {
+              checksAlsoMatch.push(data[checks][ch]);
+            }
+          }
+          let conf = {
+              spell: {
+                use: {passive: 'cast',
+                active: 'cast'}
+              },
+              weapon: {
+                use: {passive: 'weilded',
+                active: 'weild'}
+              }
+            },
+            args = {
+              targetName: sak.titleCase(global.params.spell[0]),
+              usePassive: conf[global.collection].use.passive,
+              useActive: conf[global.collection].use.active,
+              match: sak.combinePhrase({
+                input: checksMatch,
+                makePlural: true,
+                lowerCase: true,
+              }),
+              notMatch: sak.combinePhrase({
+                input: checksNotMatch,
+                makePlural: true,
+                lowerCase: true,
+              }),
+              alsoMatch: sak.combinePhrase({
+                input: checksAlsoMatch,
+                makePlural: true,
+                lowerCase: true,
+              })
+            },
+            targetString = 'doesntHaveProperty';
+            if (args.match && !args.notMatch) {
+              targetString = 'hasProperty'
+            } else if (args.match && args.notMatch) {
+              targetString = 'mixedProperty'
+            }
+          talk = {
+              speech: sak.sentenceCase(sak.i18n(i18n[target].check[intention][targetString], args))
+          };
+          if (checksAlsoMatch) {
+            talk.speech = talk.speech + '.\n<break time="1s"/><emphasis level="low">' + sak.sentenceCase(sak.i18n(i18n[target].check[intention].alsoHasProperty, args)) + '</emphasis>';
+          }
+
+          let sugg = suggestions[intention] || suggest;
+
+          for (var i = sugg.length - 1; i >= 0; i--) {
+            sugg[i] = sak.i18n(sugg[i]);
+          }
+          talk = tools.setResponse(talk, tools.getSuggestions(sugg, data, 'Would you like to know '));
+        }
+        return response.json(talk);
+      }).catch(err => {
+        console.log(err);
+      });
+  }
 };

@@ -35,11 +35,13 @@ exports = module.exports = {
     }
     return output;
   },
-  combinePhrase: (input, concat = 'and') => {
+  combinePhrase: ({input = [], concat = 'and', makePlural = false, lowerCase = false} = {}) => {
     let output = '',
       len = input.length,
       last = len - 2;
     for (var i = 0; i < len; i++) {
+      if (makePlural) input[i] = sak.plural(input[i]);
+      if (lowerCase) input[i] = input[i].toLowerCase();
       output = output + input[i];
       if (!capabilities.screen && capabilities.audio) {
         output = output + '<break time=\'500ms\' />';
@@ -128,6 +130,9 @@ exports = module.exports = {
     return str.toLowerCase().split(' ').map(word => {
       return word.replace(word[0], word[0].toUpperCase());
     }).join(' ');
+  },
+  sentenceCase: str => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   },
   arrayRemove: (array, element) => {
     const index = array.indexOf(element);

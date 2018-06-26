@@ -22,11 +22,13 @@ exports = module.exports = {
     return capabilities;
   },
   router: (input, midIntention) => {
+    let arr = ['text', 'speech'];
     switch (midIntention) {
       case ('what'):
-        let arr = ['text', 'speech'];
         if (intention === 'description') arr = ['speech', 'card'];
         return responses.whatProperty({intention:global.intention, target: global.collection, responses: arr});
+      case ('check'):
+        return responses.checkProperty({intention:global.intention, target: global.collection, responses: arr});
     }
 
     switch (input) {
@@ -81,6 +83,12 @@ exports = module.exports = {
           if (params.level) output.level = params.level;
           if (params.class) output.class = params.class;
           if (params.school) output.school = params.school;
+          break;
+      }
+      switch (actionArr[1]) {
+        case ('check'):
+          if (params.spell) output.spell = params.spell;
+          if (params.level) output.level = params.level;
           break;
       }
       return output;
