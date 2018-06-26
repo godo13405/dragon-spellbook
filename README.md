@@ -38,6 +38,12 @@ Here are some samples of what you can ask and the responses you should get. Bear
 - **how much damage does a longbow do**
   > Longbow does 1d8 piercing damage
 
+## Other
+- **what do you do**
+  > I can lookup spells for you, or tell you about weapons. Try asking about Acid Splash, or who can cast Cure Wounds
+- **are you chaotic evil**
+  > I am not aligned. Who do you take me for, a conjurer of cheap tricks?
+
 More will be coming soon.
 
 # Platforms
