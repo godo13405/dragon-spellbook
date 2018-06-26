@@ -1,3 +1,4 @@
+---
 applications:
 - name: dragon-book
   memory: 256M
