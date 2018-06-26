@@ -1,3 +1,4 @@
 applications:
 - name: dragon-book
-- host: dragon-book
+- routes:
+    - route: https://dragon-book.eu-gb.mybluemix.net/
