@@ -166,14 +166,7 @@ describe('responses', () => {
     describe('class', () => {
       global.actionArr = ['spell', 'check', 'class'];
       global.collection = 'spell';
-      describe('one yes, one no', () => {
-        global.params = {
-          spell: ['Spellname'],
-          class: [
-            'wizard',
-            'bard'
-          ]
-        };
+      describe('one yes', () => {
         tools.getCollection = () => {
           return new Promise((res, rej) => {
             res({
@@ -187,6 +180,82 @@ describe('responses', () => {
         let output = responses.checkProperty({
             intention: 'class',
             target: 'spell',
+            params: {
+              spell: ['Spellname'],
+              class: [
+                'wizard'
+              ]
+            },
+            responses: ['text', 'speech', 'card']
+          }),
+          match = 'Yes, Spellname can be cast by wizards';
+        it('agnostic text', () => {
+          return expect(output).to.eventually.have.property('fulfillmentText', match);
+        });
+        it('slack text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+        });
+        it('google text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        });
+        tools.getCollection = restore;
+      });
+      describe('one no', () => {
+        tools.getCollection = () => {
+          return new Promise((res, rej) => {
+            res({
+              name: 'Spellname',
+              class: [
+                'wizard'
+              ]
+            });
+          })
+        };
+        let output = responses.checkProperty({
+            intention: 'class',
+            target: 'spell',
+            params: {
+              spell: ['Spellname'],
+              class: [
+                'bard'
+              ]
+            },
+            responses: ['text', 'speech', 'card']
+          }),
+          match = 'No, Spellname can\'t be cast by bards';
+        it('agnostic text', () => {
+          return expect(output).to.eventually.have.property('fulfillmentText', match);
+        });
+        it('slack text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+        });
+        it('google text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        });
+        tools.getCollection = restore;
+      });
+      describe('one yes, one no', () => {
+        tools.getCollection = () => {
+          return new Promise((res, rej) => {
+            res({
+              name: 'Spellname',
+              class: [
+                'wizard',
+                'sorcerer'
+              ]
+            });
+          })
+        };
+        let output = responses.checkProperty({
+            intention: 'class',
+            target: 'spell',
+            params: {
+              spell: ['Spellname'],
+              class: [
+                'wizard',
+                'bard'
+              ]
+            },
             responses: ['text', 'speech', 'card']
           }),
           match = 'Wizards can cast Spellname, but bards can\'t';
@@ -199,7 +268,6 @@ describe('responses', () => {
         it('google text', () => {
           return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         });
-
         tools.getCollection = restore;
       });
     });

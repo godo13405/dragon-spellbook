@@ -186,6 +186,7 @@ exports = module.exports = {
   checkProperty: ({
     intention = global.intention,
     collection = global.collection,
+    params = global.params,
     responses = ['speech', 'text'],
     target = 'spell',
     checks = 'class',
@@ -199,15 +200,15 @@ exports = module.exports = {
         collection: target,
         param: target,
         customParams: {
-          name: global.params.spell
+          name: params.spell
         }
       })
       .then(data => {
         let talk = tools.setResponse(sak.i18n(i18n[target].notFound));
         if (data) {
           // check if all the checks came back positive
-          let checksMatch = [...data[checks]].filter(x => global.params[checks].includes(x)),
-            checksNotMatch = [...global.params[checks]].filter(x => !data[checks].includes(x));
+          let checksMatch = [...data[checks]].filter(x => params[checks].includes(x)),
+            checksNotMatch = [...params[checks]].filter(x => !data[checks].includes(x));
           let conf = {
               spell: {
                 use: {
@@ -223,7 +224,7 @@ exports = module.exports = {
               }
             },
             args = {
-              targetName: sak.titleCase(global.params[target][0]),
+              targetName: sak.titleCase(params[target][0]),
               usePassive: conf[collection].use.passive,
               useActive: conf[collection].use.active
             },
