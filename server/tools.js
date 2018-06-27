@@ -540,6 +540,17 @@ exports = module.exports = {
         case ('school'):
           output.res = data.school;
           break;
+        case ('range'):
+          output.res = sak.unit({input:data.range});
+          if (data.shape) {
+            output.shapePhrase = [
+              ' as a ' + data.shape,
+              ' in a ' + data.shape,
+              ' in the shape of a ' + data.shape
+            ];
+            output.shapePhrase = sak.shuffleArray(output.shapePhrase, 1);
+          }
+          break;
       }
       return output;
     },

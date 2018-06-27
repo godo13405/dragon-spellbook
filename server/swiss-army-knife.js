@@ -55,11 +55,17 @@ exports = module.exports = {
     return output;
   },
   plural: input => {
-    let add = 's';
-    if (input.slice(-1) === 't') {
-      add = 'es';
+    let talk;
+    if (input === 'foot') {
+      talk = 'feet';
+    } else {
+      let add = 's';
+      if (input.slice(-1) === 't') {
+        add = 'es';
+      }
+      talk = input + add;
     }
-    return input + add;
+    return talk;
   },
   rng: (limit = 9) => {
     return Math.ceil(Math.random() * limit);
@@ -139,5 +145,21 @@ exports = module.exports = {
     if (index !== -1) {
       array.splice(index, 1);
     }
+  },
+  unit: ({input = null, system = 'imperial', convert = true}) => {
+    let unit;
+    if (system === 'imperial') {
+      unit = 'foot';
+    if (convert) {
+        if (input > 5000) {
+          input = input / 5280;
+          unit = 'mile'
+        }
+      }
+    }
+
+    if (input > 1) unit = sak.plural(unit);
+
+    return input + ' ' + unit;
   }
 };
