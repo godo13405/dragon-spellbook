@@ -1,5 +1,10 @@
 require('./setup.js');
 
+global.sak.shuffleArray = arr => {
+  console.log('triggering fixed shuffleArray');
+  return [arr[0]];
+};
+
 describe('responses', () => {
   let restore = tools.getCollection;
   describe('spellDuration', () => {
@@ -259,6 +264,131 @@ describe('responses', () => {
             responses: ['text', 'speech', 'card']
           }),
           match = 'Wizards can cast Spellname, but bards can\'t';
+        it('agnostic text', () => {
+          return expect(output).to.eventually.have.property('fulfillmentText', match);
+        });
+        it('slack text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+        });
+        it('google text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        });
+        tools.getCollection = restore;
+      });
+    });
+    describe('range', () => {
+      global.actionArr = ['spell', 'check', 'range'];
+      global.collection = 'spell';
+      describe('simple', () => {
+        tools.getCollection = () => {
+          return new Promise((res, rej) => {
+            res({
+              name: 'Spellname',
+              range: 30
+            });
+          })
+        };
+        let output = responses.whatProperty({
+            intention: 'range',
+            target: 'spell',
+            checks: 'range',
+            params: {
+              spell: ['Spellname']
+            },
+            responses: ['text', 'speech', 'card']
+          }),
+          match = 'Spellname can reach 30 feet';
+        it('agnostic text', () => {
+          return expect(output).to.eventually.have.property('fulfillmentText', match);
+        });
+        it('slack text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+        });
+        it('google text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        });
+        tools.getCollection = restore;
+      });
+      describe('unit conversion to miles', () => {
+        tools.getCollection = () => {
+          return new Promise((res, rej) => {
+            res({
+              name: 'Spellname',
+              range: 30000
+            });
+          })
+        };
+        let output = responses.whatProperty({
+            intention: 'range',
+            target: 'spell',
+            checks: 'range',
+            params: {
+              spell: ['Spellname']
+            },
+            responses: ['text', 'speech', 'card']
+          }),
+          match = 'Spellname can reach 5.68 miles';
+        it('agnostic text', () => {
+          return expect(output).to.eventually.have.property('fulfillmentText', match);
+        });
+        it('slack text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+        });
+        it('google text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        });
+        tools.getCollection = restore;
+      });
+      describe('unit conversion to mile singular', () => {
+        tools.getCollection = () => {
+          return new Promise((res, rej) => {
+            res({
+              name: 'Spellname',
+              range: 5280
+            });
+          })
+        };
+        let output = responses.whatProperty({
+            intention: 'range',
+            target: 'spell',
+            checks: 'range',
+            params: {
+              spell: ['Spellname']
+            },
+            responses: ['text', 'speech', 'card']
+          }),
+          match = 'Spellname can reach 1 mile';
+        it('agnostic text', () => {
+          return expect(output).to.eventually.have.property('fulfillmentText', match);
+        });
+        it('slack text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+        });
+        it('google text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        });
+        tools.getCollection = restore;
+      });
+      describe('has a shape', () => {
+        tools.getCollection = () => {
+          return new Promise((res, rej) => {
+            res({
+              name: 'Spellname',
+              range: 10,
+              shape: 'line'
+            });
+          })
+        };
+        let output = responses.whatProperty({
+            intention: 'range',
+            target: 'spell',
+            checks: 'range',
+            params: {
+              spell: ['Spellname']
+            },
+            responses: ['text', 'speech', 'card']
+          }),
+          match = 'Spellname can reach 10 feet as a line';
         it('agnostic text', () => {
           return expect(output).to.eventually.have.property('fulfillmentText', match);
         });

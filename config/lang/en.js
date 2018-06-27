@@ -65,7 +65,7 @@ exports = module.exports = {
       },
       "range": {
         "hasProperty": [
-          "<targetName>'range is <res><shapePhrase>",
+          "<targetName>'s range is <res><shapePhrase>",
           "<targetName> can reach <res><shapePhrase>"
         ],
         "doesntHaveProperty": "Sorry, I don't know which school <targetName> belongs to"

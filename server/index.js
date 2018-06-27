@@ -1,6 +1,7 @@
 'use strict';
 
 global.express = require('express');
+let compression = require('compression');
 global.bodyParser = require('body-parser');
 global.capabilities = ['audio', 'screen'];
 global.i18n = require('../config/lang/en');
@@ -48,6 +49,7 @@ global.responses = require('./responses');
 process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_credentials;
 
 ex.use(bodyParser.json());
+ex.use(compression(9))
 ex.use(express.static('./www'));
 // ex.get('/', (req, res) => {
 //   res.redirect(301, 'https://bot.dialogflow.com/spell-book')

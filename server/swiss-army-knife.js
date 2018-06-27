@@ -152,7 +152,8 @@ exports = module.exports = {
       unit = 'foot';
     if (convert) {
         if (input > 5000) {
-          input = input / 5280;
+          // convert feet to miles
+          input = (Math.round((input / 5280)*100)/100);
           unit = 'mile'
         }
       }
