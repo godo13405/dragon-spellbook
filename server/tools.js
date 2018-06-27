@@ -251,8 +251,9 @@ exports = module.exports = {
       input.speech = input.text;
 
     // check if the text is too big to output
-    if (input.text && input.text.length > 200) {
-      input.text = input.text.substr(0, 199) + '...';
+    // if there's also a card, the text should be trimmed
+    if (input.card && input.text && input.text.length > 200) {
+      input.trimText = input.text.substr(0, 199) + '...';
     }
 
     // if it doesn't have a screen, read out the suggestions
@@ -272,7 +273,7 @@ exports = module.exports = {
           items: [{
             simpleResponse: {
               textToSpeech: `<speech>${sak.cleanText(input.speech)}</speech>`,
-              displayText: sak.cleanText(sak.clearSpeech(input.text))
+              displayText: sak.cleanText(sak.clearSpeech(input.trimText ? input.trimText : input.text))
             }
           }]
         }
@@ -351,7 +352,7 @@ exports = module.exports = {
   },
   buildCard: (output, input, platforms = ['dialogflow', 'google', 'slack']) => {
     let card;
-
+    
     if (platforms.includes('dialogflow')) {
       card = {};
       if (input.title) card.title = input.title;
