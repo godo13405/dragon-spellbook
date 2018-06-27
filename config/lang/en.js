@@ -69,6 +69,17 @@ exports = module.exports = {
           "<targetName> can reach <res><shapePhrase>"
         ],
         "doesntHaveProperty": "Sorry, I don't know which school <targetName> belongs to"
+      },
+      "concentration": {
+        "hasProperty": [
+          "Yes, <targetName> needs concentration",
+          "<targetName> does need you to keep focusing on it"
+        ],
+        "doesntHaveProperty": [
+          "No, <targetName> doesn't need concentration",
+          "No, you don't need to keep focusing on <targetName>",
+          "No, you can just cast <targetName>"
+        ]
       }
     },
     "check": {

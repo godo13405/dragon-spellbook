@@ -352,7 +352,7 @@ exports = module.exports = {
   },
   buildCard: (output, input, platforms = ['dialogflow', 'google', 'slack']) => {
     let card;
-    
+
     if (platforms.includes('dialogflow')) {
       card = {};
       if (input.title) card.title = input.title;
