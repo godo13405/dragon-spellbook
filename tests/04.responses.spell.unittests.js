@@ -1,7 +1,6 @@
 require('./setup.js');
 
 global.sak.shuffleArray = arr => {
-  console.log('triggering fixed shuffleArray');
   return [arr[0]];
 };
 
@@ -164,6 +163,35 @@ describe('responses', () => {
         });
       });
 
+      tools.getCollection = restore;
+    });
+  });
+  describe('Concentration', () => {
+    global.intention = 'concentration';
+    global.midIntention = 'what';
+    describe('yes', () => {
+      tools.getCollection = () => {
+        return new Promise((res, rej) => {
+          res({
+            name: 'Spellname',
+            concentration: true
+          });
+        })
+      };
+      let output = responses.whatProperty({
+          intention: 'concentration',
+          responses: ['text', 'speech']
+        }),
+        match = 'Spellname does need you to keep focusing on it';
+      it('agnostic text', () => {
+        return expect(output).to.eventually.have.property('fulfillmentText', match);
+      });
+      it('slack text', () => {
+        return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+      });
+      it('google text', () => {
+        return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+      });
       tools.getCollection = restore;
     });
   });
