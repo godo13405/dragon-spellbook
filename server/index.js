@@ -29,13 +29,12 @@ const webhook = (request, response) => {
   capabilities = service.setCapabilities(capabilities);
 
   // get context parameters
-  let par = service.params.fromContext(request.body.queryResult.outputContexts).parameters;
+  let par = service.params.fromContext(request.body.queryResult.outputContexts);
 
   // get the spell's name from parameters or context
-  par = par ? Object.assign(par, service.params.fromQuery(request.body.queryResult.parameters)) : service.params.fromQuery(request.body.queryResult.parameters);
+  par = par ? Object.assign(par.parameters, service.params.fromQuery(request.body.queryResult.parameters)) : service.params.fromQuery(request.body.queryResult.parameters);
 
   global.params = par;
-  console.log(params);
 
   //direct intents to proper functions
   return service.router(request.body.queryResult.action, actionArr[1]);
@@ -55,9 +54,9 @@ ex.use(express.static('./www'));
 //   res.redirect(301, 'https://bot.dialogflow.com/spell-book')
 // });
 ex.post('/', webhook);
-
-ex.listen((process.env.PORT || 3000), () => {
-  if (!process.env.SILENT) console.log('Spell Book is open');
+let port = process.env.PORT || 3000;
+ex.listen(port, () => {
+  if (!process.env.SILENT) console.log('Spell Book is open on '+port);
 });
 
 exports = module.exports = webhook;
