@@ -28,14 +28,12 @@ const webhook = (request, response) => {
   capabilities = service.setCapabilities(capabilities);
 
   // get context parameters
-  service.params.fromContext(request.body.queryResult);
-
-  // clear parameters except relevant ones
-  // this will depend on what the intention is
-  params = service.params.smartClear();
+  let par = service.params.fromContext(request.body.queryResult.outputContexts);
 
   // get the spell's name from parameters or context
-  service.params.fromQuery(request.body.queryResult.parameters);
+  par = par ? Object.assign(par, service.params.fromQuery(request.body.queryResult.parameters)) : service.params.fromQuery(request.body.queryResult.parameters);
+
+  global.params = par.parameters;
 
   //direct intents to proper functions
   return service.router(request.body.queryResult.action, actionArr[1]);

@@ -18,7 +18,8 @@ exports = module.exports = {
     ]
   },
   "tools": {
-    "oneAtATime": "Sorry, can we do this one <param> at a time?"
+    "oneAtATime": "Sorry, can we do this one <param> at a time?",
+    "contextNotFound": "Sorry, what were we talking about? Can you ask the question more explicitly please?"
   },
   "spell": {
     "notFound": [

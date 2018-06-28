@@ -2,14 +2,14 @@
 
 exports = module.exports = {
   welcome: () => {
-    let talk = tools.setResponse(sak.i18n(i18n.welcome.say), tools.getSuggestions([
+    let talk = tools.setResponse({input: sak.i18n(i18n.welcome.say), suggestions: tools.getSuggestions([
       `what is Acid Splash`,
       `what damage does Harm do`
-    ], undefined, 'You can ask me stuff like '));
+    ], undefined, 'You can ask me stuff like ')});
     return response.json(talk);
   },
   fallback: () => {
-    let talk = tools.setResponse(sak.i18n(i18n.fallback.say));
+    let talk = tools.setResponse({input: sak.i18n(i18n.fallback.say)});
     return response.json(talk);
   },
   condition: (params = global.params) => {
@@ -56,7 +56,7 @@ exports = module.exports = {
           talk = sak.i18n(i18n.server.timeOut);
         }
 
-        return response.json(tools.setResponse(talk, sugg));
+        return response.json(tools.setResponse({input: talk, sugg}));
       }).catch(err => {
         console.log(err);
       });
@@ -83,7 +83,7 @@ exports = module.exports = {
           }
 
 
-          let output = tools.setResponse(tools.listComplex(list, 'summary'), tools.getSuggestions(sugg), 2);
+          let output = tools.setResponse({input: tools.listComplex(list, 'summary'), suggestions: tools.getSuggestions(sugg), pause: 2});
           response.json(output);
         }).catch(err => {
           console.log(err);
@@ -111,7 +111,7 @@ exports = module.exports = {
           }
 
 
-          let output = tools.setResponse(tools.listComplex(list), tools.getSuggestions(sugg), 2);
+          let output = tools.setResponse({input: tools.listComplex(list), suggestions: tools.getSuggestions(sugg), pause:2});
           response.json(output);
         }).catch(err => {
           console.log(err);
@@ -121,6 +121,7 @@ exports = module.exports = {
   },
   whatProperty: ({
     intention = global.intention,
+    params = global.params,
     responses = ['speech', 'text'],
     target = 'spell',
     suggest = [
@@ -130,7 +131,7 @@ exports = module.exports = {
     ]
   } = {}) => {
     if (Array.isArray(params[target]) && params[target].length > 1) {
-      return response.json(tools.setResponse(sak.i18n(i18n.tools.oneAtATime)));
+      return response.json(tools.setResponse({input: sak.i18n(i18n.tools.oneAtATime)}));
     } else {
       return tools.getCollection({
           collection: target,
@@ -173,10 +174,12 @@ exports = module.exports = {
             for (var i = sugg.length - 1; i >= 0; i--) {
               sugg[i] = sak.i18n(sugg[i]);
             }
-            talk = tools.setResponse(talk, tools.getSuggestions(sugg, data, 'Would you like to know '));
+            talk = tools.setResponse({input: talk, suggestions: tools.getSuggestions(sugg, data, 'Would you like to know ')});
             return response.json(talk);
+          } else if (!params.length){
+            return response.json(tools.setResponse({input: sak.i18n(i18n[target].contextNotFound)}));
           } else {
-            return response.json(tools.setResponse(sak.i18n(i18n[target].notFound)));
+            return response.json(tools.setResponse({input: sak.i18n(i18n[target].notFound)}));
           }
         }).catch(err => {
           console.log(err);
@@ -204,7 +207,7 @@ exports = module.exports = {
         }
       })
       .then(data => {
-        let talk = tools.setResponse(sak.i18n(i18n[target].notFound));
+        let talk = tools.setResponse({input: sak.i18n(i18n[target].notFound)});
         if (data) {
           // check if all the checks came back positive
           let checksMatch = [...data[checks]].filter(x => params[checks].includes(x)),
@@ -258,7 +261,7 @@ exports = module.exports = {
           for (var i = sugg.length - 1; i >= 0; i--) {
             sugg[i] = sak.i18n(sugg[i]);
           }
-          talk = tools.setResponse(talk, tools.getSuggestions(sugg, data, 'Would you like to know '));
+          talk = tools.setResponse({input: talk, suggestions: tools.getSuggestions(sugg, data, 'Would you like to know ')});
         }
         return response.json(talk);
       }).catch(err => {

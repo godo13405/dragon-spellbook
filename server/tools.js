@@ -35,7 +35,9 @@ exports = module.exports = {
 
       if (!multipleAllowed) {
         if (thisParam.length > 1) {
-          response.json(tools.setResponse(i18n.tools.oneAtATime.replace(/<param>/g, kParam.toLowerCase())));
+          response.json(tools.setResponse({
+            input: i18n.tools.oneAtATime.replace(/<param>/g, kParam.toLowerCase())
+          }));
           return false;
         }
       }
@@ -65,25 +67,30 @@ exports = module.exports = {
     collection = 'spell',
     param = 'name',
     allowMultiple = false,
-    customParams = global.params
+    params = global.params
   } = {}) => {
     let query = sak.queryBuilder({
-      params: customParams
+      params: params
     });
+    console.log(`${collection} query: `, query);
     let serve = new Promise((resolve, reject) => {
-      MongoClient.connect(url, (err, client) => {
-        if (err) throw err;
-        console.log(`${collection} query: `, query);
-        client.db(dbName).collection(collection).find(query).toArray((err, docs) => {
+      if (query) {
+        return MongoClient.connect(url, (err, client) => {
           if (err) throw err;
-          if (docs.length === 1 || !allowMultiple) {
-            docs = docs[0];
-          }
-          return resolve(docs);
+          return client.db(dbName).collection(collection).find(query).toArray((err, docs) => {
+            if (err) throw err;
+            if (docs.length === 1 || !allowMultiple) {
+              docs = docs[0];
+            }
+            client.close();
+            return resolve(docs);
+          });
         });
-        client.close();
-      });
+      } else {
+        return resolve(false);
+      }
     });
+    //timeout gracefully
     let time = new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(false);
@@ -123,7 +130,7 @@ exports = module.exports = {
       },
   */
   getSuggestions: (input = [], spell = {
-    name: params.Spell
+    name: () => { return global.params.spell}
   }, suggestionIntro = 'I can also tell you') => {
     let output = [];
 
@@ -236,75 +243,74 @@ exports = module.exports = {
 
     return output;
   },
-  setResponse: (input, suggestions = [], pause = 5) => {
-    if (typeof input === 'string') {
-      input = {
-        speech: input
+  setResponse: ({
+    input = null,
+    suggestions = [],
+    pause = 5,
+    followUp = true
+  }) => {
+    let output;
+    if (input) {
+      if (typeof input === 'string') {
+        input = {
+          speech: input
+        };
+      }
+
+      // no text? take the speech
+      if (!input.text && input.speech)
+        input.text = sak.clearSpeech(input.speech);
+      // no speech? take the text
+      if (!input.speech && input.text)
+        input.speech = input.text;
+
+      // check if the text is too big to output
+      // if there's also a card, the text should be trimmed
+      if (input.card && input.text && input.text.length > 200) {
+        input.trimText = input.text.substr(0, 199) + '...';
+      }
+
+      // if it doesn't have a screen, read out the suggestions
+      if (suggestions.length && !capabilities.includes('screen') && capabilities.includes('audio')) {
+        input.speech = `${input.speech}.<break time='${pause}s'/>${sak.combinePhrase(suggestions)}`;
+      }
+
+      output = {
+        fulfillmentText: input.text,
+        fulfillmentMessages: []
       };
-    }
-
-    // no text? take the speech
-    if (!input.text && input.speech)
-      input.text = sak.clearSpeech(input.speech);
-    // no speech? take the text
-    if (!input.speech && input.text)
-      input.speech = input.text;
-
-    // check if the text is too big to output
-    // if there's also a card, the text should be trimmed
-    if (input.card && input.text && input.text.length > 200) {
-      input.trimText = input.text.substr(0, 199) + '...';
-    }
-
-    // if it doesn't have a screen, read out the suggestions
-    if (suggestions.length && !capabilities.includes('screen') && capabilities.includes('audio')) {
-      input.speech = `${input.speech}.<break time='${pause}s'/>${sak.combinePhrase(suggestions)}`;
-    }
-
-    let output = {
-      fulfillmentText: input.text,
-      fulfillmentMessages: []
-    };
-    output.payload = {
-      google: {
-        expectUserResponse: true,
-        is_ssml: true,
-        richResponse: {
-          items: [{
-            simpleResponse: {
-              textToSpeech: `<speech>${sak.cleanText(input.speech)}</speech>`,
-              displayText: sak.cleanText(sak.clearSpeech(input.trimText ? input.trimText : input.text))
-            }
-          }]
+      output.payload = {
+        google: {
+          expectUserResponse: true,
+          is_ssml: true,
+          richResponse: {
+            items: [{
+              simpleResponse: {
+                textToSpeech: `<speech>${sak.cleanText(input.speech)}</speech>`,
+                displayText: sak.cleanText(sak.clearSpeech(input.trimText ? input.trimText : input.text))
+              }
+            }]
+          }
+        },
+        slack: {
+          text: sak.formatText(input.text, 'slack')
         }
-      },
-      slack: {
-        text: sak.formatText(input.text, 'slack')
+      };
+      if (input.card) {
+        output = tools.buildCard(output, input.card);
       }
-    };
-    if (input.card) {
-      output = tools.buildCard(output, input.card);
-    }
 
-    if (suggestions.length && capabilities.includes('screen')) {
-      output.payload.google.richResponse.suggestions = [];
-      for (var i = 0; i < suggestions.length; i++) {
-        output.payload.google.richResponse.suggestions.push({
-          title: suggestions[i]
-        });
+      if (suggestions.length && capabilities.includes('screen')) {
+        output.payload.google.richResponse.suggestions = [];
+        for (var i = 0; i < suggestions.length; i++) {
+          output.payload.google.richResponse.suggestions.push({
+            title: suggestions[i]
+          });
+        }
       }
+
+      console.log("\x1b[32m", input.text, "\x1b[0m");
     }
-
-    console.log("\x1b[32m", input.text);
-    console.log("\x1b[0m");
-
-    // set contexts
-    output.outputContexts = [{
-      "name": `${request.body.session}/contexts/spell`,
-      "lifespanCount": 5,
-      "parameters": params
-    }];
-
     return output;
   },
   buildButtons: (input, platform = 'google') => {
@@ -542,7 +548,9 @@ exports = module.exports = {
           output.res = data.school;
           break;
         case ('range'):
-          output.res = sak.unit({input:data.range});
+          output.res = sak.unit({
+            input: data.range
+          });
           if (data.shape) {
             output.shapePhrase = [
               ' as a ' + data.shape,

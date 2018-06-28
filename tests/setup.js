@@ -1,9 +1,9 @@
-global.chai = require('chai'),
-global.should = chai.should,
-global.expect = chai.expect,
-global.assert = chai.assert,
-global.chaiAsPromised = require('chai-as-promised'),
-global.server = require('../server/index'),
+global.chai = require('chai');
+global.should = chai.should;
+global.expect = chai.expect;
+global.assert = chai.assert;
+global.chaiAsPromised = require('chai-as-promised');
+global.server = require('../server/index');
 global.fakeRes = {
         json: (input) => {
             return input;

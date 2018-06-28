@@ -49,46 +49,38 @@ exports = module.exports = {
   },
   params: {
     fromContext: (input, params = global.params) => {
-      if (input && input.outputContexts && input.outputContexts.length) {
-        for (var i = input.outputContexts.length - 1; i >= 0; i--) {
-          for (let par in input.outputContexts[i].parameters) {
-            if (par.substr(par.length - 9) !== '.original' &&
-              input.outputContexts[i].parameters[par]) {
-              par = par.toLowerCase();
-              params[par] = input.outputContexts[i].parameters[par];
-            }
-          }
-        }
-      }
+      return input ? input.filter(x => { return x.name.substr(x.name.length - 5) === 'spell'; })[0] : false;
     },
     fromQuery: input => {
+      let output = [];
         for (let par in input) {
-          if (input[par].length && par.substr(par.length - 9) !== '.original') {
-            params[par.toLowerCase()] = input[par];
+          if (input[par].length) {
+            output[par] = input[par];
           }
         }
+        return output;
     },
     smartClear: (input = global.params) => {
       const output = {};
       switch (actionArr[0]) {
         case ('condition'):
-          output.condition = params.condition;
+          output.condition = input.condition;
           // should we keep level?
-          if (params.condition) {
-            output.level = params.level;
+          if (input.condition) {
+            output.level = input.level;
           }
           break;
         case ('spell'):
-          if (params.spell) output.spell = params.spell;
-          if (params.level) output.level = params.level;
-          if (params.class) output.class = params.class;
-          if (params.school) output.school = params.school;
+          if (input.spell) output.spell = input.spell;
+          if (input.level) output.level = input.level;
+          if (input.class) output.class = input.class;
+          if (input.school) output.school = input.school;
           break;
       }
       switch (true) {
         case (actionArr[1] === 'check' && actionArr[2] === 'class'):
-          if (params.spell) output.spell = params.spell;
-          if (params.class) output.class = params.class;
+          if (input.spell) output.spell = input.spell;
+          if (input.class) output.class = input.class;
           break;
       }
       return output;

@@ -137,7 +137,7 @@ describe('tools', () => {
     describe('setResponse', () => {
         let str = 'this is a sample response';
         it('speech only', () => {
-            let output = tools.setResponse(str);
+            let output = tools.setResponse({input: str});
 
             expect(output.fulfillmentText).to.equal(str);
             expect(output.payload.google.richResponse.items[0].simpleResponse.displayText).to.equal(str);
@@ -333,7 +333,7 @@ describe('tools', () => {
     /*
     describe('setResponse', () => {
         it('with array for screen', () => {
-        	
+
         });
     });
     */

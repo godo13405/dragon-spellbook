@@ -35,7 +35,12 @@ exports = module.exports = {
     }
     return output;
   },
-  combinePhrase: ({input = [], concat = 'and', makePlural = false, lowerCase = false} = {}) => {
+  combinePhrase: ({
+    input = [],
+    concat = 'and',
+    makePlural = false,
+    lowerCase = false
+  } = {}) => {
     let output = '',
       len = input.length,
       last = len - 2;
@@ -87,42 +92,45 @@ exports = module.exports = {
     param = 'name',
     params = global.params
   } = {}) => {
-    let query = [],
-      thisParam = Object.assign({}, params);
+    let query = [];
     if (param) {
+      // Each parameter, such as Class, Name, Level
+      for (let par in params) {
+        if (Array.isArray(params[par])) {
+          // Each parameter value, such as Wizard, Fireball, 4
+          for (let val in params[par]) {
+            let obj = {};
+            // regex to make it case insensitive
+            obj[par] = new RegExp(`^${params[par][val]}$`, "i");
+            query.push(obj);
+          }
+        }
+      }
       let temp;
-      if (thisParam.spell && thisParam.spell.length) {
+      if (params.spell && params.spell.length) {
         temp = 'spell';
-      } else if (thisParam.weapon && thisParam.weapon.length) {
+      } else if (params.weapon && params.weapon.length) {
         temp = 'weapon';
       }
       if (temp) {
-        thisParam[param] = thisParam[temp];
-        delete thisParam[temp];
+        let tempy = {};
+        tempy[param] = params[temp][0];
+        query.push(tempy);
+        query = query.filter(x => !(temp in x));
       }
     } else if (param === 'condition') {
-      thisParam['_id'] = thisParam['condition'];
-      delete thisParam.condition;
+      query['_id'] = params['condition'];
+      delete query.condition;
     }
-    if (!Array.isArray(param)) {
-      param = [
-        param
-      ];
+    if (query.length) {
+      // then join the params in a mongo $and statement
+      query = {
+        $and: query
+      };
+    } else {
+      // if the query is empty MongoDB will crash
+      query = false;
     }
-    // Each parameter, such as Class, Name, Level
-    for (let par in thisParam) {
-      // Each parameter value, such as Wizard, Fireball, 4
-      for (let val in thisParam[par]) {
-        let obj = {};
-        // regex to make it case insensitive
-        obj[par] = new RegExp(`^${thisParam[par][val]}$`, "i");
-        query.push(obj);
-      }
-    }
-    // then join the thisParam in a mongo $and statement
-    query = {
-      $and: query
-    };
     return query;
   },
   preposition: input => {
@@ -146,14 +154,18 @@ exports = module.exports = {
       array.splice(index, 1);
     }
   },
-  unit: ({input = null, system = 'imperial', convert = true}) => {
+  unit: ({
+    input = null,
+    system = 'imperial',
+    convert = true
+  }) => {
     let unit;
     if (system === 'imperial') {
       unit = 'foot';
-    if (convert) {
+      if (convert) {
         if (input > 5000) {
           // convert feet to miles
-          input = (Math.round((input / 5280)*100)/100);
+          input = (Math.round((input / 5280) * 100) / 100);
           unit = 'mile'
         }
       }
