@@ -72,7 +72,7 @@ exports = module.exports = {
     let query = sak.queryBuilder({
       params: params
     });
-    console.log(`${collection} query: `, query);
+    if (process.env.DEBUG) console.log(`${collection} query: `, query);
     let serve = new Promise((resolve, reject) => {
       if (query) {
         return MongoClient.connect(url, (err, client) => {
@@ -309,7 +309,7 @@ exports = module.exports = {
         }
       }
 
-      console.log("\x1b[32m", input.text, "\x1b[0m");
+      if (!process.env.SILENT) console.log("\x1b[32m", input.text, "\x1b[0m");
     }
     return output;
   },

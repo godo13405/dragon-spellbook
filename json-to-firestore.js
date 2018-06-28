@@ -20,7 +20,7 @@ data && Object.keys(data).forEach(key => {
                 .doc(docTitle)
                 .set(nestedContent[docTitle])
                 .then((res) => {
-                    console.log(`${docTitle} added`);
+                    if (process.env.DEBUG) console.log(`${docTitle} added`);
                     return true;
                 })
                 .catch((error) => {

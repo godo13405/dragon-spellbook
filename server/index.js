@@ -1,5 +1,7 @@
 'use strict';
 
+if (process.env.SILENT) process.env.DEBUG = false;
+
 global.express = require('express');
 let compression = require('compression');
 global.bodyParser = require('body-parser');
@@ -15,8 +17,7 @@ global.service = require('./service');
 
 const webhook = (request, response) => {
   if (request.body.queryResult) {
-    console.log("\x1b[36m", request.body.queryResult.queryText, "\x1b[2m", request.body.queryResult.action);
-    console.log("\x1b[0m");
+    if (!process.env.SILENT) console.log("\x1b[36m", request.body.queryResult.queryText, "\x1b[2m", request.body.queryResult.action, "\x1b[0m");
   }
   global.request = request;
   global.response = response;
@@ -28,12 +29,13 @@ const webhook = (request, response) => {
   capabilities = service.setCapabilities(capabilities);
 
   // get context parameters
-  let par = service.params.fromContext(request.body.queryResult.outputContexts);
+  let par = service.params.fromContext(request.body.queryResult.outputContexts).parameters;
 
   // get the spell's name from parameters or context
   par = par ? Object.assign(par, service.params.fromQuery(request.body.queryResult.parameters)) : service.params.fromQuery(request.body.queryResult.parameters);
 
-  global.params = par.parameters;
+  global.params = par;
+  console.log(params);
 
   //direct intents to proper functions
   return service.router(request.body.queryResult.action, actionArr[1]);
@@ -54,6 +56,8 @@ ex.use(express.static('./www'));
 // });
 ex.post('/', webhook);
 
-ex.listen((process.env.PORT || 3000), () => console.log('Spell Book is open'));
+ex.listen((process.env.PORT || 3000), () => {
+  if (!process.env.SILENT) console.log('Spell Book is open');
+});
 
 exports = module.exports = webhook;

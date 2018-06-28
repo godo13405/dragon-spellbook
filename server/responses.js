@@ -58,7 +58,7 @@ exports = module.exports = {
 
         return response.json(tools.setResponse({input: talk, sugg}));
       }).catch(err => {
-        console.log(err);
+        if (process.env.DEBUG) console.log(err);
       });
   },
   query: {
@@ -86,7 +86,7 @@ exports = module.exports = {
           let output = tools.setResponse({input: tools.listComplex(list, 'summary'), suggestions: tools.getSuggestions(sugg), pause: 2});
           response.json(output);
         }).catch(err => {
-          console.log(err);
+          if (process.env.DEBUG) console.log(err);
         });
       }
     },
@@ -114,7 +114,7 @@ exports = module.exports = {
           let output = tools.setResponse({input: tools.listComplex(list), suggestions: tools.getSuggestions(sugg), pause:2});
           response.json(output);
         }).catch(err => {
-          console.log(err);
+          if (process.env.DEBUG) console.log(err);
         });
       }
     }
@@ -182,7 +182,7 @@ exports = module.exports = {
             return response.json(tools.setResponse({input: sak.i18n(i18n[target].notFound)}));
           }
         }).catch(err => {
-          console.log(err);
+          if (process.env.DEBUG) console.log(err);
         });
     }
   },
@@ -265,7 +265,7 @@ exports = module.exports = {
         }
         return response.json(talk);
       }).catch(err => {
-        console.log(err);
+        if (process.env.DEBUG) console.log(err);
       });
   }
 };
