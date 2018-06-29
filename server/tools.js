@@ -512,7 +512,7 @@ exports = module.exports = {
           });
           break;
         case ('heal'):
-          output.res = `${data.heal.amount ? data.heal.amount : ''}${data.heal.dice ? data.heal.dice : ''}${data.heal.extra ? ' <emphasis level="low">and ' + data.heal.extra + '</emphasis>' : ''}`;
+          output.res = `${data.heal.amount ? data.heal.amount : ''}${data.heal.dice ? data.heal.dice : ''}${data.heal.extra ? ' <emphasis level="low">and ' + data.heal.extra + '</emphasis>' : ''}${data.heal.temporary ? 'temporary' : ''}`;
           break;
         case ('casting_time'):
           arr = [];
