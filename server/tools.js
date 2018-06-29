@@ -264,6 +264,10 @@ exports = module.exports = {
       if (!input.speech && input.text)
         input.speech = input.text;
 
+      // get rid of leading and trailing whitespaces
+      input.text = input.text.trim();
+      input.speech = input.speech.trim();
+
       // check if the text is too big to output
       // if there's also a card, the text should be trimmed
       if (input.card && input.text && input.text.length > 200) {
@@ -491,17 +495,24 @@ exports = module.exports = {
       switch (intnt) {
         case ('init'):
           output.res = data.type;
-          if (data.damage) output.res = `${output.res} that does ${tools.format.spellData({data:data, intnt:'damage'}).res}`;
+          let int = 'damage';
+          if (data.heal) {
+            int = 'heal';
+          }
+          if (data.damage) output.res = `${output.res} that does ${tools.format.spellData({data:data, intnt:int}).res}`;
           break;
         case ('damage'):
           arr = []
           for (var da = data.damage.length - 1; da >= 0; da--) {
-            let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''} ${data.damage[da].type ? data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
+            let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''}${data.damage[da].type ? data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
             arr.push(o);
           }
           output.res = sak.combinePhrase({
             input: arr
           });
+          break;
+        case ('heal'):
+          output.res = `${data.heal.amount ? data.heal.amount : ''}${data.heal.dice ? data.heal.dice : ''}${data.heal.extra ? ' <emphasis level="low">and ' + data.heal.extra + '</emphasis>' : ''}`;
           break;
         case ('casting_time'):
           arr = [];

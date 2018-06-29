@@ -71,6 +71,10 @@ exports = module.exports = {
         ],
         "doesntHaveProperty": "Sorry, I don't know which school <targetName> belongs to"
       },
+      "heal": {
+        "hasProperty": "<targetName> heals for <res>",
+        "doesntHaveProperty": "<targetName> doesn't heal"
+      },
       "concentration": {
         "hasProperty": [
           "Yes, <targetName> needs concentration",

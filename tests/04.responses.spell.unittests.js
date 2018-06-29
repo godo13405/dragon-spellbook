@@ -195,6 +195,73 @@ describe('responses', () => {
       tools.getCollection = restore;
     });
   });
+  describe('what', () => {
+    describe('heal', () => {
+      global.actionArr = ['spell', 'check', 'class'];
+      global.collection = 'spell';
+      describe('simple', () => {
+        tools.getCollection = () => {
+          return new Promise((res, rej) => {
+            res({
+              name: 'Spellname',
+              heal: {
+                amount: 1,
+                dice: 'd4',
+                extra: 'your spellcasting ability modifier '
+              }
+            });
+          })
+        };
+        let output = responses.whatProperty({
+            intention: 'heal',
+            target: 'spell',
+            params: {
+              spell: ['Spellname']
+            },
+            responses: ['text', 'speech', 'card']
+          }),
+          match = 'Spellname heals for 1d4 and your spellcasting ability modifier';
+        it('agnostic text', () => {
+          return expect(output).to.eventually.have.property('fulfillmentText', match);
+        });
+        it('slack text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+        });
+        it('google text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        });
+        tools.getCollection = restore;
+      });
+      describe('doesnt heal', () => {
+        tools.getCollection = () => {
+          return new Promise((res, rej) => {
+            res({
+              name: 'Spellname'
+            });
+          })
+        };
+        let output = responses.whatProperty({
+            intention: 'heal',
+            target: 'spell',
+            params: {
+              spell: ['Spellname'],
+            },
+            responses: ['text', 'speech', 'card']
+          }),
+          match = 'Spellname doesn\'t heal';
+        it('agnostic text', () => {
+          return expect(output).to.eventually.have.property('fulfillmentText', match);
+        });
+        it('slack text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.slack.text', match);
+        });
+        it('google text', () => {
+          return expect(output).to.eventually.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        });
+        tools.getCollection = restore;
+      });
+    });
+  });
   describe('check', () => {
     describe('class', () => {
       global.actionArr = ['spell', 'check', 'class'];

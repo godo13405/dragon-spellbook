@@ -88,6 +88,9 @@ exports = module.exports = {
     }
     return input;
   },
+caseInsensitive: input => {
+  return new RegExp(`^${input}$`, "i");
+},
   queryBuilder: ({
     param = 'name',
     params = global.params
@@ -101,7 +104,7 @@ exports = module.exports = {
           for (let val in params[par]) {
             let obj = {};
             // regex to make it case insensitive
-            obj[par] = new RegExp(`^${params[par][val]}$`, "i");
+            obj[par] = sak.caseInsensitive(params[par][val]);
             query.push(obj);
           }
         }
