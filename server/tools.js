@@ -569,10 +569,14 @@ exports = module.exports = {
           if (data.components) {
             output.res = [];
             output.component = (data.components.length > 1) ? sak.plural('component') : 'component';
-            data.components.forEach(c => {
-              output.res.push((data.components.length > 1) ? c : sak.preposition(c));
-            });
-            output.res = sak.combinePhrase({input:output.res});
+            if (Array.isArray(data.components)) {
+              data.components.forEach(c => {
+                output.res.push((data.components.length > 1) ? c : sak.preposition(c));
+              });
+              output.res = sak.combinePhrase({input:output.res});
+            } else {
+              output.res = data.components;
+            }
           }
           break;
       }

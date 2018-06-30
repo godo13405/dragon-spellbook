@@ -113,9 +113,10 @@ exports = module.exports = {
       } else if (params.weapon && params.weapon.length) {
         temp = 'weapon';
       }
+      if (Array.isArray(params[temp])) params[temp] = params[temp][0];
       if (temp) {
         let tempy = {};
-        tempy[param] = params[temp][0];
+        tempy[param] = sak.caseInsensitive(params[temp]);
         query.push(tempy);
         query = query.filter(x => !(temp in x));
       }
