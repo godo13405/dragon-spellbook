@@ -26,7 +26,7 @@ const webhook = (request, response) => {
   global.intention = actionArr[actionArr.length - 1];
 
   // Get surface capabilities, such as screen
-  capabilities = service.setCapabilities(capabilities);
+  capabilities = service.setCapabilities(request.body.originalDetectIntentRequest);
 
   // get context parameters
   let par = service.params.fromContext(request.body.queryResult.outputContexts);

@@ -138,8 +138,9 @@ exports = module.exports = {
           param: target
         })
         .then(data => {
+          let talk;
           if (data) {
-            let talk = {
+            talk = {
               speech: sak.i18n(i18n[target].what[intention].doesntHaveProperty ?
                 i18n[target].what[intention].doesntHaveProperty :
                 i18n[target].notFound, {
@@ -175,12 +176,12 @@ exports = module.exports = {
               sugg[i] = sak.i18n(sugg[i]);
             }
             talk = tools.setResponse({input: talk, suggestions: tools.getSuggestions(sugg, data, 'Would you like to know ')});
-            return response.json(talk);
           } else if (!params.length){
-            return response.json(tools.setResponse({input: sak.i18n(i18n[target].contextNotFound)}));
+            talk = tools.setResponse({input: sak.i18n(i18n[target].contextNotFound)});
           } else {
-            return response.json(tools.setResponse({input: sak.i18n(i18n[target].notFound)}));
+            talk = tools.setResponse({input: sak.i18n(i18n[target].notFound)});
           }
+          return response.json(talk);
         }).catch(err => {
           if (process.env.DEBUG) console.log(err);
         });
@@ -225,11 +226,11 @@ exports = module.exports = {
                   active: 'weild'
                 }
               }
-            },
-            args = {
+            };
+            let args = {
               targetName: sak.titleCase(params[target][0]),
-              usePassive: conf[collection].use.passive,
-              useActive: conf[collection].use.active
+              usePassive: conf[target].use.passive,
+              useActive: conf[target].use.active
             },
             targetString = 'doesntHaveProperty';
           if (checksMatch.length) {

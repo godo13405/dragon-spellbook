@@ -143,7 +143,7 @@ exports = module.exports = {
     }
 
     if (spell) {
-      if (capabilities.screen) {
+      if (capabilities.includes('screen')) {
         if (input.text.includes('description') && spell.description) {
           output.push({
             "title": `what is ${spell.name}?`
@@ -174,7 +174,7 @@ exports = module.exports = {
             "title": `how does it level up`
           });
         }
-      } else if (capabilities.audio) {
+      } else if (capabilities.includes('audio')) {
         if (input.speech.includes('description') && spell.description) {
           output.push({
             "title": `what it is`
@@ -207,13 +207,13 @@ exports = module.exports = {
         }
       }
     } else {
-      if (capabilities.screen) {
+      if (capabilities.includes('screen')) {
         input.text.forEach(sugg => {
           output.push({
             "title": sugg
           });
         });
-      } else if (capabilities.audio) {
+      } else if (capabilities.includes('audio')) {
         input.speech.forEach(sugg => {
           output.push({
             "title": sugg
@@ -227,17 +227,11 @@ exports = module.exports = {
       output = sak.shuffleArray(output, 3);
 
       // structure voice suggestions
-      if (!capabilities.screen && capabilities.audio) {
-        let sugg = '';
-        for (var i = output.length - 1; i >= 0; i--) {
-          sugg = sugg + output[i].title;
-          if (i === 1) {
-            sugg = sugg + " or ";
-          } else if (i > 1) {
-            sugg = sugg + ', ';
-          }
-        }
-        output = `${suggestionIntro} ${sugg}`;
+      if (!capabilities.includes('screen') && capabilities.includes('audio')) {
+        output = sak.combinePhrase({
+          input: output,
+          concat: 'or'
+        });
       }
     }
 
@@ -512,7 +506,6 @@ exports = module.exports = {
           });
           break;
         case ('heal'):
-        console.log(data.heal.amount);
           output.res = `${data.heal.amount ? data.heal.amount : ''}${data.heal.dice ? data.heal.dice : ''}${data.heal.extra ? ' <emphasis level="low">and ' + data.heal.extra + '</emphasis>' : ''}${data.heal.temporary ? 'temporary' : ''}`;
           break;
         case ('casting_time'):

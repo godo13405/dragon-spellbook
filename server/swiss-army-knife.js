@@ -48,7 +48,7 @@ exports = module.exports = {
       if (makePlural) input[i] = sak.plural(input[i]);
       if (lowerCase) input[i] = input[i].toLowerCase();
       output = output + input[i];
-      if (!capabilities.screen && capabilities.audio) {
+      if (!capabilities.includes('screen') && capabilities.includes('audio')) {
         output = output + '<break time=\'500ms\' />';
       }
       if (i === last) {
@@ -88,9 +88,9 @@ exports = module.exports = {
     }
     return input;
   },
-caseInsensitive: input => {
-  return new RegExp(`^${input}$`, "i");
-},
+  caseInsensitive: input => {
+    return new RegExp(`^${input}$`, "i");
+  },
   queryBuilder: ({
     param = 'name',
     params = global.params

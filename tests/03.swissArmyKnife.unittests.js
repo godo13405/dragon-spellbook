@@ -42,9 +42,7 @@ describe('Swiss Army Knife', () => {
     });
     describe('combinePhrase', () => {
         it('phrase constructed for screen', () => {
-            capabilities = {
-                'screen': true
-            };
+            capabilities = ['screen'];
             let text = sak.combinePhrase({input:[
                 'this',
                 'this',
@@ -54,9 +52,7 @@ describe('Swiss Army Knife', () => {
             expect(text).to.equal('this, this and that');
         });
         it('phrase constructed for speech', () => {
-            capabilities = {
-                'audio': true
-            };
+            capabilities = ['audio'];
             let text = sak.combinePhrase({input:[
                 'this',
                 'this',

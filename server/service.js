@@ -1,25 +1,26 @@
 'use strict';
 
 exports = module.exports = {
-  setCapabilities: (capabilities) => {
+  setCapabilities: input => {
     // Get surface capabilities, such as screen
-    if (request.body.originalDetectIntentRequest) {
-      switch (request.body.originalDetectIntentRequest.source) {
+    let output = input;
+    if (input) {
+      switch (input.source) {
         case ('google'):
-          capabilities = [];
-          request.body.originalDetectIntentRequest.payload.surface.capabilities.forEach(cap => {
+          output = [];
+          input.payload.surface.capabilities.forEach(cap => {
             if (cap.name) {
               cap = cap.name.split('.');
               cap = cap[cap.length - 1].replace(/_OUTPUT/g, '').toLowerCase();
-              capabilities.push(cap);
+              output.push(cap);
             }
           });
           break;
         case ('alexa'):
-          capabilities = ['audio'];
+          output = ['audio'];
       }
     }
-    return capabilities;
+    return output;
   },
   router: (input, midIntention) => {
     let arr = ['text', 'speech'];

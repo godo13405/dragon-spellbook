@@ -83,7 +83,7 @@ describe('tools', () => {
         });
     });
     describe('getSuggestions', () => {
-        let sugg = [
+        const sugg = [
                 'description',
                 'damage',
                 'duration',
@@ -103,9 +103,7 @@ describe('tools', () => {
                 }
             };
         it('with array for screen', () => {
-            capabilities = {
-                screen: true
-            };
+            capabilities = ['screen'];
 
             let expected = [{
                     title: 'what is Fireball?'
@@ -125,12 +123,9 @@ describe('tools', () => {
             expect(expected).to.deep.contains.members(output);
         });
         it('with array for speech', () => {
-            capabilities = {
-                audio: true
-            };
+            capabilities = ['audio'];
 
-            let output = tools.getSuggestions(sugg, spell)
-
+            let output = tools.getSuggestions(sugg, spell);
             expect(output).to.be.a('string');
         });
     });

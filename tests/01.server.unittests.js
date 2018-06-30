@@ -20,16 +20,16 @@ describe('server', () => {
             capabilities = cappy;
         });
         it('on Google should include screen', () => {
-            req.body.originalDetectIntentRequest.source = 'google';
-            req.body.originalDetectIntentRequest.payload = {
-                surface: {
-                    capabilities: [{
-                        "name": "actions.capability.SCREEN_OUTPUT"
-                    }]
-                }
-            };
-
-            server(req, fakeRes);
+            let capabilities = service.setCapabilities({
+              source: 'google',
+              payload: {
+                  surface: {
+                      capabilities: [{
+                          "name": "actions.capability.SCREEN_OUTPUT"
+                      }]
+                  }
+              }
+            });
 
             expect(capabilities).to.include('screen');
             capabilities = cappy;
