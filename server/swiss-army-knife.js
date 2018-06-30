@@ -66,9 +66,6 @@ exports = module.exports = {
       talk = 'feet';
     } else {
       let add = 's';
-      if (input.slice(-1) === 't') {
-        add = 'es';
-      }
       talk = input + add;
     }
     return talk;

@@ -62,3 +62,6 @@ global.response = {
         return input;
     }
 };
+global.sak.shuffleArray = arr => {
+  return [arr[0]];
+};

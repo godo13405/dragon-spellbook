@@ -1,9 +1,5 @@
 require('./setup.js');
 
-global.sak.shuffleArray = arr => {
-  return [arr[0]];
-};
-
 describe('responses', () => {
   global.restore = tools.getCollection;
   describe('spellDuration', () => {
@@ -112,16 +108,27 @@ describe('responses', () => {
       };
       const match = 'Spellname is a spellType';
       return responses.whatProperty({
-          intention: 'init',
-          responses: ['text', 'speech', 'card']
-        }).then(data => {
+        intention: 'init',
+        responses: ['text', 'speech', 'card']
+      }).then(data => {
         expect(data).to.have.property('fulfillmentText', match);
         expect(data).to.have.deep.nested.property('payload.slack.text', match);
         expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
 
-        expect(data).to.have.deep.nested.property('fulfillmentMessages[0].card', {title: 'Spellname',subtitle: 'lorem ipsum'});
-        expect(data).to.have.deep.nested.property('payload.slack.attachments[0]', {title: 'Spellname',author_name: 'spellType',text: 'lorem ipsum'});
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[1].basicCard', {title: 'Spellname',subtitle: 'spellType',formattedText: 'lorem ipsum'});
+        expect(data).to.have.deep.nested.property('fulfillmentMessages[0].card', {
+          title: 'Spellname',
+          subtitle: 'lorem ipsum'
+        });
+        expect(data).to.have.deep.nested.property('payload.slack.attachments[0]', {
+          title: 'Spellname',
+          author_name: 'spellType',
+          text: 'lorem ipsum'
+        });
+        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[1].basicCard', {
+          title: 'Spellname',
+          subtitle: 'spellType',
+          formattedText: 'lorem ipsum'
+        });
         tools.getCollection = restore;
       });
     });
@@ -185,29 +192,86 @@ describe('what', () => {
         tools.getCollection = restore;
       });
     });
+    it('doesnt heal', () => {
+      tools.getCollection = () => {
+        return new Promise((res, rej) => {
+          res({
+            name: 'Spellname'
+          });
+        })
+      };
+      let output = responses.whatProperty({
+          intention: 'heal',
+          target: 'spell',
+          params: {
+            spell: ['Spellname'],
+          },
+          responses: ['text', 'speech', 'card']
+        }),
+        match = 'Spellname doesn\'t heal';
+      return output.then(data => {
+        expect(data).to.have.property('fulfillmentText', match);
+        expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        tools.getCollection = restore;
+      });
+    });
   });
-  it('doesnt heal', () => {
-    tools.getCollection = () => {
-      return new Promise((res, rej) => {
-        res({
-          name: 'Spellname'
-        });
-      })
-    };
-    let output = responses.whatProperty({
-        intention: 'heal',
-        target: 'spell',
-        params: {
-          spell: ['Spellname'],
-        },
-        responses: ['text', 'speech', 'card']
-      }),
-      match = 'Spellname doesn\'t heal';
-    return output.then(data => {
-      expect(data).to.have.property('fulfillmentText', match);
-      expect(data).to.have.deep.nested.property('payload.slack.text', match);
-      expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
-      tools.getCollection = restore;
+  describe('components', () => {
+    global.actionArr = ['spell', 'check', 'range'];
+    global.collection = 'spell';
+    it('single', () => {
+      tools.getCollection = () => {
+        return new Promise((res, rej) => {
+          res({
+            name: 'Spellname',
+            components: ['verbal']
+          });
+        })
+      };
+      i18n.spell.what.components.hasProperty = i18n.spell.what.components.hasProperty[0];
+      let output = responses.whatProperty({
+          intention: 'components',
+          target: 'spell',
+          checks: 'components',
+          params: {
+            spell: ['Spellname']
+          },
+          responses: ['text', 'speech', 'card']
+        }),
+        match = 'Spellname is cast using a verbal component';
+      return output.then(data => {
+        expect(data).to.have.property('fulfillmentText', match);
+        expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        tools.getCollection = restore;
+      });
+    });
+    it('multiple', () => {
+      tools.getCollection = () => {
+        return new Promise((res, rej) => {
+          res({
+            name: 'Spellname',
+            components: ['verbal','material','somatic']
+          });
+        })
+      };
+      let output = responses.whatProperty({
+          intention: 'components',
+          target: 'spell',
+          checks: 'components',
+          params: {
+            spell: ['Spellname']
+          },
+          responses: ['text', 'speech', 'card']
+        }),
+        match = 'Spellname is cast using verbal, material and somatic components';
+      return output.then(data => {
+        expect(data).to.have.property('fulfillmentText', match);
+        expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        tools.getCollection = restore;
+      });
     });
   });
 });

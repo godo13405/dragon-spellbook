@@ -564,6 +564,17 @@ exports = module.exports = {
             output.shapePhrase = sak.shuffleArray(output.shapePhrase, 1);
           }
           break;
+        case ('components'):
+          output.res = i18n.spell.what.components.doesntHaveProperty;
+          if (data.components) {
+            output.res = [];
+            output.component = (data.components.length > 1) ? sak.plural('component') : 'component';
+            data.components.forEach(c => {
+              output.res.push((data.components.length > 1) ? c : sak.preposition(c));
+            });
+            output.res = sak.combinePhrase({input:output.res});
+          }
+          break;
       }
       return output;
     },

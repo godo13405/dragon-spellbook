@@ -1,7 +1,7 @@
 require('./setup.js');
 
 describe('Swiss Army Knife', () => {
-    /*
+  /*
     describe('shuffleArray', () => {
         it('array is shuffled', () => {
             let arr = [{
@@ -17,8 +17,7 @@ describe('Swiss Army Knife', () => {
             expect(shuffle).to.have.members(arr);
             expect(shuffle).not.to.equal(arr);
         });
-    });
-    */
+    })*/
     describe('cleanText', () => {
         it('_ and * removed', () => {
             let text = sak.cleanText(' sample **text** _is this ');

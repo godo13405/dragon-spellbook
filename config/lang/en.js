@@ -31,6 +31,14 @@ exports = module.exports = {
       "init": {
         "hasProperty": "<targetName> is a <res>"
       },
+      "components": {
+        "hasProperty": [
+          "<targetName> is cast using <res> <component>",
+          "<targetName> needs <res> <component>",
+          "You need to cast <targetName> with <res> <component>"
+        ],
+        "doesntHaveProperty": "<targetName> doesn't have any components"
+      },
       "damage": {
         "hasProperty": "<targetName> does <res>",
         "doesntHaveProperty": "<targetName> doesn't cause any damage"
