@@ -3,9 +3,8 @@
 exports = module.exports = {
   setCapabilities: input => {
     let output = input;
-    if (input.source !== 'google' || input.payload.length) {
-    // Get surface capabilities, such as screen
-    if (input) {
+    if (input && input.source) {
+      // Get surface capabilities, such as screen
       switch (input.source) {
         case ('google'):
           output = [];
@@ -20,10 +19,9 @@ exports = module.exports = {
         case ('alexa'):
           output = ['audio'];
       }
+    } else {
+      output = global.capabilities;
     }
-  } else {
-    output = global.capabilities;
-  }
     return output;
   },
   router: (input, midIntention) => {
@@ -31,16 +29,31 @@ exports = module.exports = {
     switch (midIntention) {
       case ('what'):
         if (intention === 'description') arr = ['speech', 'card'];
-        return responses.whatProperty({intention:global.intention, target: global.collection, responses: arr});
+        return responses.whatProperty({
+          intention: global.intention,
+          target: global.collection,
+          responses: arr
+        });
       case ('check'):
-        return responses.checkProperty({intention:global.intention, target: global.collection, responses: arr});
+        return responses.checkProperty({
+          intention: global.intention,
+          target: global.collection,
+          responses: arr
+        });
     }
 
     switch (input) {
       case ('spell.init' || 'spell.folllowupInit'):
-        return responses.whatProperty({intention:global.intention, responses: ['text', 'speech', 'card']});
+        return responses.whatProperty({
+          intention: global.intention,
+          responses: ['text', 'speech', 'card']
+        });
       case ('weapon.init' || 'weapon.folllowupInit'):
-        return responses.whatProperty({intention:global.intention, target:'weapon', responses: ['text', 'speech', 'card']});
+        return responses.whatProperty({
+          intention: global.intention,
+          target: 'weapon',
+          responses: ['text', 'speech', 'card']
+        });
       case 'query.complex':
         return responses.query.spellComplex();
       case 'condition':
@@ -54,16 +67,18 @@ exports = module.exports = {
   },
   params: {
     fromContext: (input, params = global.params) => {
-      return input ? input.filter(x => { return x.name.substr(x.name.length - 5) === 'spell'; })[0] : false;
+      return input ? input.filter(x => {
+        return x.name.substr(x.name.length - 5) === 'spell';
+      })[0] : false;
     },
     fromQuery: input => {
       let output = [];
-        for (let par in input) {
-          if (input[par].length) {
-            output[par] = input[par];
-          }
+      for (let par in input) {
+        if (input[par].length) {
+          output[par] = input[par];
         }
-        return output;
+      }
+      return output;
     },
     smartClear: (input = global.params) => {
       const output = {};

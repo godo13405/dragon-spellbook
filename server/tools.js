@@ -269,7 +269,7 @@ exports = module.exports = {
 
       // if it doesn't have a screen, read out the suggestions
       if (suggestions.length && !capabilities.includes('screen') && capabilities.includes('audio')) {
-        input.speech = `${input.speech}.<break time='${pause}s'/>${sak.combinePhrase(suggestions)}`;
+        input.speech = `${input.speech}.<break time='${pause}s'/>${sak.combinePhrase({input:suggestions})}`;
       }
 
       output = {
