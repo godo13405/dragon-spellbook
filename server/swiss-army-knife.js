@@ -38,6 +38,7 @@ exports = module.exports = {
   combinePhrase: ({
     input = [],
     concat = 'and',
+    capabilities = global.capabilities,
     makePlural = false,
     lowerCase = false
   } = {}) => {

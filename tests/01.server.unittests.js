@@ -14,8 +14,9 @@ describe('server', () => {
                 }
             };
         it('on Alexa should not include screen', () => {
-            req.body.originalDetectIntentRequest.source = 'alexa';
-            server(req, fakeRes);
+            let capabilities = service.setCapabilities({
+              source: 'alexa'
+            });
             expect(capabilities).not.to.include('screen');
             capabilities = cappy;
         });

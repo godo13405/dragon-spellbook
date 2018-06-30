@@ -2,8 +2,9 @@
 
 exports = module.exports = {
   setCapabilities: input => {
-    // Get surface capabilities, such as screen
     let output = input;
+    if (input.source !== 'google' || input.payload.length) {
+    // Get surface capabilities, such as screen
     if (input) {
       switch (input.source) {
         case ('google'):
@@ -20,6 +21,9 @@ exports = module.exports = {
           output = ['audio'];
       }
     }
+  } else {
+    output = global.capabilities;
+  }
     return output;
   },
   router: (input, midIntention) => {

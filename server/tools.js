@@ -20,7 +20,6 @@ const MongoClient = require('mongodb').MongoClient,
 
 // Connection URL
 const url = "mongodb+srv://Godo:Lollipop12@cluster0-g9w91.mongodb.net/test?retryWrites=true";
-// mongodb-dragon-book.193b.starter-ca-central-1.openshiftapps.com
 
 // Database Name
 const dbName = 'dragon';
