@@ -274,6 +274,63 @@ describe('what', () => {
       });
     });
   });
+  describe('materials', () => {
+    global.actionArr = ['spell', 'check', 'range'];
+    global.collection = 'spell';
+    it('single', () => {
+      tools.getCollection = () => {
+        return new Promise((res, rej) => {
+          res({
+            name: 'Spellname',
+            materials: ['spell materials']
+          });
+        })
+      };
+      i18n.spell.what.materials.hasProperty = i18n.spell.what.materials.hasProperty[0];
+      let output = responses.whatProperty({
+          intention: 'materials',
+          target: 'spell',
+          checks: 'materials',
+          params: {
+            spell: ['Spellname']
+          },
+          responses: ['text', 'speech', 'card']
+        }),
+        match = 'Spellname is cast using spell materials';
+      return output.then(data => {
+        expect(data).to.have.property('fulfillmentText', match);
+        expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        tools.getCollection = restore;
+      });
+    });
+    it('multiple', () => {
+      tools.getCollection = () => {
+        return new Promise((res, rej) => {
+          res({
+            name: 'Spellname',
+            components: ['verbal','material','somatic']
+          });
+        })
+      };
+      let output = responses.whatProperty({
+          intention: 'components',
+          target: 'spell',
+          checks: 'components',
+          params: {
+            spell: ['Spellname']
+          },
+          responses: ['text', 'speech', 'card']
+        }),
+        match = 'Spellname is cast using verbal, material and somatic components';
+      return output.then(data => {
+        expect(data).to.have.property('fulfillmentText', match);
+        expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        tools.getCollection = restore;
+      });
+    });
+  });
 });
 describe('check', () => {
   describe('class', () => {

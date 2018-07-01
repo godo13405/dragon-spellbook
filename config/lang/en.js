@@ -41,6 +41,14 @@ exports = module.exports = {
         ],
         "doesntHaveProperty": "<targetName> doesn't have any components"
       },
+      "materials": {
+        "hasProperty": [
+          "<targetName> is cast using <materials>",
+          "<targetName> needs <materials>",
+          "You need to have <materials> to cast <targetName>"
+        ],
+        "doesntHaveProperty": "<targetName> doesn't need any material components"
+      },
       "damage": {
         "hasProperty": "<targetName> does <res>",
         "doesntHaveProperty": "<targetName> doesn't cause any damage"

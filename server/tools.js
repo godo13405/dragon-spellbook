@@ -566,6 +566,13 @@ exports = module.exports = {
             }
           }
           break;
+        case ('materials'):
+          output.res = i18n.spell.what.components.doesntHaveProperty;
+          if (data.materials) {
+            output.res = [];
+            output.materials = data.materials;
+          }
+          break;
       }
       return output;
     },
