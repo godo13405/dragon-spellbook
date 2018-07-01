@@ -175,34 +175,22 @@ exports = module.exports = {
         }
       } else if (capabilities.includes('audio')) {
         if (input.speech.includes('description') && spell.description) {
-          output.push({
-            "title": `what it is`
-          });
+          output.push(`what it is`);
         }
         if (input.speech.includes('damage') && spell.damage) {
-          output.push({
-            "title": `what damage it does`
-          });
+          output.push(`what damage it does`);
         }
         if (input.speech.includes('duration') && spell.duration) {
-          output.push({
-            "title": `how long it lasts`
-          });
+          output.push(`how long it lasts`);
         }
         if (input.speech.includes('cast_time') && spell.cast_time) {
-          output.push({
-            "title": `how long it takes to cast`
-          });
+          output.push(`how long it takes to cast`);
         }
         if (input.speech.includes('materials') && spell.components && spell.components.material) {
-          output.push({
-            "title": `what materials it needs`
-          });
+          output.push(`what materials it needs`);
         }
         if (input.speech.includes('higher_levels') && spell.higher_levels) {
-          output.push({
-            "title": `how it levels up`
-          });
+          output.push(`how it levels up`);
         }
       }
     } else {
@@ -224,7 +212,6 @@ exports = module.exports = {
     if (output.length) {
       // prevent too many suggestions
       output = sak.shuffleArray(output, 3);
-
       // structure voice suggestions
       if (!capabilities.includes('screen') && capabilities.includes('audio')) {
         output = sak.combinePhrase({
@@ -269,7 +256,7 @@ exports = module.exports = {
 
       // if it doesn't have a screen, read out the suggestions
       if (suggestions.length && !capabilities.includes('screen') && capabilities.includes('audio')) {
-        input.speech = `${input.speech}.<break time='${pause}s'/>${sak.combinePhrase({input:suggestions})}`;
+        input.speech = `${input.speech}.<break time='${pause}s'/>${suggestions}`;
       }
 
       output = {

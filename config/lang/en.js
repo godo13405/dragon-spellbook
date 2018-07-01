@@ -2,7 +2,9 @@ exports = module.exports = {
   "welcome": {
     "say": [
       "Hi! What do you want to know about?",
-      "Hello. What can I help you with today?"
+      "Hello. What can I help you with today?",
+      "Well, hello there",
+      "Hi! Is there a spell on your mind?"
     ],
     "help_intro": "I can",
     "help": [

@@ -42,21 +42,27 @@ exports = module.exports = {
     makePlural = false,
     lowerCase = false
   } = {}) => {
-    let output = '',
-      len = input.length,
-      last = len - 2;
-    for (var i = 0; i < len; i++) {
-      if (makePlural) input[i] = sak.plural(input[i]);
-      if (lowerCase) input[i] = input[i].toLowerCase();
-      output = output + input[i];
-      if (!capabilities.includes('screen') && capabilities.includes('audio')) {
-        output = output + '<break time=\'500ms\' />';
+    let output = '';
+      if (Array.isArray(input)) {
+      let len = input.length,
+        last = len - 2;
+      for (var i = 0; i < len; i++) {
+        if (makePlural) input[i] = sak.plural(input[i]);
+        if (lowerCase) input[i] = input[i].toLowerCase();
+        output = output + input[i];
+        if (!capabilities.includes('screen') && capabilities.includes('audio')) {
+          output = output + '<break time=\'500ms\' />';
+        }
+        if (i === last) {
+          output = output + ' ' + concat + ' ';
+        } else if (i < last) {
+          output = output + ', ';
+        }
       }
-      if (i === last) {
-        output = output + ' ' + concat + ' ';
-      } else if (i < last) {
-        output = output + ', ';
-      }
+    } else {
+      // this function is probably being run twice
+      output = input;
+      if (!process.env.SILENT) console.log('%c sak.combinePhrase just ran uselessly, please fix', 'color: red');
     }
     return output;
   },
