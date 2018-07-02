@@ -1,7 +1,7 @@
 # Dragon Spellbook
 This is a hook for a chatbot built on Dialogflow that looks up information about D&D 5e.
 
-You can play around with it in this [demo](https://nodejs-mongo-persistent-dragon-book.193b.starter-ca-central-1.openshiftapps.com/).
+You can play around with it in this [demo](http://dragon.goncaloandrade.com/).
 
 ## Functionality
 You can ask it about a lot of things. It even understands the context from one question to the next. So if you ask it **what is Fireball** and then **what damage does it do** it will tell you what damage Fireball does.
