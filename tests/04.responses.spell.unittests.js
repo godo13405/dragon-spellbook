@@ -1,6 +1,6 @@
 require('./setup.js');
 
-describe('responses', () => {
+describe('Spell', () => {
   global.restore = tools.getCollection;
   describe('spellDuration', () => {
     global.intention = 'duration';
@@ -131,31 +131,6 @@ describe('responses', () => {
         });
         tools.getCollection = restore;
       });
-    });
-  });
-});
-describe('Concentration', () => {
-  global.intention = 'concentration';
-  global.midIntention = 'what';
-  it('yes', () => {
-    tools.getCollection = () => {
-      return new Promise((res, rej) => {
-        res({
-          name: 'Spellname',
-          concentration: true
-        });
-      })
-    };
-    let output = responses.whatProperty({
-        intention: 'concentration',
-        responses: ['text', 'speech']
-      }),
-      match = 'Spellname does need you to keep focusing on it';
-    return output.then(data => {
-      expect(data).to.have.property('fulfillmentText', match);
-      expect(data).to.have.deep.nested.property('payload.slack.text', match);
-      expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
-      tools.getCollection = restore;
     });
   });
 });
@@ -432,6 +407,7 @@ describe('check', () => {
   describe('range', () => {
     global.actionArr = ['spell', 'check', 'range'];
     global.collection = 'spell';
+    i18n.spell.what.range.hasProperty = i18n.spell.what.range.hasProperty[0];
     it('simple', () => {
       tools.getCollection = () => {
         return new Promise((res, rej) => {
@@ -450,7 +426,7 @@ describe('check', () => {
           },
           responses: ['text', 'speech', 'card']
         }),
-        match = 'Spellname can reach 30 feet';
+        match = 'Spellname\'s range is 30 feet';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
         expect(data).to.have.deep.nested.property('payload.slack.text', match);
@@ -476,7 +452,7 @@ describe('check', () => {
           },
           responses: ['text', 'speech', 'card']
         }),
-        match = 'Spellname can reach 5.68 miles';
+        match = 'Spellname\'s range is 5.68 miles';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
         expect(data).to.have.deep.nested.property('payload.slack.text', match);
@@ -502,7 +478,7 @@ describe('check', () => {
           },
           responses: ['text', 'speech', 'card']
         }),
-        match = 'Spellname can reach 1 mile';
+        match = 'Spellname\'s range is 1 mile';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
         expect(data).to.have.deep.nested.property('payload.slack.text', match);
@@ -529,7 +505,7 @@ describe('check', () => {
           },
           responses: ['text', 'speech', 'card']
         }),
-        match = 'Spellname can reach 10 feet as a line';
+        match = 'Spellname\'s range is 10 feet as a line';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
         expect(data).to.have.deep.nested.property('payload.slack.text', match);

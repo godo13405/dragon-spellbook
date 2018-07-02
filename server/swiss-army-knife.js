@@ -79,9 +79,9 @@ const sak = {
   rng: (limit = 9) => {
     return Math.ceil(Math.random() * limit);
   },
-  i18n: (input, varReplace) => {
+  i18n: (input, varReplace, prepose = false) => {
     if (Array.isArray(input)) {
-      input = input[sak.rng(input.length - 1)];
+      input = sak.shuffleArray(input, 1)[0];
     }
     if (varReplace) {
       let rex;
@@ -89,6 +89,9 @@ const sak = {
         rex = new RegExp(`<${k}>`, "g");
         input = input.replace(rex, varReplace[k]);
       }
+    }
+    if (prepose) {
+      sak.preposition(input);
     }
     return input;
   },
@@ -143,7 +146,7 @@ const sak = {
   },
   preposition: input => {
     let prep = 'a';
-    if (input.match(/^[aeiouh]/gi)) {
+    if (input.trim().match(/^[aeiouh]/gi)) {
       prep = 'an';
     }
     return `${prep} ${input}`;

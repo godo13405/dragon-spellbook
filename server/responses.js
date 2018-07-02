@@ -237,7 +237,6 @@ const responses = {
           input: sak.i18n(i18n[target].notFound)
         });
         if (data) {
-          console.log(params, checks);
           let conf = {
             spell: {
               use: {

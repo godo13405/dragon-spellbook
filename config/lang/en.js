@@ -3,7 +3,7 @@ exports = module.exports = {
     "say": [
       "Hi! What do you want to know about?",
       "Hello. What can I help you with today?",
-      "Well, hello there",
+      "<emphasis level='low'>Well,</emphasis> hello there!",
       "Hi! Is there a spell on your mind?"
     ],
     "help_intro": "I can",
@@ -31,7 +31,7 @@ exports = module.exports = {
     ],
     "what": {
       "init": {
-        "hasProperty": "<targetName> is a <res>"
+        "hasProperty": ["<targetName> is a <res>"]
       },
       "components": {
         "hasProperty": [
@@ -39,7 +39,7 @@ exports = module.exports = {
           "<targetName> needs <res> <component>",
           "You need to cast <targetName> with <res> <component>"
         ],
-        "doesntHaveProperty": "<targetName> doesn't have any components"
+        "doesntHaveProperty": ["<targetName> doesn't have any components"]
       },
       "materials": {
         "hasProperty": [
@@ -47,29 +47,29 @@ exports = module.exports = {
           "<targetName> needs <materials>",
           "You need to have <materials> to cast <targetName>"
         ],
-        "doesntHaveProperty": "<targetName> doesn't need any material components"
+        "doesntHaveProperty": ["<targetName> doesn't need any material components"]
       },
       "damage": {
-        "hasProperty": "<targetName> does <res>",
-        "doesntHaveProperty": "<targetName> doesn't cause any damage"
+        "hasProperty": ["<targetName> does <res>"],
+        "doesntHaveProperty": ["<targetName> doesn't cause any damage"]
       },
       "casting_time": {
-        "hasProperty": "<targetName> takes <res> to cast"
+        "hasProperty": ["<targetName> takes <res> to cast"]
       },
       "class": {
-        "hasProperty": "<targetName> can be cast by <res>",
-        "doesntHaveProperty": "<targetName> can't be cast by players"
+        "hasProperty": ["<targetName> can be cast by <res>"],
+        "doesntHaveProperty": ["<targetName> can't be cast by players"]
       },
       "duration": {
-        "hasProperty": "<targetName> <connector> <res>",
-        "doesntHaveProperty": "<targetName> has no duration",
+        "hasProperty": ["<targetName> <connector> <res>"],
+        "doesntHaveProperty": ["<targetName> has no duration"],
       },
       "description": {
-        "hasProperty": "<res>",
-        "doesntHaveProperty": "Sorry, I don't know that spell"
+        "hasProperty": ["<res>"],
+        "doesntHaveProperty": ["Sorry, I don't know that spell"]
       },
       "level": {
-        "hasProperty": "<targetName> is <res>",
+        "hasProperty": ["<targetName> is <res>"],
         "doesntHaveProperty": [
           "Mmm, I'm not sure what level <targetName> is",
           "Sorry, I don't know the level of <targetName>"
@@ -80,18 +80,18 @@ exports = module.exports = {
           "<targetName> belongs to the School of <res>",
           "<targetName> is from the School of <res>"
         ],
-        "doesntHaveProperty": "Sorry, I don't know which school <targetName> belongs to"
+        "doesntHaveProperty": ["Sorry, I don't know which school <targetName> belongs to"]
       },
       "range": {
         "hasProperty": [
           "<targetName>'s range is <res><shapePhrase>",
           "<targetName> can reach <res><shapePhrase>"
         ],
-        "doesntHaveProperty": "Sorry, I don't know which school <targetName> belongs to"
+        "doesntHaveProperty": ["Sorry, I don't know which school <targetName> belongs to"]
       },
       "heal": {
-        "hasProperty": "<targetName> heals for <res>",
-        "doesntHaveProperty": "<targetName> doesn't heal"
+        "hasProperty": ["<targetName> heals for <res>"],
+        "doesntHaveProperty": ["<targetName> doesn't heal"]
       },
       "concentration": {
         "hasProperty": [
@@ -139,11 +139,23 @@ exports = module.exports = {
     ],
     "what": {
       "init": {
-        "hasProperty": "<targetName> is a <res>"
+        "hasProperty": ["<targetName> is a <res>"]
       },
       "damage": {
-        "hasProperty": "<targetName> does <res>",
-        "doesntHaveProperty": "<targetName> doesn't cause any damage"
+        "hasProperty": ["<targetName> does <res>"],
+        "doesntHaveProperty": ["<targetName> doesn't cause any damage"]
+      },
+      "cost": {
+        "hasProperty": [
+          "A <targetName> costs <res>",
+          "A <targetName> goes for <res>",
+          "<res> for a <targetName>",
+        ],
+        "doesntHaveProperty": [
+          "A <targetName> doesn't have a price",
+          "A <targetName> is free!",
+          "Just take the <targetName>, no charge"
+        ]
       }
     }
   },

@@ -53,7 +53,8 @@ const service = {
         return responses.whatProperty({
           intention: global.intention,
           target: 'weapon',
-          responses: ['text', 'speech', 'card']
+          responses: ['text', 'speech'],
+          prepose: true
         });
       case 'query.complex':
         return responses.query.spellComplex();

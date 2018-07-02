@@ -587,16 +587,19 @@ const tools = {
         arr = [];
       switch (intnt) {
         case ('init'):
-          output.res = `${data.tier} ${data.type} weapon`;
-          if (data.damage) output.res = `${sak.preposition(output.res)} that does ${tools.format.weaponData({data:data, intnt:'damage'}).res}`;
+          output.res = `${sak.preposition(data.tier)} ${data.type} weapon`;
+          if (data.damage) output.res = `${output.res} that does ${tools.format.weaponData({data:data, intnt:'damage'}).res}`;
           break;
         case ('damage'):
-          arr = []
+          arr = [];
           for (var da = data.damage.length - 1; da >= 0; da--) {
             let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''} ${data.damage[da].type ? data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
             arr.push(o);
           }
-          output.res = sak.preposition(sak.combinePhrase(arr, concat));
+          output.res = sak.combinePhrase({input:arr, concat:'or'});
+          break;
+        case ('cost'):
+          output.res = `${data.cost.amount} ${data.cost.unit} pieces`;
           break;
       }
       return output;
