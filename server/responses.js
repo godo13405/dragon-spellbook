@@ -1,6 +1,6 @@
 'use strict';
 
-exports = module.exports = {
+const responses = {
   welcome: () => {
     let talk = tools.setResponse({input: sak.i18n(i18n.welcome.say), suggestions: tools.getSuggestions([
       `what is Acid Splash`,
@@ -270,3 +270,4 @@ exports = module.exports = {
       });
   }
 };
+exports = module.exports = responses;

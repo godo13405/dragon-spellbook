@@ -1,6 +1,6 @@
 'use strict';
 
-exports = module.exports = {
+const service = {
   setCapabilities: input => {
     let output = input;
     if (input && input.source) {
@@ -107,3 +107,4 @@ exports = module.exports = {
     }
   }
 };
+exports = module.exports = service;

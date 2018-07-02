@@ -44,19 +44,15 @@ global.sak = require('./swiss-army-knife');
 global.tools = require('./tools');
 global.responses = require('./responses');
 
-
 process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_credentials;
 
 ex.use(bodyParser.json());
 ex.use(compression(9))
 ex.use(express.static('./www'));
-// ex.get('/', (req, res) => {
-//   res.redirect(301, 'https://bot.dialogflow.com/spell-book')
-// });
 ex.post('/', webhook);
 let port = process.env.PORT || 3000;
 ex.listen(port, () => {
-  if (!process.env.SILENT) console.log('Spell Book is open on '+port);
+  if (!process.env.SILENT) console.log('Spell Book is open on port '+port);
 });
 
-exports = module.exports = webhook;
+exports.webhook = webhook;

@@ -24,7 +24,7 @@ const url = "mongodb+srv://Godo:Lollipop12@cluster0-g9w91.mongodb.net/test?retry
 // Database Name
 const dbName = 'dragon';
 
-exports = module.exports = {
+const tools = {
   getQuery: (multipleAllowed = false, request = request) => {
     // check how many parameters are defined
     let output = [];
@@ -615,3 +615,4 @@ exports = module.exports = {
     return output;
   }
 }
+exports = module.exports = tools;

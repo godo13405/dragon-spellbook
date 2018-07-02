@@ -1,6 +1,6 @@
 'use strict';
 
-exports = module.exports = {
+const sak = {
   shuffleArray: (arr, limit) => {
     let output = arr.sort(() => {
       return 0.5 - Math.random()
@@ -184,3 +184,4 @@ exports = module.exports = {
     return input + ' ' + unit;
   }
 };
+exports = module.exports = sak;
