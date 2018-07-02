@@ -116,6 +116,18 @@ exports = module.exports = {
         "mixedProperty": [
           "<match> can <useActive> <targetName>, but <notMatch> can't"
         ]
+      },
+      "ritual": {
+        "doesntHaveProperty": [
+          "No, <targetName> can't be <usePassive> as a ritual",
+          "No, <targetName> isn't a ritual",
+          "Nope, <targetName> is no ritual"
+        ],
+        "hasProperty": [
+          "Yes, <targetName> can be <usePassive> as a ritual",
+          "Yes, <targetName> is a ritual",
+          "Yeah, <targetName> works as a ritual"
+        ]
       }
     }
   },

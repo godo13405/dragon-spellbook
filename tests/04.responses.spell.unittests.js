@@ -538,4 +538,61 @@ describe('check', () => {
       });
     });
   });
+  describe('ritual', () => {
+    global.actionArr = ['spell', 'check', 'range'];
+    global.collection = 'spell';
+    it('yes', () => {
+      tools.getCollection = () => {
+        return new Promise((res, rej) => {
+          res({
+            name: 'Spellname',
+            ritual: true
+          });
+        })
+      };
+      i18n.spell.check.ritual.hasProperty = i18n.spell.check.ritual.hasProperty[0];
+      let output = responses.checkProperty({
+          intention: 'ritual',
+          target: 'spell',
+          checks: 'ritual',
+          params: {
+            spell: ['Spellname']
+          },
+          responses: ['text', 'speech', 'card']
+        }),
+        match = 'Yes, Spellname can be cast as a ritual';
+      return output.then(data => {
+        expect(data).to.have.property('fulfillmentText', match);
+        expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        tools.getCollection = restore;
+      });
+    });
+    it('no', () => {
+      tools.getCollection = () => {
+        return new Promise((res, rej) => {
+          res({
+            name: 'Spellname'
+          });
+        })
+      };
+      i18n.spell.check.ritual.doesntHaveProperty = i18n.spell.check.ritual.doesntHaveProperty[0];
+      let output = responses.checkProperty({
+          intention: 'ritual',
+          target: 'spell',
+          checks: 'ritual',
+          params: {
+            spell: ['Spellname']
+          },
+          responses: ['text', 'speech', 'card']
+        }),
+        match = 'No, Spellname can\'t be cast as a ritual';
+      return output.then(data => {
+        expect(data).to.have.property('fulfillmentText', match);
+        expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        tools.getCollection = restore;
+      });
+    });
+  });
 });

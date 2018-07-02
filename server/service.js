@@ -38,6 +38,7 @@ const service = {
         return responses.checkProperty({
           intention: global.intention,
           target: global.collection,
+          checks: global.intention,
           responses: arr
         });
     }
@@ -77,31 +78,6 @@ const service = {
         if (input[par].length) {
           output[par] = input[par];
         }
-      }
-      return output;
-    },
-    smartClear: (input = global.params) => {
-      const output = {};
-      switch (actionArr[0]) {
-        case ('condition'):
-          output.condition = input.condition;
-          // should we keep level?
-          if (input.condition) {
-            output.level = input.level;
-          }
-          break;
-        case ('spell'):
-          if (input.spell) output.spell = input.spell;
-          if (input.level) output.level = input.level;
-          if (input.class) output.class = input.class;
-          if (input.school) output.school = input.school;
-          break;
-      }
-      switch (true) {
-        case (actionArr[1] === 'check' && actionArr[2] === 'class'):
-          if (input.spell) output.spell = input.spell;
-          if (input.class) output.class = input.class;
-          break;
       }
       return output;
     }
