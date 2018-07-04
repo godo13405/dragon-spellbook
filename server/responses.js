@@ -305,6 +305,39 @@ const responses = {
       }).catch(err => {
         if (process.env.DEBUG) console.log(err);
       });
+  },
+  help: ({
+    intention = global.intention,
+    collection = global.collection,
+    params = global.params,
+    target = 'spell',
+    responses = ['speech', 'text'],
+  } = {}) => {
+    return tools.getCollection({
+        collection: collection,
+        param: target,
+        customParams: {
+          name: params.spell
+        }
+      })
+      .then(data => {
+        let talk = {
+          input: sak.i18n(i18n[target].notFound)
+        };
+        if (data && data[intention] && data[intention].data[params[intention]]) {
+          let res = sak.combinePhrase({
+              input: data[intention].data[params[intention]],
+              separator: ''
+            });
+          talk.input = sak.i18n(i18n.help[global.actionArr[1]][global.actionArr[2]].hasProperty, {
+            targetName: sak.sentenceCase(params[intention]),
+            res: res
+          });
+        }
+        return response.json(tools.setResponse(talk));
+      }).catch(err => {
+        if (process.env.DEBUG) console.log(err);
+      });
   }
 };
 exports = module.exports = responses;

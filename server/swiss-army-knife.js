@@ -37,6 +37,7 @@ const sak = {
   },
   combinePhrase: ({
     input = [],
+    separator = ',',
     concat = 'and',
     capabilities = global.capabilities,
     makePlural = false,
@@ -56,7 +57,7 @@ const sak = {
         if (i === last) {
           output = output + ' ' + concat + ' ';
         } else if (i < last) {
-          output = output + ', ';
+          output = output + separator + ' ';
         }
       }
     } else {
@@ -156,8 +157,9 @@ const sak = {
       return word.replace(word[0], word[0].toUpperCase());
     }).join(' ');
   },
-  sentenceCase: str => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+  sentenceCase: input => {
+    if (Array.isArray(input)) input = input[0];
+    return input.charAt(0).toUpperCase() + input.slice(1);
   },
   arrayRemove: (array, element) => {
     const index = array.indexOf(element);

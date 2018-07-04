@@ -89,11 +89,11 @@ describe('Weapon', () => {
             },
             responses: ['text', 'speech']
         }),
-        match = 'A Weaponname costs 1 gold pieces';
+        costMatch = 'A Weaponname costs 1 gold pieces';
       return output.then(data => {
-        expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        expect(data).to.have.property('fulfillmentText', costMatch);
+        expect(data).to.have.deep.nested.property('payload.slack.text', costMatch);
+        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', costMatch);
         tools.getCollection = restore;
       });
     });

@@ -23,6 +23,22 @@ exports = module.exports = {
     "oneAtATime": "Sorry, can we do this one <param> at a time?",
     "contextNotFound": "Sorry, what were we talking about? Can you ask the question more explicitly please?"
   },
+  "help": {
+    "oneAtATime": "Sorry, can we do this one <param> at a time?",
+    "contextNotFound": "Sorry, what were we talking about? Can you ask the question more explicitly please?",
+    "magic": {
+      "school": {
+        "hasProperty": [
+          "The School of <targetName> is about <res>",
+          "<targetName> School regards <res>",
+          "<targetName> is all about <res>"
+        ],
+        "doesntHaveProperty": [
+          "<targetName> isn't a School of Magic"
+        ]
+      }
+    }
+  },
   "spell": {
     "notFound": [
       "Sorry, I don't know that spell",

@@ -19,10 +19,17 @@ const MongoClient = require('mongodb').MongoClient,
   };
 
 // Connection URL
-const url = "mongodb+srv://Godo:Lollipop12@cluster0-g9w91.mongodb.net/test?retryWrites=true";
-
-// Database Name
-const dbName = 'dragon';
+const url = `mongodb://Godo:Lollipop12@cluster0-shard-00-00-g9w91.mongodb.net:27017,cluster0-shard-00-01-g9w91.mongodb.net:27017,cluster0-shard-00-02-g9w91.mongodb.net:27017/test`,
+  mongo_options = {
+    ssl: true,
+    sslValidate: true,
+    useNewUrlParser: true,
+    poolSize: 10,
+    replicaSet: 'Cluster0-shard-0',
+    authSource: 'admin',
+    retryWrites: true
+  },
+dbName = 'dragon';
 
 const tools = {
   getQuery: (multipleAllowed = false, request = request) => {
@@ -66,17 +73,42 @@ const tools = {
     collection = 'spell',
     param = 'name',
     allowMultiple = false,
-    params = global.params
+    params = global.params,
+    action = global.actionArr,
+    fields = []
   } = {}) => {
-    let query = sak.queryBuilder({
-      params: params
-    });
-    if (process.env.DEBUG) console.log(`${collection} query: `, query);
+    // setup fields to return
+    let return_fields = {
+      fields: {}
+    },
+      query;
+    // is this a help query? Those are processed a little diffrently
+    if (collection === 'help') {
+      query = {'_id':action[1]};
+      let deep = 'description';
+      // if no slot value has been passed, the user wants to know about the thing itself, get the description
+      if (params[intention]) {
+        deep = `data.${params[intention]}`;
+      }
+      fields.push(`${intention}.${deep.toLowerCase()}`);
+    } else {
+      // setup regular query
+      query = sak.queryBuilder({
+        params: params
+      });
+    }
+
+    // fields need to be an object, but it's easier to manage up to now as an array
+    for (var i = fields.length - 1; i >= 0; i--) {
+      return_fields.fields[fields[i]] = 1;
+    }
+    if (process.env.DEBUG) console.log("\x1b[36m", `${collection} query: `, query);
+    if (process.env.DEBUG && Object.keys(fields).length) console.log(`fields: `, return_fields, "\x1b[0m");
     let serve = new Promise((resolve, reject) => {
       if (query) {
-        return MongoClient.connect(url, (err, client) => {
+        return MongoClient.connect(url, mongo_options, (err, client) => {
           if (err) throw err;
-          return client.db(dbName).collection(collection).find(query).toArray((err, docs) => {
+          return client.db(dbName).collection(collection, return_fields).find(query).toArray((err, docs) => {
             if (err) throw err;
             if (docs.length === 1 || !allowMultiple) {
               docs = docs[0];
