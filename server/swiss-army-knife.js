@@ -187,6 +187,17 @@ const sak = {
     if (input > 1) unit = sak.plural(unit);
 
     return input + ' ' + unit;
+  },
+  getFields: input => {
+    let output = [input[input.length - 1]];
+    if (output === 'init') {
+      output = [
+        'name',
+        'description',
+        'type'
+      ];
+    }
+    return output;
   }
 };
 exports = module.exports = sak;

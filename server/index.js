@@ -16,6 +16,7 @@ global.suggestions = require('../config/suggestions');
 global.service = require('./service');
 
 const webhook = (request, response) => {
+  if (process.env.DEBUG) console.time('total response time');
   if (request.body.queryResult) {
     if (!process.env.SILENT) console.log("\x1b[36m", request.body.queryResult.queryText, "\x1b[2m", request.body.queryResult.action, "\x1b[0m");
   }

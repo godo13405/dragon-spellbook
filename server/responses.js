@@ -153,7 +153,8 @@ const responses = {
     } else {
       return tools.getCollection({
           collection: target,
-          param: target
+          param: target,
+          fields: sak.getFields(actionArr)
         })
         .then(data => {
           let talk;
