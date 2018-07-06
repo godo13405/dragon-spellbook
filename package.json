@@ -15,10 +15,10 @@
         "mongo": "mongod --dbpath=./db"
     },
     "dependencies": {
+        "mongodb": "^3.1.0",
         "body-parser": "^1.18.3",
         "compression": "^1.7.2",
-        "express": "^4.16.3",
-        "mongodb": "^3.1.0"
+        "express": "^4.16.3"
     },
     "devDependencies": {
         "chai": "^4.1.2",

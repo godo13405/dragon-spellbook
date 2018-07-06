@@ -310,6 +310,10 @@ const tools = {
         },
         slack: {
           text: sak.formatText(input.text, 'slack')
+        },
+        alexa: {
+          text: sak.formatText(input.text, 'alexa'),
+          SSML: `<speech>${sak.cleanText(input.speech)}</speech>`
         }
       };
       if (input.card) {
