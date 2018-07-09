@@ -25,17 +25,27 @@ const service = {
     return output;
   },
   router: (input, midIntention) => {
-    let arr = ['text', 'speech'];
+    let arr = ['text', 'speech'],
+      func;
+    switch (midIntention) {
+      case ('what'):
+        if (intention === 'description') arr = ['speech', 'card'];
+        func = responses.whatProperty;
+        break;
+      case ('check'):
+        func = responses.checkProperty;
+        break;
+    }
     switch (collection) {
       case ('spell'):
         arr = ['text', 'speech', 'card'];
-        return responses.whatProperty({
+        return func({
           intention: global.intention,
           target: global.collection,
           responses: arr
         });
       case ('weapon'):
-        return responses.whatProperty({
+        return func({
           intention: global.intention,
           target: global.collection,
           responses: arr
@@ -47,22 +57,6 @@ const service = {
           responses: arr
         });
       }
-    switch (midIntention) {
-      case ('what'):
-        if (intention === 'description') arr = ['speech', 'card'];
-        return responses.whatProperty({
-          intention: global.intention,
-          target: global.collection,
-          responses: arr
-        });
-      case ('check'):
-        return responses.checkProperty({
-          intention: global.intention,
-          target: global.collection,
-          checks: global.intention,
-          responses: arr
-        });
-    }
 
     switch (input) {
       case 'query.complex':
