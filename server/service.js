@@ -6,6 +6,9 @@ const service = {
     if (input && input.source) {
       // Get surface capabilities, such as screen
       switch (input.source) {
+        case ('web'):
+          output = input.capabilities;
+          break;
         case ('google'):
           output = [];
           input.payload.surface.capabilities.forEach(cap => {
@@ -25,38 +28,22 @@ const service = {
     return output;
   },
   router: (input, midIntention) => {
-    let arr = ['text', 'speech'],
-      func;
-    switch (midIntention) {
-      case ('what'):
-        if (intention === 'description') arr = ['speech', 'card'];
-        func = responses.whatProperty;
-        break;
-      case ('check'):
-        func = responses.checkProperty;
-        break;
+    let args = {
+        intention: global.intention,
+        target: global.collection,
+        responses: ['text', 'speech']
+      };
+    if (collection === 'spell' &&  midIntention === 'init') {
+      args.responses = ['text', 'speech', 'card'];
     }
-    switch (collection) {
-      case ('spell'):
-        arr = ['text', 'speech', 'card'];
-        return func({
-          intention: global.intention,
-          target: global.collection,
-          responses: arr
-        });
-      case ('weapon'):
-        return func({
-          intention: global.intention,
-          target: global.collection,
-          responses: arr
-        });
-      case ('help'):
-        return responses.help({
-          intention: global.intention,
-          target: global.collection,
-          responses: arr
-        });
-      }
+
+    if (midIntention === 'what' || midIntention === 'init') {
+      responses.whatProperty(args);
+    } else if (midIntention === 'check') {
+      responses.checkProperty(args);
+    } else if (collection === 'help') {
+      responses.help(args);
+    }
 
     switch (input) {
       case 'query.complex':

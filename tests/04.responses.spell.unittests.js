@@ -21,8 +21,8 @@ describe('Spell', () => {
         });
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -42,8 +42,8 @@ describe('Spell', () => {
         match = 'Spellname lasts for 1 minute';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -63,8 +63,8 @@ describe('Spell', () => {
         match = 'Spellname is instantaneous';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -88,8 +88,8 @@ describe('Spell', () => {
         match = 'lorem ipsum';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -112,13 +112,14 @@ describe('Spell', () => {
         responses: ['text', 'speech', 'card']
       }).then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
 
         expect(data).to.have.deep.nested.property('fulfillmentMessages[0].card', {
           title: 'Spellname',
           subtitle: 'lorem ipsum'
         });
+        /*
         expect(data).to.have.deep.nested.property('payload.slack.attachments[0]', {
           title: 'Spellname',
           author_name: 'spellType',
@@ -129,6 +130,7 @@ describe('Spell', () => {
           subtitle: 'spellType',
           formattedText: 'lorem ipsum'
         });
+        */
         tools.getCollection = restore;
       });
     });
@@ -162,8 +164,8 @@ describe('what', () => {
         match = 'Spellname heals for 1d4 and your spellcasting ability modifier';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -186,8 +188,8 @@ describe('what', () => {
         match = 'Spellname doesn\'t heal';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -217,8 +219,8 @@ describe('what', () => {
         match = 'Spellname is cast using a verbal component';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -243,8 +245,8 @@ describe('what', () => {
         match = 'Spellname is cast using verbal, material and somatic components';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -274,8 +276,8 @@ describe('what', () => {
         match = 'Spellname is cast using spell materials';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -300,8 +302,8 @@ describe('what', () => {
         match = 'Spellname is cast using verbal, material and somatic components';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -336,8 +338,8 @@ describe('check', () => {
         match = 'Yes, Spellname can be cast by wizards';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -366,8 +368,8 @@ describe('check', () => {
         match = 'No, Spellname can\'t be cast by bards';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -398,8 +400,8 @@ describe('check', () => {
         match = 'Wizards can cast Spellname, but bards can\'t';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -429,8 +431,8 @@ describe('check', () => {
         match = 'Spellname\'s range is 30 feet';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -455,8 +457,8 @@ describe('check', () => {
         match = 'Spellname\'s range is 5.68 miles';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -481,8 +483,8 @@ describe('check', () => {
         match = 'Spellname\'s range is 1 mile';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -508,8 +510,8 @@ describe('check', () => {
         match = 'Spellname\'s range is 10 feet as a line';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -539,8 +541,8 @@ describe('check', () => {
         match = 'Yes, Spellname can be cast as a ritual';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });
@@ -565,8 +567,8 @@ describe('check', () => {
         match = 'No, Spellname can\'t be cast as a ritual';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
-        expect(data).to.have.deep.nested.property('payload.slack.text', match);
-        expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
         tools.getCollection = restore;
       });
     });

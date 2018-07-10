@@ -25,6 +25,7 @@ const webhook = (request, response) => {
   global.actionArr = request.body.queryResult.action.split(".");
   global.collection = actionArr[0];
   global.intention = actionArr[actionArr.length - 1];
+  global.source = request.body.originalDetectIntentRequest.source;
 
   // Get surface capabilities, such as screen
   capabilities = service.setCapabilities(request.body.originalDetectIntentRequest);

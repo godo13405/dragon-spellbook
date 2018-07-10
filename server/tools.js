@@ -29,7 +29,7 @@ const url = `mongodb://Godo:Lollipop12@cluster0-shard-00-00-g9w91.mongodb.net:27
     authSource: 'admin',
     retryWrites: true
   },
-dbName = 'dragon';
+  dbName = 'dragon';
 
 const tools = {
   getQuery: (multipleAllowed = false, request = request) => {
@@ -79,12 +79,14 @@ const tools = {
   } = {}) => {
     // setup fields to return
     let return_fields = {
-      fields: {}
-    },
+        fields: {}
+      },
       query;
     // is this a help query? Those are processed a little diffrently
     if (collection === 'help') {
-      query = {'_id':action[1]};
+      query = {
+        '_id': action[1]
+      };
       let deep = 'description';
       // if no slot value has been passed, the user wants to know about the thing itself, get the description
       if (params[intention]) {
@@ -161,7 +163,9 @@ const tools = {
       },
   */
   getSuggestions: (input = [], spell = {
-    name: () => { return global.params.spell}
+    name: () => {
+      return global.params.spell
+    }
   }, suggestionIntro = 'I can also tell you') => {
     let output = [];
 
@@ -172,38 +176,25 @@ const tools = {
         speech: input
       };
     }
-
     if (spell) {
       if (capabilities.includes('screen')) {
         if (input.text.includes('description') && spell.description) {
-          output.push({
-            "title": `what is ${spell.name}?`
-          });
+          output.push(`what is ${spell.name}?`);
         }
         if (input.text.includes('damage') && spell.damage) {
-          output.push({
-            "title": `what damage does it do?`
-          });
+          output.push(`what damage does it do?`);
         }
         if (input.text.includes('duration') && spell.duration) {
-          output.push({
-            "title": `how long does it last?`
-          });
+          output.push(`how long does it last?`);
         }
         if (input.text.includes('cast_time') && spell.cast_time) {
-          output.push({
-            "title": `how long does it take to cast?`
-          });
+          output.push(`how long does it take to cast?`);
         }
         if (input.text.includes('materials') && spell.components && spell.components.material) {
-          output.push({
-            "title": `what materials do I need`
-          });
+          output.push(`what materials do I need`);
         }
         if (input.text.includes('higher_levels') && spell.higher_levels) {
-          output.push({
-            "title": `how does it level up`
-          });
+          output.push(`how does it level up`);
         }
       } else if (capabilities.includes('audio')) {
         if (input.speech.includes('description') && spell.description) {
@@ -252,14 +243,14 @@ const tools = {
         });
       }
     }
-
     return output;
   },
   setResponse: ({
     input = null,
     suggestions = [],
     pause = 5,
-    followUp = true
+    followUp = true,
+    source = global.source
   }) => {
     let output;
     if (input) {
@@ -295,38 +286,50 @@ const tools = {
         fulfillmentText: input.text,
         fulfillmentMessages: []
       };
-      output.payload = {
-        google: {
-          expectUserResponse: true,
-          is_ssml: true,
-          richResponse: {
-            items: [{
-              simpleResponse: {
-                textToSpeech: `<speech>${sak.cleanText(input.speech)}</speech>`,
-                displayText: sak.cleanText(sak.clearSpeech(input.trimText ? input.trimText : input.text))
-              }
-            }]
-          }
-        },
-        slack: {
-          text: sak.formatText(input.text, 'slack')
-        },
-        alexa: {
-          text: sak.formatText(input.text, 'alexa'),
-          SSML: `<speech>${sak.cleanText(input.speech)}</speech>`
+
+      if (source === 'web') {
+        if (suggestions.length && capabilities.includes('screen')) {
+          output.suggestions = suggestions;
         }
-      };
+      } else if (source === 'google') {
+        output.payload = {
+          google: {
+            expectUserResponse: true,
+            is_ssml: true,
+            richResponse: {
+              items: [{
+                simpleResponse: {
+                  textToSpeech: `<speech>${sak.cleanText(input.speech)}</speech>`,
+                  displayText: sak.cleanText(sak.clearSpeech(input.trimText ? input.trimText : input.text))
+                }
+              }]
+            }
+          }
+        };
+        if (suggestions.length && capabilities.includes('screen')) {
+          output.payload.google.richResponse.suggestions = [];
+          for (var i = 0; i < suggestions.length; i++) {
+            output.payload.google.richResponse.suggestions.push({
+              title: suggestions[i]
+            });
+          }
+        }
+      } else if (source === 'alexa') {
+        output.payload = {
+          alexa: {
+            text: sak.formatText(input.text, 'alexa'),
+            SSML: `<speech>${sak.cleanText(input.speech)}</speech>`
+          }
+        };
+      } else if (source === 'slack') {
+        output.payload = {
+          slack: {
+            text: sak.formatText(input.text, 'slack')
+          }
+        };
+      }
       if (input.card) {
         output = tools.buildCard(output, input.card);
-      }
-
-      if (suggestions.length && capabilities.includes('screen')) {
-        output.payload.google.richResponse.suggestions = [];
-        for (var i = 0; i < suggestions.length; i++) {
-          output.payload.google.richResponse.suggestions.push({
-            title: suggestions[i]
-          });
-        }
       }
 
       if (!process.env.SILENT) console.log("\x1b[32m", input.text, "\x1b[0m");
@@ -377,10 +380,9 @@ const tools = {
     }
     return output;
   },
-  buildCard: (output, input, platforms = ['dialogflow', 'google', 'slack']) => {
+  buildCard: (output, input, platforms = global.source) => {
     let card;
-
-    if (platforms.includes('dialogflow')) {
+    if (!platforms || platforms === 'dialogflow') {
       card = {};
       if (input.title) card.title = input.title;
       if (input.text) card.subtitle = input.text;
@@ -390,7 +392,7 @@ const tools = {
         card
       });
     }
-    if (platforms.includes('google')) {
+    if (platforms === 'google') {
       card = {};
       if (input.title) card.title = input.title;
       if (input.subtitle) card.subtitle = input.subtitle;
@@ -400,7 +402,7 @@ const tools = {
         basicCard: card
       });
     }
-    if (platforms.includes('slack')) {
+    if (platforms === 'slack') {
       card = {};
       if (input.title) card.title = input.title;
       if (input.subtitle) card.author_name = input.subtitle;
@@ -521,7 +523,7 @@ const tools = {
         case ('damage'):
           arr = []
           for (var da = data.damage.length - 1; da >= 0; da--) {
-            let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''}${data.damage[da].type ? data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
+            let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''}${data.damage[da].type ? ' ' + data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
             arr.push(o);
           }
           output.res = sak.combinePhrase({
@@ -597,7 +599,9 @@ const tools = {
               data.components.forEach(c => {
                 output.res.push((data.components.length > 1) ? c : sak.preposition(c));
               });
-              output.res = sak.combinePhrase({input:output.res});
+              output.res = sak.combinePhrase({
+                input: output.res
+              });
             } else {
               output.res = data.components;
             }
@@ -633,7 +637,10 @@ const tools = {
             let o = `${data.damage[da].amount ? data.damage[da].amount : ''}${data.damage[da].dice ? data.damage[da].dice : ''} ${data.damage[da].type ? data.damage[da].type : ''} damage${data.damage[da].extra ? ' and ' + data.damage[da].extra : ''}`;
             arr.push(o);
           }
-          output.res = sak.combinePhrase({input:arr, concat:'or'});
+          output.res = sak.combinePhrase({
+            input: arr,
+            concat: 'or'
+          });
           break;
         case ('cost'):
           output.res = `${data.cost.amount} ${data.cost.unit} pieces`;

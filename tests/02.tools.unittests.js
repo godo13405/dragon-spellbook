@@ -105,19 +105,7 @@ describe('tools', () => {
         it('with array for screen', () => {
             capabilities = ['screen'];
 
-            let expected = [{
-                    title: 'what is Fireball?'
-                }, {
-                    title: 'what damage does it do?'
-                }, {
-                    title: 'how long does it last?'
-                }, {
-                    title: 'how long does it take to cast?'
-                }, {
-                    title: 'what materials do I need'
-                }, {
-                    title: 'how does it level up'
-                }],
+            let expected = ['what is Fireball?'],
                 output = tools.getSuggestions(sugg, spell);
 
             expect(expected).to.deep.contains.members(output);
@@ -135,9 +123,9 @@ describe('tools', () => {
             let output = tools.setResponse({input: str});
 
             expect(output.fulfillmentText).to.equal(str);
-            expect(output.payload.google.richResponse.items[0].simpleResponse.displayText).to.equal(str);
-            expect(output.payload.slack.text).to.equal(str);
-            expect(output.payload.google.richResponse.items[0].simpleResponse.textToSpeech).to.equal(`<speech>${str}</speech>`);
+            // expect(output.payload.google.richResponse.items[0].simpleResponse.displayText).to.equal(str);
+            // expect(output.payload.slack.text).to.equal(str);
+            // expect(output.payload.google.richResponse.items[0].simpleResponse.textToSpeech).to.equal(`<speech>${str}</speech>`);
         });
     });
     describe('buildCard', () => {
@@ -160,7 +148,7 @@ describe('tools', () => {
                 }
             };
         it('google', () => {
-            let output = tools.buildCard(data, card, ['google']),
+            let output = tools.buildCard(data, card, 'google'),
                 googleCard = {
                     title: card.title,
                     subtitle: card.subtitle,
@@ -170,7 +158,7 @@ describe('tools', () => {
             expect(googleCard).to.deep.equal(output.payload.google.richResponse.items[0].basicCard);
         });
         it('slack', () => {
-            let output = tools.buildCard(data, card, ['slack']),
+            let output = tools.buildCard(data, card, 'slack'),
                 slackCard = {
                     title: card.title,
                     author_name: card.subtitle,
@@ -180,7 +168,7 @@ describe('tools', () => {
             expect(slackCard).to.deep.equal(output.payload.slack.attachments[0]);
         });
         it('dialogflow', () => {
-            let output = tools.buildCard(data, card, ['dialogflow']),
+            let output = tools.buildCard(data, card, 'dialogflow'),
                 dialogflowCard = {
                     title: card.title,
                     subtitle: card.text
@@ -325,11 +313,4 @@ describe('tools', () => {
             expect(output.speech.substr(0, 72)).to.equal('There are 6 level 2 necromancy spells, <break time=\'350ms\' /> including ');
         });
     });
-    /*
-    describe('setResponse', () => {
-        it('with array for screen', () => {
-
-        });
-    });
-    */
 });
