@@ -284,12 +284,16 @@ const tools = {
 
       output = {
         fulfillmentText: input.text,
-        fulfillmentMessages: []
+        fulfillmentMessages: [],
+        payload: {}
       };
 
+      let speech = `<speech>${sak.cleanText(input.speech)}</speech>`;
+
       if (source === 'web') {
+        output.payload.fulfillmentSpeech = speech;
         if (suggestions.length && capabilities.includes('screen')) {
-          output.suggestions = suggestions;
+          output.payload.suggestions = suggestions;
         }
       } else if (source === 'google') {
         output.payload = {
@@ -299,7 +303,7 @@ const tools = {
             richResponse: {
               items: [{
                 simpleResponse: {
-                  textToSpeech: `<speech>${sak.cleanText(input.speech)}</speech>`,
+                  textToSpeech: speech,
                   displayText: sak.cleanText(sak.clearSpeech(input.trimText ? input.trimText : input.text))
                 }
               }]
@@ -318,7 +322,7 @@ const tools = {
         output.payload = {
           alexa: {
             text: sak.formatText(input.text, 'alexa'),
-            SSML: `<speech>${sak.cleanText(input.speech)}</speech>`
+            SSML: speech
           }
         };
       } else if (source === 'slack') {
