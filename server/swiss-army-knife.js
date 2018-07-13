@@ -28,6 +28,10 @@ const sak = {
     let output = null;
     if (input && input.length) {
       switch (platform) {
+        case ('web'):
+          output = input.replace(/\*\*([a-zA-Z0-9-\s.,]*)\*\*/gi, '<strong>$1</strong>');
+          output = output.replace(/__([a-zA-Z0-9-\s.,]*)__/gi, '<i>$1</i>');
+          break;
         case ('slack'):
           output = sak.clearSpeech(input.replace(/\*\*+/g, '*'));
           break;

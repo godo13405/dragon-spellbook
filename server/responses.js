@@ -143,7 +143,13 @@ const responses = {
     suggest = [
       'description',
       'materials',
-      'higher_levels'
+      'heal',
+      'duration',
+      'school',
+      'casting_time',
+      'range',
+      'level',
+      'damage'
     ]
   } = {}) => {
     if (Array.isArray(params[target]) && params[target].length > 1) {

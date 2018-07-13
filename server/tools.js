@@ -176,59 +176,37 @@ const tools = {
         speech: input
       };
     }
-    if (spell) {
-      if (capabilities.includes('screen')) {
-        if (input.text.includes('description') && spell.description) {
-          output.push(`what is ${spell.name}?`);
-        }
-        if (input.text.includes('damage') && spell.damage) {
-          output.push(`what damage does it do?`);
-        }
-        if (input.text.includes('duration') && spell.duration) {
-          output.push(`how long does it last?`);
-        }
-        if (input.text.includes('cast_time') && spell.cast_time) {
-          output.push(`how long does it take to cast?`);
-        }
-        if (input.text.includes('materials') && spell.components && spell.components.material) {
-          output.push(`what materials do I need`);
-        }
-        if (input.text.includes('higher_levels') && spell.higher_levels) {
-          output.push(`how does it level up`);
-        }
-      } else if (capabilities.includes('audio')) {
-        if (input.speech.includes('description') && spell.description) {
-          output.push(`what it is`);
-        }
-        if (input.speech.includes('damage') && spell.damage) {
-          output.push(`what damage it does`);
-        }
-        if (input.speech.includes('duration') && spell.duration) {
-          output.push(`how long it lasts`);
-        }
-        if (input.speech.includes('cast_time') && spell.cast_time) {
-          output.push(`how long it takes to cast`);
-        }
-        if (input.speech.includes('materials') && spell.components && spell.components.material) {
-          output.push(`what materials it needs`);
-        }
-        if (input.speech.includes('higher_levels') && spell.higher_levels) {
-          output.push(`how it levels up`);
-        }
+    let speaker = !capabilities.includes('screen') && capabilities.includes('audio');
+    if (spell && (capabilities.includes('screen') || capabilities.includes('audio'))) {
+      if (input.text.includes('description') && spell.description && intention !== 'description' && intention !== 'init') {
+        output.push(speaker ? `what it is` : `what is ${spell.name}?`);
       }
-    } else {
-      if (capabilities.includes('screen')) {
-        input.text.forEach(sugg => {
-          output.push({
-            "title": sugg
-          });
-        });
-      } else if (capabilities.includes('audio')) {
-        input.speech.forEach(sugg => {
-          output.push({
-            "title": sugg
-          });
-        });
+      if (input.text.includes('damage') && spell.damage && intention !== 'damage') {
+        output.push(speaker ? `what damage it does` : `what damage does it do?`);
+      }
+      if (input.text.includes('heal') && spell.heal && intention !== 'heal') {
+        output.push(speaker ? `how much it heals` : `how much does it heal?`);
+      }
+      if (input.text.includes('level') && spell.level && intention !== 'level') {
+        output.push(speaker ? `the level it is` : `what level is it?`);
+      }
+      if (input.text.includes('duration') && spell.duration && intention !== 'duration') {
+        output.push(speaker ? `how long it lasts` : `how long does it last?`);
+      }
+      if (input.text.includes('cast_time') && spell.cast_time && intention !== 'cast_time') {
+        output.push(speaker ? `how long it takes to cast` : `how long does it take to cast?`);
+      }
+      if (input.text.includes('range') && spell.range && intention !== 'range') {
+        output.push(speaker ? `how far it reaches` : `what's its range?`);
+      }
+      if (input.text.includes('school') && spell.school && intention !== 'school') {
+        output.push(speaker ? `which school it beongs to` : `which school is it?`);
+      }
+      if (input.text.includes('materials') && spell.components && spell.components.material && intention !== 'materials') {
+        output.push(speaker ? `what materials it needs` : `what materials do I need`);
+      }
+      if (input.text.includes('higher_levels') && spell.higher_levels && intention !== 'higher_levels') {
+        // output.push(speaker ? `how it levels up` : `how does it level up`);
       }
     }
 
@@ -236,10 +214,16 @@ const tools = {
       // prevent too many suggestions
       output = sak.shuffleArray(output, 3);
       // structure voice suggestions
-      if (!capabilities.includes('screen') && capabilities.includes('audio')) {
+      if (speaker) {
         output = sak.combinePhrase({
           input: output,
           concat: 'or'
+        });
+      } else if (capabilities.includes('screen') && source === 'google') {
+        input.text.forEach(sugg => {
+          output.push({
+            "title": sugg
+          });
         });
       }
     }
@@ -291,6 +275,7 @@ const tools = {
       let speech = `<speech>${sak.cleanText(input.speech)}</speech>`;
 
       if (source === 'web') {
+        output.fulfillmentText = sak.formatText(input.text, 'web');
         output.payload.fulfillmentSpeech = speech;
         if (suggestions.length && capabilities.includes('screen')) {
           output.payload.suggestions = suggestions;
@@ -386,10 +371,10 @@ const tools = {
   },
   buildCard: (output, input, platforms = global.source) => {
     let card;
-    if (!platforms || platforms === 'dialogflow') {
+    if (platforms === 'web' || platforms === 'dialogflow') {
       card = {};
       if (input.title) card.title = input.title;
-      if (input.text) card.subtitle = input.text;
+      if (input.text) card.subtitle = sak.formatText(input.text, source);
       if (input.image) card.imageUri = input.imageUri;
       if (input.buttons && input.buttons.length) card.buildButtons(input.buttons, 'dialogflow');
       output.fulfillmentMessages.push({

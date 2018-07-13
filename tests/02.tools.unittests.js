@@ -102,10 +102,11 @@ describe('tools', () => {
                     material: true
                 }
             };
+        global.source = 'web';
         it('with array for screen', () => {
             capabilities = ['screen'];
 
-            let expected = ['what is Fireball?'],
+            let expected = ['what damage does it do?'],
                 output = tools.getSuggestions(sugg, spell);
 
             expect(expected).to.deep.contains.members(output);
