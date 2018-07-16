@@ -63,11 +63,9 @@ ex.post('/:redir', (req, res) => {
       console.log('redirecting to ', url, Object.keys(r));
       res.send(request.post({url: url, proxy:true}));
     } else {
-        console.log('production environment on');
         res.send(request.post({url: `/`, proxy:true}));
     }
   }).on('error', e => {
-    console.log('production environment on');
     res.redirect(`/`);
   });
 });
