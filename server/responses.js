@@ -73,7 +73,9 @@ const responses = {
     spellComplex: () => {
       let q = tools.getQuery();
       if (q) {
-        tools.querySpell(q).then(list => {
+        tools.querySpell({
+          where: q
+        }).then(list => {
           // set suggestions
           let sugg = {
             text: [
@@ -103,36 +105,31 @@ const responses = {
       }
     },
     countComplex: () => {
-      let q = tools.getQuery(true);
-      if (q) {
-        tools.querySpell(q).then(list => {
-          // set suggestions
-          let sugg = {
-            text: [
-              `which are level ${sak.rng()}`
-            ],
-            speech: [
-              `tell you which are level ${sak.rng()}`
-            ]
-          };
+      let sugg = [`which are level ${sak.rng()}`],
+      coll = tools.getCollection({
+        limit: 4,
+        allowMultiple: true,
+        fields: ['name']
+      }),
+      count = tools.getCount();
 
-          // if they are a manageable number, offer to read them out loud
-          if (list.size <= 10) {
-            sugg.text.push('read them all out');
-            sugg.speech.push('read them all out');
-          }
+      Promise.all([coll, count]).then(x => {
+        let collection = x[0],
+          length = x[1];
+          console.log(collection, length);
 
-
-          let output = tools.setResponse({
-            input: tools.listComplex(list),
-            suggestions: tools.getSuggestions(sugg),
-            pause: 2
-          });
-          response.json(output);
-        }).catch(err => {
-          if (process.env.DEBUG) console.log(err);
+        let output = tools.setResponse({
+          input: tools.listComplex({
+            list: collection,
+            count: length
+          }),
+          suggestions: tools.getSuggestions(sugg),
+          pause: 2
         });
-      }
+        response.json(output);
+      }).catch(err => {
+        if (process.env.DEBUG) console.log(err);
+      });
     }
   },
   whatProperty: ({
@@ -259,7 +256,7 @@ const responses = {
             }
           };
           let args = {
-              targetName: sak.titleCase(Array.isArray(params[target])? params[target][0] : params[target]),
+              targetName: sak.titleCase(Array.isArray(params[target]) ? params[target][0] : params[target]),
               usePassive: conf[target].use.passive,
               useActive: conf[target].use.active
             },
@@ -333,9 +330,9 @@ const responses = {
         };
         if (data && data[intention] && data[intention].data[params[intention]]) {
           let res = sak.combinePhrase({
-              input: data[intention].data[params[intention]],
-              separator: ''
-            });
+            input: data[intention].data[params[intention]],
+            separator: ''
+          });
           talk.input = sak.i18n(i18n.help[global.actionArr[1]][global.actionArr[2]].hasProperty, {
             targetName: sak.sentenceCase(params[intention]),
             res: res

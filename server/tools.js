@@ -2,16 +2,16 @@
 
 const MongoClient = require('mongodb').MongoClient,
   keysSetup = {
-    Class: {
+    class: {
       deep: true,
-      phrase: false
+        phrase: false
     },
-    Level: {
+    level: {
       deep: false,
       phrase: 'level ',
       phraseLevel: 0
     },
-    School: {
+    school: {
       deep: false,
       phrase: 'school of ',
       phraseLevel: 1
@@ -32,7 +32,7 @@ const url = `mongodb://Godo:Lollipop12@cluster0-shard-00-00-g9w91.mongodb.net:27
   dbName = 'dragon';
 
 const tools = {
-  getQuery: (multipleAllowed = false, request = request) => {
+  getQuery: (multipleAllowed = false, request = global.request) => {
     // check how many parameters are defined
     let output = [];
 
@@ -55,8 +55,9 @@ const tools = {
     return output;
   },
   queryArgumentBuild: (input, className) => {
+    className = `${className.toLowerCase()}`;
+    let output = className;
     // is it a direct comparison, or do I need to look in an object?
-    let output = `${className.toLowerCase()}`;
     if (keysSetup[className].deep) {
       output = `${className}.${input.toLowerCase()}`;
     }
@@ -70,18 +71,19 @@ const tools = {
     return output;
   },
   getCollection: ({
-    collection = 'spell',
+    collection = actionArr[1],
     param = 'name',
     allowMultiple = false,
     params = global.params,
     action = global.actionArr,
-    fields = []
+    limit = 20,
+    fields = [],
+    query = sak.queryBuilder({
+      params: params
+    })
   } = {}) => {
     // setup fields to return
-    let return_fields = {
-        fields: {}
-      },
-      query;
+    let return_fields = {};
     // is this a help query? Those are processed a little diffrently
     if (collection === 'help') {
       query = {
@@ -93,16 +95,11 @@ const tools = {
         deep = `data.${params[intention]}`;
       }
       fields.push(`${intention}.${deep.toLowerCase()}`);
-    } else {
-      // setup regular query
-      query = sak.queryBuilder({
-        params: params
-      });
     }
 
     // fields need to be an object, but it's easier to manage up to now as an array
     for (var i = fields.length - 1; i >= 0; i--) {
-      return_fields.fields[fields[i]] = 1;
+      return_fields[fields[i]] = 1;
     }
     if (process.env.DEBUG) console.log("\x1b[36m", `${collection} query: `, query);
     if (process.env.DEBUG && Object.keys(fields).length) console.log(`fields: `, return_fields, "\x1b[0m");
@@ -110,7 +107,18 @@ const tools = {
       if (query) {
         return MongoClient.connect(url, mongo_options, (err, client) => {
           if (err) throw err;
-          return client.db(dbName).collection(collection, return_fields).find(query).toArray((err, docs) => {
+          return client.db(dbName).collection(collection).aggregate([{
+              $match: query
+            },
+            {
+              $project: return_fields
+            },
+            {
+              $sample: {
+                size: limit
+              }
+            }
+          ]).toArray((err, docs) => {
             if (err) throw err;
             if (docs.length === 1 || !allowMultiple) {
               docs = docs[0];
@@ -134,17 +142,43 @@ const tools = {
       time
     ]);
   },
-  querySpell: (where, limit, order = 'name') => {
+  getCount: ({
+    collection = actionArr[1],
+    param = 'name',
+    params = global.params,
+    action = global.actionArr,
+    query = sak.queryBuilder({
+      params: params
+    })
+  } = {}) => {
+    return new Promise((resolve, reject) => {
+      return MongoClient.connect(url, mongo_options, (err, client) => {
+        if (err) throw err;
+        // return client.db(dbName).collection(collection).find(query).count().then(x => {
+        return client.db(dbName).collection(collection).find(query).count().then(x => {
+          resolve(x);
+        });
+      });
+    });
+  },
+  querySpell: ({
+    where,
+    limit,
+    order = 'name',
+    method = 'get'
+  } = {}) => {
     let output = db.collection('spells');
     for (var i = where.length - 1; i >= 0; i--) {
       output = output.where(where[i][0], where[i][1], where[i][2]);
     }
 
-    if (limit) {
-      output = output.limit(limit);
+    if (limit) output = output.limit(limit);
+    if (method === 'count') {
+      output = output.count();
+    } else if (method === 'get') {
+      output = output.get();
     }
-
-    return output.get();
+    return output;
   },
   /*
       buildRow: data => {
@@ -425,46 +459,36 @@ const tools = {
 
     return output;
   },
-  listComplex: (listRaw, verboseLevel) => {
+  listComplex: ({
+    list,
+    verboseLevel = true,
+    count = 0
+  } = {}) => {
     let keyPhrase = tools.addPhrase();
 
     let output = {
-        speech: `I don't know any ${keyPhrase} spells.`,
-        data: []
-      },
-      listSize = listRaw && listRaw.size ? listRaw.size : 0,
-      shortList = listRaw && listRaw.docs ? sak.shuffleArray(listRaw.docs, 4) : null;
+      speech: `I don't know any ${keyPhrase} spells.`
+    };
 
-    switch (true) {
-      case (!listSize):
-        output.speech = `I don't know any ${keyPhrase} spells.`;
-        break;
-      case (listSize === 1):
-        output.speech = `There is only 1 ${keyPhrase} spell.`;
-        break;
-      case (listSize > 1):
-        output.speech = `There are ${listSize} ${keyPhrase} spells.`;
-        break;
+    if (count === 1) {
+      output.speech = `There is only 1 ${keyPhrase} spell.`;
+    } else if (count > 1) {
+      output.speech = `There are ${count} ${keyPhrase} spells.`;
     }
 
-    if (verboseLevel) {
-      let className = listSize > 1 ? `There are ${listSize} ${keyPhrase} spells, <break time='350ms' /> including` : `The only ${keyPhrase} spell is`;
-
-      if (listSize) {
-        output.speech = '';
-        for (var i = shortList.length - 1; i >= 0; i--) {
-          output.speech = output.speech + shortList[i]._fieldsProto.name.stringValue;
-          if (i === 1) {
-            output.speech = output.speech + ' and ';
-          } else if (i > 1) {
-            output.speech = output.speech + ', ';
-          }
-        }
-        output.speech = `${className} ${output.speech}`;
+    if (verboseLevel && count > 0) {
+      let className = count > 1 ? `There are ${count} ${keyPhrase} spells, <break time='350ms'/> including` : `The only ${keyPhrase} spell is`;
+      let listed = [];
+      const loop = list.length <= 4 ? list.length : 4;
+      for (var i = 0; i < loop; i++) {
+        listed.push(list[i].name);
       }
+      listed = sak.combinePhrase({input:listed});
+      output.speech = `${className} ${listed}`;
     }
+    console.log(output);
 
-    output.size = listSize;
+    output.size = count;
     output.keyPhrase = keyPhrase;
 
     return output;

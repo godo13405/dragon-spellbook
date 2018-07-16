@@ -48,6 +48,8 @@ const service = {
     switch (input) {
       case 'query.complex':
         return responses.query.spellComplex();
+      case 'count.spell.complex':
+        return responses.query.countComplex();
       case 'condition':
         return responses.condition();
       case 'input.welcome':

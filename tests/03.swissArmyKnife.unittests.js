@@ -27,14 +27,14 @@ describe('Swiss Army Knife', () => {
     });
     describe('clearSpeech', () => {
         it('tags removed', () => {
-            let text = sak.clearSpeech('<speech>sample text <break time=\'350ms\' />is this</speech>');
+            let text = sak.clearSpeech('<speech>sample text <break time=\'350ms\'/>is this</speech>');
 
             expect(text).to.equal('sample text is this');
         });
     });
     describe('formatText', () => {
         it('for Slack', () => {
-            let text = sak.formatText('<speech>sample **text** <break time=\'350ms\' />is this</speech>');
+            let text = sak.formatText('<speech>sample **text** <break time=\'350ms\'/>is this</speech>');
 
             expect(text).to.equal('sample *text* is this');
         });
@@ -58,7 +58,7 @@ describe('Swiss Army Knife', () => {
                 'that'
             ]});
 
-            expect(text).to.equal('this<break time=\'500ms\' />, this<break time=\'500ms\' /> and that<break time=\'500ms\' />');
+            expect(text).to.equal('this<break time=\'500ms\'/>, this<break time=\'500ms\'/> and that');
         });
     });
     describe('plural', () => {
