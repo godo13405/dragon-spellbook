@@ -7,7 +7,8 @@ let compression = require('compression');
 global.bodyParser = require('body-parser');
 global.capabilities = ['audio', 'screen'];
 global.i18n = require('../config/lang/en');
-const https = require('https');
+const https = require('https'),
+  request = require('request');
 
 global.ex = express();
 
@@ -60,10 +61,10 @@ ex.post('/:redir', (req, res) => {
   https.get(url, r => {
     if(r.statusCode === 200) {
       console.log('redirecting to ', url, Object.keys(r));
-      res.redirect(307, url);
+      res.send(request.post({url: url, proxy:true}));
     } else {
         console.log('production environment on');
-        res.redirect(307, `/`);
+        res.send(request.post({url: `/`, proxy:true}));
     }
   }).on('error', e => {
     console.log('production environment on');
