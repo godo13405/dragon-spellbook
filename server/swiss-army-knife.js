@@ -164,9 +164,13 @@ const sak = {
     return `${prep} ${input}`;
   },
   titleCase: str => {
-    return str.toLowerCase().split(' ').map(word => {
-      return word.replace(word[0], word[0].toUpperCase());
-    }).join(' ');
+    if (str) {
+      return str.toLowerCase().split(' ').map(word => {
+        return word.replace(word[0], word[0].toUpperCase());
+      }).join(' ');
+    } else {
+      return str;
+    }
   },
   sentenceCase: input => {
     if (Array.isArray(input)) input = input[0];

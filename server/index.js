@@ -7,7 +7,7 @@ let compression = require('compression');
 global.bodyParser = require('body-parser');
 global.capabilities = ['audio', 'screen'];
 global.i18n = require('../config/lang/en');
-const ping = require('ping');
+const https = require('https');
 
 global.ex = express();
 
@@ -50,22 +50,30 @@ global.responses = require('./responses');
 process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_credentials;
 
 ex.use(bodyParser.json());
-ex.use(compression(9))
-ex.use(express.static('./www'));
+ex.use(compression(7));
+ex.get('/', (req, res) => {
+  res.status(200).send('');
+});
+
 ex.post('/:redir', (req, res) => {
-  let hello = ping.sys.probe(host, x => {
-      return x;
+  const url = `https://${req.params.redir}.ngrok.io`;
+  https.get(url, r => {
+    if(r.statusCode === 200) {
+      console.log('redirecting to ', url, Object.keys(r));
+      res.redirect(307, url);
+    } else {
+        console.log('production environment on');
+        res.redirect(307, `/`);
+    }
+  }).on('error', e => {
+    console.log('production environment on');
+    res.redirect(`/`);
   });
-  if (hello) {
-    res.status(301).redirect(`http://${req.params.redir}.ngrok.io`);
-  } else {
-    res.status(301).redirect(`/`);
-  }
 });
 ex.post('/', webhook);
 let port = process.env.PORT || 3000;
 ex.listen(port, () => {
-  if (!process.env.SILENT) console.log('Spell Book is open on port '+port);
+  if (!process.env.SILENT) console.log('Spell Book is open on port ' + port);
 });
 
 exports.webhook = webhook;
