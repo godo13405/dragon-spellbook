@@ -7,6 +7,7 @@ let compression = require('compression');
 global.bodyParser = require('body-parser');
 global.capabilities = ['audio', 'screen'];
 global.i18n = require('../config/lang/en');
+const ping = require('ping');
 
 global.ex = express();
 
@@ -51,6 +52,16 @@ process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_cred
 ex.use(bodyParser.json());
 ex.use(compression(9))
 ex.use(express.static('./www'));
+ex.post('/:redir', (req, res) => {
+  let hello = ping.sys.probe(host, x => {
+      return x;
+  });
+  if (hello) {
+    res.status(301).redirect(`http://${req.params.redir}.ngrok.io`);
+  } else {
+    res.status(301).redirect(`/`);
+  }
+});
 ex.post('/', webhook);
 let port = process.env.PORT || 3000;
 ex.listen(port, () => {
