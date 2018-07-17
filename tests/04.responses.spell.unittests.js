@@ -308,6 +308,37 @@ describe('what', () => {
       });
     });
   });
+  describe('higher_levels', () => {
+    global.actionArr = ['spell', 'check', 'range'];
+    global.collection = 'spell';
+    it('single', () => {
+      tools.getCollection = () => {
+        return new Promise((res, rej) => {
+          res({
+            name: 'Spellname',
+            higher_levels: ['when you cast it at higher levels, it hurts more']
+          });
+        })
+      };
+      i18n.spell.what.higher_levels.hasProperty = i18n.spell.what.higher_levels.hasProperty[0];
+      let output = responses.whatProperty({
+          intention: 'higher_levels',
+          target: 'spell',
+          checks: 'higher_levels',
+          params: {
+            spell: ['Spellname']
+          },
+          responses: ['text', 'speech', 'card']
+        }),
+        match = 'when you cast it at higher levels, it hurts more';
+      return output.then(data => {
+        expect(data).to.have.property('fulfillmentText', match);
+        // expect(data).to.have.deep.nested.property('payload.slack.text', match);
+        // expect(data).to.have.deep.nested.property('payload.google.richResponse.items[0].simpleResponse.displayText', match);
+        tools.getCollection = restore;
+      });
+    });
+  });
 });
 describe('check', () => {
   describe('class', () => {

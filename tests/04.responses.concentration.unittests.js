@@ -16,6 +16,11 @@ describe('Concentration', () => {
     i18n.spell.what.concentration.hasProperty = i18n.spell.what.concentration.hasProperty[0];
     let output = responses.whatProperty({
         intention: 'concentration',
+        target: 'spell',
+        checks: 'concentration',
+        params: {
+          spell: ['Spellname']
+        },
         responses: ['text', 'speech']
       }),
       match = 'Yes, Spellname needs concentration';

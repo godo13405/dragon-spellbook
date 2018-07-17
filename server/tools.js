@@ -485,10 +485,11 @@ const tools = {
       for (var i = 0; i < loop; i++) {
         listed.push(list[i].name);
       }
-      listed = sak.combinePhrase({input:listed});
+      listed = sak.combinePhrase({
+        input: listed
+      });
       output.speech = `${className} ${listed}`;
     }
-    console.log(output);
 
     output.size = count;
     output.keyPhrase = keyPhrase;
@@ -586,12 +587,6 @@ const tools = {
             output.res = 'Level ' + data.level;
           }
           break;
-        case ('description'):
-          output.res = data.description;
-          break;
-        case ('school'):
-          output.res = data.school;
-          break;
         case ('range'):
           output.res = sak.unit({
             input: data.range
@@ -630,12 +625,15 @@ const tools = {
           }
           break;
         default:
-          let dat = data;
-          delete dat._id;
-          delete dat.name;
-          if(dat) {
-            output.res = dat[Object.keys(dat)[0]];
-          }
+          let forbidden = ['_id', 'name'];
+          output.res = Object.keys(data)
+            .filter(x => {
+              return !forbidden.includes(x);
+            })
+            .reduce((obj, key) => {
+              obj = data[key];
+              return obj;
+            }, {});
       }
       return output;
     },

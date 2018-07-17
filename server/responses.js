@@ -197,7 +197,6 @@ const responses = {
             for (var i = sugg.length - 1; i >= 0; i--) {
               sugg[i] = sak.i18n(sugg[i]);
             }
-            console.log(talk);
             talk = tools.setResponse({
               input: talk,
               suggestions: tools.getSuggestions(sugg, data, 'Would you like to know ')
