@@ -1,3 +1,4 @@
+'use strict';
 require('./setup.js');
 
 describe('Concentration', () => {

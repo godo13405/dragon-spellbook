@@ -1,13 +1,14 @@
+'use strict';
 require('./setup.js');
 
 describe('tools', () => {
   describe('queryArgumentBuild', () => {
     it('simple query', () => {
-      q = tools.queryArgumentBuild("2", 'level');
+      let q = tools.queryArgumentBuild("2", 'level');
       expect(q).to.have.members(['level', '==', '2']);
     });
     it('deep query', () => {
-      q = tools.queryArgumentBuild("sorcerer", 'class');
+      let q = tools.queryArgumentBuild("sorcerer", 'class');
       expect(q).to.have.members(['class.sorcerer', '==', true]);
     });
   });
@@ -26,7 +27,7 @@ describe('tools', () => {
             }
           }
         }
-      };
+      },
       q = tools.getQuery(false, req);
       expect(q[0]).to.have.members(['class.wizard', '==', true]);
       expect(q[1]).to.have.members(['level', '==', '3']);
@@ -43,7 +44,7 @@ describe('tools', () => {
             }
           }
         }
-      };
+      },
       q = tools.getQuery(false, req);
       expect(q).not.to.equal('Sorry, can we do this one Class at a time?');
     });

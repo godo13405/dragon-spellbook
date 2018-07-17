@@ -359,7 +359,7 @@ const tools = {
 
       if (!process.env.SILENT) console.log("\x1b[32m", input.text, "\x1b[0m");
     }
-    if (process.env.DEBUG) console.timeEnd('total response time');
+    if (!process.env.SILENT && process.env.DEBUG) console.timeEnd('total response time');
     return output;
   },
   buildButtons: (input, platform = 'google') => {
