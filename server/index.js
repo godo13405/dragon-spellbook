@@ -7,7 +7,8 @@ let compression = require('compression');
 global.bodyParser = require('body-parser');
 global.capabilities = ['audio', 'screen'];
 global.i18n = require('../config/lang/en');
-const ping = require('ping');
+const https = require('https'),
+  request = require('request');
 
 global.ex = express();
 
@@ -53,19 +54,22 @@ ex.use(bodyParser.json());
 ex.use(compression(6))
 ex.use(express.static('./www'));
 ex.post('/:redir', (req, res) => {
-  let hello = ping.sys.probe(host, x => {
-      return x;
+  const url = `https://${req.params.redir}.ngrok.io`;
+  https.get(url, r => {
+    if(r.statusCode === 200) {
+      console.log('redirecting to ', url, Object.keys(r));
+      res.send(request.post({url: url, proxy:true}));
+    } else {
+        res.send(request.post({url: `/`, proxy:true}));
+    }
+  }).on('error', e => {
+    res.redirect(`/`);
   });
-  if (hello) {
-    res.status(301).redirect(`http://${req.params.redir}.ngrok.io`);
-  } else {
-    res.status(301).redirect(`/`);
-  }
 });
 ex.post('/', webhook);
 let port = process.env.PORT || 3000;
 ex.listen(port, () => {
-  if (!process.env.SILENT) console.log('Spell Book is open on port '+port);
+  if (!process.env.SILENT) console.log('Spell Book is open on port ' + port);
 });
 
 exports.webhook = webhook;
