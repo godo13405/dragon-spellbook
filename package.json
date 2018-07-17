@@ -11,7 +11,7 @@
         "ngrok": "./ngrok http 3000",
         "deploy": "clear && firebase deploy --only functions",
         "logs": "firebase functions:log",
-        "test": "npm run lint && PORT=3001 SILENT=true ./node_modules/mocha/bin/mocha tests -c --exit --no-warnings",
+        "test": "npm run lint && PORT=3001 SILENT=true ./node_modules/mocha/bin/mocha tests -c --exit",
         "mongo": "mongod --dbpath=./db"
     },
     "dependencies": {
