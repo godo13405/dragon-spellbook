@@ -122,7 +122,9 @@ exports = module.exports = {
       },
       "higher_levels": {
         "hasProperty": [
-          "<res>"
+          "Casting <targetName> <res>",
+          "<targetName> cast <res>",
+          "If you cast <targetName> <res>"
         ],
         "doesntHaveProperty": [
           "You can't cast <targetName> at a higher level",
