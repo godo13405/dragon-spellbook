@@ -2,10 +2,10 @@
 
 const responses = {
   welcome: () => {
-    let suggestions = tools.getSuggestions([
+    let suggestions = tools.getSuggestions({input:[
       `what is Acid Splash`,
       `what damage does Harm do`
-    ], false, 'You can ask me stuff like '),
+    ], spell: false, suggestionIntro: 'You can ask me stuff like '}),
       talk = tools.setResponse({
         input: sak.i18n(i18n.welcome.say),
         suggestions: suggestions
@@ -96,7 +96,7 @@ const responses = {
 
           let output = tools.setResponse({
             input: tools.listComplex(list, 'summary'),
-            suggestions: tools.getSuggestions(sugg),
+            suggestions: tools.getSuggestions({input:sugg}),
             pause: 2
           });
           response.json(output);
@@ -117,14 +117,13 @@ const responses = {
       Promise.all([coll, count]).then(x => {
         let collection = x[0],
           length = x[1];
-        console.log(collection, length);
 
         let output = tools.setResponse({
           input: tools.listComplex({
             list: collection,
             count: length
           }),
-          suggestions: tools.getSuggestions(sugg),
+          suggestions: tools.getSuggestions({input:sugg}),
           pause: 2
         });
         response.json(output);
@@ -200,7 +199,7 @@ const responses = {
             }
             talk = tools.setResponse({
               input: talk,
-              suggestions: tools.getSuggestions(sugg, data, 'Would you like to know ')
+              suggestions: tools.getSuggestions({inut:sugg, spell:data, suggestionIntro:'Would you like to know '})
             });
           } else if (!params.length) {
             talk = tools.setResponse({
@@ -303,7 +302,7 @@ const responses = {
           }
           talk = tools.setResponse({
             input: talk,
-            suggestions: tools.getSuggestions(sugg, data, 'Would you like to know ')
+            suggestions: tools.getSuggestions({input:sugg, spell:data, suggestionIntro:'Would you like to know '})
           });
         }
         return response.json(talk);

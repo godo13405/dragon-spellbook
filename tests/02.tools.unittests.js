@@ -89,7 +89,8 @@ describe('tools', () => {
     });
   });
   describe('getSuggestions', () => {
-    const sugg = [
+    const cap = capabilities,
+      sugg = [
         'description',
         'damage',
         'duration',
@@ -110,30 +111,27 @@ describe('tools', () => {
       };
     global.source = 'web';
     it('with array for screen', () => {
-      capabilities = ['screen'];
-
       let expected = ['what damage does it do?'],
-        output = tools.getSuggestions(sugg, spell);
+        output = tools.getSuggestions({input:sugg, spell:spell,capabilities:['screen']});
 
       expect(expected).to.deep.contains.members(output);
     });
-    it('with array for speech', () => {
-      capabilities = ['audio'];
+    it('with string for speech', () => {
+      let expected = 'I can also tell you what damage it does',
+        output = tools.getSuggestions({input:sugg, spell:spell,capabilities:['audio']});
 
-      let expected = ['what damage it does'],
-        output = tools.getSuggestions(sugg, spell);
-
-      expect(expected).to.deep.contains.members(output);
+      expect(expected).to.equal(output);
     });
   });
   describe('setResponse', () => {
     let str = 'this is a sample response';
     it('speech only', () => {
       let output = tools.setResponse({
-        input: str
+        input: str,
+        capabilities: ['audio']
       });
 
-      expect(output.fulfillmentText).to.equal(str);
+      expect(output.fulfillmentText).to.equal(`<speech>${str}</speech>`);
       // expect(output.payload.google.richResponse.items[0].simpleResponse.displayText).to.equal(str);
       // expect(output.payload.slack.text).to.equal(str);
       // expect(output.payload.google.richResponse.items[0].simpleResponse.textToSpeech).to.equal(`<speech>${str}</speech>`);
@@ -297,7 +295,7 @@ describe('tools', () => {
         }]
       });
 
-      expect(output.speech).to.equal('There are 6 level 2 necromancy spells, <break time=\'350ms\'/> including spell 1<break time=\'500ms\'/>, spell 2<break time=\'500ms\'/>, spell 3<break time=\'500ms\'/> and spell 4');
+      expect(output.speech).to.equal('There are 6 level 2 necromancy spells, including spell 1, spell 2, spell 3 and spell 4');
     });
   });
 });

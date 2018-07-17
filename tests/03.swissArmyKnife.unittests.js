@@ -42,22 +42,22 @@ describe('Swiss Army Knife', () => {
     });
     describe('combinePhrase', () => {
         it('phrase constructed for screen', () => {
-            capabilities = ['screen'];
             let text = sak.combinePhrase({input:[
                 'this',
                 'this',
                 'that'
-            ]});
+            ],
+            capabilities: ['screen']});
 
             expect(text).to.equal('this, this and that');
         });
         it('phrase constructed for speech', () => {
-            capabilities = ['audio'];
             let text = sak.combinePhrase({input:[
                 'this',
                 'this',
                 'that'
-            ]});
+            ],
+            capabilities: ['audio']});
 
             expect(text).to.equal('this<break time=\'500ms\'/>, this<break time=\'500ms\'/> and that');
         });

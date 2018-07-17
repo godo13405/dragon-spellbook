@@ -4,8 +4,7 @@ require('./setup.js');
 
 describe('server', () => {
     describe('capabilities', () => {
-        let cappy = [],
-            req = {
+        let req = {
                 body: {
                     queryResult: {
                         action: 'input.welcome'
@@ -20,7 +19,6 @@ describe('server', () => {
               source: 'alexa'
             });
             expect(capabilities).not.to.include('screen');
-            capabilities = cappy;
         });
         it('on Google should include screen', () => {
             let capabilities = service.setCapabilities({
@@ -35,7 +33,6 @@ describe('server', () => {
             });
 
             expect(capabilities).to.include('screen');
-            capabilities = cappy;
         });
     });
 });

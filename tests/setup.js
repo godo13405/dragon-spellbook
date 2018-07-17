@@ -18,6 +18,7 @@ global.log = {
     where: [],
     limit: null
 };
+global.capabilities = process.env.CAPABILITIES ? [process.env.CAPABILITIES] : ['audio', 'screen'];
 global.params = {
     spell: ['Acid Splash'],
     condition: ['conditioned']

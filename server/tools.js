@@ -198,11 +198,11 @@ const tools = {
           return output;
       },
   */
-  getSuggestions: (input = [], spell = {
+  getSuggestions: ({input = [], spell = {
     name: () => {
       return global.params.spell
     }
-  }, suggestionIntro = 'I can also tell you') => {
+  }, suggestionIntro = 'I can also tell you', capabilities = global.capabilities}={}) => {
     let output = spell ? [] : input;
 
     let speaker = !capabilities.includes('screen') && capabilities.includes('audio');
@@ -244,6 +244,7 @@ const tools = {
       output = sak.shuffleArray(output, 3);
       // structure voice suggestions
       if (speaker) {
+        if (suggestionIntro) suggestionIntro = suggestionIntro + ' ';
         output = suggestionIntro + sak.combinePhrase({
           input: output,
           concat: 'or'
@@ -263,11 +264,12 @@ const tools = {
     suggestions = [],
     pause = 5,
     followUp = true,
-    source = global.source
+    source = global.source,
+    capabilities = global.capabilities
   }) => {
-    let output;
+    let output,
+      speak = !capabilities.includes('screen') && capabilities.includes('audio');
     if (input) {
-      let speak = !capabilities.includes('screen') && capabilities.includes('audio');
       if (typeof input === 'string') {
         input = {
           speech: input
@@ -290,7 +292,7 @@ const tools = {
       }
       // no text? take the speech
       if (!input.text && input.speech)
-        input.text = sak.clearSpeech(input.speech);
+        input.text = sak.clearSpeech(input.speech).trim();
       // no speech? take the text
       if (!input.speech && input.text)
         input.speech = input.text;
@@ -472,7 +474,9 @@ const tools = {
     }
 
     if (verboseLevel && count > 0) {
-      let className = count > 1 ? `There are ${count} ${keyPhrase} spells, <break time='350ms'/> including` : `The only ${keyPhrase} spell is`;
+      let pause = '';
+      if (!capabilities.includes('screen') && capabilities.includes('audio')) pause = '<break time=\'350ms\'/>';
+      let className = count > 1 ? `There are ${count} ${keyPhrase} spells, ${pause}including` : `The only ${keyPhrase} spell is`;
       let listed = [];
       const loop = list.length <= 4 ? list.length : 4;
       for (var i = 0; i < loop; i++) {
