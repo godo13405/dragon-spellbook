@@ -164,9 +164,13 @@ const sak = {
     return `${prep} ${input}`;
   },
   titleCase: str => {
-    return str.toLowerCase().split(' ').map(word => {
-      return word.replace(word[0], word[0].toUpperCase());
-    }).join(' ');
+    if (str) {
+      return str.toLowerCase().split(' ').map(word => {
+        return word.replace(word[0], word[0].toUpperCase());
+      }).join(' ');
+    } else {
+      return str;
+    }
   },
   sentenceCase: input => {
     if (Array.isArray(input)) input = input[0];
@@ -201,11 +205,13 @@ const sak = {
   },
   getFields: input => {
     let output = [input[input.length - 1]];
-    if (output === 'init') {
+    if (output[0] === 'init') {
       output = [
         'name',
         'description',
-        'type'
+        'type',
+        'damage',
+        'heal'
       ];
     }
     return output;

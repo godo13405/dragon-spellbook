@@ -50,7 +50,7 @@ global.responses = require('./responses');
 process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_credentials;
 
 ex.use(bodyParser.json());
-ex.use(compression(9))
+ex.use(compression(6))
 ex.use(express.static('./www'));
 ex.post('/:redir', (req, res) => {
   let hello = ping.sys.probe(host, x => {
