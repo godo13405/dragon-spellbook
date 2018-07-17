@@ -7,8 +7,6 @@ let compression = require('compression');
 global.bodyParser = require('body-parser');
 global.capabilities = ['audio', 'screen'];
 global.i18n = require('../config/lang/en');
-const https = require('https'),
-  request = require('request');
 
 global.ex = express();
 
@@ -53,19 +51,6 @@ process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_cred
 ex.use(bodyParser.json());
 ex.use(compression(6))
 ex.use(express.static('./www'));
-ex.post('/:redir', (req, res) => {
-  const url = `https://${req.params.redir}.ngrok.io`;
-  https.get(url, r => {
-    if(r.statusCode === 200) {
-      console.log('redirecting to ', url, Object.keys(r));
-      res.send(request.post({url: url, proxy:true}));
-    } else {
-        res.send(request.post({url: `/`, proxy:true}));
-    }
-  }).on('error', e => {
-    res.redirect(`/`);
-  });
-});
 ex.post('/', webhook);
 let port = process.env.PORT || 3000;
 ex.listen(port, () => {
