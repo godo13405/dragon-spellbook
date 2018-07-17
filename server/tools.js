@@ -98,6 +98,7 @@ const tools = {
     }
 
     // fields need to be an object, but it's easier to manage up to now as an array
+    if (!fields.includes('name')) fields.push('name');
     for (var i = fields.length - 1; i >= 0; i--) {
       return_fields[fields[i]] = 1;
     }
@@ -123,6 +124,7 @@ const tools = {
             if (docs.length === 1 || !allowMultiple) {
               docs = docs[0];
             }
+
             client.close();
             return resolve(docs);
           });
@@ -627,6 +629,13 @@ const tools = {
             output.materials = data.materials;
           }
           break;
+        default:
+          let dat = data;
+          delete dat._id;
+          delete dat.name;
+          if(dat) {
+            output.res = dat[Object.keys(dat)[0]];
+          }
       }
       return output;
     },

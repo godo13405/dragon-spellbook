@@ -119,6 +119,15 @@ exports = module.exports = {
           "No, you don't need to keep focusing on <targetName>",
           "No, you can just cast <targetName>"
         ]
+      },
+      "higher_levels": {
+        "hasProperty": [
+          "<res>"
+        ],
+        "doesntHaveProperty": [
+          "You can't cast <targetName> at a higher level",
+          "<targetName> can't be cast with a <emphasis level='low'>higher level spell slot</emphasis>"
+        ]
       }
     },
     "check": {
