@@ -330,7 +330,7 @@ describe('what', () => {
           },
           responses: ['text', 'speech', 'card']
         }),
-        match = 'when you cast it at higher levels, it hurts more';
+        match = 'Casting Spellname when you cast it at higher levels, it hurts more';
       return output.then(data => {
         expect(data).to.have.property('fulfillmentText', match);
         // expect(data).to.have.deep.nested.property('payload.slack.text', match);
