@@ -2,13 +2,14 @@
 
 const responses = {
   welcome: () => {
-    let talk = tools.setResponse({
-      input: sak.i18n(i18n.welcome.say),
-      suggestions: tools.getSuggestions([
-        `what is Acid Splash`,
-        `what damage does Harm do`
-      ], undefined, 'You can ask me stuff like ')
-    });
+    let suggestions = tools.getSuggestions([
+      `what is Acid Splash`,
+      `what damage does Harm do`
+    ], false, 'You can ask me stuff like '),
+      talk = tools.setResponse({
+        input: sak.i18n(i18n.welcome.say),
+        suggestions: suggestions
+      });
     return response.json(talk);
   },
   fallback: () => {
@@ -106,17 +107,17 @@ const responses = {
     },
     countComplex: () => {
       let sugg = [`which are level ${sak.rng()}`],
-      coll = tools.getCollection({
-        limit: 4,
-        allowMultiple: true,
-        fields: ['name']
-      }),
-      count = tools.getCount();
+        coll = tools.getCollection({
+          limit: 4,
+          allowMultiple: true,
+          fields: ['name']
+        }),
+        count = tools.getCount();
 
       Promise.all([coll, count]).then(x => {
         let collection = x[0],
           length = x[1];
-          console.log(collection, length);
+        console.log(collection, length);
 
         let output = tools.setResponse({
           input: tools.listComplex({

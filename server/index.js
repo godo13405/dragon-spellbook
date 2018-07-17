@@ -5,9 +5,8 @@ if (process.env.SILENT) process.env.DEBUG = false;
 global.express = require('express');
 let compression = require('compression');
 global.bodyParser = require('body-parser');
-global.capabilities = ['audio', 'screen'];
+global.capabilities = process.env.CAPABILITIES ? [process.env.CAPABILITIES] : ['audio', 'screen'];
 global.i18n = require('../config/lang/en');
-
 global.ex = express();
 
 global.params = {};
